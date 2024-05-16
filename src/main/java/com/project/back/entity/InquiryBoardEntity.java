@@ -24,26 +24,12 @@ public class InquiryBoardEntity
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer inquiry_number;
-
-    @Column(nullable = false)
-    private Boolean inquiry_status = false;
-
-    @Column(nullable = false)
-    private Boolean inquiry_public = true;
-
-    @Column(nullable = false, length = 100)
-    private String inquiry_title;
-
-    @Column(nullable = false, columnDefinition = "TEXT")
-    private String inquiry_contents;
-
-    @Column(nullable = false, length = 50)
-    private String inquiry_writer_id;
-
-    @Column(nullable = false)
-    private LocalDateTime inquiry_write_datetime;
-
-    @Column(columnDefinition = "TEXT")
-    private String inquiry_comment;
+    private Integer inquiryNumber;
+    private Boolean inquiryStatus;
+    private Boolean inquiryPublic;
+    private String inquiryTitle;
+    private String inquiryContents;
+    private String inquiryWriterId;
+    private LocalDateTime inquiryWriteDatetime;
+    private String inquiryComment;
 }
