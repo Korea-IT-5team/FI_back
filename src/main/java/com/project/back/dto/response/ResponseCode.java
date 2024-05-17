@@ -9,7 +9,7 @@ package com.project.back.dto.response;
 // 400 이미 작성된 답글 : WC/Written Comment.
 // 401 로그인 정보 불일치: SF/Sign in Failed.
 // 401 인증 실패: AF / Authentication Failed.
-// 403 인가 실패 : AF / Authorization Failed
+// 403 인가 실패 : AF / Authorization Failed.
 // 404 사용자 정보 불일치 : NF / User not found.
 // 500 토큰 생성 실패:TF/Token creation Failed
 // 500 인증 번호 전송 실패: SF/Auth Number Send Failed.

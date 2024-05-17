@@ -17,7 +17,7 @@ package com.project.back.dto.response;
 // 500 데이터베이스오류: DBE/Database Error.
 
 // Response의 공통된 Message 값
-public class ResponseMessage 
+public interface ResponseMessage 
 {
     String SUCCESS = "success."; 
     String VALIDATION_FAILED ="Validation Failed."; 

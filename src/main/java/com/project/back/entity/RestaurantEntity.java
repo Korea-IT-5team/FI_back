@@ -34,4 +34,5 @@ public class RestaurantEntity
     private String restaurantNotice;
     private String restaurantRepresentativeMenu;
     private String restaurantBusinessRegistrationNumber;
+    private String restaurantImage;
 }
