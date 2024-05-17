@@ -24,21 +24,10 @@ public class ReviewEntity
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "review_number")
-    private Integer reviewNumber;
-
-    @Column(name = "review_restaurant_id", nullable = false)
-    private RestaurantEntity restaurant;
-
-    @Column(name = "rating", nullable = false)
-    private Double rating;
-
-    @Column(name = "review_contents", columnDefinition = "TEXT")
-    private String contents;
-
-    @Column(name = "review_writer_id", nullable = false)
-    private UserEntity writer;
-
-    @Column(name = "review_date", nullable = false)
-    private LocalDateTime date;
+    private Integer reviewNumber ;
+    private RestaurantEntity reviewRestaurantId ;
+    private Double rating ;
+    private String reviewContents ;
+    private UserEntity reviewWriterId ;
+    private LocalDateTime reviewDate ;
 }

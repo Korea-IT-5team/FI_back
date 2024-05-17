@@ -22,39 +22,17 @@ public class RestaurantEntity
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "restaurant_id")
-    private Integer id;
-
-    @Column(name = "restaurant_name", nullable = false)
-    private String name;
-
-    @Column(name = "restaurant_food_category", nullable = false)
-    private String foodCategory;
-
-    @Column(name = "postal_code", length = 5)
+    private Integer restaurantId;
+    private String restaurantName;
+    private String restaurantFoodCategory;
     private String postalCode;
-
-    @Column(name = "restaurant_location", nullable = false)
-    private String location;
-
-    @Column(name = "restaurant_tel_number")
-    private String telNumber;
-
-    @Column(name = "restaurant_sns_address", length = 255)
-    private String snsAddress;
-
-    @Column(name = "restaurant_operation_hours", length = 255)
-    private String operationHours;
-
-    @Column(name = "restaurant_features", length = 255)
-    private String features;
-
-    @Column(name = "restaurant_notice", length = 255)
-    private String notice;
-
-    @Column(name = "restaurant_representative_menu", length = 255)
-    private String representativeMenu;
-
-    @Column(name = "restaurant_business_registration_number", nullable = false, length = 15)
-    private String businessRegistrationNumber;
+    private String restaurantLocation;
+    private String restaurantTelNumber;
+    private String restaurantSnsAddress;
+    private String restaurantOperationHours;
+    private String restaurantFeatures;
+    private String restaurantNotice;
+    private String restaurantRepresentativeMenu;
+    private String restaurantBusinessRegistrationNumber;
+    private String restaurantImage;
 }

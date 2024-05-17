@@ -24,9 +24,9 @@ public class NoticeBoardEntity
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer noticeNumber;
-    private String title;
-    private String contents;
-    private String writerId;
-    private LocalDateTime writeDatetime;
-    private Integer viewCount;
+    private String noticeTitle;
+    private String noticeContents;
+    private String noticeWriterId;
+    private LocalDateTime noticeWriteDatetime;
+    private Integer noticeViewCount;
 }
