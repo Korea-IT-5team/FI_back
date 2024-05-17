@@ -24,27 +24,12 @@ public class ReservationEntity
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "reservation_number")
     private Integer reservationNumber;
-
-    @Column(name = "reservation_status", nullable = false, columnDefinition = "BOOLEAN DEFAULT FALSE")
-    private boolean status;
-
-    @Column(name = "reservation_user_id")
-    private String user;
-
-    @Column(name = "reservation_restaurant_id", nullable = false)
-    private Integer restaurant;
-
-    @Column(name = "reservation_date", nullable = false)
-    private LocalDateTime date;
-
-    @Column(name = "reservation_time", nullable = false)
-    private LocalDateTime time;
-
-    @Column(name = "reservation_people", nullable = false)
-    private Integer people;
-
-    @Column(name = "cancellation_reason", columnDefinition = "TEXT")
+    private boolean reservationStatus;
+    private String reservationUserId;
+    private Integer reservationRestaurantId;
+    private LocalDateTime reservationDate;
+    private LocalDateTime reservationTime;
+    private Integer reservationPeople;
     private String cancellationReason;
 }

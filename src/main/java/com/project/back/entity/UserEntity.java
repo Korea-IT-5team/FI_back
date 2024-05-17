@@ -22,27 +22,13 @@ public class UserEntity
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_email_id")
-    private String emailId;
-
-    @Column(name = "password", nullable = false)
+    private String userEmailId;
     private String password;
-
-    @Column(name = "nickname", nullable = false, unique = true)
     private String nickname;
-
-    @Column(name = "user_name", nullable = false)
-    private String name;
-
-    @Column(name = "user_tel_number", nullable = false, unique = true)
-    private String telNumber;
-
-    @Column(name = "user_address", nullable = false)
-    private String address;
-
-    @Column(name = "user_role", nullable = false, columnDefinition = "VARCHAR(10) DEFAULT 'ROLE_USER'")
-    private String role;
-
-    @Column(name = "join_path", nullable = false, columnDefinition = "VARCHAR(10) DEFAULT 'HOME'")
+    private String userName;
+    private String userTelNumber;
+    private String userAddress;
+    private String authNumber;
+    private String userRole;
     private String joinPath;
 }
