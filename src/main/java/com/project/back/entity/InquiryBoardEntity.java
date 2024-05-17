@@ -33,3 +33,5 @@ public class InquiryBoardEntity
     private LocalDateTime inquiryWriteDatetime;
     private String inquiryComment;
 }
+
+    
