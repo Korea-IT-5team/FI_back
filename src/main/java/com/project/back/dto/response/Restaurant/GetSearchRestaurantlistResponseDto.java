@@ -35,22 +35,3 @@ public class GetSearchRestaurantlistResponseDto extends ResponseDto
 
 
 
-// import lombok.Getter;
-
-// @Getter
-// public class GetSearchBoardListResponseDto extends ResponseDto
-// {
-//     private List<BoardListItem> boardList;
-//     private GetSearchBoardListResponseDto(List<BoardEntity> boardEntities) throws Exception
-//     {
-//         super(ResponseCode.SUCCESS,ResponseMessage.SUCCESS);
-//         this.boardList=BoardListItem.getList(boardEntities);
-//     }
-
-//     public static ResponseEntity<GetSearchBoardListResponseDto> success(List<BoardEntity> boardEntities) 
-//     throws Exception
-//     {
-//         GetSearchBoardListResponseDto resposeBody = new GetSearchBoardListResponseDto(boardEntities);
-//         return ResponseEntity.status(HttpStatus.OK).body(resposeBody);
-//     }
-// }
