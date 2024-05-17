@@ -1,6 +1,12 @@
 package com.project.back.common.object;
 
+import com.fasterxml.jackson.databind.ser.std.StdArraySerializers.DoubleArraySerializer;
+import com.project.back.common.util.ChangeDateFormatUtil;
 import com.project.back.entity.RestaurantEntity;
+import com.project.back.entity.ReviewEntity;
+import com.project.back.entity.UserEntity;
+
+import java.time.LocalDateTime;
 
 import lombok.Getter;
 
@@ -10,31 +16,44 @@ import java.util.ArrayList;
 @Getter
 public class RestaurantReviewListItem 
 {
-    private Integer restaurantId; 
-    private String restaurantImage;
-    private String restaurantName;
-    private String restaurantFoodCategory;
-    private String restaurantLocation;
+    private Integer reviewNumber;
+    private Integer reviewRestaurantId;
+    private String reviewImage;
+    private double rating; 
+    private String reviewContents;
+    private String reviewWriterId;
+    private String reviewWriterNickname;
+    private String reviewDate;
 
-    private RestaurantReviewListItem(RestaurantEntity restaurantEntity) throws Exception
+    private RestaurantReviewListItem(ReviewEntity reviewEntity) throws Exception
     {
-        this.restaurantId=restaurantEntity.getRestaurantId();
-        this.restaurantImage=restaurantEntity.getRestaurantImage();
-        this.restaurantName=restaurantEntity.getRestaurantName();
-        this.restaurantFoodCategory=restaurantEntity.getRestaurantFoodCategory();
-        this.restaurantLocation=restaurantEntity.getRestaurantLocation();
+       this.reviewNumber=reviewEntity.getReviewNumber();
+       this.reviewRestaurantId=reviewEntity.getReviewRestaurantId();
+       this.reviewImage=reviewEntity.getReviewImage();
+       this.rating=reviewEntity.getRating();
+       this.reviewContents=reviewEntity.getReviewContents();
+
+       String writerId = reviewEntity.getReviewWriterId();
+        writerId = writerId.substring(0, 1)+
+        "*".repeat(writerId.length()-1); 
+
+       this.reviewWriterId=writerId;
+       this.reviewWriterNickname=reviewEntity.; //??
+       
+       String writeDatetime  = ChangeDateFormatUtil.changeYYYYMMDD(reviewEntity.getReviewDate());
+       String reviewDate = writeDatetime;
     }
 
-    public static List<RestaurantReviewListItem> getList(List<RestaurantEntity> restaurantEntities) throws Exception
+    public static List<RestaurantReviewListItem> getList(List<ReviewEntity> reviewEntities) throws Exception
     {
-        List<RestaurantReviewListItem> restaurantList = new ArrayList<>();
+        List<ReviewEntity> restaurantReviewList = new ArrayList<>();
 
-        for(RestaurantEntity restaurantEntity:restaurantEntities)
+        for(ReviewEntity reviewEntity:reviewEntities)
         {
-            RestaurantListItem restaurantListItem = new RestaurantListItem(restaurantEntity);
-            restaurantList.add(restaurantListItem);
+            RestaurantReviewListItem restaurantListItem = new RestaurantReviewListItem(reviewEntity);
+            restaurantReviewList.add(restaurantListItem);
         }
 
-        return restaurantList;
+        return restaurantReviewList;
     }
 }

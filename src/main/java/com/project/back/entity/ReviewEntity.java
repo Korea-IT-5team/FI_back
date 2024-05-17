@@ -25,10 +25,10 @@ public class ReviewEntity
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer reviewNumber;
-    private RestaurantEntity reviewRestaurantId;
+    private Integer reviewRestaurantId;
     private Double rating;
     private String reviewContents;
-    private UserEntity reviewWriterId;
-    private LocalDateTime reviewDate;
+    private String reviewWriterId;
+    private String reviewDate;
     private String reviewImage;
 }
