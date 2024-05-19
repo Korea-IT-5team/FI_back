@@ -1,8 +1,5 @@
 package com.project.back.entity;
 
-import java.time.LocalDateTime;
-
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -31,4 +28,11 @@ public class ReviewEntity
     private String reviewWriterId;
     private String reviewDate;
     private String reviewImage;
+
+  
+    
+  
+    
+   
+
 }

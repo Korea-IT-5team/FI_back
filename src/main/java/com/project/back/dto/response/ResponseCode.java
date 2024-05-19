@@ -27,12 +27,14 @@ public interface ResponseCode
     String SIGN_IN_FAILED="SF"; 
     String AUTHENTICATION_FAILED="AF"; 
     String AUTHORIZATION_FAILED = "AF"; 
-    String USER_NOT_FOUND="NF"; 
+    String NOT_FOUND_USER="NF"; 
     String TOKEN_CREATION_FAILED="TF"; 
     String DATABASE_ERROR="DBE"; 
     String AUTH_NUMBER_SEND_FAILED="SF";
     String RESET_LINK_SEND_FAILED = "SF";
     String NO_EXIST_RESTAURANT = "NR"; 
-    String NO_EXIST_INQUIRYBOARD = "NB";
+    String NO_EXIST_BOARD = "NB";
+    String NO_EXIST_INQUIRY_BOARD = "NB";
+    
 }
 

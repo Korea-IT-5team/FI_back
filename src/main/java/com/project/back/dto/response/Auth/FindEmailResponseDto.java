@@ -1,4 +1,4 @@
-package com.project.back.dto.response.Auth;
+package com.project.back.dto.response.auth;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +20,11 @@ public class FindEmailResponseDto extends ResponseDto
     private FindEmailResponseDto(UserEntity userEntity)
     {
         super(ResponseCode.SUCCESS,ResponseMessage.SUCCESS);
-        this.userEmailId=userEntity.getUserEmailId();
+        String writerId = userEntity.getUserEmailId();
+        writerId = writerId.substring(0, 4)+
+        "*".repeat(writerId.length()-4); 
+        this.userEmailId=writerId;
+        
     }
 
     public static ResponseEntity<FindEmailResponseDto> success(UserEntity userEntity)
