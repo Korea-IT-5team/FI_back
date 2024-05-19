@@ -1,8 +1,5 @@
 package com.project.back.entity;
 
-import java.time.LocalDateTime;
-
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -30,7 +27,7 @@ public class InquiryBoardEntity
     private String inquiryTitle;
     private String inquiryContents;
     private String inquiryWriterId;
-    private LocalDateTime inquiryWriteDatetime;
+    private String inquiryWriteDatetime;
     private String inquiryComment;
 }
 

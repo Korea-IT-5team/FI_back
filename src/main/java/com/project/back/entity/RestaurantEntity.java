@@ -1,6 +1,5 @@
 package com.project.back.entity;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -22,7 +21,7 @@ public class RestaurantEntity
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer restaurantId;
+    private Integer restaurantId; 
     private String restaurantName;
     private String restaurantFoodCategory;
     private String postalCode;

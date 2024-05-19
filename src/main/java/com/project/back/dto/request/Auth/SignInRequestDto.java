@@ -1,12 +1,10 @@
-package com.project.back.dto.request.Auth;
+package com.project.back.dto.request.auth;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import jakarta.validation.constraints.NotBlank;
-
-import lombok.Getter;
 
 // 로그인 Request Body Dto
 @Getter
@@ -15,7 +13,9 @@ import lombok.Getter;
 public class SignInRequestDto
 {
     @NotBlank
+    @Pattern(regexp = "^[a-zA-Z0-9]*@([-.]?[a-zA-Z0-9])*\\.[a-zA-Z]{2,4}$")
     private String userEmailId; //사용자의 이메일
     @NotBlank
+    @Pattern(regexp = "^(?=.*[a-zA-Z])(?=.*[0-9]).{8,13}$")
     private String password; //사용자의 비밀번호
 }

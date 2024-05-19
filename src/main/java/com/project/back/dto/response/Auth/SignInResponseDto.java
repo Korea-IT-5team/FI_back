@@ -1,4 +1,4 @@
-package com.project.back.dto.response.Auth;
+package com.project.back.dto.response.auth;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

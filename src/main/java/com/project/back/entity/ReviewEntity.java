@@ -1,8 +1,5 @@
 package com.project.back.entity;
 
-import java.time.LocalDateTime;
-
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -24,10 +21,18 @@ public class ReviewEntity
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer reviewNumber ;
-    private RestaurantEntity reviewRestaurantId ;
-    private Double rating ;
-    private String reviewContents ;
-    private UserEntity reviewWriterId ;
-    private LocalDateTime reviewDate ;
+    private Integer reviewNumber;
+    private Integer reviewRestaurantId;
+    private Double rating;
+    private String reviewContents;
+    private String reviewWriterId;
+    private String reviewDate;
+    private String reviewImage;
+
+  
+    
+  
+    
+   
+
 }

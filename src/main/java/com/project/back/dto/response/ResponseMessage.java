@@ -21,17 +21,18 @@ public interface ResponseMessage
 {
     String SUCCESS = "success."; 
     String VALIDATION_FAILED ="Validation Failed."; 
-    String DUPLICATED_EMAILID="Duplicatied Email."; 
-    String DUPLICATED_NICKNAME="Duplicatied Nickname."; 
+    String DUPLICATED_EMAILID="Duplicated EmailId."; 
+    String DUPLICATED_NICKNAME="Duplicated Nickname."; 
     String WRITTEN_COMMENT = "Written Comment.";
     String SIGN_IN_FAILED="Sign in Failed."; 
     String AUTHENTICATION_FAILED="Authentication Failed."; 
     String AUTHORIZATION_FAILED = "Authorization Failed."; 
-    String USER_NOT_FOUND="User not found."; 
+    String NOT_FOUND_USER="Not Found User."; 
     String TOKEN_CREATION_FAILED="Token creation Failed."; 
     String DATABASE_ERROR="Database Error."; 
     String AUTH_NUMBER_SEND_FAILED="Auth Number Send Failed.";
     String RESET_LINK_SEND_FAILED = "Reset Link Send Failed.";
-    String NO_EXIST_RESTAURANT = "No_Exist_Restaurant."; 
-    String NO_EXIST_INQUIRYBOARD = "No_Exist_InquiryBoard.";
+    String NO_EXIST_RESTAURANT = "No Exist Restaurant."; 
+    String NO_EXIST_BOARD = "No Exist Board.";
+    String NO_EXIST_INQUIRY_BOARD = "No Exist InquiryBoard.";
 }
