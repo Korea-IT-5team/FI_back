@@ -28,11 +28,4 @@ public class ReviewEntity
     private String reviewWriterId;
     private String reviewDate;
     private String reviewImage;
-
-  
-    
-  
-    
-   
-
 }

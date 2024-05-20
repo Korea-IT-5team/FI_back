@@ -16,7 +16,7 @@ public class SignUpRequestDto
     @Pattern(regexp = "^[a-zA-Z0-9]*@([-.]?[a-zA-Z0-9])*\\.[a-zA-Z]{2,4}$")
     private String userEmailId; //사용자의 이메일
     @NotBlank
-    private String userPassword; // 사용자의 비밀번호
+    private String password; // 사용자의 비밀번호
     @NotBlank
     private String authNumber; // 인증번호
     @NotBlank

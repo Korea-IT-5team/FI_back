@@ -15,5 +15,5 @@ public class PasswordRecheckRequestDto
 {
     @NotBlank
     @Pattern(regexp = "^(?=.*[a-zA-Z])(?=.*[0-9]).{8,13}$")
-    private String userPassword; //사용자의 비밀번호
+    private String password; //사용자의 비밀번호
 }
