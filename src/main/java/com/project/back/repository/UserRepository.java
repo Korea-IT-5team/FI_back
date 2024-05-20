@@ -9,5 +9,7 @@ import com.project.back.entity.UserEntity;
 
 @Repository
 public interface UserRepository extends JpaRepository<UserEntity,String> {
+  boolean existsByUserId(String userEmailId);
+
   UserEntity findByUserId(String userId);
 }
