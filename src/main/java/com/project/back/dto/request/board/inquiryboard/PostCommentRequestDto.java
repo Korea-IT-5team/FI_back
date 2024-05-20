@@ -13,5 +13,5 @@ import lombok.Setter;
 public class PostCommentRequestDto 
 {
     @NotBlank
-    private String comment; //답글 내용
+    private String inquiryComment; //답글 내용
 }

@@ -17,7 +17,7 @@ public class PatchRestaurantInfoRequestDto
     @NotBlank
     private String restaurantFoodCategory; //식당 음식 카테고리
     @NotBlank
-    private String restaurantPostalCode;//식당 우편번호
+    private String postalCode;//식당 우편번호
     @NotBlank
     private String restaurantLocation;//식당 주소
     @NotBlank

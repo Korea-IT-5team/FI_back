@@ -13,7 +13,7 @@ import lombok.Setter;
 public class PostInquiryBoardRequestDto 
 {
     @NotBlank
-    private String title; // 제목
+    private String inquiryTitle; // 제목
     @NotBlank
-    private String contents; // 내용
+    private String inquiryContents; // 내용
 }

@@ -15,5 +15,5 @@ public class DeleteUserRequestDto
 {
     @NotBlank
     @Pattern(regexp = "^(?=.*[a-zA-Z])(?=.*[0-9]).{8,13}$")
-    private String userPassword; //사용자 비밀번호
+    private String password; //사용자 비밀번호
 }
