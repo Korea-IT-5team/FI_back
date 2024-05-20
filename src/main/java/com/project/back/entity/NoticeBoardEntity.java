@@ -1,7 +1,5 @@
 package com.project.back.entity;
 
-import java.time.LocalDateTime;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -27,6 +25,6 @@ public class NoticeBoardEntity
     private String noticeTitle;
     private String noticeContents;
     private String noticeWriterId;
-    private LocalDateTime noticeWriteDatetime;
+    private String noticeWriteDatetime;
     private Integer noticeViewCount;
 }
