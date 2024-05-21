@@ -20,6 +20,8 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import com.project.back.filter.JwtAuthenticationFilter;
+import com.project.back.handler.OAuth2SuccessHandler;
+import com.project.back.service.implementation.OAuth2UserSerivceImplementation;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -33,6 +35,8 @@ import lombok.RequiredArgsConstructor;
 public class WebSecurityConfig {
 
   private final JwtAuthenticationFilter JwtAuthenticationFilter;
+  private final OAuth2UserSerivceImplementation oAuth2UserService;
+  private final OAuth2SuccessHandler oAuth2SuccessHandler;
   
   @Bean
   protected SecurityFilterChain configure(HttpSecurity httpSecurity) throws Exception {
@@ -45,7 +49,7 @@ public class WebSecurityConfig {
       .cors(cors -> cors.configurationSource(corsConfigurationSource())
       )
       .authorizeHttpRequests(request -> request
-        .requestMatchers("/", "/api/v1/auth/**", "/oauth2/callback/*").permitAll()
+        .requestMatchers("/", "/api/v1/auth/**", "/oauth2/callback/*", "/sms-auth/send-sms/*").permitAll()
         .requestMatchers(HttpMethod.POST, "/api/v1/restaurant/review").hasRole("USER")
         .requestMatchers("/api/v1/board/*/comment").hasRole("ADMIN")
         .anyRequest().authenticated()
@@ -86,7 +90,7 @@ class AuthorizationFailEntryPoint implements AuthenticationEntryPoint{
     
     response.setContentType("application/json");
     response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-    response.getWriter().write("{ \"code\": \"AF\", \"message\": \"Authorizaton Failed\" }");
+    response.getWriter().write("{ \"code\": \"AF\", \"message\": \"Authorization Failed\" }");
   }
   
 }
