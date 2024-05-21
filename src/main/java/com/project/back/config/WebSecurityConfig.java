@@ -21,7 +21,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import com.project.back.filter.JwtAuthenticationFilter;
 import com.project.back.handler.OAuth2SuccessHandler;
-import com.project.back.service.implementation.OAuth2UserSerivceImplementation;
+import com.project.back.service.implementation.OAuth2UserServiceImplementation;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -35,7 +35,7 @@ import lombok.RequiredArgsConstructor;
 public class WebSecurityConfig {
 
   private final JwtAuthenticationFilter JwtAuthenticationFilter;
-  private final OAuth2UserSerivceImplementation oAuth2UserService;
+  private final OAuth2UserServiceImplementation oAuth2UserService;
   private final OAuth2SuccessHandler oAuth2SuccessHandler;
   
   @Bean
