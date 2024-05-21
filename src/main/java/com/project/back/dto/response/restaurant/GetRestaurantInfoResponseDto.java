@@ -27,6 +27,7 @@ public class GetRestaurantInfoResponseDto extends ResponseDto {
     private String restaurantNotice;
     private String restaurantRepresentativeMenu;
     private String restaurantBusinessRegistrationNumber;
+    private String restaurantWriterId;
     private List<RestaurantReviewListItem> restaurantReviewList;
     
     
@@ -46,6 +47,7 @@ public class GetRestaurantInfoResponseDto extends ResponseDto {
         this.restaurantNotice=restaurantEntity.getRestaurantNotice();
         this.restaurantRepresentativeMenu=restaurantEntity.getRestaurantRepresentativeMenu();
         this.restaurantBusinessRegistrationNumber=restaurantEntity.getRestaurantBusinessRegistrationNumber();
+        this.restaurantWriterId =restaurantEntity.getRestaurantWriterId();
         this.restaurantReviewList=RestaurantReviewListItem.getList(getRestaurantReviewListItemResultSetList);
     }
 
