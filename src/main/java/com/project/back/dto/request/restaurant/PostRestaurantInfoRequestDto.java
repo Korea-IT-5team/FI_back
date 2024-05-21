@@ -10,7 +10,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class PostRestaurantInfoReqeustDto 
+public class PostRestaurantInfoRequestDto 
 {
     @NotBlank
     private String restaurantImage; //식당 대표 사진
