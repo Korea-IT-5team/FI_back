@@ -28,4 +28,6 @@ public class PatchRestaurantInfoRequestDto{
     private String restaurantFeatures;
     private String restaurantNotice;
     private String restaurantRepresentativeMenu;
+    @NotBlank
+    private String restaurantBusinessRegistrationNumber;
 }

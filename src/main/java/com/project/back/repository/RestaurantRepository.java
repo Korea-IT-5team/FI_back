@@ -12,5 +12,6 @@ import com.project.back.entity.RestaurantEntity;
 public interface RestaurantRepository extends JpaRepository<ReservationEntity,Integer> {
     List<RestaurantEntity> findByOrderByRestaurantIdDesc();
     RestaurantEntity findByRestaurantId(Integer restaurantId);
-    
+
+    boolean existsByRestaurantWriterId(String restaurantWriterId);
 }

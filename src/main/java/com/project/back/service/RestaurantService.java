@@ -20,10 +20,10 @@ public interface RestaurantService {
     ResponseEntity<? super GetRestaurantInfoResponseDto> getRestaurantInfo(int restaurantId);
     ResponseEntity<? super GetRestaurantListResponseDto> getRestaurantList(String searchWord);
     ResponseEntity<ResponseDto> patchRestaurantInfo(PatchRestaurantInfoRequestDto dto, int restaurantId, String userEmailId);
-    ResponseEntity<ResponseDto> postRestaurantInfo(PostRestaurantInfoRequestDto dto);
+    ResponseEntity<ResponseDto> postRestaurantInfo(PostRestaurantInfoRequestDto dto, String restaurantWriterId );
 
     // 식당 예약
-    ResponseEntity<? super GetReservationResponseDto> getReservation();
+    ResponseEntity<? super GetReservationResponseDto> getReservation(int reservationNumber);
     ResponseEntity<? super GetReservationListResponseDto> getReservationList();
     ResponseEntity<ResponseDto> deleteReservation(DeleteReservationRequestDto dto, String restaurantId);
     ResponseEntity<ResponseDto> postReservation (PostReservationRequestDto dto);

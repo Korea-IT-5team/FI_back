@@ -29,4 +29,5 @@ public class PostRestaurantInfoRequestDto
     private String restaurantFeatures;
     private String restaurantNotice;
     private String restaurantRepresentativeMenu;
+    private String restaurantWriterId;
 }

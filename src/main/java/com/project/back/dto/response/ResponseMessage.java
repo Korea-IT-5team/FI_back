@@ -32,6 +32,7 @@ public interface ResponseMessage {
     String AUTH_NUMBER_SEND_FAILED="Auth Number Send Failed.";
     String RESET_LINK_SEND_FAILED = "Reset Link Send Failed.";
     String NO_EXIST_RESTAURANT = "No Exist Restaurant."; 
+    String NO_EXIST_RESERVATION = "No Exist Reservation.";
     String NO_EXIST_BOARD = "No Exist Board.";
     String NO_EXIST_INQUIRY_BOARD = "No Exist InquiryBoard.";
 }
