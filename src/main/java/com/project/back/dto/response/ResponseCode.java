@@ -32,8 +32,8 @@ public interface ResponseCode {
     String AUTH_NUMBER_SEND_FAILED="SF";
     String RESET_LINK_SEND_FAILED = "SF";
     String NO_EXIST_RESTAURANT = "NR"; 
+    String NO_EXIST_RESERVATION = "NR";
     String NO_EXIST_BOARD = "NB";
     String NO_EXIST_INQUIRY_BOARD = "NB";
-    
 }
 

@@ -1,5 +1,8 @@
 package com.project.back.entity;
 
+import com.project.back.dto.request.restaurant.PatchRestaurantInfoRequestDto;
+import com.project.back.dto.request.restaurant.PostRestaurantInfoRequestDto;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -33,4 +36,35 @@ public class RestaurantEntity {
     private String restaurantBusinessRegistrationNumber;
     private String restaurantImage;
     private String restaurantWriterId;
+
+    public RestaurantEntity(PostRestaurantInfoRequestDto dto) {
+        this.restaurantName = dto.getRestaurantName();
+        this.restaurantFoodCategory = dto.getRestaurantFoodCategory();
+        this.postalCode = dto.getPostalCode();
+        this.restaurantLocation = dto.getRestaurantLocation();
+        this.restaurantTelNumber = dto.getRestaurantTelNumber();
+        this.restaurantSnsAddress = dto.getRestaurantSnsAddress();
+        this.restaurantOperationHours = dto.getRestaurantOperationHours();
+        this.restaurantFeatures = dto.getRestaurantFeatures();
+        this.restaurantNotice = dto.getRestaurantNotice();
+        this.restaurantRepresentativeMenu = dto.getRestaurantRepresentativeMenu();
+        this.restaurantBusinessRegistrationNumber = dto.getRestaurantBusinessRegistrationNumber();
+        this.restaurantImage = dto.getRestaurantImage();
+        this.restaurantWriterId = dto.getRestaurantWriterId();
+    }
+
+    public void updateRestaurantInfo(PatchRestaurantInfoRequestDto dto) {
+        this.restaurantName = dto.getRestaurantName();
+        this.restaurantFoodCategory = dto.getRestaurantFoodCategory();
+        this.postalCode = dto.getPostalCode();
+        this.restaurantLocation = dto.getRestaurantLocation();
+        this.restaurantTelNumber = dto.getRestaurantTelNumber();
+        this.restaurantSnsAddress = dto.getRestaurantSnsAddress();
+        this.restaurantOperationHours = dto.getRestaurantOperationHours();
+        this.restaurantFeatures = dto.getRestaurantFeatures();
+        this.restaurantNotice = dto.getRestaurantNotice();
+        this.restaurantRepresentativeMenu = dto.getRestaurantRepresentativeMenu();
+        this.restaurantBusinessRegistrationNumber = dto.getRestaurantBusinessRegistrationNumber();
+        this.restaurantImage = dto.getRestaurantImage();
+    }
 }

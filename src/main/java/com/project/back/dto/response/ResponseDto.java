@@ -48,6 +48,13 @@ public class ResponseDto {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseBody);
     }
 
+    // 응답 : 실패 (존재하지 않는 예약내역)
+    public static ResponseEntity<ResponseDto> noExistReservation() {
+        ResponseDto responseBody = new ResponseDto(ResponseCode.NO_EXIST_RESERVATION,ResponseMessage.NO_EXIST_RESERVATION);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseBody);
+    }
+
+
     // 응답: 실패 (답변 완료된 게시물) or 응답: 실패 (이미 작성된 답글)
     public static ResponseEntity<ResponseDto> writtenComment() {
         ResponseDto responseBody = new ResponseDto(ResponseCode.WRITTEN_COMMENT ,ResponseMessage.WRITTEN_COMMENT);
