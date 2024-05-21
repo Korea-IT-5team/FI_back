@@ -17,18 +17,16 @@ import com.project.back.dto.response.restaurant.reservation.GetReservationRespon
 
 public interface RestaurantService {
     // 식당 정보
-    ResponseEntity<ResponseDto> patchRestaurantInfo(PatchRestaurantInfoRequestDto dto, String userEmailId);
+    ResponseEntity<? super GetRestaurantInfoResponseDto> getRestaurantInfo(int restaurantId);
+    ResponseEntity<? super GetRestaurantListResponseDto> getRestaurantList(String searchWord);
+    ResponseEntity<ResponseDto> patchRestaurantInfo(PatchRestaurantInfoRequestDto dto, int restaurantId, String userEmailId);
     ResponseEntity<ResponseDto> postRestaurantInfo(PostRestaurantInfoRequestDto dto);
 
-    ResponseEntity<? super GetRestaurantInfoResponseDto> getRestaurantInfo();
-    ResponseEntity<? super GetRestaurantListResponseDto> getRestaurantList(String searchWord);
-
     // 식당 예약
-    ResponseEntity<ResponseDto> deleteReservation(DeleteReservationRequestDto dto, String restaurantId);
-    ResponseEntity<ResponseDto> postReservation (PostReservationRequestDto dto);
-
     ResponseEntity<? super GetReservationResponseDto> getReservation();
     ResponseEntity<? super GetReservationListResponseDto> getReservationList();
+    ResponseEntity<ResponseDto> deleteReservation(DeleteReservationRequestDto dto, String restaurantId);
+    ResponseEntity<ResponseDto> postReservation (PostReservationRequestDto dto);
     
     // 식당 리뷰
     ResponseEntity<ResponseDto> patchReview (PatchReviewRequestDto dto);

@@ -12,20 +12,16 @@ import com.project.back.dto.response.ResponseMessage;
 import com.project.back.entity.RestaurantEntity;
 
 // 식당 목록 검색 Response Body DTO
-
-public class GetRestaurantListResponseDto extends ResponseDto
-{
+public class GetRestaurantListResponseDto extends ResponseDto {
     private List<RestaurantListItem> restaurantList;
     
-    private GetRestaurantListResponseDto(List<RestaurantEntity> restaurantEntities) throws Exception
-    {
-        super(ResponseCode.SUCCESS,ResponseMessage.SUCCESS);
-        this.restaurantList= RestaurantListItem.getList(restaurantEntities);
+    private GetRestaurantListResponseDto(List<RestaurantEntity> restaurantEntities) throws Exception {
+        super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
+        this.restaurantList = RestaurantListItem.getList(restaurantEntities);
     }
 
     public static ResponseEntity<GetRestaurantListResponseDto> success(List<RestaurantEntity> restaurantEntities)
-    throws Exception
-    {
+    throws Exception {
         GetRestaurantListResponseDto responseBody = new GetRestaurantListResponseDto(restaurantEntities);
         return ResponseEntity.status(HttpStatus.OK).body(responseBody);
     }

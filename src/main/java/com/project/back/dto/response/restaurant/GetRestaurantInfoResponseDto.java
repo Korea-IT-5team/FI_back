@@ -13,9 +13,7 @@ import com.project.back.entity.RestaurantEntity;
 import com.project.back.repository.resultSet.GetRestaurantReviewListItemResultSet;
 
 // 특정 식당 정보 Response Body DTO
-
-public class GetRestaurantInfoResponseDto extends ResponseDto
-{
+public class GetRestaurantInfoResponseDto extends ResponseDto {
     private Integer restaurantId; 
     private String restaurantImage;
     private String restaurantName;
@@ -33,9 +31,8 @@ public class GetRestaurantInfoResponseDto extends ResponseDto
     
     
     private GetRestaurantInfoResponseDto(RestaurantEntity restaurantEntity,List<GetRestaurantReviewListItemResultSet> getRestaurantReviewListItemResultSetList)
-    throws Exception
-    {
-        super(ResponseCode.SUCCESS,ResponseMessage.SUCCESS);
+    throws Exception {
+        super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
         this.restaurantId = restaurantEntity.getRestaurantId();
         this.restaurantImage= restaurantEntity.getRestaurantImage();
         this.restaurantName=restaurantEntity.getRestaurantName();
@@ -53,8 +50,7 @@ public class GetRestaurantInfoResponseDto extends ResponseDto
     }
 
     public static ResponseEntity<GetRestaurantInfoResponseDto> success(RestaurantEntity restaurantEntity,List<GetRestaurantReviewListItemResultSet> getRestaurantReviewListItemResultSetList)
-    throws Exception
-    {
+    throws Exception {
         GetRestaurantInfoResponseDto responseBody = new GetRestaurantInfoResponseDto(restaurantEntity,getRestaurantReviewListItemResultSetList);
         return ResponseEntity.status(HttpStatus.OK).body(responseBody);
     }

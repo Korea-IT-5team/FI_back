@@ -9,8 +9,7 @@ import com.project.back.repository.resultSet.GetRestaurantReviewListItemResultSe
 import lombok.Getter;
 
 @Getter
-public class RestaurantReviewListItem
-{
+public class RestaurantReviewListItem {
     private Integer reviewNumber;
     private Integer reviewRestaurantId;
     private String reviewImage;
@@ -20,35 +19,30 @@ public class RestaurantReviewListItem
     private String reviewWriterNickname;
     private String reviewDate;
 
-    private RestaurantReviewListItem(GetRestaurantReviewListItemResultSet getRestaurantReviewListItemResultSet) throws Exception
-    {
-       this.reviewNumber=getRestaurantReviewListItemResultSet.getReviewNumber();
-       this.reviewRestaurantId=getRestaurantReviewListItemResultSet.getReviewRestaurantId();
-       this.reviewImage=getRestaurantReviewListItemResultSet.getReviewImage();
-       this.rating=getRestaurantReviewListItemResultSet.getRating();
-       this.reviewContents=getRestaurantReviewListItemResultSet.getReviewContents();
+    private RestaurantReviewListItem(GetRestaurantReviewListItemResultSet getRestaurantReviewListItemResultSet) throws Exception {
+        this.reviewNumber=getRestaurantReviewListItemResultSet.getReviewNumber();
+        this.reviewRestaurantId=getRestaurantReviewListItemResultSet.getReviewRestaurantId();
+        this.reviewImage=getRestaurantReviewListItemResultSet.getReviewImage();
+        this.rating=getRestaurantReviewListItemResultSet.getRating();
+        this.reviewContents=getRestaurantReviewListItemResultSet.getReviewContents();
 
-       String writerId = getRestaurantReviewListItemResultSet.getReviewWriterId();
-        writerId = writerId.substring(0, 1)+
-        "*".repeat(writerId.length()-1); 
+        String writerId = getRestaurantReviewListItemResultSet.getReviewWriterId();
+        writerId = writerId.substring(0, 1) +
+        "*".repeat(writerId.length() - 1);
+        this.reviewWriterId=writerId;
+        this.reviewWriterNickname=getRestaurantReviewListItemResultSet.getNickname(); 
 
-       this.reviewWriterId=writerId;
-       this.reviewWriterNickname=getRestaurantReviewListItemResultSet.getNickname(); 
-       
-       String writeDatetime  = ChangeDateFormatUtil.changeYYMMDD(getRestaurantReviewListItemResultSet.getReviewDate());
-       this.reviewDate = writeDatetime;
+        String writeDatetime  = ChangeDateFormatUtil.changeYYMMDD(getRestaurantReviewListItemResultSet.getReviewDate());
+        this.reviewDate = writeDatetime;
     }
 
-    public static List<RestaurantReviewListItem> getList(List<GetRestaurantReviewListItemResultSet> getRestaurantReviewListItemResultSetList) throws Exception
-    {
+    public static List<RestaurantReviewListItem> getList(List<GetRestaurantReviewListItemResultSet> getRestaurantReviewListItemResultSetList) throws Exception {
         List<RestaurantReviewListItem> restaurantReviewList = new ArrayList<>();
 
-        for(GetRestaurantReviewListItemResultSet getRestaurantReviewListItemResultSet:getRestaurantReviewListItemResultSetList)
-        {
+        for(GetRestaurantReviewListItemResultSet getRestaurantReviewListItemResultSet:getRestaurantReviewListItemResultSetList) {
             RestaurantReviewListItem restaurantReviewListItem = new RestaurantReviewListItem(getRestaurantReviewListItemResultSet);
             restaurantReviewList.add(restaurantReviewListItem);
         }
-
         return restaurantReviewList;
     }
 }
