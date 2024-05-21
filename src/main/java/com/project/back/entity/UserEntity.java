@@ -2,7 +2,6 @@ package com.project.back.entity;
 
 import com.project.back.dto.request.auth.SignUpRequestDto;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -20,8 +19,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserEntity 
-{
+public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String userEmailId;
@@ -30,15 +28,19 @@ public class UserEntity
     private String userName;
     private String userTelNumber;
     private String userAddress;
-    private String authNumber;
     private String userRole;
     private String joinPath;
+    private String snsId;
 
     public UserEntity(SignUpRequestDto dto) {
         this.userEmailId = dto.getUserEmailId();
         this.password = dto.getPassword();
+        this.nickname = dto.getNickname();
+        this.userName = dto.getUserName();
         this.userTelNumber = dto.getUserTelNumber();
+        this.userAddress = dto.getUserAddress();
         this.userRole = "ROLE_USER";
-        this.joinPath = "HOME";
+        this.joinPath = dto.getJoinPath();
+        this.snsId = dto.getSnsId();
     }
 }

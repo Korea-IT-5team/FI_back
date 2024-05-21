@@ -47,7 +47,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         return;
       }
 
-      UserEntity userEntity  = userRepository.findByUserId(userEmailId);
+      UserEntity userEntity  = userRepository.findByUserEmailId(userEmailId);
       if (userEntity == null) {
         filterChain.doFilter(request, response);
         return;

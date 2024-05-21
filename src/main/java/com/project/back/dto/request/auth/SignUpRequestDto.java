@@ -27,4 +27,7 @@ public class SignUpRequestDto
     private String userTelNumber; //전화번호
     @NotBlank
     private String userAddress; //주소
+    private String snsId;
+    @NotBlank
+    private String joinPath;
 }
