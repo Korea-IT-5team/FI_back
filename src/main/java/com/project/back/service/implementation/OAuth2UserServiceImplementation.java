@@ -18,7 +18,7 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class OAuth2UserSerivceImplementation extends DefaultOAuth2UserService {
+public class OAuth2UserServiceImplementation extends DefaultOAuth2UserService {
   private final UserRepository userRepository;
   private final AuthNumberRepository authNumberRepository;
   private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
