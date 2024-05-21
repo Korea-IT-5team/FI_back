@@ -9,9 +9,7 @@ import com.project.back.dto.response.ResponseMessage;
 import com.project.back.entity.UserEntity;
 
 // 로그인 유저 정보 반환 Response Body Dto
-
-public class GetUserInfoResponseDto extends ResponseDto
-{
+public class GetUserInfoResponseDto extends ResponseDto {
     private String userEmailId;
     private String nickname;
     private String userName;
@@ -19,22 +17,20 @@ public class GetUserInfoResponseDto extends ResponseDto
     private String userAddress;
     private String userRole;
     
-    private GetUserInfoResponseDto(UserEntity userEntity)
-    {
-        super(ResponseCode.SUCCESS,ResponseMessage.SUCCESS);
+    private GetUserInfoResponseDto(UserEntity userEntity) {
+        super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
         String writerId = userEntity.getUserEmailId();
-        writerId = writerId.substring(0, 4)+
-        "*".repeat(writerId.length()-4); 
-        this.userEmailId=writerId;
-        this.nickname=userEntity.getNickname();
+        writerId = writerId.substring(0, 4) +
+        "*".repeat(writerId.length() - 4); 
+        this.userEmailId = writerId;
+        this.nickname = userEntity.getNickname();
         this.userName = userEntity.getUserName();
         this.userTelNumber = userEntity.getUserTelNumber();
-        this.userAddress=userEntity.getUserAddress();
-        this.userRole=userEntity.getUserRole();
+        this.userAddress = userEntity.getUserAddress();
+        this.userRole = userEntity.getUserRole();
     }
 
-    public static ResponseEntity<GetUserInfoResponseDto> success(UserEntity userEntity)
-    {
+    public static ResponseEntity<GetUserInfoResponseDto> success(UserEntity userEntity) {
         GetUserInfoResponseDto responseBody = new GetUserInfoResponseDto(userEntity);
         return ResponseEntity.status(HttpStatus.OK).body(responseBody);
     }

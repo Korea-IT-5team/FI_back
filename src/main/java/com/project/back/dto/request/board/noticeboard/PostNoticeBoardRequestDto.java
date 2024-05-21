@@ -6,14 +6,12 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 //공지 게시물 작성 Request Body Dto
-
 @Getter
 @Setter
 @NoArgsConstructor
-public class PostNoticeBoardRequestDto 
-{
+public class PostNoticeBoardRequestDto {
     @NotBlank
-    private String noticeTitle; //공지 제목
+    private String noticeTitle;
     @NotBlank
-    private String noticeContents; //공지 내용
+    private String noticeContents;
 }

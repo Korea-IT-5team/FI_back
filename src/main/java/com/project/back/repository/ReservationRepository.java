@@ -8,13 +8,8 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.project.back.entity.ReservationEntity;
-
-// Estate 데이터베이스의 reservation 테이블의 작업을 위한 리포지토리
-
 @Repository
-public interface ReservationRepository extends JpaRepository<ReservationEntity,Integer> 
-{
- 
+public interface ReservationRepository extends JpaRepository<ReservationEntity,Integer> {
     @Query(
         value=
         "SELECT "

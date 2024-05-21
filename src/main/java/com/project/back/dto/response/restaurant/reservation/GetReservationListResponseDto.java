@@ -12,20 +12,16 @@ import com.project.back.dto.response.ResponseMessage;
 import com.project.back.repository.resultSet.GetRestaurantReservationListItemResultSet;
 
 // 식당 예약 내역 목록 확인 Response Body DTO
-
-public class GetReservationListResponseDto extends ResponseDto
-{
+public class GetReservationListResponseDto extends ResponseDto{
     private List<RestaurantReservationListItem> restaurantReservationList;
     
-    private GetReservationListResponseDto(List<GetRestaurantReservationListItemResultSet> getRestaurantReservationListItemResultSets) throws Exception
-    {
-        super(ResponseCode.SUCCESS,ResponseMessage.SUCCESS);
-        this.restaurantReservationList= RestaurantReservationListItem.getList(getRestaurantReservationListItemResultSets);
+    private GetReservationListResponseDto(List<GetRestaurantReservationListItemResultSet> getRestaurantReservationListItemResultSets) throws Exception {
+        super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
+        this.restaurantReservationList = RestaurantReservationListItem.getList(getRestaurantReservationListItemResultSets);
     }
 
     public static ResponseEntity<GetReservationListResponseDto> success(List<GetRestaurantReservationListItemResultSet> getRestaurantReservationListItemResultSets)
-    throws Exception
-    {
+    throws Exception {
         GetReservationListResponseDto responseBody = new GetReservationListResponseDto(getRestaurantReservationListItemResultSets);
         return ResponseEntity.status(HttpStatus.OK).body(responseBody);
     }
