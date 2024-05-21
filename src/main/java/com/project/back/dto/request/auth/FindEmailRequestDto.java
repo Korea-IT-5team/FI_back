@@ -10,10 +10,9 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class FindEmailRequestDto 
-{
+public class FindEmailRequestDto {
     @NotBlank
-    private String userName; //사용자의 이름
+    private String userName;
     @NotBlank
-    private String userTelNumber; //전화번호
+    private String userTelNumber;
 }

@@ -9,8 +9,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class TelNumberAuthRequestDto 
-{
+public class TelNumberAuthRequestDto {
     @NotBlank
-    private String userTelNumber; //사용자 전화번호
+    private String userTelNumber;
 }

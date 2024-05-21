@@ -3,7 +3,7 @@ package com.project.back.common.util;
 import java.util.Random;
 
 public class TelNumberAuthNumberUtil {
-  private static String createNumber() {
+  public static String createNumber() {
     String authNumber = "";
     Random random = new Random();
 

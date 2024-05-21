@@ -21,7 +21,7 @@ public class CustomOAuth2User implements OAuth2User {
     this.authorities = Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER"));
     this.status = status;
     this.joinPath = joinPath;
-  };
+  }
 
   @Override
   public Map<String, Object> getAttributes() {
@@ -45,5 +45,4 @@ public class CustomOAuth2User implements OAuth2User {
   public String getJoinPath() {
     return this.joinPath;
   }
-  
 }

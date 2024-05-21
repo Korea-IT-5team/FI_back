@@ -2,8 +2,6 @@ package com.project.back.service.implementation;
 
 import java.util.Map;
 
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
@@ -12,8 +10,6 @@ import org.springframework.stereotype.Service;
 
 import com.project.back.entity.UserEntity;
 import com.project.back.common.object.CustomOAuth2User;
-import com.project.back.entity.AuthNumberEntity;
-import com.project.back.repository.AuthNumberRepository;
 import com.project.back.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
