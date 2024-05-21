@@ -6,14 +6,12 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 //게시물 수정 Request Body Dto
-
 @Getter
 @Setter
 @NoArgsConstructor
-public class PatchInquiryBoardRequestDto 
-{
+public class PatchInquiryBoardRequestDto {
     @NotBlank
-    private String inquiryTitle; //문의 제목
+    private String inquiryTitle;
     @NotBlank
-    private String inquiryContents; // 문의 내용
+    private String inquiryContents;
 }

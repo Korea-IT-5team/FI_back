@@ -43,4 +43,5 @@ public class UserEntity {
         this.joinPath = dto.getJoinPath();
         this.snsId = dto.getSnsId();
     }
+
 }

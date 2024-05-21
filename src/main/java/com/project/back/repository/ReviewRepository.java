@@ -10,11 +10,8 @@ import org.springframework.stereotype.Repository;
 import com.project.back.entity.ReviewEntity;
 import com.project.back.repository.resultSet.GetRestaurantReviewListItemResultSet;
 
-// Estate 데이터베이스의 review 테이블의 작업을 위한 리포지토리
-
 @Repository
-public interface ReviewRepository extends JpaRepository<ReviewEntity,Integer> 
-{
+public interface ReviewRepository extends JpaRepository<ReviewEntity,Integer> {
     @Query(
         value=
         "SELECT "

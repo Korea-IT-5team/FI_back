@@ -10,12 +10,11 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class SignInRequestDto
-{
+public class SignInRequestDto {
     @NotBlank
     @Pattern(regexp = "^[a-zA-Z0-9]*@([-.]?[a-zA-Z0-9])*\\.[a-zA-Z]{2,4}$")
-    private String userEmailId; //사용자의 이메일
+    private String userEmailId;
     @NotBlank
     @Pattern(regexp = "^(?=.*[a-zA-Z])(?=.*[0-9]).{8,13}$")
-    private String password; //사용자의 비밀번호
+    private String password;
 }

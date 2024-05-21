@@ -5,13 +5,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-// 닉네임 중복 확인 Request Body Dto
-
+// 인증 번호 확인 Request Body Dto
 @Getter
 @Setter
 @NoArgsConstructor
-public class CheckNicknameDto 
-{
+public class CheckTelNumberAuthRequestDto {
     @NotBlank
-    private String nickname; //사용자의 닉네임
+    private String userTelNumber;
+    @NotBlank
+    private String authNumber;
 }

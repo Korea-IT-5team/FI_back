@@ -8,16 +8,14 @@ import com.project.back.entity.RestaurantEntity;
 import lombok.Getter;
 
 @Getter
-public class RestaurantListItem 
-{
+public class RestaurantListItem {
     private Integer restaurantId; 
     private String restaurantImage;
     private String restaurantName;
     private String restaurantFoodCategory;
     private String restaurantLocation;
 
-    private RestaurantListItem(RestaurantEntity restaurantEntity) throws Exception
-    {
+    private RestaurantListItem(RestaurantEntity restaurantEntity) throws Exception {
         this.restaurantId=restaurantEntity.getRestaurantId();
         this.restaurantImage=restaurantEntity.getRestaurantImage();
         this.restaurantName=restaurantEntity.getRestaurantName();
@@ -25,16 +23,13 @@ public class RestaurantListItem
         this.restaurantLocation=restaurantEntity.getRestaurantLocation();
     }
 
-    public static List<RestaurantListItem> getList(List<RestaurantEntity> restaurantEntities) throws Exception
-    {
+    public static List<RestaurantListItem> getList(List<RestaurantEntity> restaurantEntities) throws Exception {
         List<RestaurantListItem> restaurantList = new ArrayList<>();
 
-        for(RestaurantEntity restaurantEntity:restaurantEntities)
-        {
+        for(RestaurantEntity restaurantEntity:restaurantEntities) {
             RestaurantListItem restaurantListItem = new RestaurantListItem(restaurantEntity);
             restaurantList.add(restaurantListItem);
         }
-
         return restaurantList;
     }
 }

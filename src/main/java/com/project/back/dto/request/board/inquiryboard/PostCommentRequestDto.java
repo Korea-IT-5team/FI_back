@@ -6,12 +6,10 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 //게시물 답글 작성 Request Body Dto
-
 @Getter
 @Setter
 @NoArgsConstructor
-public class PostCommentRequestDto 
-{
+public class PostCommentRequestDto {
     @NotBlank
-    private String inquiryComment; //답글 내용
+    private String inquiryComment;
 }
