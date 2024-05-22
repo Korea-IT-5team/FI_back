@@ -10,7 +10,6 @@ import com.project.back.dto.response.ResponseCode;
 import com.project.back.dto.response.ResponseDto;
 import com.project.back.dto.response.ResponseMessage;
 import com.project.back.entity.RestaurantEntity;
-import com.project.back.entity.ReviewEntity;
 import com.project.back.repository.resultSet.GetRestaurantReviewListItemResultSet;
 
 import lombok.Getter;
@@ -40,7 +39,7 @@ public class  GetRestaurantInfoResponseDto extends ResponseDto {
         this.restaurantImage = restaurantEntity.getRestaurantImage();
         this.restaurantName = restaurantEntity.getRestaurantName();
         this.restaurantFoodCategory = restaurantEntity.getRestaurantFoodCategory();
-        this.restaurantPostalCode = restaurantEntity.getPostalCode();
+        this.restaurantPostalCode = restaurantEntity.getRestaurantPostalCode();
         this.restaurantLocation = restaurantEntity.getRestaurantLocation();
         this.restaurantTelNumber = restaurantEntity.getRestaurantTelNumber();
         this.restaurantSnsAddress = restaurantEntity.getRestaurantSnsAddress();

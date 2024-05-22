@@ -25,7 +25,7 @@ public class RestaurantEntity {
     private Integer restaurantId; 
     private String restaurantName;
     private String restaurantFoodCategory;
-    private String postalCode;
+    private String restaurantPostalCode;
     private String restaurantLocation;
     private String restaurantTelNumber;
     private String restaurantSnsAddress;
@@ -40,7 +40,7 @@ public class RestaurantEntity {
     public RestaurantEntity(PostRestaurantInfoRequestDto dto, String userEmailId) {
         this.restaurantName = dto.getRestaurantName();
         this.restaurantFoodCategory = dto.getRestaurantFoodCategory();
-        this.postalCode = dto.getPostalCode();
+        this.restaurantPostalCode = dto.getRestaurantPostalCode();
         this.restaurantLocation = dto.getRestaurantLocation();
         this.restaurantTelNumber = dto.getRestaurantTelNumber();
         this.restaurantSnsAddress = dto.getRestaurantSnsAddress();
@@ -56,7 +56,7 @@ public class RestaurantEntity {
     public void updateRestaurantInfo(PatchRestaurantInfoRequestDto dto) {
         this.restaurantName = dto.getRestaurantName();
         this.restaurantFoodCategory = dto.getRestaurantFoodCategory();
-        this.postalCode = dto.getPostalCode();
+        this.restaurantPostalCode = dto.getRestaurantPostalCode();
         this.restaurantLocation = dto.getRestaurantLocation();
         this.restaurantTelNumber = dto.getRestaurantTelNumber();
         this.restaurantSnsAddress = dto.getRestaurantSnsAddress();
