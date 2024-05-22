@@ -17,8 +17,10 @@ import com.project.back.dto.response.restaurant.GetRestaurantListResponseDto;
 import com.project.back.dto.response.restaurant.favorite.GetFavoriteListResponseDto;
 import com.project.back.dto.response.restaurant.reservation.GetReservationListResponseDto;
 import com.project.back.dto.response.restaurant.reservation.GetReservationResponseDto;
+import com.project.back.entity.FavoriteRestaurantEntity;
 import com.project.back.entity.ReservationEntity;
 import com.project.back.entity.RestaurantEntity;
+import com.project.back.entity.ReviewEntity;
 import com.project.back.repository.FavoriteRestaurantRepository;
 import com.project.back.repository.ReservationRepository;
 import com.project.back.repository.RestaurantRepository;
@@ -156,10 +158,15 @@ public class RestaurantServiceImplementation implements RestaurantService{
         }
         return ResponseDto.success();
     }
-
+    
     @Override
-    public ResponseEntity<ResponseDto> patchReview(PatchReviewRequestDto dto) {
+    public ResponseEntity<ResponseDto> postReview(PostReviewRequestDto dto, String restaurantId ,String userEmailId) {
         try {
+            boolean isExistUser = userRepository.existsByUserEmailId(userEmailId);
+            if (!isExistUser) return ResponseDto.authenticationFailed();
+
+            ReviewEntity reviewEntity = new ReviewEntity();
+            reviewRepository.save(reviewEntity);
 
         } catch (Exception exception) {
             exception.printStackTrace();
@@ -169,25 +176,42 @@ public class RestaurantServiceImplementation implements RestaurantService{
     }
 
     @Override
-    public ResponseEntity<ResponseDto> postReview(PostReviewRequestDto dto) {
+    public ResponseEntity<ResponseDto> patchReview(PatchReviewRequestDto dto, int reviewRestaurantId) {
         try {
-            
+            ReviewEntity reviewEntity = reviewRepository.findByReviewRestaurantId(reviewRestaurantId);
+            if ( reviewEntity == null ) return ResponseDto.no
+
         } catch (Exception exception) {
             exception.printStackTrace();
             return ResponseDto.databaseError();
         }
+        return ResponseDto.success();
+    }
+
+    @Override
+    public ResponseEntity<ResponseDto> deleteReview(int reviewRestaurantId, String userEmailId) {
+        try {
+            ReviewEntity reviewEntity = reviewRepository.
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+
         return ResponseDto.success();
     }
 
     @Override
     public ResponseEntity<? super GetFavoriteListResponseDto> getFavoriteList() {
         try {
-
+            List<FavoriteRestaurantEntity> favoriteRestaurantEntities = favoriteRestaurantRepository.findByOrderByReviewRestaurantIdDesc(); 
+            return GetFavoriteListResponseDto.success(favoriteRestaurantEntities);
         } catch (Exception exception) {
             exception.printStackTrace();
             return ResponseDto.databaseError();
         }
-        return ResponseDto.success();
+        
     }
+
+    
 
 }

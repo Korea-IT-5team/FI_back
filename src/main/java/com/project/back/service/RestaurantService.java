@@ -29,8 +29,9 @@ public interface RestaurantService {
     ResponseEntity<ResponseDto> postReservation (PostReservationRequestDto dto, String restaurantId);
     
     // 식당 리뷰
-    ResponseEntity<ResponseDto> patchReview (PatchReviewRequestDto dto);
-    ResponseEntity<ResponseDto> postReview (PostReviewRequestDto dto);
+    ResponseEntity<ResponseDto> patchReview (PatchReviewRequestDto dto, int reviewRestaurantId);
+    ResponseEntity<ResponseDto> postReview (PostReviewRequestDto dto, String restaurantId ,String userEmailId);
+    ResponseEntity<ResponseDto> deleteReview (String reviewRestaurantId);
 
     // 식당 찜
     ResponseEntity<? super GetFavoriteListResponseDto> getFavoriteList();

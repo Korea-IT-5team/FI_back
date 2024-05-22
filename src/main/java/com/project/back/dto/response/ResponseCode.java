@@ -33,6 +33,7 @@ public interface ResponseCode {
     String RESET_LINK_SEND_FAILED = "SF";
     String NO_EXIST_RESTAURANT = "NR"; 
     String NO_EXIST_RESERVATION = "NR";
+    String NO_EXIST_REVIEW = "NR";
     String NO_EXIST_BOARD = "NB";
     String NO_EXIST_INQUIRY_BOARD = "NB";
 }

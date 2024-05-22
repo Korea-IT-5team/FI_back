@@ -28,4 +28,8 @@ public interface ReviewRepository extends JpaRepository<ReviewEntity,Integer> {
         nativeQuery = true
     )
     List<GetRestaurantReviewListItemResultSet[]> findReviewsByRestaurantId(@Param("restaurantId") int restaurantId);
+    ReviewEntity findByReviewRestaurantId(int reviewRestaurantId);
+    
+
+    
 }
