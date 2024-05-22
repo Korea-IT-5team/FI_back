@@ -51,6 +51,7 @@ public class AuthServiceImplementation implements AuthService {
       if (userEntity == null) return ResponseDto.signInFailed();
 
       String encodedPassword = userEntity.getPassword();
+
       boolean isMatched = passwordEncoder.matches(password, encodedPassword);
       if (!isMatched) return ResponseDto.signInFailed();
 
@@ -67,6 +68,7 @@ public class AuthServiceImplementation implements AuthService {
   public ResponseEntity<ResponseDto> emailIdCheck(CheckEmailIdRequestDto dto) {
     try {
       String userEmailId = dto.getUserEmailId();
+
       boolean existedUser = userRepository.existsByUserEmailId(userEmailId);
       if (existedUser) return ResponseDto.duplicatedEmailId();
     } catch (Exception exception) {
@@ -80,6 +82,7 @@ public class AuthServiceImplementation implements AuthService {
   public ResponseEntity<ResponseDto> nicknameCheck(CheckNicknameRequestDto dto) {
     try {
       String nickname = dto.getNickname();
+
       boolean existedNickname = userRepository.existsByNickname(nickname);
       if (existedNickname) return ResponseDto.duplicatedNickname();
     } catch (Exception exception) {
@@ -155,7 +158,11 @@ public class AuthServiceImplementation implements AuthService {
   @Override
   public ResponseEntity<? super FindEmailResponseDto> findEmail(FindEmailRequestDto dto) {
     try {
-      
+      String userName = dto.getUserName();
+      String userTelNumber = dto.getUserTelNumber();
+
+      boolean isMatched = userRepository.exexistsByUserNameAndUserTelNumber(userName, userTelNumber);
+      if (!isMatched) return ResponseDto.authenticationFailed();
     } catch(Exception exception) {
       exception.printStackTrace();
       return ResponseDto.databaseError();
@@ -180,6 +187,7 @@ public class AuthServiceImplementation implements AuthService {
   public ResponseEntity<ResponseDto> newPassword(NewPasswordRequestDto dto, String userEmailId) {
     try {
       UserEntity userEntity = userRepository.findByUserEmailId(userEmailId);
+
       boolean isUser = userEmailId.equals(userEmailId);
       if (!isUser) return ResponseDto.notFound();
 
