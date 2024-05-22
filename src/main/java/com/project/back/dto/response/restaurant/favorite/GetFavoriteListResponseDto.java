@@ -12,7 +12,6 @@ import com.project.back.dto.response.ResponseMessage;
 import com.project.back.entity.FavoriteRestaurantEntity;
 import com.project.back.entity.RestaurantEntity;
 
-//  찜(저장)한 식당 내역 목록 확인 Response Body DTO
 public class GetFavoriteListResponseDto extends ResponseDto{
     private String favoriteUserId;
     private Integer favoriteRestaurantId;

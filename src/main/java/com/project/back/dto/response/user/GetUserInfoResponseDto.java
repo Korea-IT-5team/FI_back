@@ -8,7 +8,6 @@ import com.project.back.dto.response.ResponseDto;
 import com.project.back.dto.response.ResponseMessage;
 import com.project.back.entity.UserEntity;
 
-// 로그인 유저 정보 반환 Response Body Dto
 public class GetUserInfoResponseDto extends ResponseDto {
     private String userEmailId;
     private String nickname;

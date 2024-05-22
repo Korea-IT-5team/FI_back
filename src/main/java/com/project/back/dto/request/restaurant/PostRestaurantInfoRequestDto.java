@@ -5,12 +5,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-// 식당 정보 등록 Request Body Dto
 @Getter
 @Setter
 @NoArgsConstructor
-public class PostRestaurantInfoRequestDto 
-{
+public class PostRestaurantInfoRequestDto {
     @NotBlank
     private String restaurantImage;
     @NotBlank

@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-//식당 예약 Request Body Dto
 @Getter
 @Setter
 @NoArgsConstructor

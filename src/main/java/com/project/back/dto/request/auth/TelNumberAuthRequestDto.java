@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-// 전화번호 인증번호 전송 Request Body Dto
 @Getter
 @Setter
 @NoArgsConstructor

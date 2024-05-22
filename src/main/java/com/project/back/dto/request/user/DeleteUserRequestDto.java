@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-// 회원탈퇴 Request Body Dto
 @Getter
 @Setter
 @NoArgsConstructor

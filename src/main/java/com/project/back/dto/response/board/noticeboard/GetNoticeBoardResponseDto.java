@@ -9,7 +9,6 @@ import com.project.back.dto.response.ResponseDto;
 import com.project.back.dto.response.ResponseMessage;
 import com.project.back.entity.NoticeBoardEntity;
 
-// 공지 게시물 확인 Reponse Body DTO
 public class GetNoticeBoardResponseDto extends ResponseDto {
     private Integer noticeNumber;
     private String noticeTitle;

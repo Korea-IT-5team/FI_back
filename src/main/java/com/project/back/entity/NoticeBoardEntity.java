@@ -10,7 +10,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Entity(name="notice_board")
+@Entity(name="noticeBoard")
 @Table(name="notice_board")
 @Getter
 @Setter
