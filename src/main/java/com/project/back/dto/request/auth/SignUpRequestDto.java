@@ -19,13 +19,13 @@ public class SignUpRequestDto {
     @Pattern(regexp="^(?=.*[a-zA-Z])(?=.*[0-9]).{8,13}$")
     private String password;
     @NotBlank
-    private String authNumber;
-    @NotBlank
     private String nickname;
     @NotBlank
     private String userName;
     @NotBlank
     private String userTelNumber;
+    @NotBlank
+    private String authNumber;
     @NotBlank
     private String userAddress;
     private String snsId;
