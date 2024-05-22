@@ -25,12 +25,13 @@ public interface RestaurantService {
     // 식당 예약
     ResponseEntity<? super GetReservationResponseDto> getReservation(int reservationNumber);
     ResponseEntity<? super GetReservationListResponseDto> getReservationList();
-    ResponseEntity<ResponseDto> deleteReservation(DeleteReservationRequestDto dto, String restaurantId);
-    ResponseEntity<ResponseDto> postReservation (PostReservationRequestDto dto);
+    ResponseEntity<ResponseDto> deleteReservation(DeleteReservationRequestDto dto, String restaurantId,int reservationNumber);
+    ResponseEntity<ResponseDto> postReservation (PostReservationRequestDto dto, String restaurantId);
     
     // 식당 리뷰
-    ResponseEntity<ResponseDto> patchReview (PatchReviewRequestDto dto);
-    ResponseEntity<ResponseDto> postReview (PostReviewRequestDto dto);
+    ResponseEntity<ResponseDto> patchReview (PatchReviewRequestDto dto, int reviewRestaurantId);
+    ResponseEntity<ResponseDto> postReview (PostReviewRequestDto dto, String restaurantId ,String userEmailId);
+    ResponseEntity<ResponseDto> deleteReview (String reviewRestaurantId);
 
     // 식당 찜
     ResponseEntity<? super GetFavoriteListResponseDto> getFavoriteList();

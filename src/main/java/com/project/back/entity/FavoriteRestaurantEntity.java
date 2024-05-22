@@ -22,4 +22,6 @@ public class FavoriteRestaurantEntity {
     private String favoriteUserId; 
     private Integer favoriteRestaurantId; 
     private Integer favoriteCount;
+
+    
 }
