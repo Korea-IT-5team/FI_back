@@ -9,7 +9,6 @@ import com.project.back.dto.response.ResponseDto;
 import com.project.back.dto.response.ResponseMessage;
 import com.project.back.entity.InquiryBoardEntity;
 
-// 문의 게시물 확인 Reponse Body DTO
 public class GetInquiryBoardResponseDto extends ResponseDto{
     private Integer inquiryNumber;
     private String inquiryTitle;

@@ -11,7 +11,6 @@ import com.project.back.dto.response.ResponseDto;
 import com.project.back.dto.response.ResponseMessage;
 import com.project.back.entity.InquiryBoardEntity;
 
-// 문의 게시물 목록 확인 Response Body DTO
 public class GetInquiryBoardListResponseDto extends ResponseDto {
     private List<InquiryBoardListItem> inquiryBoardList;
     

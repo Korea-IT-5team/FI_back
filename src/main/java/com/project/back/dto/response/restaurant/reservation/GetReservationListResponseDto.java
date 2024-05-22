@@ -11,7 +11,6 @@ import com.project.back.dto.response.ResponseDto;
 import com.project.back.dto.response.ResponseMessage;
 import com.project.back.repository.resultSet.GetRestaurantReservationListItemResultSet;
 
-// 식당 예약 내역 목록 확인 Response Body DTO
 public class GetReservationListResponseDto extends ResponseDto{
     private List<RestaurantReservationListItem> restaurantReservationList;
     

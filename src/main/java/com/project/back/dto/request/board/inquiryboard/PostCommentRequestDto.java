@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-//게시물 답글 작성 Request Body Dto
 @Getter
 @Setter
 @NoArgsConstructor

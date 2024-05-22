@@ -6,8 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-// 새로운 비밀번호 설정 RequestBody Dto
-
 @Getter
 @Setter
 @NoArgsConstructor

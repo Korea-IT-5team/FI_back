@@ -6,8 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-// 비밀번호 재설정 요청 Request Body Dto
-
 @Getter
 @Setter
 @NoArgsConstructor

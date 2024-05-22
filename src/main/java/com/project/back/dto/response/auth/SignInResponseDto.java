@@ -7,7 +7,6 @@ import com.project.back.dto.response.ResponseCode;
 import com.project.back.dto.response.ResponseDto;
 import com.project.back.dto.response.ResponseMessage;
 
-// 로그인 Response Body DTO 
 public class SignInResponseDto extends ResponseDto{
     private String accessToken;
     private int expires;

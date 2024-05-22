@@ -11,7 +11,6 @@ import com.project.back.dto.response.ResponseDto;
 import com.project.back.dto.response.ResponseMessage;
 import com.project.back.entity.RestaurantEntity;
 
-// 식당 목록 검색 Response Body DTO
 public class GetRestaurantListResponseDto extends ResponseDto {
     private List<RestaurantListItem> restaurantList;
     

@@ -10,7 +10,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Entity(name="Favorite_Restaurant")
+@Entity(name="favoriteRestaurant")
 @Table(name="Favorite_Restaurant")
 @Getter
 @Setter

@@ -11,7 +11,6 @@ import com.project.back.dto.response.ResponseDto;
 import com.project.back.dto.response.ResponseMessage;
 import com.project.back.entity.NoticeBoardEntity;
 
-// 검색 공지 게시물 목록 확인 Response Body DTO
 public class GetSearchNoticeBoardResponseDto extends ResponseDto{
     private List<NoticeBoardListItem> noticeBoardList;
     

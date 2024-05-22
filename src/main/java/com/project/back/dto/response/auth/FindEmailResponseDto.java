@@ -10,7 +10,6 @@ import com.project.back.entity.UserEntity;
 
 import lombok.Getter;
 
-// 이메일 찾기 Response Body Dto
 @Getter 
 public class FindEmailResponseDto extends ResponseDto{
     private String userEmailId;

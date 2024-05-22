@@ -5,8 +5,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-// 닉네임 중복 확인 Request Body Dto
-
 @Getter
 @Setter
 @NoArgsConstructor

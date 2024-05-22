@@ -12,7 +12,6 @@ import com.project.back.dto.response.ResponseMessage;
 import com.project.back.entity.RestaurantEntity;
 import com.project.back.repository.resultSet.GetRestaurantReviewListItemResultSet;
 
-// 특정 식당 정보 Response Body DTO
 public class GetRestaurantInfoResponseDto extends ResponseDto {
     private Integer restaurantId; 
     private String restaurantImage;
