@@ -24,7 +24,7 @@ import com.project.back.repository.ReservationRepository;
 import com.project.back.repository.RestaurantRepository;
 import com.project.back.repository.ReviewRepository;
 import com.project.back.repository.UserRepository;
-import com.project.back.repository.resultSet.GetRestaurantReservationListItemResultSet;
+
 import com.project.back.service.RestaurantService;
 
 import lombok.RequiredArgsConstructor;
@@ -36,7 +36,7 @@ public class RestaurantServiceImplementation implements RestaurantService{
     private final ReservationRepository reservationRepository;
     private final FavoriteRestaurantRepository favoriteRestaurantRepository;
     private final ReviewRepository reviewRepository;
-    private final GetRestaurantReservationListItemResultSet restaurantReservationListItemResultSet;
+    
     private final UserRepository userRepository;
 
     @Override
@@ -126,9 +126,14 @@ public class RestaurantServiceImplementation implements RestaurantService{
     }
 
     @Override
-    public ResponseEntity<ResponseDto> deleteReservation(DeleteReservationRequestDto dto, String restaurantId) {
+    public ResponseEntity<ResponseDto> deleteReservation(DeleteReservationRequestDto dto, String restaurantId, int reservationNumber) {
         try {
+            ReservationEntity reservationEntity = reservationRepository.findByReservationNumber(reservationNumber);
+            if (reservationEntity == null) return ResponseDto.noExistReservation();
 
+            String writerId = reservationEntity.getReservationUserId();
+            boolean isWriter = restaurantId.equals(writerId);
+            if (!isWriter) return ResponseDto.authorizationFailed();
         } catch (Exception exception) {
             exception.printStackTrace();
             return ResponseDto.databaseError();
@@ -137,8 +142,13 @@ public class RestaurantServiceImplementation implements RestaurantService{
     }
 
     @Override
-    public ResponseEntity<ResponseDto> postReservation(PostReservationRequestDto dto) {
+    public ResponseEntity<ResponseDto> postReservation(PostReservationRequestDto dto, String restaurantId) {
         try {
+            boolean isExistUser = userRepository.existsByUserEmailId(restaurantId);
+            if (!isExistUser) return ResponseDto.authenticationFailed();
+
+            ReservationEntity reservationEntity = new ReservationEntity();
+            reservationRepository.save(reservationEntity);
 
         } catch (Exception exception) {
             exception.printStackTrace();
@@ -161,7 +171,7 @@ public class RestaurantServiceImplementation implements RestaurantService{
     @Override
     public ResponseEntity<ResponseDto> postReview(PostReviewRequestDto dto) {
         try {
-
+            
         } catch (Exception exception) {
             exception.printStackTrace();
             return ResponseDto.databaseError();
