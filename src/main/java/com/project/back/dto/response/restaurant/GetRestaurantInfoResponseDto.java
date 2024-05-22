@@ -12,6 +12,9 @@ import com.project.back.dto.response.ResponseMessage;
 import com.project.back.entity.RestaurantEntity;
 import com.project.back.repository.resultSet.GetRestaurantReviewListItemResultSet;
 
+import lombok.Getter;
+
+@Getter
 public class GetRestaurantInfoResponseDto extends ResponseDto {
     private Integer restaurantId; 
     private String restaurantImage;
