@@ -9,7 +9,6 @@ import com.project.back.common.object.restaurant.reservation.RestaurantReservati
 import com.project.back.dto.response.ResponseCode;
 import com.project.back.dto.response.ResponseDto;
 import com.project.back.dto.response.ResponseMessage;
-import com.project.back.entity.ReservationEntity;
 import com.project.back.repository.resultSet.GetRestaurantReservationListItemResultSet;
 
 import lombok.Getter;
@@ -17,24 +16,17 @@ import lombok.Getter;
 @Getter
 public class GetReservationResponseDto extends ResponseDto{
 
-    private Integer reservationNumber;
-    private Integer reservationPeople;
-    private Boolean reservationStatus;
-    private String reservationRestaurantId;
-    private String reservationUserId;
-    private String reservationDate;
-    private String reservationTime;
-
-    private List<ReservationEntity> restaurantReservationList;
+   
+    private List<RestaurantReservationListItem> restaurantReservationList;
     
-    private GetReservationResponseDto(List<ReservationEntity> getRestaurantReservationListItemResultSets) throws Exception {
+    private GetReservationResponseDto(List<GetRestaurantReservationListItemResultSet> reservationEntities) throws Exception {
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
-        this.restaurantReservationList = RestaurantReservationListItem.getList(getRestaurantReservationListItemResultSets);
+        this.restaurantReservationList = RestaurantReservationListItem.getList(reservationEntities);
     }
 
-    public static ResponseEntity<GetReservationResponseDto> success(List<ReservationEntity> getRestaurantReservationListItemResultSets)
+    public static ResponseEntity<GetReservationResponseDto> success(List<GetRestaurantReservationListItemResultSet> reservationEntities)
     throws Exception {
-        GetReservationResponseDto responseBody = new GetReservationResponseDto(getRestaurantReservationListItemResultSets);
+        GetReservationResponseDto responseBody = new GetReservationResponseDto(reservationEntities);
         return ResponseEntity.status(HttpStatus.OK).body(responseBody);
     }
 }

@@ -21,12 +21,12 @@ import com.project.back.entity.FavoriteRestaurantEntity;
 import com.project.back.entity.ReservationEntity;
 import com.project.back.entity.RestaurantEntity;
 import com.project.back.entity.ReviewEntity;
-import com.project.back.entity.UserEntity;
 import com.project.back.repository.FavoriteRestaurantRepository;
 import com.project.back.repository.ReservationRepository;
 import com.project.back.repository.RestaurantRepository;
 import com.project.back.repository.ReviewRepository;
 import com.project.back.repository.UserRepository;
+import com.project.back.repository.resultSet.GetRestaurantReservationListItemResultSet;
 import com.project.back.repository.resultSet.GetRestaurantReviewListItemResultSet;
 import com.project.back.service.RestaurantService;
 
@@ -34,7 +34,8 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class RestaurantServiceImplementation implements RestaurantService{
+public class RestaurantServiceImplementation implements RestaurantService
+{
     private final RestaurantRepository restaurantRepository;
     private final ReservationRepository reservationRepository;
     private final FavoriteRestaurantRepository favoriteRestaurantRepository;
@@ -43,7 +44,8 @@ public class RestaurantServiceImplementation implements RestaurantService{
     private final UserRepository userRepository;
 
     @Override
-    public ResponseEntity<? super GetRestaurantListResponseDto> getRestaurantList(String searchWord) {
+    public ResponseEntity<? super GetRestaurantListResponseDto> getRestaurantList(String searchWord) 
+    {
         try {
             List<RestaurantEntity> restaurantEntities = restaurantRepository.findByOrderByRestaurantIdDesc();
             return GetRestaurantListResponseDto.success(restaurantEntities);
@@ -104,13 +106,14 @@ public class RestaurantServiceImplementation implements RestaurantService{
         return ResponseDto.success();
     }
 
+    //
     @Override
     public ResponseEntity<? super GetReservationResponseDto> getReservation(int reservationNumber) {
         try {
-            ReservationEntity reservationEntity = reservationRepository.findByReservationNumber(reservationNumber);
-            if (reservationEntity == null) return ResponseDto.noExistReservation();
+            List<GetRestaurantReservationListItemResultSet> reservationEntities = reservationRepository.findReservationsByReservationNumber(reservationNumber);
+            if (reservationEntities == null) return ResponseDto.noExistReservation();
 
-            return GetReservationResponseDto.success(reservationEntity);
+            return GetReservationResponseDto.success(reservationEntities);
 
         } catch (Exception exception) {
             exception.printStackTrace();
@@ -119,16 +122,17 @@ public class RestaurantServiceImplementation implements RestaurantService{
     }
 
     @Override
-    public ResponseEntity<? super GetReservationListResponseDto> getReservationList() {
+    public ResponseEntity<? super GetReservationListResponseDto> getReservationList(String userEmailId) {
         try {
-            List<ReservationEntity> reservationEntities = restaurantRepository.findByOrderByReservationNumberDesc();
-            return GetReservationListResponseDto.success();
+            List<GetRestaurantReservationListItemResultSet> reservationEntities = reservationRepository.findReservationsByUserId(userEmailId);
+            return GetReservationListResponseDto.success(reservationEntities);
         } catch (Exception exception) {
             exception.printStackTrace();
             return ResponseDto.databaseError();
         }
         
     }
+    //
     
     @Override
     public ResponseEntity<ResponseDto> postReservation(PostReservationRequestDto dto, String restaurantId) {
@@ -246,5 +250,5 @@ public class RestaurantServiceImplementation implements RestaurantService{
             // TODO: handle exception
         }
     
-
+    }
 }

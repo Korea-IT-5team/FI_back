@@ -17,14 +17,14 @@ import lombok.Getter;
 public class GetReservationListResponseDto extends ResponseDto{
     private List<RestaurantReservationListItem> restaurantReservationList;
     
-    private GetReservationListResponseDto(List<GetRestaurantReservationListItemResultSet> getRestaurantReservationListItemResultSets) throws Exception {
+    private GetReservationListResponseDto(List<GetRestaurantReservationListItemResultSet> reservationEntities) throws Exception {
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
-        this.restaurantReservationList = RestaurantReservationListItem.getList(getRestaurantReservationListItemResultSets);
+        this.restaurantReservationList = RestaurantReservationListItem.getList(reservationEntities);
     }
 
-    public static ResponseEntity<GetReservationListResponseDto> success(List<GetRestaurantReservationListItemResultSet> getRestaurantReservationListItemResultSets)
+    public static ResponseEntity<GetReservationListResponseDto> success(List<GetRestaurantReservationListItemResultSet> reservationEntities)
     throws Exception {
-        GetReservationListResponseDto responseBody = new GetReservationListResponseDto(getRestaurantReservationListItemResultSets);
+        GetReservationListResponseDto responseBody = new GetReservationListResponseDto(reservationEntities);
         return ResponseEntity.status(HttpStatus.OK).body(responseBody);
     }
 }
