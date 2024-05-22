@@ -6,6 +6,9 @@ import java.util.List;
 import com.project.back.common.util.ChangeDateFormatUtil;
 import com.project.back.entity.InquiryBoardEntity;
 
+import lombok.Getter;
+
+@Getter
 public class InquiryBoardListItem {
     private Integer inquiryNumber;
     private boolean inquiryStatus;

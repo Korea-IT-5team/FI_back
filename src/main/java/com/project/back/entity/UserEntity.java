@@ -1,6 +1,7 @@
 package com.project.back.entity;
 
 import com.project.back.dto.request.auth.SignUpRequestDto;
+import com.project.back.dto.request.user.PatchUserInfoRequestDto;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -39,5 +40,10 @@ public class UserEntity {
         this.userRole = "ROLE_USER";
         this.joinPath = dto.getJoinPath();
         this.snsId = dto.getSnsId();
+    }
+
+    public void update(PatchUserInfoRequestDto dto) {
+        this.nickname = dto.getNickName();
+        this.userAddress = dto.getUserAddress();
     }
 }

@@ -6,6 +6,9 @@ import java.util.List;
 import com.project.back.common.util.ChangeDateFormatUtil;
 import com.project.back.entity.NoticeBoardEntity;
 
+import lombok.Getter;
+
+@Getter
 public class NoticeBoardListItem {
     private Integer noticeNumber;
     private String noticeTitle;

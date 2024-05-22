@@ -6,6 +6,9 @@ import java.util.List;
 import com.project.back.common.util.ChangeDateFormatUtil;
 import com.project.back.repository.resultSet.GetRestaurantReservationListItemResultSet;
 
+import lombok.Getter;
+
+@Getter
 public class RestaurantReservationListItem {
     private Integer reservationNumber;
     private boolean reservationStatus;
