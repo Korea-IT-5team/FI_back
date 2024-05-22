@@ -15,7 +15,7 @@ import com.project.back.repository.resultSet.GetRestaurantReviewListItemResultSe
 import lombok.Getter;
 
 @Getter
-public class GetRestaurantInfoResponseDto extends ResponseDto {
+public class  GetRestaurantInfoResponseDto extends ResponseDto {
     private Integer restaurantId; 
     private String restaurantImage;
     private String restaurantName;
@@ -32,30 +32,29 @@ public class GetRestaurantInfoResponseDto extends ResponseDto {
     private String restaurantWriterId;
     private List<RestaurantReviewListItem> restaurantReviewList;
     
-    
-    private GetRestaurantInfoResponseDto(RestaurantEntity restaurantEntity,List<GetRestaurantReviewListItemResultSet> getRestaurantReviewListItemResultSetList)
+    private GetRestaurantInfoResponseDto(RestaurantEntity restaurantEntity, List<GetRestaurantReviewListItemResultSet> reviewEntities)
     throws Exception {
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
         this.restaurantId = restaurantEntity.getRestaurantId();
-        this.restaurantImage= restaurantEntity.getRestaurantImage();
-        this.restaurantName=restaurantEntity.getRestaurantName();
-        this.restaurantFoodCategory=restaurantEntity.getRestaurantFoodCategory();
-        this.restaurantPostalCode=restaurantEntity.getPostalCode();
-        this.restaurantLocation=restaurantEntity.getRestaurantLocation();
-        this.restaurantTelNumber=restaurantEntity.getRestaurantTelNumber();
-        this.restaurantSnsAddress=restaurantEntity.getRestaurantSnsAddress();
-        this.restaurantOperationHours=restaurantEntity.getRestaurantOperationHours();
-        this.restaurantFeatures=restaurantEntity.getRestaurantFeatures();
-        this.restaurantNotice=restaurantEntity.getRestaurantNotice();
-        this.restaurantRepresentativeMenu=restaurantEntity.getRestaurantRepresentativeMenu();
-        this.restaurantBusinessRegistrationNumber=restaurantEntity.getRestaurantBusinessRegistrationNumber();
-        this.restaurantWriterId =restaurantEntity.getRestaurantWriterId();
-        this.restaurantReviewList=RestaurantReviewListItem.getList(getRestaurantReviewListItemResultSetList);
+        this.restaurantImage = restaurantEntity.getRestaurantImage();
+        this.restaurantName = restaurantEntity.getRestaurantName();
+        this.restaurantFoodCategory = restaurantEntity.getRestaurantFoodCategory();
+        this.restaurantPostalCode = restaurantEntity.getRestaurantPostalCode();
+        this.restaurantLocation = restaurantEntity.getRestaurantLocation();
+        this.restaurantTelNumber = restaurantEntity.getRestaurantTelNumber();
+        this.restaurantSnsAddress = restaurantEntity.getRestaurantSnsAddress();
+        this.restaurantOperationHours = restaurantEntity.getRestaurantOperationHours();
+        this.restaurantFeatures = restaurantEntity.getRestaurantFeatures();
+        this.restaurantNotice = restaurantEntity.getRestaurantNotice();
+        this.restaurantRepresentativeMenu = restaurantEntity.getRestaurantRepresentativeMenu();
+        this.restaurantBusinessRegistrationNumber = restaurantEntity.getRestaurantBusinessRegistrationNumber();
+        this.restaurantWriterId = restaurantEntity.getRestaurantWriterId();
+        this.restaurantReviewList = RestaurantReviewListItem.getList(reviewEntities);
     }
 
-    public static ResponseEntity<GetRestaurantInfoResponseDto> success(RestaurantEntity restaurantEntity,List<GetRestaurantReviewListItemResultSet> getRestaurantReviewListItemResultSetList)
+    public static ResponseEntity<GetRestaurantInfoResponseDto> success(RestaurantEntity restaurantEntity,List<GetRestaurantReviewListItemResultSet> getRestaurantReviewListItemResultSets)
     throws Exception {
-        GetRestaurantInfoResponseDto responseBody = new GetRestaurantInfoResponseDto(restaurantEntity,getRestaurantReviewListItemResultSetList);
+        GetRestaurantInfoResponseDto responseBody = new GetRestaurantInfoResponseDto(restaurantEntity,getRestaurantReviewListItemResultSets);
         return ResponseEntity.status(HttpStatus.OK).body(responseBody);
     }
 }

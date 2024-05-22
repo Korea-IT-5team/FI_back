@@ -5,6 +5,7 @@ import java.time.Instant;
 import java.util.Date;
 
 import com.project.back.dto.request.restaurant.PostRestaurantInfoRequestDto;
+import com.project.back.dto.request.restaurant.review.PatchReviewRequestDto;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -45,6 +46,13 @@ public class ReviewEntity {
         this.reviewDate = reviewDate;
         this.reviewImage = dto.getReviewImage();
         
+    }
+
+    public void updateReview (PatchReviewRequestDto dto){
+        
+        this.rating = dto.getRating();
+        this.reviewContents = dto.getReviewContents();
+        this.reviewImage = dto.getReviewImage();
     }
 }
 

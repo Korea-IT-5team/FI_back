@@ -16,26 +16,17 @@ import lombok.Getter;
 @Getter
 public class GetReservationResponseDto extends ResponseDto{
 
-    private Integer reservationNumber;
-    private Integer reservationPeople;
-    private Boolean reservationStatus;
-    private String reservationRestaurantId;
-    private String reservationUserId;
-    private String reservationDate;
-    private String reservationTime;
-
-
-
+   
     private List<RestaurantReservationListItem> restaurantReservationList;
     
-    private GetReservationResponseDto(List<GetRestaurantReservationListItemResultSet> getRestaurantReservationListItemResultSets) throws Exception {
+    private GetReservationResponseDto(List<GetRestaurantReservationListItemResultSet> reservationEntities) throws Exception {
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
-        this.restaurantReservationList = RestaurantReservationListItem.getList(getRestaurantReservationListItemResultSets);
+        this.restaurantReservationList = RestaurantReservationListItem.getList(reservationEntities);
     }
 
-    public static ResponseEntity<GetReservationResponseDto> success(List<GetRestaurantReservationListItemResultSet> getRestaurantReservationListItemResultSets)
+    public static ResponseEntity<GetReservationResponseDto> success(List<GetRestaurantReservationListItemResultSet> reservationEntities)
     throws Exception {
-        GetReservationResponseDto responseBody = new GetReservationResponseDto(getRestaurantReservationListItemResultSets);
+        GetReservationResponseDto responseBody = new GetReservationResponseDto(reservationEntities);
         return ResponseEntity.status(HttpStatus.OK).body(responseBody);
     }
 }

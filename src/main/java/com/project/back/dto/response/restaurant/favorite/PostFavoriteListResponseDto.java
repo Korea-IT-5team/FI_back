@@ -15,12 +15,12 @@ import com.project.back.entity.RestaurantEntity;
 import lombok.Getter;
 
 @Getter
-public class GetFavoriteListResponseDto extends ResponseDto{
+public class PostFavoriteListResponseDto extends ResponseDto{
     private String favoriteUserId;
     private Integer favoriteRestaurantId;
     private List<RestaurantListItem> restaurantList;
     
-    private GetFavoriteListResponseDto(FavoriteRestaurantEntity favoriteRestaurantEntity, List<RestaurantEntity> restaurantEntities) throws Exception {
+    private PostFavoriteListResponseDto(FavoriteRestaurantEntity favoriteRestaurantEntity, List<RestaurantEntity> restaurantEntities) throws Exception {
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
         String writerId = favoriteRestaurantEntity.getFavoriteUserId();
         writerId = writerId.substring(0, 1) +
@@ -30,9 +30,9 @@ public class GetFavoriteListResponseDto extends ResponseDto{
         this.restaurantList = RestaurantListItem.getList(restaurantEntities);
     }
 
-    public static ResponseEntity<GetFavoriteListResponseDto> success(FavoriteRestaurantEntity favoriteRestaurantEntity,List<RestaurantEntity> restaurantEntities)
+    public static ResponseEntity<PostFavoriteListResponseDto> success(FavoriteRestaurantEntity favoriteRestaurantEntity,List<RestaurantEntity> restaurantEntities)
     throws Exception {
-        GetFavoriteListResponseDto responseBody = new GetFavoriteListResponseDto(favoriteRestaurantEntity,restaurantEntities);
+        PostFavoriteListResponseDto responseBody = new PostFavoriteListResponseDto(favoriteRestaurantEntity,restaurantEntities);
         return ResponseEntity.status(HttpStatus.OK).body(responseBody);
     }
 }

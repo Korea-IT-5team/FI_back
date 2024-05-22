@@ -37,7 +37,7 @@ public class RestaurantEntity {
     private String restaurantImage;
     private String restaurantWriterId;
 
-    public RestaurantEntity(PostRestaurantInfoRequestDto dto) {
+    public RestaurantEntity(PostRestaurantInfoRequestDto dto, String userEmailId) {
         this.restaurantName = dto.getRestaurantName();
         this.restaurantFoodCategory = dto.getRestaurantFoodCategory();
         this.restaurantPostalCode = dto.getRestaurantPostalCode();
@@ -50,7 +50,7 @@ public class RestaurantEntity {
         this.restaurantRepresentativeMenu = dto.getRestaurantRepresentativeMenu();
         this.restaurantBusinessRegistrationNumber = dto.getRestaurantBusinessRegistrationNumber();
         this.restaurantImage = dto.getRestaurantImage();
-        this.restaurantWriterId = dto.getRestaurantWriterId();
+        this.restaurantWriterId = userEmailId;
     }
 
     public void updateRestaurantInfo(PatchRestaurantInfoRequestDto dto) {
