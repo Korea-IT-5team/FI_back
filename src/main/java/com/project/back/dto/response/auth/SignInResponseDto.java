@@ -7,6 +7,9 @@ import com.project.back.dto.response.ResponseCode;
 import com.project.back.dto.response.ResponseDto;
 import com.project.back.dto.response.ResponseMessage;
 
+import lombok.Getter;
+
+@Getter
 public class SignInResponseDto extends ResponseDto{
     private String accessToken;
     private int expires;
