@@ -11,6 +11,9 @@ import com.project.back.dto.response.ResponseDto;
 import com.project.back.dto.response.ResponseMessage;
 import com.project.back.repository.resultSet.GetRestaurantReservationListItemResultSet;
 
+import lombok.Getter;
+
+@Getter
 public class GetReservationResponseDto extends ResponseDto{
     private List<RestaurantReservationListItem> restaurantReservationList;
     

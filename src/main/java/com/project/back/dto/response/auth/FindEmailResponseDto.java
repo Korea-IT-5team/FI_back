@@ -20,7 +20,6 @@ public class FindEmailResponseDto extends ResponseDto{
         writerId = writerId.substring(0, 4) +
         "*".repeat(writerId.length() - 4); 
         this.userEmailId = writerId;
-        
     }
 
     public static ResponseEntity<FindEmailResponseDto> success(UserEntity userEntity) {
