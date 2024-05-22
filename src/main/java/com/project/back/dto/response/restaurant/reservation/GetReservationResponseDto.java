@@ -13,6 +13,17 @@ import com.project.back.repository.resultSet.GetRestaurantReservationListItemRes
 
 // 특정 예약 내역 확인 Response Body DTO
 public class GetReservationResponseDto extends ResponseDto{
+
+    private Integer reservationNumber;
+    private Integer reservationPeople;
+    private Boolean reservationStatus;
+    private String reservationRestaurantId;
+    private String reservationUserId;
+    private String reservationDate;
+    private String reservationTime;
+
+
+
     private List<RestaurantReservationListItem> restaurantReservationList;
     
     private GetReservationResponseDto(List<GetRestaurantReservationListItemResultSet> getRestaurantReservationListItemResultSets) throws Exception {

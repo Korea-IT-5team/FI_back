@@ -67,4 +67,6 @@ public class RestaurantEntity {
         this.restaurantBusinessRegistrationNumber = dto.getRestaurantBusinessRegistrationNumber();
         this.restaurantImage = dto.getRestaurantImage();
     }
+
+   
 }
