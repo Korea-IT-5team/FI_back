@@ -27,7 +27,7 @@ public interface ReservationRepository extends JpaRepository<ReservationEntity,I
         nativeQuery = true
     )
     List<Object[]> findReservationsByUserId(@Param("userEmailId") String userEmailId);
-
+    List<ReservationEntity> findByOrderByReservationNumberDesc();
     ReservationEntity findByReservationNumber(Integer reservationNumber);
 }
 

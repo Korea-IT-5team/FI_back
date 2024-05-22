@@ -12,6 +12,17 @@ import com.project.back.dto.response.ResponseMessage;
 import com.project.back.repository.resultSet.GetRestaurantReservationListItemResultSet;
 
 public class GetReservationResponseDto extends ResponseDto{
+
+    private Integer reservationNumber;
+    private Integer reservationPeople;
+    private Boolean reservationStatus;
+    private String reservationRestaurantId;
+    private String reservationUserId;
+    private String reservationDate;
+    private String reservationTime;
+
+
+
     private List<RestaurantReservationListItem> restaurantReservationList;
     
     private GetReservationResponseDto(List<GetRestaurantReservationListItemResultSet> getRestaurantReservationListItemResultSets) throws Exception {

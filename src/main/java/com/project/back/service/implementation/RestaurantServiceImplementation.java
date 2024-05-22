@@ -23,6 +23,8 @@ import com.project.back.repository.FavoriteRestaurantRepository;
 import com.project.back.repository.ReservationRepository;
 import com.project.back.repository.RestaurantRepository;
 import com.project.back.repository.ReviewRepository;
+import com.project.back.repository.UserRepository;
+import com.project.back.repository.resultSet.GetRestaurantReservationListItemResultSet;
 import com.project.back.service.RestaurantService;
 
 import lombok.RequiredArgsConstructor;
@@ -34,6 +36,8 @@ public class RestaurantServiceImplementation implements RestaurantService{
     private final ReservationRepository reservationRepository;
     private final FavoriteRestaurantRepository favoriteRestaurantRepository;
     private final ReviewRepository reviewRepository;
+    private final GetRestaurantReservationListItemResultSet restaurantReservationListItemResultSet;
+    private final UserRepository userRepository;
 
     @Override
     public ResponseEntity<? super GetRestaurantInfoResponseDto> getRestaurantInfo(int restaurantId) {
@@ -101,22 +105,24 @@ public class RestaurantServiceImplementation implements RestaurantService{
             ReservationEntity reservationEntity = reservationRepository.findByReservationNumber(reservationNumber);
             if (reservationEntity == null) return ResponseDto.noExistReservation();
 
+            return GetReservationResponseDto.success();
+
         } catch (Exception exception) {
             exception.printStackTrace();
             return ResponseDto.databaseError();
         }
-        return ResponseDto.success();
     }
 
     @Override
     public ResponseEntity<? super GetReservationListResponseDto> getReservationList() {
         try {
-
+            List<ReservationEntity> reservationEntities = restaurantRepository.findByOrderByReservationNumberDesc();
+            return GetReservationListResponseDto.success();
         } catch (Exception exception) {
             exception.printStackTrace();
             return ResponseDto.databaseError();
         }
-        return ResponseDto.success();
+        
     }
 
     @Override
