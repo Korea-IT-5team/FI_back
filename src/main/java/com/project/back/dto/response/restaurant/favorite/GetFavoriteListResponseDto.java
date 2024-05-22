@@ -12,6 +12,9 @@ import com.project.back.dto.response.ResponseMessage;
 import com.project.back.entity.FavoriteRestaurantEntity;
 import com.project.back.entity.RestaurantEntity;
 
+import lombok.Getter;
+
+@Getter
 public class GetFavoriteListResponseDto extends ResponseDto{
     private String favoriteUserId;
     private Integer favoriteRestaurantId;
