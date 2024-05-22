@@ -16,7 +16,7 @@ public class PostRestaurantInfoRequestDto {
     @NotBlank
     private String restaurantFoodCategory;
     @NotBlank
-    private String postalCode;
+    private String restaurantPostalCode;
     @NotBlank
     private String restaurantLocation;
     @NotBlank
@@ -28,4 +28,8 @@ public class PostRestaurantInfoRequestDto {
     private String restaurantNotice;
     private String restaurantRepresentativeMenu;
     private String restaurantWriterId;
+    private Double rating;
+    private String ReviewContents;
+    private String reviewImage;
+    
 }

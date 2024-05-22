@@ -40,7 +40,11 @@ public class RestaurantEntity {
     public RestaurantEntity(PostRestaurantInfoRequestDto dto) {
         this.restaurantName = dto.getRestaurantName();
         this.restaurantFoodCategory = dto.getRestaurantFoodCategory();
+<<<<<<< HEAD
         this.restaurantPostalCode = dto.getPostalCode();
+=======
+        this.restaurantPostalCode = dto.getRestaurantPostalCode();
+>>>>>>> 0aac450adaae16042b267ffb5eb99537f3a873ab
         this.restaurantLocation = dto.getRestaurantLocation();
         this.restaurantTelNumber = dto.getRestaurantTelNumber();
         this.restaurantSnsAddress = dto.getRestaurantSnsAddress();
@@ -56,7 +60,11 @@ public class RestaurantEntity {
     public void updateRestaurantInfo(PatchRestaurantInfoRequestDto dto) {
         this.restaurantName = dto.getRestaurantName();
         this.restaurantFoodCategory = dto.getRestaurantFoodCategory();
+<<<<<<< HEAD
         this.restaurantPostalCode = dto.getPostalCode();
+=======
+        this.restaurantPostalCode = dto.getRestaurantPostalCode();
+>>>>>>> 0aac450adaae16042b267ffb5eb99537f3a873ab
         this.restaurantLocation = dto.getRestaurantLocation();
         this.restaurantTelNumber = dto.getRestaurantTelNumber();
         this.restaurantSnsAddress = dto.getRestaurantSnsAddress();
@@ -68,5 +76,4 @@ public class RestaurantEntity {
         this.restaurantImage = dto.getRestaurantImage();
     }
 
-   
 }
