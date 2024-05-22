@@ -10,6 +10,9 @@ import com.project.back.dto.response.ResponseDto;
 import com.project.back.dto.response.ResponseMessage;
 import com.project.back.entity.InquiryBoardEntity;
 
+import lombok.Getter;
+
+@Getter
 public class GetSearchInquiryBoardListResponseDto extends ResponseDto{
     private List<InquiryBoardListItem> inquiryBoardList;
     

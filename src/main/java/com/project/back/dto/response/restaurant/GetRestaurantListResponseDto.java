@@ -11,6 +11,9 @@ import com.project.back.dto.response.ResponseDto;
 import com.project.back.dto.response.ResponseMessage;
 import com.project.back.entity.RestaurantEntity;
 
+import lombok.Getter;
+
+@Getter
 public class GetRestaurantListResponseDto extends ResponseDto {
     private List<RestaurantListItem> restaurantList;
     

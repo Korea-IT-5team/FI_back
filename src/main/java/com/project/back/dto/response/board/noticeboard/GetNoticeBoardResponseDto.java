@@ -9,6 +9,9 @@ import com.project.back.dto.response.ResponseDto;
 import com.project.back.dto.response.ResponseMessage;
 import com.project.back.entity.NoticeBoardEntity;
 
+import lombok.Getter;
+
+@Getter
 public class GetNoticeBoardResponseDto extends ResponseDto {
     private Integer noticeNumber;
     private String noticeTitle;
