@@ -9,6 +9,7 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public class ResponseDto {
+    public static Object favoriteRestaurantEntity;
     private String code;
     private String message;
 
@@ -53,6 +54,13 @@ public class ResponseDto {
         ResponseDto responseBody = new ResponseDto(ResponseCode.NO_EXIST_RESERVATION,ResponseMessage.NO_EXIST_RESERVATION);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseBody);
     }
+
+    // 응답 : 실패 (존재하지 않는 리뷰내역)
+    public static ResponseEntity<ResponseDto> noExistReview() {
+        ResponseDto responseBody = new ResponseDto(ResponseCode.NO_EXIST_REVIEW,ResponseMessage.NO_EXIST_REVIEW);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseBody);
+    }
+
 
 
     // 응답: 실패 (답변 완료된 게시물) or 응답: 실패 (이미 작성된 답글)

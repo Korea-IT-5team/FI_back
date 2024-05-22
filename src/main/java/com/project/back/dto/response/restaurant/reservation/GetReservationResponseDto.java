@@ -9,6 +9,7 @@ import com.project.back.common.object.restaurant.reservation.RestaurantReservati
 import com.project.back.dto.response.ResponseCode;
 import com.project.back.dto.response.ResponseDto;
 import com.project.back.dto.response.ResponseMessage;
+import com.project.back.entity.ReservationEntity;
 import com.project.back.repository.resultSet.GetRestaurantReservationListItemResultSet;
 
 import lombok.Getter;
@@ -24,16 +25,14 @@ public class GetReservationResponseDto extends ResponseDto{
     private String reservationDate;
     private String reservationTime;
 
-
-
-    private List<RestaurantReservationListItem> restaurantReservationList;
+    private List<ReservationEntity> restaurantReservationList;
     
-    private GetReservationResponseDto(List<GetRestaurantReservationListItemResultSet> getRestaurantReservationListItemResultSets) throws Exception {
+    private GetReservationResponseDto(List<ReservationEntity> getRestaurantReservationListItemResultSets) throws Exception {
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
         this.restaurantReservationList = RestaurantReservationListItem.getList(getRestaurantReservationListItemResultSets);
     }
 
-    public static ResponseEntity<GetReservationResponseDto> success(List<GetRestaurantReservationListItemResultSet> getRestaurantReservationListItemResultSets)
+    public static ResponseEntity<GetReservationResponseDto> success(List<ReservationEntity> getRestaurantReservationListItemResultSets)
     throws Exception {
         GetReservationResponseDto responseBody = new GetReservationResponseDto(getRestaurantReservationListItemResultSets);
         return ResponseEntity.status(HttpStatus.OK).body(responseBody);

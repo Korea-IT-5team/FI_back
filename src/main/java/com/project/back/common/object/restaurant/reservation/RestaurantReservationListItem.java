@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.project.back.common.util.ChangeDateFormatUtil;
+import com.project.back.entity.ReservationEntity;
 import com.project.back.repository.resultSet.GetRestaurantReservationListItemResultSet;
 
 public class RestaurantReservationListItem {
@@ -16,7 +17,7 @@ public class RestaurantReservationListItem {
     private String reservationTime;
     private Integer reservationPeople;
 
-    private RestaurantReservationListItem(GetRestaurantReservationListItemResultSet getRestaurantReviewListItemResultSet) throws Exception {
+    private RestaurantReservationListItem(ReservationEntity getRestaurantReviewListItemResultSet) throws Exception {
         this.reservationNumber = getRestaurantReviewListItemResultSet.getReservationNumber();
         this.reservationStatus = getRestaurantReviewListItemResultSet.getReservationStatus();
         this.reservationRestaurantId = getRestaurantReviewListItemResultSet.getReservationRestaurantId();
@@ -36,10 +37,10 @@ public class RestaurantReservationListItem {
         this.reservationPeople=getRestaurantReviewListItemResultSet.getReservationPeople();
     }
 
-    public static List<RestaurantReservationListItem> getList(List<GetRestaurantReservationListItemResultSet> getRestaurantReservationListItemResultSets) throws Exception {
+    public static List<RestaurantReservationListItem> getList(List<ReservationEntity> getRestaurantReservationListItemResultSets) throws Exception {
         List<RestaurantReservationListItem> restaurantReservationList = new ArrayList<>();
 
-        for(GetRestaurantReservationListItemResultSet getRestaurantReservationListItemResultSet:getRestaurantReservationListItemResultSets) {
+        for(ReservationEntity getRestaurantReservationListItemResultSet:getRestaurantReservationListItemResultSets) {
             RestaurantReservationListItem restaurantReservationListItem = new RestaurantReservationListItem(getRestaurantReservationListItemResultSet);
             restaurantReservationList.add(restaurantReservationListItem);
         }
