@@ -3,8 +3,6 @@ package com.project.back.entity;
 import com.project.back.dto.request.auth.SignUpRequestDto;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -21,7 +19,6 @@ import lombok.Setter;
 @AllArgsConstructor
 public class UserEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String userEmailId;
     private String password;
     private String nickname;
@@ -43,5 +40,4 @@ public class UserEntity {
         this.joinPath = dto.getJoinPath();
         this.snsId = dto.getSnsId();
     }
-
 }

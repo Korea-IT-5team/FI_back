@@ -22,10 +22,10 @@ public class SmsProvider {
   ) {
     this.messageService = NurigoApp.INSTANCE.initialize(API_KEY, API_SECRET_KEY, API_DOMAIN);
   }
-  public boolean sendAuthNumber(String to, String authNumber) {
+  public boolean sendAuthNumber(String userTelNumber, String authNumber) {
     Message message = new Message();
     message.setFrom(FROM);
-    message.setTo(to);
+    message.setTo(userTelNumber);
     message.setText(getAuthNumberText(authNumber));
 
     SingleMessageSentResponse response = messageService.sendOne(new SingleMessageSendingRequest(message));
