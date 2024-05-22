@@ -13,10 +13,6 @@ import lombok.Getter;
 @Getter
 public class GetUserInfoResponseDto extends ResponseDto {
     private String userEmailId;
-    private String nickname;
-    private String userName;
-    private String userTelNumber;
-    private String userAddress;
     private String userRole;
     
     private GetUserInfoResponseDto(UserEntity userEntity) {
@@ -25,10 +21,6 @@ public class GetUserInfoResponseDto extends ResponseDto {
         writerId = writerId.substring(0, 4) +
         "*".repeat(writerId.length() - 4); 
         this.userEmailId = writerId;
-        this.nickname = userEntity.getNickname();
-        this.userName = userEntity.getUserName();
-        this.userTelNumber = userEntity.getUserTelNumber();
-        this.userAddress = userEntity.getUserAddress();
         this.userRole = userEntity.getUserRole();
     }
 
