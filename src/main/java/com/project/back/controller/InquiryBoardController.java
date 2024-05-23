@@ -2,6 +2,7 @@ package com.project.back.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -85,6 +86,15 @@ public class InquiryBoardController {
     @AuthenticationPrincipal String userEmailId
   ) {
     ResponseEntity<ResponseDto> response = inquiryBoardService.patchInquiryBoard(requestBody, inquiryNumber, userEmailId);
+    return response;
+  }
+
+  @DeleteMapping("/{inquiryNumber}")
+  public ResponseEntity<ResponseDto> deleteInquiryBoard(
+    @PathVariable("inquiryNumber") int inquiryNumber,
+    @AuthenticationPrincipal String userEmailId
+  ) {
+    ResponseEntity<ResponseDto> response = inquiryBoardService.deleteInquiryBoard(inquiryNumber, userEmailId);
     return response;
   }
 }
