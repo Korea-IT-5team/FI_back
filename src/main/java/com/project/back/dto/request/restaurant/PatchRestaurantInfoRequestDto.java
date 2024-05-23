@@ -18,7 +18,7 @@ public class PatchRestaurantInfoRequestDto {
     @NotBlank
     private String restaurantLocation;
     @NotBlank
-    private String restaurantId;
+    private Integer restaurantId;
     @NotBlank
     private String restaurantImage;
     private String restaurantTelNumber;

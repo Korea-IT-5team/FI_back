@@ -34,7 +34,7 @@ public interface ResponseCode {
     String NO_EXIST_RESTAURANT = "NR"; 
     String NO_EXIST_RESERVATION = "NR";
     String NO_EXIST_REVIEW = "NR";
-    String NO_EXIST_BOARD = "NB";
-    String NO_EXIST_INQUIRY_BOARD = "NB";
+    String NO_EXIST_NOTICE_BOARD = "NN";
+    String NO_EXIST_INQUIRY_BOARD = "NI";
 }
 

@@ -34,6 +34,6 @@ public interface ResponseMessage {
     String NO_EXIST_RESTAURANT = "No Exist Restaurant."; 
     String NO_EXIST_RESERVATION = "No Exist Reservation.";
     String NO_EXIST_REVIEW = "No Exist Review.";
-    String NO_EXIST_BOARD = "No Exist Board.";
+    String NO_EXIST_NOTICE_BOARD = "No Exist Notice Board.";
     String NO_EXIST_INQUIRY_BOARD = "No Exist InquiryBoard.";
 }
