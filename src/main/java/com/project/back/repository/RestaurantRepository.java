@@ -24,7 +24,8 @@ public interface RestaurantRepository extends JpaRepository<ReservationEntity,In
         "FROM restaurant " +
         "WHERE restaurant_id " +
         "IN " + 
-        "(SELECT favorite_restaurant_id FROM favorite_restaurant WHERE favorite_user_id = :user_email_id)"
+        "(SELECT favorite_restaurant_id FROM favorite_restaurant WHERE `favorite_user_id` = :user_email_id)",
+        nativeQuery=true
     )
     List<GetRestaurantFavoriteItemResultSet> getFavoriteList(@Param("favorite_user_id") String favoriteUserId);
 }
