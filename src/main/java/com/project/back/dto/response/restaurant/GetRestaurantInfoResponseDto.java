@@ -52,7 +52,7 @@ public class  GetRestaurantInfoResponseDto extends ResponseDto {
         this.restaurantReviewList = RestaurantReviewListItem.getList(reviewEntities);
     }
 
-    public static ResponseEntity<GetRestaurantInfoResponseDto> success(RestaurantEntity restaurantEntity,List<GetRestaurantReviewListItemResultSet> getRestaurantReviewListItemResultSets)
+    public static ResponseEntity<GetRestaurantInfoResponseDto> success(RestaurantEntity restaurantEntity, List<GetRestaurantReviewListItemResultSet> getRestaurantReviewListItemResultSets)
     throws Exception {
         GetRestaurantInfoResponseDto responseBody = new GetRestaurantInfoResponseDto(restaurantEntity,getRestaurantReviewListItemResultSets);
         return ResponseEntity.status(HttpStatus.OK).body(responseBody);
