@@ -106,8 +106,8 @@ public class ResponseDto {
     }
 
     // 응답: 실패 (존재하지 않는 게시물)
-    public static ResponseEntity<ResponseDto> noExistBoard() {
-        ResponseDto responseBody = new ResponseDto(ResponseCode.NO_EXIST_BOARD,ResponseMessage.NO_EXIST_BOARD);
+    public static ResponseEntity<ResponseDto> noExistNoticeBoard() {
+        ResponseDto responseBody = new ResponseDto(ResponseCode.NO_EXIST_NOTICE_BOARD,ResponseMessage.NO_EXIST_NOTICE_BOARD);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseBody);
     }
 
