@@ -9,7 +9,8 @@ import com.project.back.entity.FavoriteRestaurantEntity;
 
 @Repository
 public interface FavoriteRestaurantRepository extends JpaRepository<FavoriteRestaurantEntity,String> {
-    boolean existsByFavoriteUserId(String favoriteUserId);
+    boolean existsByFavoriteUserEmailId(String favoriteUserEmailId);
+
     FavoriteRestaurantEntity findByFavoriteRestaurantId(String favoriteRestaurantId);
-    ;
+    List<FavoriteRestaurantEntity> findByFavoriteUserEmailId(String favoriteUserEmailId);
 }

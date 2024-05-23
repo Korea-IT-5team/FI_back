@@ -88,7 +88,7 @@ public class ResponseDto {
     }
 
     // 응답: 실패 (사용자 정보 불일치)
-    public static ResponseEntity<ResponseDto> notFound() {
+    public static ResponseEntity<ResponseDto> noExistUser() {
         ResponseDto responseBody = new ResponseDto(ResponseCode.NOT_FOUND_USER,ResponseMessage.NOT_FOUND_USER);
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(responseBody);
     }
