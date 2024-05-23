@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import com.project.back.entity.FavoriteRestaurantEntity;
 import com.project.back.entity.ReviewEntity;
 import com.project.back.repository.resultSet.GetRestaurantReviewListItemResultSet;
 
@@ -27,9 +28,7 @@ public interface ReviewRepository extends JpaRepository<ReviewEntity,Integer> {
         + "WHERE r.review_restaurant_id = :restaurantId",
         nativeQuery = true
     )
-    List<GetRestaurantReviewListItemResultSet[]> findReviewsByRestaurantId(@Param("restaurantId") int restaurantId);
+    List<GetRestaurantReviewListItemResultSet> findReviewsByRestaurantId(@Param("restaurantId") int restaurantId);
     ReviewEntity findByReviewRestaurantId(int reviewRestaurantId);
-    
-
-    
+    List<FavoriteRestaurantEntity> findByOrderByReviewRestaurantIdDesc();
 }
