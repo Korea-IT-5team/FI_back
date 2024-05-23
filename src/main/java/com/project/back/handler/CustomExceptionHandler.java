@@ -27,6 +27,6 @@ public class CustomExceptionHandler {
     Exception exception
   ) {
     exception.printStackTrace();
-    return ResponseDto.notFound();
+    return ResponseDto.noExistUser();
   }
 }
