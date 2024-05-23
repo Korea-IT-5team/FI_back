@@ -22,6 +22,7 @@ public interface AuthService {
   ResponseEntity<ResponseDto> telNumberAuth(TelNumberAuthRequestDto dto);
   ResponseEntity<ResponseDto> telNumberAuthCheck(CheckTelNumberAuthRequestDto dto);
   ResponseEntity<ResponseDto> signUp(SignUpRequestDto dto);
+  
   ResponseEntity<? super FindEmailResponseDto> findEmail(FindEmailRequestDto dto);
   ResponseEntity<ResponseDto> passwordReset(PasswordResetRequestDto dto);
   ResponseEntity<ResponseDto> newPassword(NewPasswordRequestDto dto, String userEmailId);
