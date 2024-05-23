@@ -13,7 +13,7 @@ public class RestaurantReviewListItem {
     private Integer reviewNumber;
     private Integer reviewRestaurantId;
     private String reviewImage;
-    private double rating; 
+    private double rating;
     private String reviewContents;
     private String reviewWriterId;
     private String reviewWriterNickname;
@@ -30,7 +30,7 @@ public class RestaurantReviewListItem {
         writerId = writerId.substring(0, 1) +
         "*".repeat(writerId.length() - 1);
         this.reviewWriterId=writerId;
-        this.reviewWriterNickname=getRestaurantReviewListItemResultSet.getNickname(); 
+        this.reviewWriterNickname=getRestaurantReviewListItemResultSet.getReviewWriterNickname(); 
 
         String writeDatetime  = ChangeDateFormatUtil.changeYYMMDD(getRestaurantReviewListItemResultSet.getReviewDate());
         this.reviewDate = writeDatetime;

@@ -19,7 +19,7 @@ public class GetRestaurantListResponseDto extends ResponseDto {
     
     private GetRestaurantListResponseDto(List<RestaurantEntity> restaurantEntities) throws Exception {
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
-        this.restaurantList = RestaurantListItem.getList(restaurantEntities);
+        this.restaurantList = RestaurantListItem.getRestaurantList(restaurantEntities);
     }
 
     public static ResponseEntity<GetRestaurantListResponseDto> success(List<RestaurantEntity> restaurantEntities)
@@ -28,6 +28,5 @@ public class GetRestaurantListResponseDto extends ResponseDto {
         return ResponseEntity.status(HttpStatus.OK).body(responseBody);
     }
 }
-
 
 

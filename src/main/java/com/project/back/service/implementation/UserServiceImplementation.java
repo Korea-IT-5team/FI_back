@@ -51,7 +51,7 @@ public class UserServiceImplementation implements UserService {
   public ResponseEntity<ResponseDto> patchUserInfo(PatchUserInfoRequestDto dto, String userEmailId) {
     try {
       UserEntity userEntity = userRepository.findByUserEmailId(userEmailId);
-      if (userEntity == null) return ResponseDto.notFound();
+      if (userEntity == null) return ResponseDto.noExistUser();
 
       String updateId = userEntity.getUserEmailId();
       boolean isEquals = userEmailId.equals(updateId);
@@ -70,7 +70,7 @@ public class UserServiceImplementation implements UserService {
   public ResponseEntity<ResponseDto> deleteUser(DeleteUserRequestDto dto, String userEmailId) {
     try {
       UserEntity userEntity = userRepository.findByUserEmailId(userEmailId);
-      if (userEntity == null) return ResponseDto.notFound();
+      if (userEntity == null) return ResponseDto.noExistUser();
 
       String deleteId = userEntity.getUserEmailId();
       boolean isEquals = userEmailId.equals(deleteId);
