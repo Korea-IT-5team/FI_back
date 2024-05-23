@@ -3,7 +3,6 @@ package com.project.back.service.implementation;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.method.P;
 import org.springframework.stereotype.Service;
 
 import com.project.back.dto.request.restaurant.PatchRestaurantInfoRequestDto;
@@ -132,7 +131,7 @@ public class RestaurantServiceImplementation implements RestaurantService
     }
     
     @Override
-    public ResponseEntity<ResponseDto> postReservation(PostReservationRequestDto dto, String userEmailId, String restaurantId) {
+    public ResponseEntity<ResponseDto> postReservation(PostReservationRequestDto dto, String userEmailId, int restaurantId) {
         try {
             boolean isExistUser = userRepository.existsByUserEmailId(userEmailId);
             if (!isExistUser) return ResponseDto.noExistUser();
@@ -168,7 +167,7 @@ public class RestaurantServiceImplementation implements RestaurantService
     }
     
     @Override
-    public ResponseEntity<ResponseDto> postReview(PostReviewRequestDto dto, String restaurantId ,String userEmailId) {
+    public ResponseEntity<ResponseDto> postReview(PostReviewRequestDto dto, int restaurantId ,String userEmailId) {
         try {
             boolean isExistUser = userRepository.existsByUserEmailId(userEmailId);
             if (!isExistUser) return ResponseDto.authenticationFailed();
@@ -220,7 +219,7 @@ public class RestaurantServiceImplementation implements RestaurantService
     }
     
     @Override
-    public ResponseEntity<? super GetFavoriteRestaurantListResponseDto> postFavorite(PostFavoriteRestaurantRequestDto dto, String userEmailId, String restaurantId) {
+    public ResponseEntity<? super GetFavoriteRestaurantListResponseDto> postFavorite(PostFavoriteRestaurantRequestDto dto, String userEmailId, int restaurantId) {
         try {
             boolean isExistUser = userRepository.existsByUserEmailId(userEmailId);
             if (!isExistUser) return ResponseDto.noExistUser();

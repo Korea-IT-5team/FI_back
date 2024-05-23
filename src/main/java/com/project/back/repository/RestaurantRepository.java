@@ -7,17 +7,18 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import com.project.back.entity.ReservationEntity;
 import com.project.back.entity.RestaurantEntity;
 import com.project.back.repository.resultSet.GetRestaurantFavoriteItemResultSet;
 
 @Repository
-public interface RestaurantRepository extends JpaRepository<ReservationEntity,Integer> {
+public interface RestaurantRepository extends JpaRepository<RestaurantEntity,Integer> {
+    Object restaurantEntity = null;
+
     List<RestaurantEntity> findByOrderByRestaurantIdDesc();
     RestaurantEntity findByRestaurantId(Integer restaurantId);
 
     boolean existsByRestaurantWriterId(String restaurantWriterId);
-    boolean existsByRestaurantId(String restaurantId);
+    boolean existsByRestaurantId(Integer restaurantId);
 
     @Query(value=
         "SELECT * " +
