@@ -1,8 +1,6 @@
 package com.project.back.entity;
 
-import java.time.LocalDateTime;
 
-import com.project.back.dto.request.restaurant.PostRestaurantInfoRequestDto;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
