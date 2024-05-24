@@ -28,7 +28,7 @@ public interface RestaurantService {
     // 식당 예약
     ResponseEntity<? super GetReservationResponseDto> getReservation(int reservationNumber);
     ResponseEntity<? super GetReservationListResponseDto> getUserReservationList(String userEmailId);
-    ResponseEntity<? super GetReservationListResponseDto> getCeoReservationList(String restaurantId);
+    ResponseEntity<? super GetReservationListResponseDto> getCeoReservationList(int restaurantId);
     ResponseEntity<ResponseDto> postReservation (PostReservationRequestDto dto, String userEmailId, int restaurantId);
     ResponseEntity<ResponseDto> deleteReservation(DeleteReservationRequestDto dto, int reservationNumber, String userEmailId);
     

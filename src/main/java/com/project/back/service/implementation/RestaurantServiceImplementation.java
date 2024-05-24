@@ -133,7 +133,7 @@ public class RestaurantServiceImplementation implements RestaurantService
     }
 
     @Override
-    public ResponseEntity<? super GetReservationListResponseDto> getCeoReservationList(String restaurantId) {
+    public ResponseEntity<? super GetReservationListResponseDto> getCeoReservationList(int restaurantId) {
         try {
             List<ReservationEntity> reservationEntities = reservationRepository.findByReservationRestaurantIdOrderByReservationNumberDesc(restaurantId);
             return GetReservationListResponseDto.success(reservationEntities);
