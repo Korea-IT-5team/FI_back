@@ -6,13 +6,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-// 이메일 중복 확인 Request Body Dto
 @Getter
 @Setter
 @NoArgsConstructor
-public class CheckEmailRequestDto 
-{
+public class CheckEmailIdRequestDto {
     @NotBlank
     @Pattern(regexp = "^[a-zA-Z0-9]*@([-.]?[a-zA-Z0-9])*\\.[a-zA-Z]{2,4}$")
-    private String userEmailId; //사용자의 이메일
+    private String userEmailId;
 }

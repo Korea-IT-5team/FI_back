@@ -1,5 +1,7 @@
 package com.project.back.entity;
 
+import com.project.back.dto.response.restaurant.favorite.PostFavoriteListResponseDto;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -10,18 +12,27 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-// project 데이터베이스의 Favorite_Restaurant테이블과 매핑되는 Entity 클래스
-@Entity(name="Favorite_Restaurant")
+@Entity(name="favoriteRestaurant")
 @Table(name="Favorite_Restaurant")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class FavoriteRestaurantEntity 
-{   
+public class FavoriteRestaurantEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String favoriteUserId; 
     private Integer favoriteRestaurantId; 
     private Integer favoriteCount;
+
+    public FavoriteRestaurantEntity(PostFavoriteListResponseDto dto) {
+        this.favoriteUserId = dto.getFavoriteUserId();
+        this.favoriteRestaurantId = dto.getFavoriteRestaurantId();
+        this.favoriteCount = 0;
+    }
+
+    public void increaseFavoriteCount() {
+        this.favoriteCount++;
+    }
+    
 }

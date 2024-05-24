@@ -10,25 +10,19 @@ import com.project.back.entity.UserEntity;
 
 import lombok.Getter;
 
-// 이메일 찾기 Response Body Dto
-
 @Getter 
-public class FindEmailResponseDto extends ResponseDto
-{
+public class FindEmailResponseDto extends ResponseDto{
     private String userEmailId;
 
-    private FindEmailResponseDto(UserEntity userEntity)
-    {
-        super(ResponseCode.SUCCESS,ResponseMessage.SUCCESS);
+    private FindEmailResponseDto(UserEntity userEntity) {
+        super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
         String writerId = userEntity.getUserEmailId();
-        writerId = writerId.substring(0, 4)+
-        "*".repeat(writerId.length()-4); 
-        this.userEmailId=writerId;
-        
+        writerId = writerId.substring(0, 4) +
+        "*".repeat(writerId.length() - 4); 
+        this.userEmailId = writerId;
     }
 
-    public static ResponseEntity<FindEmailResponseDto> success(UserEntity userEntity)
-    {
+    public static ResponseEntity<FindEmailResponseDto> success(UserEntity userEntity) {
         FindEmailResponseDto responseBody = new FindEmailResponseDto(userEntity);
         return ResponseEntity.status(HttpStatus.OK).body(responseBody);
     }

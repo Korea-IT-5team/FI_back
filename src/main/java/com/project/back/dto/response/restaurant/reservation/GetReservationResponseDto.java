@@ -11,22 +11,22 @@ import com.project.back.dto.response.ResponseDto;
 import com.project.back.dto.response.ResponseMessage;
 import com.project.back.repository.resultSet.GetRestaurantReservationListItemResultSet;
 
-// 특정 예약 내역 확인 Response Body DTO
+import lombok.Getter;
 
-public class GetReservationResponseDto extends ResponseDto
-{
+@Getter
+public class GetReservationResponseDto extends ResponseDto{
+
+   
     private List<RestaurantReservationListItem> restaurantReservationList;
     
-    private GetReservationResponseDto(List<GetRestaurantReservationListItemResultSet> getRestaurantReservationListItemResultSets) throws Exception
-    {                       
-        super(ResponseCode.SUCCESS,ResponseMessage.SUCCESS);
-        this.restaurantReservationList= RestaurantReservationListItem.getList(getRestaurantReservationListItemResultSets);
+    private GetReservationResponseDto(List<GetRestaurantReservationListItemResultSet> reservationEntities) throws Exception {
+        super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
+        this.restaurantReservationList = RestaurantReservationListItem.getList(reservationEntities);
     }
 
-    public static ResponseEntity<GetReservationResponseDto> success(List<GetRestaurantReservationListItemResultSet> getRestaurantReservationListItemResultSets)
-    throws Exception                                                   
-    {
-        GetReservationResponseDto responseBody = new GetReservationResponseDto(getRestaurantReservationListItemResultSets);
+    public static ResponseEntity<GetReservationResponseDto> success(List<GetRestaurantReservationListItemResultSet> reservationEntities)
+    throws Exception {
+        GetReservationResponseDto responseBody = new GetReservationResponseDto(reservationEntities);
         return ResponseEntity.status(HttpStatus.OK).body(responseBody);
     }
 }

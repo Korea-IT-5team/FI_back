@@ -6,16 +6,14 @@ import java.util.List;
 import com.project.back.common.util.ChangeDateFormatUtil;
 import com.project.back.entity.InquiryBoardEntity;
 
-public class InquiryBoardListItem 
-{
+public class InquiryBoardListItem {
     private Integer inquiryNumber;
     private boolean inquiryStatus;
     private String inquiryTitle;
     private String inquiryWriterId;
     private String inquiryWriteDatetime;
 
-    private InquiryBoardListItem(InquiryBoardEntity inquiryBoardEntity) throws Exception
-    {
+    private InquiryBoardListItem(InquiryBoardEntity inquiryBoardEntity) throws Exception {
         this.inquiryNumber=inquiryBoardEntity.getInquiryNumber();
         this.inquiryStatus=inquiryBoardEntity.getInquiryStatus();
         this.inquiryTitle=inquiryBoardEntity.getInquiryTitle();
@@ -29,16 +27,13 @@ public class InquiryBoardListItem
         this.inquiryWriteDatetime = writeDate;
     }
 
-    public static List<InquiryBoardListItem> getList(List<InquiryBoardEntity> inquiryBoardEntities) throws Exception
-    {
+    public static List<InquiryBoardListItem> getList(List<InquiryBoardEntity> inquiryBoardEntities) throws Exception {
         List<InquiryBoardListItem> inquiryBoardList = new ArrayList<>();
 
-        for(InquiryBoardEntity inquiryBoardEntity :inquiryBoardEntities)
-        {
+        for(InquiryBoardEntity inquiryBoardEntity :inquiryBoardEntities) {
             InquiryBoardListItem inquiryBoardListItem = new InquiryBoardListItem(inquiryBoardEntity);
             inquiryBoardList.add(inquiryBoardListItem);
         }
-
         return inquiryBoardList;
     }
 }

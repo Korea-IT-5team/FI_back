@@ -10,15 +10,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-// project 데이터베이스의 notice_board 테이블과 매핑되는 Entity 클래스
-@Entity(name="notice_board")
+@Entity(name="noticeBoard")
 @Table(name="notice_board")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class NoticeBoardEntity 
-{
+public class NoticeBoardEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer noticeNumber;

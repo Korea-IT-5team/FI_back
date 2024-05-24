@@ -11,21 +11,19 @@ import com.project.back.dto.response.ResponseDto;
 import com.project.back.dto.response.ResponseMessage;
 import com.project.back.entity.InquiryBoardEntity;
 
-// 문의 게시물 목록 확인 Response Body DTO
+import lombok.Getter;
 
-public class GetInquiryBoardListResponseDto extends ResponseDto
-{
+@Getter
+public class GetInquiryBoardListResponseDto extends ResponseDto {
     private List<InquiryBoardListItem> inquiryBoardList;
     
-    private GetInquiryBoardListResponseDto(List<InquiryBoardEntity> inquiryBoardEntities) throws Exception
-    {
-        super(ResponseCode.SUCCESS,ResponseMessage.SUCCESS);
+    private GetInquiryBoardListResponseDto(List<InquiryBoardEntity> inquiryBoardEntities) throws Exception {
+        super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
         this.inquiryBoardList= InquiryBoardListItem.getList(inquiryBoardEntities);
     }
 
     public static ResponseEntity<GetInquiryBoardListResponseDto> success(List<InquiryBoardEntity> inquiryBoardEntities)
-    throws Exception
-    {
+    throws Exception {
         GetInquiryBoardListResponseDto responseBody = new GetInquiryBoardListResponseDto(inquiryBoardEntities);
         return ResponseEntity.status(HttpStatus.OK).body(responseBody);
     }

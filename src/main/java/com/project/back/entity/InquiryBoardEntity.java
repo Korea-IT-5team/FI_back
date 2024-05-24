@@ -10,15 +10,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-// project 데이터베이스의 inquiry_board 테이블과 매핑되는 Entity 클래스
-@Entity(name="inquiry_board")
+@Entity(name="inquiryBoard")
 @Table(name="inquiry_board")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class InquiryBoardEntity 
-{
+public class InquiryBoardEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer inquiryNumber;
