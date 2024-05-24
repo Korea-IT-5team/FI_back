@@ -15,6 +15,8 @@ import com.project.back.dto.response.restaurant.GetRestaurantListResponseDto;
 import com.project.back.dto.response.restaurant.favorite.GetFavoriteRestaurantListResponseDto;
 import com.project.back.dto.response.restaurant.reservation.GetReservationListResponseDto;
 import com.project.back.dto.response.restaurant.reservation.GetReservationResponseDto;
+import com.project.back.dto.response.restaurant.review.GetReviewListResponseDto;
+import com.project.back.dto.response.restaurant.review.GetReviewResponseDto;
 
 public interface RestaurantService {
     // 식당 정보
@@ -25,14 +27,17 @@ public interface RestaurantService {
 
     // 식당 예약
     ResponseEntity<? super GetReservationResponseDto> getReservation(int reservationNumber);
-    ResponseEntity<? super GetReservationListResponseDto> getReservationList(String userEmailId);
+    ResponseEntity<? super GetReservationListResponseDto> getUserReservationList(String userEmailId);
+    ResponseEntity<? super GetReservationListResponseDto> getCeoReservationList(int restaurantId);
     ResponseEntity<ResponseDto> postReservation (PostReservationRequestDto dto, String userEmailId, int restaurantId);
     ResponseEntity<ResponseDto> deleteReservation(DeleteReservationRequestDto dto, int reservationNumber, String userEmailId);
     
     // 식당 리뷰
-    ResponseEntity<ResponseDto> postReview (PostReviewRequestDto dto, int restaurantId ,String userEmailId);
+    ResponseEntity<? super GetReviewResponseDto> getReview (int reviewNumber);
+    ResponseEntity<ResponseDto> postReview (PostReviewRequestDto dto, int restaurantId, String userEmailId);
     ResponseEntity<ResponseDto> patchReview (PatchReviewRequestDto dto, int reviewNumber, String userEmailId);
     ResponseEntity<ResponseDto> deleteReview (int reviewNumber, String userEmailId);
+    ResponseEntity<? super GetReviewListResponseDto> getMyReviewList (String userEmailId);
 
     // 식당 찜
     ResponseEntity<ResponseDto> postFavorite(PostFavoriteRestaurantRequestDto dto, String userEmailId, int restaurantId);
