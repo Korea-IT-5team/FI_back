@@ -16,7 +16,7 @@ public interface InquiryBoardService {
   ResponseEntity<ResponseDto> postComment(PostCommentRequestDto dto, int inquiryNumber);
 
   ResponseEntity<? super GetInquiryBoardListResponseDto> getInquiryBoardList();
-  ResponseEntity<? super GetSearchInquiryBoardListResponseDto> getSearchInquiryBoardList(String inquiryTitle);
+  ResponseEntity<? super GetSearchInquiryBoardListResponseDto> getSearchInquiryBoardList(String searchWord);
   ResponseEntity<? super GetMyInquiryBoardListResponseDto> getMyInquiryBoardList(String userEmailId);
   ResponseEntity<? super GetInquiryBoardResponseDto> getInquiryBoard(int inquiryNumber);
 
