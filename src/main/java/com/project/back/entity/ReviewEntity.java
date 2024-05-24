@@ -48,7 +48,7 @@ public class ReviewEntity {
         
     }
 
-    public void updateReview (PatchReviewRequestDto dto){
+    public void updateReview(PatchReviewRequestDto dto){
         
         this.rating = dto.getRating();
         this.reviewContents = dto.getReviewContents();

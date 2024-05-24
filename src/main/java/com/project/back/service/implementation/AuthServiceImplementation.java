@@ -161,7 +161,7 @@ public class AuthServiceImplementation implements AuthService {
       String userName = dto.getUserName();
       String userTelNumber = dto.getUserTelNumber();
 
-      boolean isMatched = userRepository.exexistsByUserNameAndUserTelNumber(userName, userTelNumber);
+      boolean isMatched = userRepository.existsByUserNameAndUserTelNumber(userName, userTelNumber);
       if (!isMatched) return ResponseDto.authenticationFailed();
     } catch(Exception exception) {
       exception.printStackTrace();
@@ -189,7 +189,7 @@ public class AuthServiceImplementation implements AuthService {
       UserEntity userEntity = userRepository.findByUserEmailId(userEmailId);
 
       boolean isUser = userEmailId.equals(userEmailId);
-      if (!isUser) return ResponseDto.notFound();
+      if (!isUser) return ResponseDto.noExistUser();
 
       String password = dto.getPassword();
 

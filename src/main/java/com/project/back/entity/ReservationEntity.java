@@ -1,6 +1,6 @@
 package com.project.back.entity;
 
-import java.time.LocalDateTime;
+
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -22,11 +22,14 @@ public class ReservationEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer reservationNumber;
-    private boolean reservationStatus;
-    private String reservationUserId;
+    private Boolean reservationStatus;
+    private String reservationUserEmailId;
     private Integer reservationRestaurantId;
-    private LocalDateTime reservationDate;
-    private LocalDateTime reservationTime;
+    private String reservationRestaurantName;
+    private String  reservationDate;
+    private String reservationTime;
     private Integer reservationPeople;
     private String cancellationReason;
+
+    
 }
