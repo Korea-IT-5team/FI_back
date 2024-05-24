@@ -88,7 +88,7 @@ public class RestaurantController {
         return response;
     };
     @GetMapping("/reservation/ceo-list")
-    public ResponseEntity<? super GetReservationListResponseDto> getCeoReservationList (String restaurantId) {
+    public ResponseEntity<? super GetReservationListResponseDto> getCeoReservationList (int restaurantId) {
         ResponseEntity<? super GetReservationListResponseDto> response = restaurantService.getCeoReservationList(restaurantId);
         return response;
     }
