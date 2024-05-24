@@ -6,14 +6,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-// 회원탈퇴 Request Body Dto
-
 @Getter
 @Setter
 @NoArgsConstructor
-public class DeleteUserRequestDto 
-{
+public class DeleteUserRequestDto {
     @NotBlank
     @Pattern(regexp = "^(?=.*[a-zA-Z])(?=.*[0-9]).{8,13}$")
-    private String userPassword; //사용자 비밀번호
+    private String password;
 }

@@ -12,10 +12,10 @@ import com.project.back.dto.response.ResponseMessage;
 import com.project.back.entity.RestaurantEntity;
 import com.project.back.repository.resultSet.GetRestaurantReviewListItemResultSet;
 
-// 특정 식당 정보 Response Body DTO
+import lombok.Getter;
 
-public class GetRestaurantInfoResponseDto extends ResponseDto
-{
+@Getter
+public class  GetRestaurantInfoResponseDto extends ResponseDto {
     private Integer restaurantId; 
     private String restaurantImage;
     private String restaurantName;
@@ -29,33 +29,32 @@ public class GetRestaurantInfoResponseDto extends ResponseDto
     private String restaurantNotice;
     private String restaurantRepresentativeMenu;
     private String restaurantBusinessRegistrationNumber;
+    private String restaurantWriterId;
     private List<RestaurantReviewListItem> restaurantReviewList;
     
-    
-    private GetRestaurantInfoResponseDto(RestaurantEntity restaurantEntity,List<GetRestaurantReviewListItemResultSet> getRestaurantReviewListItemResultSetList)
-    throws Exception
-    {
-        super(ResponseCode.SUCCESS,ResponseMessage.SUCCESS);
+    private GetRestaurantInfoResponseDto(RestaurantEntity restaurantEntity, List<GetRestaurantReviewListItemResultSet> reviewEntities)
+    throws Exception {
+        super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
         this.restaurantId = restaurantEntity.getRestaurantId();
-        this.restaurantImage= restaurantEntity.getRestaurantImage();
-        this.restaurantName=restaurantEntity.getRestaurantName();
-        this.restaurantFoodCategory=restaurantEntity.getRestaurantFoodCategory();
-        this.restaurantPostalCode=restaurantEntity.getPostalCode();
-        this.restaurantLocation=restaurantEntity.getRestaurantLocation();
-        this.restaurantTelNumber=restaurantEntity.getRestaurantTelNumber();
-        this.restaurantSnsAddress=restaurantEntity.getRestaurantSnsAddress();
-        this.restaurantOperationHours=restaurantEntity.getRestaurantOperationHours();
-        this.restaurantFeatures=restaurantEntity.getRestaurantFeatures();
-        this.restaurantNotice=restaurantEntity.getRestaurantNotice();
-        this.restaurantRepresentativeMenu=restaurantEntity.getRestaurantRepresentativeMenu();
-        this.restaurantBusinessRegistrationNumber=restaurantEntity.getRestaurantBusinessRegistrationNumber();
-        this.restaurantReviewList=RestaurantReviewListItem.getList(getRestaurantReviewListItemResultSetList);
+        this.restaurantImage = restaurantEntity.getRestaurantImage();
+        this.restaurantName = restaurantEntity.getRestaurantName();
+        this.restaurantFoodCategory = restaurantEntity.getRestaurantFoodCategory();
+        this.restaurantPostalCode = restaurantEntity.getRestaurantPostalCode();
+        this.restaurantLocation = restaurantEntity.getRestaurantLocation();
+        this.restaurantTelNumber = restaurantEntity.getRestaurantTelNumber();
+        this.restaurantSnsAddress = restaurantEntity.getRestaurantSnsAddress();
+        this.restaurantOperationHours = restaurantEntity.getRestaurantOperationHours();
+        this.restaurantFeatures = restaurantEntity.getRestaurantFeatures();
+        this.restaurantNotice = restaurantEntity.getRestaurantNotice();
+        this.restaurantRepresentativeMenu = restaurantEntity.getRestaurantRepresentativeMenu();
+        this.restaurantBusinessRegistrationNumber = restaurantEntity.getRestaurantBusinessRegistrationNumber();
+        this.restaurantWriterId = restaurantEntity.getRestaurantWriterId();
+        this.restaurantReviewList = RestaurantReviewListItem.getList(reviewEntities);
     }
 
-    public static ResponseEntity<GetRestaurantInfoResponseDto> success(RestaurantEntity restaurantEntity,List<GetRestaurantReviewListItemResultSet> getRestaurantReviewListItemResultSetList)
-    throws Exception
-    {
-        GetRestaurantInfoResponseDto responseBody = new GetRestaurantInfoResponseDto(restaurantEntity,getRestaurantReviewListItemResultSetList);
+    public static ResponseEntity<GetRestaurantInfoResponseDto> success(RestaurantEntity restaurantEntity, List<GetRestaurantReviewListItemResultSet> getRestaurantReviewListItemResultSets)
+    throws Exception {
+        GetRestaurantInfoResponseDto responseBody = new GetRestaurantInfoResponseDto(restaurantEntity,getRestaurantReviewListItemResultSets);
         return ResponseEntity.status(HttpStatus.OK).body(responseBody);
     }
 }

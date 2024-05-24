@@ -1,6 +1,6 @@
 package com.project.back.entity;
 
-import java.time.LocalDateTime;
+
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -12,23 +12,24 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-// project 데이터베이스의 reservation 테이블과 매핑되는 Entity 클래스
 @Entity(name="reservation")
 @Table(name="reservation")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ReservationEntity 
-{
+public class ReservationEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer reservationNumber;
-    private boolean reservationStatus;
-    private String reservationUserId;
+    private Boolean reservationStatus;
+    private String reservationUserEmailId;
     private Integer reservationRestaurantId;
-    private LocalDateTime reservationDate;
-    private LocalDateTime reservationTime;
+    private String reservationRestaurantName;
+    private String  reservationDate;
+    private String reservationTime;
     private Integer reservationPeople;
     private String cancellationReason;
+
+    
 }

@@ -1,5 +1,12 @@
 package com.project.back.entity;
 
+import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.util.Date;
+
+import com.project.back.dto.request.board.inquiryboard.PatchInquiryBoardRequestDto;
+import com.project.back.dto.request.board.inquiryboard.PostInquiryBoardRequestDto;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -10,15 +17,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-// project 데이터베이스의 inquiry_board 테이블과 매핑되는 Entity 클래스
-@Entity(name="inquiry_board")
+@Entity(name="inquiryBoard")
 @Table(name="inquiry_board")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class InquiryBoardEntity 
-{
+public class InquiryBoardEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer inquiryNumber;
@@ -29,6 +34,22 @@ public class InquiryBoardEntity
     private String inquiryWriterId;
     private String inquiryWriteDatetime;
     private String inquiryComment;
-}
 
-    
+    public InquiryBoardEntity(PostInquiryBoardRequestDto dto, String userEmailId) {
+        Date now = Date.from(Instant.now());
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String inquiryWriteDatetime = simpleDateFormat.format(now);
+
+        this.inquiryStatus = false;
+        this.inquiryPublic = false;
+        this.inquiryTitle = dto.getInquiryTitle();
+        this.inquiryContents = dto.getInquiryContents();
+        this.inquiryWriterId = userEmailId;
+        this.inquiryWriteDatetime = inquiryWriteDatetime;
+    }
+
+    public void update(PatchInquiryBoardRequestDto dto) {
+        this.inquiryTitle = dto.getInquiryTitle();
+        this.inquiryContents = dto.getInquiryContents();
+    }
+}

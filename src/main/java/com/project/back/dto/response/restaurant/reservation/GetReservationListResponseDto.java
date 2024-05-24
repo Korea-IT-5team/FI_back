@@ -5,28 +5,26 @@ import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import com.project.back.common.object.restaurant.reservation.RestaurantReservationListItem;
+import com.project.back.common.object.restaurant.RestaurantReservationListItem;
 import com.project.back.dto.response.ResponseCode;
 import com.project.back.dto.response.ResponseDto;
 import com.project.back.dto.response.ResponseMessage;
-import com.project.back.repository.resultSet.GetRestaurantReservationListItemResultSet;
+import com.project.back.entity.ReservationEntity;
 
-// 식당 예약 내역 목록 확인 Response Body DTO
+import lombok.Getter;
 
-public class GetReservationListResponseDto extends ResponseDto
-{
-    private List<RestaurantReservationListItem> restaurantReservationList;
+@Getter
+public class GetReservationListResponseDto extends ResponseDto{
+    private List<RestaurantReservationListItem> reservationList;
     
-    private GetReservationListResponseDto(List<GetRestaurantReservationListItemResultSet> getRestaurantReservationListItemResultSets) throws Exception
-    {
-        super(ResponseCode.SUCCESS,ResponseMessage.SUCCESS);
-        this.restaurantReservationList= RestaurantReservationListItem.getList(getRestaurantReservationListItemResultSets);
+    private GetReservationListResponseDto(List<ReservationEntity> reservationEntities) throws Exception {
+        super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
+        this.reservationList = RestaurantReservationListItem.getList(reservationEntities);
     }
 
-    public static ResponseEntity<GetReservationListResponseDto> success(List<GetRestaurantReservationListItemResultSet> getRestaurantReservationListItemResultSets)
-    throws Exception
-    {
-        GetReservationListResponseDto responseBody = new GetReservationListResponseDto(getRestaurantReservationListItemResultSets);
+    public static ResponseEntity<GetReservationListResponseDto> success(List<ReservationEntity> reservationEntities)
+    throws Exception {
+        GetReservationListResponseDto responseBody = new GetReservationListResponseDto(reservationEntities);
         return ResponseEntity.status(HttpStatus.OK).body(responseBody);
     }
 }

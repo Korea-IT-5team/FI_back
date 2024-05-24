@@ -5,15 +5,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-// 식당 리뷰 작성 Request Body Dto
-
 @Getter
 @Setter
 @NoArgsConstructor
-public class PostReviewRequestDto 
-{
-    private String reviewImage; //리뷰 사진
+public class PostReviewRequestDto {
     @NotBlank
-    private double rating; //평점
-    private String reviewContents; //리뷰 내용
+    private double rating;
+    private String reviewImage;
+    private String reviewContents;
 }
