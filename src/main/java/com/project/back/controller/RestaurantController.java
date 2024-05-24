@@ -24,6 +24,8 @@ import com.project.back.dto.response.restaurant.GetRestaurantListResponseDto;
 import com.project.back.dto.response.restaurant.favorite.GetFavoriteRestaurantListResponseDto;
 import com.project.back.dto.response.restaurant.reservation.GetReservationListResponseDto;
 import com.project.back.dto.response.restaurant.reservation.GetReservationResponseDto;
+import com.project.back.dto.response.restaurant.review.GetReviewListResponseDto;
+import com.project.back.dto.response.restaurant.review.GetReviewResponseDto;
 import com.project.back.service.RestaurantService;
 
 import jakarta.validation.Valid;
@@ -81,12 +83,15 @@ public class RestaurantController {
     };
     // 6
     @GetMapping("/reservation/list")
-    public ResponseEntity<? super GetReservationListResponseDto> getReservationList (
-        String userEmailId
-    ) {
-        ResponseEntity<? super GetReservationListResponseDto> response = restaurantService.getReservationList(userEmailId);
+    public ResponseEntity<? super GetReservationListResponseDto> getUserReservationList (String userEmailId) {
+        ResponseEntity<? super GetReservationListResponseDto> response = restaurantService.getUserReservationList(userEmailId);
         return response;
     };
+    @GetMapping("/reservation/ceo-list")
+    public ResponseEntity<? super GetReservationListResponseDto> getCeoReservationList (String restaurantId) {
+        ResponseEntity<? super GetReservationListResponseDto> response = restaurantService.getCeoReservationList(restaurantId);
+        return response;
+    }
     // 7
     @PostMapping("/reservation/{restaurantId}")
     public ResponseEntity<ResponseDto> postReservation(
@@ -107,6 +112,13 @@ public class RestaurantController {
         ResponseEntity<ResponseDto> response = restaurantService.deleteReservation(null, reservationNumber, userEmailId);
         return response;
     };
+    @GetMapping("/review/{reviewNumber}")
+    public ResponseEntity<? super GetReviewResponseDto> getReview (
+        @PathVariable("reviewNumber") int reviewNumber
+    ) {
+        ResponseEntity<? super GetReviewResponseDto> response = restaurantService.getReview(reviewNumber);
+        return response;
+    }
     // 9
     @PostMapping("/review/{restaurantId}")
     public ResponseEntity<ResponseDto> postReview (
@@ -135,8 +147,14 @@ public class RestaurantController {
         ResponseEntity<ResponseDto> response = restaurantService.deleteReview(reviewNumber, userEmailId);
         return response;
     }
+    
+    @GetMapping("/review/list")
+    public ResponseEntity<? super GetReviewListResponseDto> getMyReviewList (String userEmailId) {
+        ResponseEntity<? super GetReviewListResponseDto> response = restaurantService.getMyReviewList(userEmailId);
+        return response;
+    }
     // 12
-    @PostMapping("/restaurantId")
+    @PostMapping("favorite/restaurantId")
     public ResponseEntity<ResponseDto> postFavorite (
         @RequestBody @Valid PostFavoriteRestaurantRequestDto requestBody,
         @PathVariable("restaurantId") int restaurantId,
@@ -144,9 +162,9 @@ public class RestaurantController {
     ){
         ResponseEntity<ResponseDto> response = restaurantService.postFavorite(requestBody, userEmailId, restaurantId);
         return response;
-    } 
+    }
     // 13
-    @GetMapping("/list")
+    @GetMapping("favorite/list")
     public ResponseEntity<? super GetFavoriteRestaurantListResponseDto> getFavoriteList (String userEmailId)
     {
         ResponseEntity<? super GetFavoriteRestaurantListResponseDto> response = restaurantService.getFavoriteList(userEmailId);

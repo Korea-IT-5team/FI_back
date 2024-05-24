@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import com.project.back.dto.response.restaurant.review.GetReviewListResponseDto;
 import com.project.back.entity.FavoriteRestaurantEntity;
 import com.project.back.entity.ReviewEntity;
 import com.project.back.repository.resultSet.GetRestaurantReviewListItemResultSet;
@@ -31,4 +32,12 @@ public interface ReviewRepository extends JpaRepository<ReviewEntity,Integer> {
     List<GetRestaurantReviewListItemResultSet> findReviewsByRestaurantId(@Param("restaurantId") int restaurantId);
     ReviewEntity findByReviewRestaurantId(int reviewRestaurantId);
     List<FavoriteRestaurantEntity> findByOrderByReviewRestaurantIdDesc();
+    @Query(value=
+    "SELECT * " +
+    "FROM review " +
+    "WHERE review_writer_id = :userEmailId",
+    nativeQuery=true
+    )
+    List<GetRestaurantReviewListItemResultSet> findByOrderByMyReviewListDesc(@Param("userEmailId") String reviewWriterId);
+    
 }

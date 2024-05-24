@@ -11,6 +11,7 @@ import com.project.back.entity.ReservationEntity;
 public interface ReservationRepository extends JpaRepository<ReservationEntity,Integer> {
     ReservationEntity findByReservationNumber(Integer reservationNumber);
     List<ReservationEntity> findByReservationUserEmailIdOrderByReservationNumberDesc(String userEmailId);
+    List<ReservationEntity> findByReservationRestaurantIdOrderByReservationNumberDesc(String restaurantId);
 }
 
 
