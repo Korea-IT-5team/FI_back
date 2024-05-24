@@ -13,12 +13,12 @@ import com.project.back.entity.InquiryBoardEntity;
 public interface InquiryBoardRepository  extends JpaRepository<InquiryBoardEntity,Integer> {
     InquiryBoardEntity findByInquiryNumber(Integer inquiryNumber);
     List<InquiryBoardEntity> findByOrderByInquiryNumberDesc();
-    List<InquiryBoardEntity> findByTitleContainsOrderByInquiryNumberDesc(String searchWord);
+    List<InquiryBoardEntity> findByInquiryTitleContainsOrderByInquiryNumberDesc(String inquiryTitle);
 
     @Query(value=
     "SELECT * " +
     "FROM inquiry_board " +
-    "WHERE `inquiry_writer_id` = :user_email_id",
+    "WHERE `inquiry_writer_id` = :userEmailId",
     nativeQuery=true
     )
     List<InquiryBoardEntity> getMyInquiryBoardList(@Param("inquiry_writer_id") String inquiryWriterId);

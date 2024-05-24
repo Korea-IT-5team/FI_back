@@ -74,9 +74,9 @@ public class InquiryBoardServiceImplementation implements InquiryBoardService {
   }
 
   @Override
-  public ResponseEntity<? super GetSearchInquiryBoardListResponseDto> getSearchInquiryBoardList(String title) {
+  public ResponseEntity<? super GetSearchInquiryBoardListResponseDto> getSearchInquiryBoardList(String inquiryTitle) {
     try {
-      List<InquiryBoardEntity> inquiryBoardEntities = inquiryBoardRepository.findByTitleContainsOrderByInquiryNumberDesc(title);
+      List<InquiryBoardEntity> inquiryBoardEntities = inquiryBoardRepository.findByInquiryTitleContainsOrderByInquiryNumberDesc(inquiryTitle);
       return GetSearchInquiryBoardListResponseDto.success(inquiryBoardEntities);
     } catch (Exception exception) {
       exception.printStackTrace();
