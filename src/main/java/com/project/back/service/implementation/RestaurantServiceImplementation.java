@@ -201,9 +201,9 @@ public class RestaurantServiceImplementation implements RestaurantService
     }
 
     @Override
-    public ResponseEntity<ResponseDto> deleteReview(int reviewRestaurantId, String userEmailId) {
+    public ResponseEntity<ResponseDto> deleteReview(int reviewNumber, String userEmailId) {
         try {
-            ReviewEntity reviewEntity = reviewRepository.findByReviewRestaurantId(reviewRestaurantId);
+            ReviewEntity reviewEntity = reviewRepository.findByReviewRestaurantId(reviewNumber);
             if (reviewEntity == null) return ResponseDto.noExistReview();
 
             String writerId = reviewEntity.getReviewWriterId();
@@ -219,7 +219,7 @@ public class RestaurantServiceImplementation implements RestaurantService
     }
     
     @Override
-    public ResponseEntity<? super GetFavoriteRestaurantListResponseDto> postFavorite(PostFavoriteRestaurantRequestDto dto, String userEmailId, int restaurantId) {
+    public ResponseEntity<ResponseDto> postFavorite(PostFavoriteRestaurantRequestDto dto, String userEmailId, int restaurantId) {
         try {
             boolean isExistUser = userRepository.existsByUserEmailId(userEmailId);
             if (!isExistUser) return ResponseDto.noExistUser();

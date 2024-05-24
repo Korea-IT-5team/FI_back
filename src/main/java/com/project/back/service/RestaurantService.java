@@ -32,10 +32,10 @@ public interface RestaurantService {
     // 식당 리뷰
     ResponseEntity<ResponseDto> postReview (PostReviewRequestDto dto, int restaurantId ,String userEmailId);
     ResponseEntity<ResponseDto> patchReview (PatchReviewRequestDto dto, int reviewNumber, String userEmailId);
-    ResponseEntity<ResponseDto> deleteReview (int reviewRestaurantId, String userEmailId);
+    ResponseEntity<ResponseDto> deleteReview (int reviewNumber, String userEmailId);
 
     // 식당 찜
-    ResponseEntity<? super GetFavoriteRestaurantListResponseDto> postFavorite(PostFavoriteRestaurantRequestDto dto, String userEmailId, int restaurantId);
+    ResponseEntity<ResponseDto> postFavorite(PostFavoriteRestaurantRequestDto dto, String userEmailId, int restaurantId);
     ResponseEntity<? super GetFavoriteRestaurantListResponseDto> getFavoriteList(String userEmailId);
     
 }
