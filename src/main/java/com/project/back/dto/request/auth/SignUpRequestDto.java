@@ -1,4 +1,4 @@
-git package com.project.back.dto.request.auth;
+package com.project.back.dto.request.auth;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
