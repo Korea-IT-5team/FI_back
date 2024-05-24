@@ -57,9 +57,9 @@ public class InquiryBoardController {
 
   @GetMapping("/list/search")
   public ResponseEntity<? super GetSearchInquiryBoardListResponseDto> getSearchInquiryBoardList(
-    @RequestParam("word") String word
+    @RequestParam("searchWord") String searchWord
   ) {
-    ResponseEntity<? super GetSearchInquiryBoardListResponseDto> response = inquiryBoardService.getSearchInquiryBoardList(word);
+    ResponseEntity<? super GetSearchInquiryBoardListResponseDto> response = inquiryBoardService.getSearchInquiryBoardList(searchWord);
     return response;
   }
 
