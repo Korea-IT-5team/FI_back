@@ -6,7 +6,6 @@ import org.springframework.stereotype.Repository;
 
 import com.project.back.entity.FavoriteRestaurantEntity;
 
-
 @Repository
 public interface FavoriteRestaurantRepository extends JpaRepository<FavoriteRestaurantEntity,String> {
     boolean existsByFavoriteUserEmailId(String favoriteUserEmailId);

@@ -32,6 +32,7 @@ public class InquiryBoardEntity {
     private String inquiryTitle;
     private String inquiryContents;
     private String inquiryWriterId;
+    private String inquiryWriterNickname;
     private String inquiryWriteDatetime;
     private String inquiryComment;
 
