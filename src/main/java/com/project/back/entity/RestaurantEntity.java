@@ -21,7 +21,6 @@ import lombok.Setter;
 @AllArgsConstructor
 public class RestaurantEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer restaurantId; 
     private String restaurantName;
     private String restaurantFoodCategory;

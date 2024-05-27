@@ -18,7 +18,6 @@ import lombok.Setter;
 @AllArgsConstructor
 public class NoticeBoardEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer noticeNumber;
     private String noticeTitle;
     private String noticeContents;
