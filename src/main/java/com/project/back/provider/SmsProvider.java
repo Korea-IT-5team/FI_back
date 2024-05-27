@@ -22,6 +22,7 @@ public class SmsProvider {
   ) {
     this.messageService = NurigoApp.INSTANCE.initialize(API_KEY, API_SECRET_KEY, API_DOMAIN);
   }
+
   public boolean sendAuthNumber(String userTelNumber, String authNumber) {
     Message message = new Message();
     message.setFrom(FROM);
@@ -40,10 +41,10 @@ public class SmsProvider {
     return text;
   }
 
-  public boolean sendPasswordResetLink(String to, String resetLinkCode) {
+  public boolean sendPasswordResetLink(String userTelNumber, String resetLinkCode) {
     Message message = new Message();
     message.setFrom(FROM);
-    message.setTo(to);
+    message.setTo(userTelNumber);
     message.setText(getResetLinkCodeText(resetLinkCode));
 
     SingleMessageSentResponse response = messageService.sendOne(new SingleMessageSendingRequest(message));
