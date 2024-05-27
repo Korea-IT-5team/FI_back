@@ -51,7 +51,7 @@ public class NoticeBoardController {
   ) {
     ResponseEntity<? super GetSearchNoticeBoardResponseDto> response = noticeBoardService.getSearchNoticeBoardList(searchWord);
     return response;
-  }
+  } 
 
   @GetMapping("{noticeNumber}")
   public ResponseEntity<? super GetNoticeBoardResponseDto> getNoticeBoard(
