@@ -6,7 +6,6 @@ public interface GetRestaurantReviewListItemResultSet {
     String getReviewImage();
     Double getRating();
     String getReviewContents();
-    String getReviewWriterId();
     String getReviewWriterNickname();
     String getReviewDate();
 }

@@ -14,7 +14,6 @@ public class RestaurantReservationListItem {
     private boolean reservationStatus;
     private Integer reservationRestaurantId;
     private String reservationRestaurantName;
-    private String reservationUserEmailId;
     private String reservationUserName;
     private String reservationDate;
     private String reservationTime;
@@ -25,12 +24,6 @@ public class RestaurantReservationListItem {
         this.reservationStatus = false;
         this.reservationRestaurantId = reservationEntity.getReservationRestaurantId();
         this.reservationRestaurantName = reservationEntity.getReservationRestaurantName();
-
-        String writerId = reservationEntity.getReservationUserEmailId();
-        writerId = writerId.substring(0, 1) +
-        "*".repeat(writerId.length() - 1); 
-        this.reservationUserEmailId = writerId;
-
         this.reservationUserName = reservationEntity.getReservationUserName();
 
         String writeDate = ChangeDateFormatUtil.changeYYMMDD(reservationEntity.getReservationDate());
