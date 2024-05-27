@@ -40,11 +40,11 @@ public class SmsProvider {
     return text;
   }
 
-  public boolean sendPasswordResetLink(String to) {
+  public boolean sendPasswordResetLink(String to, String resetLinkCode) {
     Message message = new Message();
     message.setFrom(FROM);
     message.setTo(to);
-    message.setText("http://localhost:9999/api/v1/auth/password-update");
+    message.setText(getResetLinkCodeText(resetLinkCode));
 
     SingleMessageSentResponse response = messageService.sendOne(new SingleMessageSendingRequest(message));
 
@@ -52,5 +52,9 @@ public class SmsProvider {
     boolean result = statusCode.equals("2000");
 
     return result;
+  }
+  private String getResetLinkCodeText(String resetLinkCode) {
+    String text = "http://localhost:9999/api/v1/auth/password-update/" + resetLinkCode;
+    return text;
   }
 }
