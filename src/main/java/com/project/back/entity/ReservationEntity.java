@@ -24,12 +24,11 @@ public class ReservationEntity {
     private Integer reservationNumber;
     private Boolean reservationStatus;
     private String reservationUserEmailId;
+    private String reservationUserName;
     private Integer reservationRestaurantId;
     private String reservationRestaurantName;
     private String  reservationDate;
     private String reservationTime;
     private Integer reservationPeople;
     private String cancellationReason;
-
-    
 }
