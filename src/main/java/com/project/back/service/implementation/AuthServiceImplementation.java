@@ -5,6 +5,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.project.back.common.util.PasswordResetLinkCodeUtil;
 import com.project.back.common.util.TelNumberAuthNumberUtil;
 import com.project.back.dto.request.auth.CheckEmailIdRequestDto;
 import com.project.back.dto.request.auth.CheckNicknameRequestDto;
@@ -174,8 +175,10 @@ public class AuthServiceImplementation implements AuthService {
   public ResponseEntity<ResponseDto> passwordReset(PasswordResetRequestDto dto) {
     try {
       String userTelNumber = dto.getUserTelNumber();
+      
+      String resetLinkCode = PasswordResetLinkCodeUtil.createCode();
 
-      smsProvider.sendPasswordResetLink(userTelNumber);
+      smsProvider.sendPasswordResetLink(userTelNumber, resetLinkCode);
     } catch (Exception exception) {
       exception.printStackTrace();
       return ResponseDto.databaseError();

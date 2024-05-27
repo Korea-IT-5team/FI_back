@@ -17,10 +17,7 @@ public class GetUserInfoResponseDto extends ResponseDto {
     
     private GetUserInfoResponseDto(UserEntity userEntity) {
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
-        String writerId = userEntity.getUserEmailId();
-        writerId = writerId.substring(0, 4) +
-        "*".repeat(writerId.length() - 4); 
-        this.userEmailId = writerId;
+        this.userEmailId = userEntity.getUserEmailId();
         this.userRole = userEntity.getUserRole();
     }
 

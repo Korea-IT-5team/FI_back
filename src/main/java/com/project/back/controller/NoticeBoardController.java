@@ -71,6 +71,7 @@ public class NoticeBoardController {
     return response;
   }
 
+  
   @PatchMapping("/{receptionNumber}/view-count")
   public ResponseEntity<ResponseDto> increaseViewCount (
       @PathVariable("noticeNumber") int noticeNumber
