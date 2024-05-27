@@ -25,12 +25,6 @@ public class GetInquiryBoardResponseDto extends ResponseDto{
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
         this.inquiryNumber = inquiryBoardEntity.getInquiryNumber();
         this.inquiryTitle = inquiryBoardEntity.getInquiryTitle();
-
-        String writerId = inquiryBoardEntity.getInquiryWriterId();
-        writerId = writerId.substring(0, 1) +
-        "*".repeat(writerId.length() - 1); 
-        this.inquiryWriterId = writerId;
-
         this.inquiryWriterNickname = inquiryBoardEntity.getInquiryWriterNickname();
 
         String writeDate = ChangeDateFormatUtil.changeYYYYMMDD(inquiryBoardEntity.getInquiryWriteDatetime());

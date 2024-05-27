@@ -15,7 +15,6 @@ public class RestaurantReviewListItem {
     private String reviewImage;
     private double rating;
     private String reviewContents;
-    private String reviewWriterId;
     private String reviewWriterNickname;
     private String reviewDate;
 
@@ -25,12 +24,6 @@ public class RestaurantReviewListItem {
         this.reviewImage = getRestaurantReviewListItemResultSet.getReviewImage();
         this.rating = getRestaurantReviewListItemResultSet.getRating();
         this.reviewContents = getRestaurantReviewListItemResultSet.getReviewContents();
-
-        String writerId = getRestaurantReviewListItemResultSet.getReviewWriterId();
-        writerId = writerId.substring(0, 1) +
-        "*".repeat(writerId.length() - 1);
-        this.reviewWriterId = writerId;
-
         this.reviewWriterNickname = getRestaurantReviewListItemResultSet.getReviewWriterNickname(); 
 
         String writeDatetime = ChangeDateFormatUtil.changeYYMMDD(getRestaurantReviewListItemResultSet.getReviewDate());
