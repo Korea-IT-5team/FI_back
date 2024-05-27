@@ -11,7 +11,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-// project 데이터베이스의 user 테이블과 매핑되는 Entity 클래스
 @Entity(name="user")
 @Table(name="user")
 @Getter
@@ -38,12 +37,12 @@ public class UserEntity {
         this.userTelNumber = dto.getUserTelNumber();
         this.userAddress = dto.getUserAddress();
         this.userRole = "ROLE_USER";
-        this.joinPath = dto.getJoinPath();
+        this.joinPath = "HOME";
         this.snsId = dto.getSnsId();
     }
 
     public void update(PatchUserInfoRequestDto dto) {
-        this.nickname = dto.getNickName();
+        this.nickname = dto.getNickname();
         this.userAddress = dto.getUserAddress();
     }
 }

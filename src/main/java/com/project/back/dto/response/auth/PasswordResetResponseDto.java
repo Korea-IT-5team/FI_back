@@ -7,8 +7,10 @@ import com.project.back.dto.response.ResponseCode;
 import com.project.back.dto.response.ResponseDto;
 import com.project.back.dto.response.ResponseMessage;
 
-// 비밀번호 재설정 요청 Response Body Dto
+import lombok.Getter;
 
+// 비밀번호 재설정 요청 Response Body Dto
+@Getter
 public class PasswordResetResponseDto extends ResponseDto
 {
     private String passwordResetLink;
@@ -16,7 +18,7 @@ public class PasswordResetResponseDto extends ResponseDto
     private PasswordResetResponseDto(String passwordResetLink)
     {
         super(ResponseCode.SUCCESS,ResponseMessage.SUCCESS);
-        this.passwordResetLink=passwordResetLink;
+        this.passwordResetLink = passwordResetLink;
     }
 
     public static ResponseEntity<PasswordResetResponseDto> success(String passwordResetLink)

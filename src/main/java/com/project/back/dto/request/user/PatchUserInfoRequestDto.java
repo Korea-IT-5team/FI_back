@@ -10,7 +10,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class PatchUserInfoRequestDto {
     @NotBlank
-    private String nickName;
+    private String nickname;
     @NotBlank
     private String userAddress;
 }
