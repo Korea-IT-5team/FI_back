@@ -6,6 +6,7 @@ import java.util.Date;
 
 import com.project.back.dto.request.restaurant.PostRestaurantInfoRequestDto;
 import com.project.back.dto.request.restaurant.review.PatchReviewRequestDto;
+import com.project.back.dto.request.restaurant.review.PostReviewRequestDto;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -32,17 +33,18 @@ public class ReviewEntity {
     private Double rating;
     private String reviewContents;
     private String reviewWriterId;
+    private String reviewWriterNickname;
     private String reviewDate;
     private String reviewImage;
 
-    public ReviewEntity(PostRestaurantInfoRequestDto dto, String nickname) {
+    public ReviewEntity(PostReviewRequestDto dto, String userEmailId) {
         Date now = Date.from(Instant.now());
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String reviewDate = simpleDateFormat.format(now);
 
         this.rating = dto.getRating();
         this.reviewContents = dto.getReviewContents();
-        this.reviewWriterId = nickname;
+        this.reviewWriterId = userEmailId;
         this.reviewDate = reviewDate;
         this.reviewImage = dto.getReviewImage();
         

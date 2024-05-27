@@ -16,6 +16,7 @@ public class GetNoticeBoardResponseDto extends ResponseDto {
     private Integer noticeNumber;
     private String noticeTitle;
     private String noticeWriteId;
+    private String noticeWriterNickname;
     private String noticeWriteDatetime;
     private String noticeContents;
     
@@ -29,8 +30,11 @@ public class GetNoticeBoardResponseDto extends ResponseDto {
         "*".repeat(writerId.length() - 1); 
         this.noticeWriteId = writerId;
 
+        this.noticeWriterNickname = noticeBoardEntity.getNoticeWriterNickname();
+
         String writeDate  = ChangeDateFormatUtil.changeYYYYMMDD(noticeBoardEntity.getNoticeWriteDatetime());
         this.noticeWriteDatetime = writeDate;
+
         this.noticeContents = noticeBoardEntity.getNoticeContents();
     }
 

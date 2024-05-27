@@ -20,19 +20,20 @@ public class RestaurantReviewListItem {
     private String reviewDate;
 
     private RestaurantReviewListItem(GetRestaurantReviewListItemResultSet getRestaurantReviewListItemResultSet) throws Exception {
-        this.reviewNumber=getRestaurantReviewListItemResultSet.getReviewNumber();
-        this.reviewRestaurantId=getRestaurantReviewListItemResultSet.getReviewRestaurantId();
-        this.reviewImage=getRestaurantReviewListItemResultSet.getReviewImage();
-        this.rating=getRestaurantReviewListItemResultSet.getRating();
-        this.reviewContents=getRestaurantReviewListItemResultSet.getReviewContents();
+        this.reviewNumber = getRestaurantReviewListItemResultSet.getReviewNumber();
+        this.reviewRestaurantId = getRestaurantReviewListItemResultSet.getReviewRestaurantId();
+        this.reviewImage = getRestaurantReviewListItemResultSet.getReviewImage();
+        this.rating = getRestaurantReviewListItemResultSet.getRating();
+        this.reviewContents = getRestaurantReviewListItemResultSet.getReviewContents();
 
         String writerId = getRestaurantReviewListItemResultSet.getReviewWriterId();
         writerId = writerId.substring(0, 1) +
         "*".repeat(writerId.length() - 1);
-        this.reviewWriterId=writerId;
-        this.reviewWriterNickname=getRestaurantReviewListItemResultSet.getReviewWriterNickname(); 
+        this.reviewWriterId = writerId;
 
-        String writeDatetime  = ChangeDateFormatUtil.changeYYMMDD(getRestaurantReviewListItemResultSet.getReviewDate());
+        this.reviewWriterNickname = getRestaurantReviewListItemResultSet.getReviewWriterNickname(); 
+
+        String writeDatetime = ChangeDateFormatUtil.changeYYMMDD(getRestaurantReviewListItemResultSet.getReviewDate());
         this.reviewDate = writeDatetime;
     }
 

@@ -23,6 +23,7 @@ public class NoticeBoardEntity {
     private String noticeTitle;
     private String noticeContents;
     private String noticeWriterId;
+    private String noticeWriterNickname;
     private String noticeWriteDatetime;
     private Integer noticeViewCount;
 }

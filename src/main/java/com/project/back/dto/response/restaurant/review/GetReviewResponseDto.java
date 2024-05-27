@@ -20,6 +20,7 @@ public class GetReviewResponseDto extends ResponseDto {
     private Double rating;
     private String reviewContents;
     private String reviewWriterId;
+    private String reviewWriterNickname;
     private String reviewDate;
     private String reviewImage;
 
@@ -30,6 +31,7 @@ public class GetReviewResponseDto extends ResponseDto {
         this.rating = reviewEntity.getRating();
         this.reviewContents = reviewEntity.getReviewContents();
         this.reviewWriterId = reviewEntity.getReviewWriterId();
+        this.reviewWriterNickname = reviewEntity.getReviewWriterNickname();
         this.reviewDate = reviewEntity.getReviewDate();
         this.reviewImage = reviewEntity.getReviewImage();
     }
