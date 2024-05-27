@@ -1,11 +1,8 @@
 package com.project.back.dto.response.restaurant.review;
 
-import java.util.List;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import com.project.back.common.object.restaurant.RestaurantReviewListItem;
 import com.project.back.dto.response.ResponseCode;
 import com.project.back.dto.response.ResponseDto;
 import com.project.back.dto.response.ResponseMessage;
@@ -19,7 +16,6 @@ public class GetReviewResponseDto extends ResponseDto {
     private Integer reviewRestaurantId;
     private Double rating;
     private String reviewContents;
-    private String reviewWriterId;
     private String reviewWriterNickname;
     private String reviewDate;
     private String reviewImage;
@@ -30,7 +26,6 @@ public class GetReviewResponseDto extends ResponseDto {
         this.reviewRestaurantId = reviewEntity.getReviewRestaurantId();
         this.rating = reviewEntity.getRating();
         this.reviewContents = reviewEntity.getReviewContents();
-        this.reviewWriterId = reviewEntity.getReviewWriterId();
         this.reviewWriterNickname = reviewEntity.getReviewWriterNickname();
         this.reviewDate = reviewEntity.getReviewDate();
         this.reviewImage = reviewEntity.getReviewImage();

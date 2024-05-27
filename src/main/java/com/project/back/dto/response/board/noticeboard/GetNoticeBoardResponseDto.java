@@ -15,7 +15,6 @@ import lombok.Getter;
 public class GetNoticeBoardResponseDto extends ResponseDto {
     private Integer noticeNumber;
     private String noticeTitle;
-    private String noticeWriteId;
     private String noticeWriterNickname;
     private String noticeWriteDatetime;
     private String noticeContents;
@@ -24,12 +23,6 @@ public class GetNoticeBoardResponseDto extends ResponseDto {
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
         this.noticeNumber = noticeBoardEntity.getNoticeNumber();
         this.noticeTitle = noticeBoardEntity.getNoticeTitle();
-
-        String writerId = noticeBoardEntity.getNoticeWriterId();
-        writerId = writerId.substring(0, 1) +
-        "*".repeat(writerId.length() - 1); 
-        this.noticeWriteId = writerId;
-
         this.noticeWriterNickname = noticeBoardEntity.getNoticeWriterNickname();
 
         String writeDate  = ChangeDateFormatUtil.changeYYYYMMDD(noticeBoardEntity.getNoticeWriteDatetime());

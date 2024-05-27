@@ -7,7 +7,7 @@ public class TelNumberAuthNumberUtil {
     String authNumber = "";
     Random random = new Random();
 
-    for (int index = 0; index < 6; index ++) { authNumber += random.nextInt(10); }
+    for (int index = 0; index < 6; index++) { authNumber += random.nextInt(10); }
     return authNumber;
   }
 }

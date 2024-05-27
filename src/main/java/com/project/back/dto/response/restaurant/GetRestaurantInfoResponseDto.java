@@ -15,7 +15,7 @@ import com.project.back.repository.resultSet.GetRestaurantReviewListItemResultSe
 import lombok.Getter;
 
 @Getter
-public class  GetRestaurantInfoResponseDto extends ResponseDto {
+public class GetRestaurantInfoResponseDto extends ResponseDto {
     private Integer restaurantId; 
     private String restaurantImage;
     private String restaurantName;

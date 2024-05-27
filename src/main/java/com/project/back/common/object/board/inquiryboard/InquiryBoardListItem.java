@@ -13,20 +13,16 @@ public class InquiryBoardListItem {
     private Integer inquiryNumber;
     private boolean inquiryStatus;
     private String inquiryTitle;
-    private String inquiryWriterId;
+    private String inquiryWriterNickname;
     private String inquiryWriteDatetime;
 
     private InquiryBoardListItem(InquiryBoardEntity inquiryBoardEntity) throws Exception {
-        this.inquiryNumber=inquiryBoardEntity.getInquiryNumber();
-        this.inquiryStatus=inquiryBoardEntity.getInquiryStatus();
-        this.inquiryTitle=inquiryBoardEntity.getInquiryTitle();
+        this.inquiryNumber = inquiryBoardEntity.getInquiryNumber();
+        this.inquiryStatus = inquiryBoardEntity.getInquiryStatus();
+        this.inquiryTitle = inquiryBoardEntity.getInquiryTitle();
+        this.inquiryWriterNickname = inquiryBoardEntity.getInquiryWriterNickname();
 
-        String writerId = inquiryBoardEntity.getInquiryWriterId();
-        writerId = writerId.substring(0, 1)+
-        "*".repeat(writerId.length()-1); 
-        this.inquiryWriterId=writerId;
-
-        String writeDate  = ChangeDateFormatUtil.changeYYMMDD(inquiryBoardEntity.getInquiryWriteDatetime());
+        String writeDate = ChangeDateFormatUtil.changeYYMMDD(inquiryBoardEntity.getInquiryWriteDatetime());
         this.inquiryWriteDatetime = writeDate;
     }
 
