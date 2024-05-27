@@ -16,22 +16,26 @@ public class GetInquiryBoardResponseDto extends ResponseDto{
     private Integer inquiryNumber;
     private String inquiryTitle;
     private String inquiryWriterId;
+    private String inquiryWriterNickname;
     private String inquiryWriteDatetime;
     private String inquiryContents;
     private String comment;
 
     private GetInquiryBoardResponseDto(InquiryBoardEntity inquiryBoardEntity) throws Exception {
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
-        this.inquiryNumber=inquiryBoardEntity.getInquiryNumber();
-        this.inquiryTitle=inquiryBoardEntity.getInquiryTitle();
+        this.inquiryNumber = inquiryBoardEntity.getInquiryNumber();
+        this.inquiryTitle = inquiryBoardEntity.getInquiryTitle();
 
         String writerId = inquiryBoardEntity.getInquiryWriterId();
         writerId = writerId.substring(0, 1) +
         "*".repeat(writerId.length() - 1); 
         this.inquiryWriterId = writerId;
 
+        this.inquiryWriterNickname = inquiryBoardEntity.getInquiryWriterNickname();
+
         String writeDate = ChangeDateFormatUtil.changeYYYYMMDD(inquiryBoardEntity.getInquiryWriteDatetime());
         this.inquiryWriteDatetime = writeDate;
+
         this.inquiryContents = inquiryBoardEntity.getInquiryContents();
         this.comment = inquiryBoardEntity.getInquiryComment();
     }

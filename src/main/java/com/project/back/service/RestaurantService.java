@@ -14,7 +14,6 @@ import com.project.back.dto.response.restaurant.GetRestaurantInfoResponseDto;
 import com.project.back.dto.response.restaurant.GetRestaurantListResponseDto;
 import com.project.back.dto.response.restaurant.favorite.GetFavoriteRestaurantListResponseDto;
 import com.project.back.dto.response.restaurant.reservation.GetReservationListResponseDto;
-import com.project.back.dto.response.restaurant.reservation.GetReservationResponseDto;
 import com.project.back.dto.response.restaurant.review.GetReviewListResponseDto;
 import com.project.back.dto.response.restaurant.review.GetReviewResponseDto;
 
@@ -26,7 +25,6 @@ public interface RestaurantService {
     ResponseEntity<ResponseDto> patchRestaurantInfo(PatchRestaurantInfoRequestDto dto, int restaurantId, String userEmailId);
 
     // 식당 예약
-    ResponseEntity<? super GetReservationResponseDto> getReservation(int reservationNumber);
     ResponseEntity<? super GetReservationListResponseDto> getUserReservationList(String userEmailId);
     ResponseEntity<? super GetReservationListResponseDto> getCeoReservationList(int restaurantId);
     ResponseEntity<ResponseDto> postReservation (PostReservationRequestDto dto, String userEmailId, int restaurantId);
