@@ -5,19 +5,15 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.project.back.common.util.PasswordResetLinkCodeUtil;
 import com.project.back.common.util.TelNumberAuthNumberUtil;
 import com.project.back.dto.request.auth.CheckEmailIdRequestDto;
 import com.project.back.dto.request.auth.CheckNicknameRequestDto;
 import com.project.back.dto.request.auth.CheckTelNumberAuthRequestDto;
-import com.project.back.dto.request.auth.FindEmailRequestDto;
-import com.project.back.dto.request.auth.NewPasswordRequestDto;
-import com.project.back.dto.request.auth.PasswordResetRequestDto;
+import com.project.back.dto.request.auth.BusinessRegistrationNumberRequestDto;
 import com.project.back.dto.request.auth.SignInRequestDto;
 import com.project.back.dto.request.auth.SignUpRequestDto;
 import com.project.back.dto.request.auth.TelNumberAuthRequestDto;
 import com.project.back.dto.response.ResponseDto;
-import com.project.back.dto.response.auth.FindEmailResponseDto;
 import com.project.back.dto.response.auth.SignInResponseDto;
 import com.project.back.entity.AuthNumberEntity;
 import com.project.back.entity.UserEntity;
@@ -157,54 +153,20 @@ public class AuthServiceImplementation implements AuthService {
   }
 
   @Override
-  public ResponseEntity<? super FindEmailResponseDto> findEmail(FindEmailRequestDto dto) {
+  public ResponseEntity<ResponseDto> postCeoBusiness(BusinessRegistrationNumberRequestDto dto) {
     try {
-      String userName = dto.getUserName();
-      String userTelNumber = dto.getUserTelNumber();
+      String businessRegistrationNumber = dto.getBusinessRegistrationNumber();
 
-      boolean isMatched = userRepository.existsByUserNameAndUserTelNumber(userName, userTelNumber);
-      if (!isMatched) return ResponseDto.authenticationFailed();
-    } catch(Exception exception) {
-      exception.printStackTrace();
-      return ResponseDto.databaseError();
-    }
-    return ResponseDto.success();
-  }
+      boolean existedBusinessRegistrationNumber = userRepository.existsByBusinessRegistrationNumber(businessRegistrationNumber);
+      if (existedBusinessRegistrationNumber) return ResponseDto.duplicatedBusinessRegistrationNumber();
 
-  @Override
-  public ResponseEntity<ResponseDto> passwordReset(PasswordResetRequestDto dto) {
-    try {
-      String userTelNumber = dto.getUserTelNumber();
-      
-      String resetLinkCode = PasswordResetLinkCodeUtil.createCode();
-
-      smsProvider.sendPasswordResetLink(userTelNumber, resetLinkCode);
+      UserEntity userEntity = new UserEntity();
+      userEntity.businessRegister(dto);
+      userRepository.save(userEntity);
     } catch (Exception exception) {
       exception.printStackTrace();
       return ResponseDto.databaseError();
     }
-    return ResponseDto.success();
-  }
-
-  @Override
-  public ResponseEntity<ResponseDto> newPassword(NewPasswordRequestDto dto, String userEmailId) {
-    try {
-      UserEntity userEntity = userRepository.findByUserEmailId(userEmailId);
-
-      boolean isUser = userEmailId.equals(userEmailId);
-      if (!isUser) return ResponseDto.noExistUser();
-
-      String password = dto.getPassword();
-
-      String encodedPassword = passwordEncoder.encode(password);
-      dto.setPassword(encodedPassword);
-
-      userEntity.setPassword(encodedPassword);
-      userRepository.save(userEntity);
-    } catch(Exception exception) {
-      exception.printStackTrace();
-      return ResponseDto.databaseError();
-    }
-    return ResponseDto.success();
+  return ResponseDto.success();
   }
 }
