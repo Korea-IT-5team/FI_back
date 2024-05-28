@@ -33,6 +33,12 @@ public class ResponseDto {
 
     // 응답: 실패 (중복된 닉네임)
     public static ResponseEntity<ResponseDto> duplicatedNickname() {
+        ResponseDto responseBody = new ResponseDto(ResponseCode.DUPLICATED_BUSINESS_REGISTRATION_NUMBER,ResponseMessage.DUPLICATED_BUSINESS_REGISTRATION_NUMBER);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseBody);
+    }
+
+     // 응답: 실패 (중복된 사업자등록번호)
+    public static ResponseEntity<ResponseDto> duplicatedBusinessRegistrationNumber() {
         ResponseDto responseBody = new ResponseDto(ResponseCode.DUPLICATED_NICKNAME,ResponseMessage.DUPLICATED_NICKNAME);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseBody);
     }
@@ -60,8 +66,6 @@ public class ResponseDto {
         ResponseDto responseBody = new ResponseDto(ResponseCode.NO_EXIST_REVIEW,ResponseMessage.NO_EXIST_REVIEW);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseBody);
     }
-
-
 
     // 응답: 실패 (답변 완료된 게시물) or 응답: 실패 (이미 작성된 답글)
     public static ResponseEntity<ResponseDto> writtenComment() {

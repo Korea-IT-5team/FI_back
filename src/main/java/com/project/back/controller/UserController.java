@@ -11,10 +11,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.project.back.dto.request.auth.FindEmailRequestDto;
+import com.project.back.dto.request.auth.NewPasswordRequestDto;
+import com.project.back.dto.request.auth.PasswordResetRequestDto;
+import com.project.back.dto.request.auth.BusinessRegistrationNumberRequestDto;
 import com.project.back.dto.request.user.DeleteUserRequestDto;
 import com.project.back.dto.request.user.PasswordRecheckRequestDto;
 import com.project.back.dto.request.user.PatchUserInfoRequestDto;
 import com.project.back.dto.response.ResponseDto;
+import com.project.back.dto.response.auth.FindEmailResponseDto;
 import com.project.back.dto.response.user.GetUserInfoResponseDto;
 import com.project.back.service.UserService;
 
@@ -43,6 +48,31 @@ public class UserController {
     return response;
   }
 
+  @PostMapping("/find-email")
+  public ResponseEntity<? super FindEmailResponseDto> findEmail (
+    @RequestBody @Valid FindEmailRequestDto requestBody
+  ) {
+    ResponseEntity<? super FindEmailResponseDto> response = userService.findEmail(requestBody);
+    return response;
+  }
+
+  @PostMapping("/password-reset")
+  public ResponseEntity<ResponseDto> passwordReset (
+    @RequestBody @Valid PasswordResetRequestDto requestBody
+  ) {
+    ResponseEntity<ResponseDto> response = userService.passwordReset(requestBody);
+    return response;
+  }
+
+  @PostMapping("/password-update")
+  public ResponseEntity<ResponseDto> newPassword (
+    @RequestBody @Valid NewPasswordRequestDto requestBody,
+    @PathVariable("userEmailId") String userEmailId
+  ) {
+    ResponseEntity<ResponseDto> response = userService.newPassword(requestBody, userEmailId);
+    return response;
+  }
+
   @PatchMapping("/info-update")
   public ResponseEntity<ResponseDto> patchUserInfo (
     @RequestBody @Valid PatchUserInfoRequestDto requestBody,
@@ -61,3 +91,4 @@ public class UserController {
     return response;
   }
 }
+

@@ -1,7 +1,6 @@
 package com.project.back.controller;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,14 +9,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.project.back.dto.request.auth.CheckEmailIdRequestDto;
 import com.project.back.dto.request.auth.CheckNicknameRequestDto;
 import com.project.back.dto.request.auth.CheckTelNumberAuthRequestDto;
-import com.project.back.dto.request.auth.FindEmailRequestDto;
-import com.project.back.dto.request.auth.NewPasswordRequestDto;
-import com.project.back.dto.request.auth.PasswordResetRequestDto;
+import com.project.back.dto.request.auth.BusinessRegistrationNumberRequestDto;
 import com.project.back.dto.request.auth.SignInRequestDto;
 import com.project.back.dto.request.auth.SignUpRequestDto;
 import com.project.back.dto.request.auth.TelNumberAuthRequestDto;
 import com.project.back.dto.response.ResponseDto;
-import com.project.back.dto.response.auth.FindEmailResponseDto;
 import com.project.back.dto.response.auth.SignInResponseDto;
 import com.project.back.service.AuthService;
 
@@ -78,28 +74,12 @@ public class AuthController {
     return response;
   }
 
-  @PostMapping("/find-email")
-  public ResponseEntity<? super FindEmailResponseDto> findEmail (
-    @RequestBody @Valid FindEmailRequestDto requestBody
-  ) {
-    ResponseEntity<? super FindEmailResponseDto> response = authService.findEmail(requestBody);
-    return response;
-  }
+  @PostMapping("/business-registration")
+  public ResponseEntity<ResponseDto> postCeoBusiness (
+    @RequestBody @Valid BusinessRegistrationNumberRequestDto requestBody
 
-  @PostMapping("/password-reset")
-  public ResponseEntity<ResponseDto> passwordReset (
-    @RequestBody @Valid PasswordResetRequestDto requestBody
   ) {
-    ResponseEntity<ResponseDto> response = authService.passwordReset(requestBody);
-    return response;
-  }
-
-  @PostMapping("/password-update")
-  public ResponseEntity<ResponseDto> newPassword (
-    @RequestBody @Valid NewPasswordRequestDto requestBody,
-    @PathVariable("userEmailId") String userEmailId
-  ) {
-    ResponseEntity<ResponseDto> response = authService.newPassword(requestBody, userEmailId);
+    ResponseEntity<ResponseDto> response = authService.postCeoBusiness(requestBody);
     return response;
   }
 }
