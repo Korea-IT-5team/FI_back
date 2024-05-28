@@ -22,6 +22,7 @@ public interface ResponseMessage {
     String VALIDATION_FAILED ="Validation Failed."; 
     String DUPLICATED_EMAILID="Duplicated EmailId."; 
     String DUPLICATED_NICKNAME="Duplicated Nickname."; 
+    String DUPLICATED_BUSINESS_REGISTRATION_NUMBER = "Duplicated Nickname.";
     String WRITTEN_COMMENT = "Written Comment.";
     String SIGN_IN_FAILED="Sign in Failed."; 
     String AUTHENTICATION_FAILED="Authentication Failed."; 
