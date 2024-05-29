@@ -50,7 +50,7 @@ public class WebSecurityConfig {
       )
       .authorizeHttpRequests(request -> request
         .requestMatchers("/", "/api/v1/auth/**", "/api/v1/user/**", "/api/v1/auth/password-update/**", "/oauth2/callback/*", "/sms-auth/send-sms/*").permitAll()
-        .requestMatchers(HttpMethod.POST, "/api/v1/restaurant/review", "/api/v1/inquiry-board/").hasRole("USER")
+        .requestMatchers(HttpMethod.POST, "/api/v1/restaurant/review", "/api/v1/inquiry-board/*").hasRole("USER")
         .requestMatchers(HttpMethod.POST, "/api/v1/inquiry-board/*/comment", "/api/v1/notice-board/").hasRole("ADMIN")
         .anyRequest().authenticated()
       )
@@ -88,6 +88,8 @@ class AuthorizationFailEntryPoint implements AuthenticationEntryPoint{
   public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) 
     throws IOException, ServletException {
     
+      authException.printStackTrace();
+
     response.setContentType("application/json");
     response.setStatus(HttpServletResponse.SC_FORBIDDEN);
     response.getWriter().write("{ \"code\": \"AF\", \"message\": \"Authorization Failed\" }");

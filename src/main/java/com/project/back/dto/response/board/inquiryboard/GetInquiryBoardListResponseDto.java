@@ -9,7 +9,7 @@ import com.project.back.common.object.board.inquiryboard.InquiryBoardListItem;
 import com.project.back.dto.response.ResponseCode;
 import com.project.back.dto.response.ResponseDto;
 import com.project.back.dto.response.ResponseMessage;
-import com.project.back.entity.InquiryBoardEntity;
+import com.project.back.repository.resultSet.GetInquriryBoardListResultSet;
 
 import lombok.Getter;
 
@@ -17,14 +17,14 @@ import lombok.Getter;
 public class GetInquiryBoardListResponseDto extends ResponseDto {
     private List<InquiryBoardListItem> inquiryBoardList;
     
-    private GetInquiryBoardListResponseDto(List<InquiryBoardEntity> inquiryBoardEntities) throws Exception {
+    private GetInquiryBoardListResponseDto(List<GetInquriryBoardListResultSet> resultSets) throws Exception {
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
-        this.inquiryBoardList= InquiryBoardListItem.getList(inquiryBoardEntities);
+        this.inquiryBoardList= InquiryBoardListItem.getList(resultSets);
     }
 
-    public static ResponseEntity<GetInquiryBoardListResponseDto> success(List<InquiryBoardEntity> inquiryBoardEntities)
+    public static ResponseEntity<GetInquiryBoardListResponseDto> success(List<GetInquriryBoardListResultSet> resultSets)
     throws Exception {
-        GetInquiryBoardListResponseDto responseBody = new GetInquiryBoardListResponseDto(inquiryBoardEntities);
+        GetInquiryBoardListResponseDto responseBody = new GetInquiryBoardListResponseDto(resultSets);
         return ResponseEntity.status(HttpStatus.OK).body(responseBody);
     }
 }

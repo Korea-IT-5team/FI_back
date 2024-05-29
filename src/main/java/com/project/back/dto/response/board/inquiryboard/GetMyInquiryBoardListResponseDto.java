@@ -10,6 +10,7 @@ import com.project.back.dto.response.ResponseCode;
 import com.project.back.dto.response.ResponseDto;
 import com.project.back.dto.response.ResponseMessage;
 import com.project.back.entity.InquiryBoardEntity;
+import com.project.back.repository.resultSet.GetInquriryBoardListResultSet;
 
 import lombok.Getter;
 
@@ -17,14 +18,14 @@ import lombok.Getter;
 public class GetMyInquiryBoardListResponseDto extends ResponseDto{
     private List<InquiryBoardListItem> inquiryBoardList;
     
-    private GetMyInquiryBoardListResponseDto(List<InquiryBoardEntity> inquiryBoardEntities) throws Exception {
+    private GetMyInquiryBoardListResponseDto(List<GetInquriryBoardListResultSet> resultSets) throws Exception {
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
-        this.inquiryBoardList = InquiryBoardListItem.getList(inquiryBoardEntities);
+        this.inquiryBoardList = InquiryBoardListItem.getList(resultSets);
     }
 
-    public static ResponseEntity<GetMyInquiryBoardListResponseDto> success(List<InquiryBoardEntity> inquiryBoardEntities)
+    public static ResponseEntity<GetMyInquiryBoardListResponseDto> success(List<GetInquriryBoardListResultSet> resultSets)
     throws Exception {
-        GetMyInquiryBoardListResponseDto responseBody = new GetMyInquiryBoardListResponseDto(inquiryBoardEntities);
+        GetMyInquiryBoardListResponseDto responseBody = new GetMyInquiryBoardListResponseDto(resultSets);
         return ResponseEntity.status(HttpStatus.OK).body(responseBody);
     }
 }
