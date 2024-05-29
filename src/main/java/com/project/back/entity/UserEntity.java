@@ -28,6 +28,8 @@ public class UserEntity {
     private String userRole;
     private String joinPath;
     private String snsId;
+    private boolean userReservationStatus;
+    private boolean userFavoriteStatus;
     private String businessRegistrationNumber;
 
     public UserEntity(SignUpRequestDto dto) {
