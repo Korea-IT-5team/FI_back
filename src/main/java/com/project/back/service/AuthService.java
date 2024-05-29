@@ -5,7 +5,6 @@ import org.springframework.http.ResponseEntity;
 import com.project.back.dto.request.auth.CheckEmailIdRequestDto;
 import com.project.back.dto.request.auth.CheckNicknameRequestDto;
 import com.project.back.dto.request.auth.CheckTelNumberAuthRequestDto;
-import com.project.back.dto.request.auth.BusinessRegistrationNumberRequestDto;
 import com.project.back.dto.request.auth.SignInRequestDto;
 import com.project.back.dto.request.auth.SignUpRequestDto;
 import com.project.back.dto.request.auth.TelNumberAuthRequestDto;
@@ -19,5 +18,4 @@ public interface AuthService {
   ResponseEntity<ResponseDto> telNumberAuth(TelNumberAuthRequestDto dto);
   ResponseEntity<ResponseDto> telNumberAuthCheck(CheckTelNumberAuthRequestDto dto);
   ResponseEntity<ResponseDto> signUp(SignUpRequestDto dto);
-  ResponseEntity<ResponseDto> postCeoBusiness(BusinessRegistrationNumberRequestDto dto);
 }

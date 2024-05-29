@@ -1,6 +1,5 @@
 package com.project.back.entity;
 
-import com.project.back.dto.request.auth.BusinessRegistrationNumberRequestDto;
 import com.project.back.dto.request.auth.SignUpRequestDto;
 import com.project.back.dto.request.user.PatchUserInfoRequestDto;
 
@@ -41,11 +40,8 @@ public class UserEntity {
         this.userRole = "ROLE_USER";
         this.joinPath = "HOME";
         this.snsId = dto.getSnsId();
-    }
-
-    public void businessRegister(BusinessRegistrationNumberRequestDto dto) {
         this.businessRegistrationNumber = dto.getBusinessRegistrationNumber();
-    } 
+    }
 
     public void update(PatchUserInfoRequestDto dto) {
         this.nickname = dto.getNickname();

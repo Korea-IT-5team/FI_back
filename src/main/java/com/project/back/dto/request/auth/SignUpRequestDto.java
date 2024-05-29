@@ -27,7 +27,8 @@ public class SignUpRequestDto {
     private String authNumber;
     @NotBlank
     private String userAddress;
-    private String snsId;
     @NotBlank
     private String joinPath;
+    private String snsId;
+    private String businessRegistrationNumber;
 }
