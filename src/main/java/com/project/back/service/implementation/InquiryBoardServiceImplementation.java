@@ -14,8 +14,10 @@ import com.project.back.dto.response.board.inquiryboard.GetInquiryBoardResponseD
 import com.project.back.dto.response.board.inquiryboard.GetMyInquiryBoardListResponseDto;
 import com.project.back.dto.response.board.inquiryboard.GetSearchInquiryBoardListResponseDto;
 import com.project.back.entity.InquiryBoardEntity;
+import com.project.back.entity.UserEntity;
 import com.project.back.repository.InquiryBoardRepository;
 import com.project.back.repository.UserRepository;
+import com.project.back.repository.resultSet.GetInquriryBoardListResultSet;
 import com.project.back.service.InquiryBoardService;
 
 import lombok.RequiredArgsConstructor;
@@ -31,6 +33,7 @@ public class InquiryBoardServiceImplementation implements InquiryBoardService {
     try {
       boolean isExistUser = userRepository.existsByUserEmailId(userEmailId);
       if (!isExistUser) return ResponseDto.authenticationFailed();
+
 
       InquiryBoardEntity inquiryBoardEntity = new InquiryBoardEntity(dto, userEmailId);
       inquiryBoardRepository.save(inquiryBoardEntity);
@@ -65,8 +68,8 @@ public class InquiryBoardServiceImplementation implements InquiryBoardService {
   @Override
   public ResponseEntity<? super GetInquiryBoardListResponseDto> getInquiryBoardList() {
     try {
-      List<InquiryBoardEntity> inquiryBoardEntities = inquiryBoardRepository.findByOrderByInquiryNumberDesc();
-      return GetInquiryBoardListResponseDto.success(inquiryBoardEntities);
+      List<GetInquriryBoardListResultSet> resultSets = inquiryBoardRepository.getInquiryBoardList();
+      return GetInquiryBoardListResponseDto.success(resultSets);
     } catch (Exception exception) {
       exception.printStackTrace();
       return ResponseDto.databaseError();
@@ -76,8 +79,8 @@ public class InquiryBoardServiceImplementation implements InquiryBoardService {
   @Override
   public ResponseEntity<? super GetSearchInquiryBoardListResponseDto> getSearchInquiryBoardList(String searchWord) {
     try {
-      List<InquiryBoardEntity> inquiryBoardEntities = inquiryBoardRepository.findByInquiryTitleContainsOrderByInquiryNumberDesc(searchWord);
-      return GetSearchInquiryBoardListResponseDto.success(inquiryBoardEntities);
+      List<GetInquriryBoardListResultSet> resultSets = inquiryBoardRepository.getInquirySearchBoardList(searchWord);
+      return GetSearchInquiryBoardListResponseDto.success(resultSets);
     } catch (Exception exception) {
       exception.printStackTrace();
       return ResponseDto.databaseError();
@@ -87,8 +90,8 @@ public class InquiryBoardServiceImplementation implements InquiryBoardService {
   @Override
   public ResponseEntity<? super GetMyInquiryBoardListResponseDto> getMyInquiryBoardList(String userEmailId) {
     try {
-      List<InquiryBoardEntity> inquiryBoardEntities = inquiryBoardRepository.getMyInquiryBoardList(userEmailId);
-      return GetMyInquiryBoardListResponseDto.success(inquiryBoardEntities);
+      List<GetInquriryBoardListResultSet> resultSets = inquiryBoardRepository.getInquiryUserBoardList(userEmailId);
+      return GetMyInquiryBoardListResponseDto.success(resultSets);
     } catch (Exception exception) {
       exception.printStackTrace();
       return ResponseDto.databaseError();
@@ -100,8 +103,12 @@ public class InquiryBoardServiceImplementation implements InquiryBoardService {
     try {
       InquiryBoardEntity inquiryBoardEntity = inquiryBoardRepository.findByInquiryNumber(inquiryNumber);
       if (inquiryBoardEntity == null) return ResponseDto.noExistInquiryBoard();
+      String userEmailId = inquiryBoardEntity.getInquiryWriterId();
+      UserEntity userEntity = userRepository.findByUserEmailId(userEmailId);
+      if (userEntity == null) return ResponseDto.authorizationFailed();
+      String nickname = userEntity.getNickname();
 
-      return GetInquiryBoardResponseDto.success(inquiryBoardEntity);
+      return GetInquiryBoardResponseDto.success(inquiryBoardEntity, nickname);
     } catch (Exception exception){
       exception.printStackTrace();
       return ResponseDto.databaseError();

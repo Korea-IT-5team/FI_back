@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.project.back.entity.InquiryBoardEntity;
+import com.project.back.repository.resultSet.GetInquriryBoardListResultSet;
 
 @Repository
 public interface InquiryBoardRepository extends JpaRepository<InquiryBoardEntity,Integer> {
@@ -22,4 +23,29 @@ public interface InquiryBoardRepository extends JpaRepository<InquiryBoardEntity
     nativeQuery=true
     )
     List<InquiryBoardEntity> getMyInquiryBoardList(@Param("userEmailId") String inquiryWriterId);
-}
+
+    @Query(value=
+    "SELECT ib.inquiry_number inquiryNumber, ib.inquiry_status inquiryStatus, ib.inquiry_title inquiryTitle, u.nickname inquiryWriterNickname, ib.inquiry_write_datetime inquiryWriteDatetime " +
+    "FROM inquiry_board ib LEFT JOIN user u ON ib.inquiry_writer_id = u.user_email_id " +
+    "ORDER BY ib.inquiry_number DESC",
+    nativeQuery=true
+    )
+    List<GetInquriryBoardListResultSet> getInquiryBoardList();
+
+    @Query(value=
+    "SELECT ib.inquiry_number inquiryNumber, ib.inquiry_status inquiryStatus, ib.inquiry_title inquiryTitle, u.nickname inquiryWriterNickname, ib.inquiry_write_datetime inquiryWriteDatetime " +
+    "FROM inquiry_board ib LEFT JOIN user u ON ib.inquiry_writer_id = u.user_email_id " +
+    "WHERE ib.inquiry_title LIKE '%:title%' " +
+    "ORDER BY ib.inquiry_number DESC",
+    nativeQuery=true
+    )
+    List<GetInquriryBoardListResultSet> getInquirySearchBoardList(@Param("title") String title);
+    @Query(value=
+    "SELECT ib.inquiry_number inquiryNumber, ib.inquiry_status inquiryStatus, ib.inquiry_title inquiryTitle, u.nickname inquiryWriterNickname, ib.inquiry_write_datetime inquiryWriteDatetime " +
+    "FROM inquiry_board ib LEFT JOIN user u ON ib.inquiry_writer_id = u.user_email_id " +
+    "WHERE ib.inquiry_writer_id = ':userEmailId' " +
+    "ORDER BY ib.inquiry_number DESC",
+    nativeQuery=true
+    )
+    List<GetInquriryBoardListResultSet> getInquiryUserBoardList(@Param("userEmailId") String userEmailId);
+} 
