@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.project.back.dto.request.auth.CheckBusinessRegistrationRequestDto;
 import com.project.back.dto.request.auth.CheckEmailIdRequestDto;
 import com.project.back.dto.request.auth.CheckNicknameRequestDto;
 import com.project.back.dto.request.auth.CheckTelNumberAuthRequestDto;
@@ -62,6 +63,14 @@ public class AuthController {
     @RequestBody @Valid CheckTelNumberAuthRequestDto requestBody
   ) {
     ResponseEntity<ResponseDto> response = authService.telNumberAuthCheck(requestBody);
+    return response;
+  }
+
+  @PostMapping("/business-registration")
+  public ResponseEntity<ResponseDto> businessRegistrationCheck (
+    @RequestBody @Valid CheckBusinessRegistrationRequestDto requestBody
+  ) {
+    ResponseEntity<ResponseDto> response = authService.businessRegistrationCheck(requestBody);
     return response;
   }
 
