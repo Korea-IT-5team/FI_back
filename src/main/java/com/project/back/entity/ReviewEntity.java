@@ -27,7 +27,6 @@ import lombok.Setter;
 @AllArgsConstructor
 public class ReviewEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer reviewNumber;
     private Integer reviewRestaurantId;
     private Double rating;

@@ -20,7 +20,6 @@ import lombok.Setter;
 @AllArgsConstructor
 public class ReservationEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer reservationNumber;
     private Boolean reservationStatus;
     private String reservationUserEmailId;

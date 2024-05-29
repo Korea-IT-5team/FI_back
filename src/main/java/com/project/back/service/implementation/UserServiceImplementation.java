@@ -18,6 +18,8 @@ import com.project.back.dto.response.user.GetMyInfoResponseDto;
 import com.project.back.dto.response.user.GetUserInfoResponseDto;
 import com.project.back.entity.UserEntity;
 import com.project.back.provider.SmsProvider;
+import com.project.back.repository.FavoriteRestaurantRepository;
+import com.project.back.repository.ReservationRepository;
 import com.project.back.repository.UserRepository;
 import com.project.back.service.UserService;
 
@@ -29,10 +31,11 @@ public class UserServiceImplementation implements UserService {
   private final UserRepository userRepository;
   private final SmsProvider smsProvider;
   private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-
+  
   @Override
   public ResponseEntity<? super GetUserInfoResponseDto> GetSignInUser(String userEmailId) {
     UserEntity userEntity = null;
+   
 
     try {
       userEntity = userRepository.findByUserEmailId(userEmailId);
@@ -41,9 +44,9 @@ public class UserServiceImplementation implements UserService {
       exception.printStackTrace();
       return ResponseDto.databaseError();
     }
-    return ResponseDto.success();
+    return GetUserInfoResponseDto.success(userEntity);
   }
-
+  
   @Override
   public ResponseEntity<ResponseDto> passwordReCheck(PasswordRecheckRequestDto dto) {
     try {
