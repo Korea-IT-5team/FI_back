@@ -26,3 +26,4 @@ public class GetUserInfoResponseDto extends ResponseDto {
         return ResponseEntity.status(HttpStatus.OK).body(responseBody);
     }
 }
+
