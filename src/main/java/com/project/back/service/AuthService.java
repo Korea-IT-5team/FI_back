@@ -2,6 +2,7 @@ package com.project.back.service;
 
 import org.springframework.http.ResponseEntity;
 
+import com.project.back.dto.request.auth.CheckBusinessRegistrationRequestDto;
 import com.project.back.dto.request.auth.CheckEmailIdRequestDto;
 import com.project.back.dto.request.auth.CheckNicknameRequestDto;
 import com.project.back.dto.request.auth.CheckTelNumberAuthRequestDto;
@@ -17,5 +18,6 @@ public interface AuthService {
   ResponseEntity<ResponseDto> nicknameCheck(CheckNicknameRequestDto dto);
   ResponseEntity<ResponseDto> telNumberAuth(TelNumberAuthRequestDto dto);
   ResponseEntity<ResponseDto> telNumberAuthCheck(CheckTelNumberAuthRequestDto dto);
+  ResponseEntity<ResponseDto> businessRegistrationCheck(CheckBusinessRegistrationRequestDto dto);
   ResponseEntity<ResponseDto> signUp(SignUpRequestDto dto);
 }

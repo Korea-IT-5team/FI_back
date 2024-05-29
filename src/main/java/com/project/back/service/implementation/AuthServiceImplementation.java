@@ -6,6 +6,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.project.back.common.util.TelNumberAuthNumberUtil;
+import com.project.back.dto.request.auth.CheckBusinessRegistrationRequestDto;
 import com.project.back.dto.request.auth.CheckEmailIdRequestDto;
 import com.project.back.dto.request.auth.CheckNicknameRequestDto;
 import com.project.back.dto.request.auth.CheckTelNumberAuthRequestDto;
@@ -122,6 +123,21 @@ public class AuthServiceImplementation implements AuthService {
   }
 
   @Override
+  public ResponseEntity<ResponseDto> businessRegistrationCheck(CheckBusinessRegistrationRequestDto dto) {
+    try {
+      String businessRegistrationNumber = dto.getBusinessRegistrationNumber();
+
+      boolean existedBusinessRegistrationNumber = userRepository.existsByBusinessRegistrationNumber(businessRegistrationNumber);
+      if (existedBusinessRegistrationNumber) return ResponseDto.duplicatedBusinessRegistrationNumber();
+      
+    } catch (Exception exception) {
+      exception.printStackTrace();
+      return ResponseDto.databaseError();
+    }
+  return ResponseDto.success();
+  }
+
+  @Override
   public ResponseEntity<ResponseDto> signUp(SignUpRequestDto dto) {
     try {
       String userEmailId = dto.getUserEmailId();
@@ -154,4 +170,5 @@ public class AuthServiceImplementation implements AuthService {
     }
     return ResponseDto.success();
   }
+
 }
