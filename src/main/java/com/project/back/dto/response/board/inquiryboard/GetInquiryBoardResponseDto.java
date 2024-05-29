@@ -21,11 +21,11 @@ public class GetInquiryBoardResponseDto extends ResponseDto{
     private String inquiryContents;
     private String comment;
 
-    private GetInquiryBoardResponseDto(InquiryBoardEntity inquiryBoardEntity) throws Exception {
+    private GetInquiryBoardResponseDto(InquiryBoardEntity inquiryBoardEntity, String inquiryWriterNickname) throws Exception {
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
         this.inquiryNumber = inquiryBoardEntity.getInquiryNumber();
         this.inquiryTitle = inquiryBoardEntity.getInquiryTitle();
-        this.inquiryWriterNickname = inquiryBoardEntity.getInquiryWriterNickname();
+        this.inquiryWriterNickname = inquiryWriterNickname;
 
         String writeDate = ChangeDateFormatUtil.changeYYYYMMDD(inquiryBoardEntity.getInquiryWriteDatetime());
         this.inquiryWriteDatetime = writeDate;
@@ -34,9 +34,9 @@ public class GetInquiryBoardResponseDto extends ResponseDto{
         this.comment = inquiryBoardEntity.getInquiryComment();
     }
 
-    public static ResponseEntity<GetInquiryBoardResponseDto> success(InquiryBoardEntity inquiryBoardEntity)
+    public static ResponseEntity<GetInquiryBoardResponseDto> success(InquiryBoardEntity inquiryBoardEntity, String nickname)
     throws Exception {
-        GetInquiryBoardResponseDto responseBody = new GetInquiryBoardResponseDto(inquiryBoardEntity);
+        GetInquiryBoardResponseDto responseBody = new GetInquiryBoardResponseDto(inquiryBoardEntity, nickname);
         return ResponseEntity.status(HttpStatus.OK).body(responseBody);
     }
 }
