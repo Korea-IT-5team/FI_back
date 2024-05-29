@@ -10,6 +10,7 @@ import com.project.back.dto.request.user.PasswordRecheckRequestDto;
 import com.project.back.dto.request.user.PatchUserInfoRequestDto;
 import com.project.back.dto.response.ResponseDto;
 import com.project.back.dto.response.auth.FindEmailResponseDto;
+import com.project.back.dto.response.user.GetMyInfoResponseDto;
 import com.project.back.dto.response.user.GetUserInfoResponseDto;
 
 public interface UserService {
@@ -23,4 +24,6 @@ public interface UserService {
   ResponseEntity<ResponseDto> patchUserInfo(PatchUserInfoRequestDto dto, String userEmailId);
   
   ResponseEntity<ResponseDto> deleteUser(DeleteUserRequestDto dto, String userEmailId);
+
+  ResponseEntity<? super GetMyInfoResponseDto> getMyInfo (String userEmailId);
 }

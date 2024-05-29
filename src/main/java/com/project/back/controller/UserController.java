@@ -19,6 +19,7 @@ import com.project.back.dto.request.user.PasswordRecheckRequestDto;
 import com.project.back.dto.request.user.PatchUserInfoRequestDto;
 import com.project.back.dto.response.ResponseDto;
 import com.project.back.dto.response.auth.FindEmailResponseDto;
+import com.project.back.dto.response.user.GetMyInfoResponseDto;
 import com.project.back.dto.response.user.GetUserInfoResponseDto;
 import com.project.back.service.UserService;
 
@@ -89,5 +90,13 @@ public class UserController {
     ResponseEntity<ResponseDto> response = userService.deleteUser(requestBody, userEmailId);
     return response;
   }
+
+  @GetMapping("/information")
+    public ResponseEntity<? super GetMyInfoResponseDto> getMyInfo (
+        @AuthenticationPrincipal String userId
+    ){
+        ResponseEntity<? super GetMyInfoResponseDto> response = userService.getMyInfo(userId);
+        return response;
+    }
 }
 

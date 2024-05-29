@@ -14,6 +14,7 @@ import com.project.back.dto.request.user.PasswordRecheckRequestDto;
 import com.project.back.dto.request.user.PatchUserInfoRequestDto;
 import com.project.back.dto.response.ResponseDto;
 import com.project.back.dto.response.auth.FindEmailResponseDto;
+import com.project.back.dto.response.user.GetMyInfoResponseDto;
 import com.project.back.dto.response.user.GetUserInfoResponseDto;
 import com.project.back.entity.UserEntity;
 import com.project.back.provider.SmsProvider;
@@ -144,6 +145,23 @@ public class UserServiceImplementation implements UserService {
       return ResponseDto.databaseError();
     }
     return ResponseDto.success();
+  }
+
+  @Override
+  public ResponseEntity<? super GetMyInfoResponseDto> getMyInfo(String userEmailId) {
+    UserEntity userEntity = null;
+
+        try {
+
+            userEntity = userRepository.findByUserEmailId(userEmailId);
+            if(userEntity == null) return ResponseDto.authenticationFailed();
+
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+
+        return GetMyInfoResponseDto.success(userEntity);
   }
 
   
