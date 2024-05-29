@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.project.back.dto.request.auth.CheckEmailIdRequestDto;
 import com.project.back.dto.request.auth.CheckNicknameRequestDto;
 import com.project.back.dto.request.auth.CheckTelNumberAuthRequestDto;
-import com.project.back.dto.request.auth.BusinessRegistrationNumberRequestDto;
 import com.project.back.dto.request.auth.SignInRequestDto;
 import com.project.back.dto.request.auth.SignUpRequestDto;
 import com.project.back.dto.request.auth.TelNumberAuthRequestDto;
@@ -71,15 +70,6 @@ public class AuthController {
     @RequestBody @Valid SignUpRequestDto requestBody
   ) {
     ResponseEntity<ResponseDto> response = authService.signUp(requestBody);
-    return response;
-  }
-
-  @PostMapping("/business-registration")
-  public ResponseEntity<ResponseDto> postCeoBusiness (
-    @RequestBody @Valid BusinessRegistrationNumberRequestDto requestBody
-
-  ) {
-    ResponseEntity<ResponseDto> response = authService.postCeoBusiness(requestBody);
     return response;
   }
 }

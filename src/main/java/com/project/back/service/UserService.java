@@ -5,7 +5,6 @@ import org.springframework.http.ResponseEntity;
 import com.project.back.dto.request.auth.FindEmailRequestDto;
 import com.project.back.dto.request.auth.NewPasswordRequestDto;
 import com.project.back.dto.request.auth.PasswordResetRequestDto;
-import com.project.back.dto.request.auth.BusinessRegistrationNumberRequestDto;
 import com.project.back.dto.request.user.DeleteUserRequestDto;
 import com.project.back.dto.request.user.PasswordRecheckRequestDto;
 import com.project.back.dto.request.user.PatchUserInfoRequestDto;
