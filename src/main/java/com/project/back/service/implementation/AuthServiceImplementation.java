@@ -10,10 +10,12 @@ import com.project.back.dto.request.auth.CheckBusinessRegistrationRequestDto;
 import com.project.back.dto.request.auth.CheckEmailIdRequestDto;
 import com.project.back.dto.request.auth.CheckNicknameRequestDto;
 import com.project.back.dto.request.auth.CheckTelNumberAuthRequestDto;
+import com.project.back.dto.request.auth.FindEmailRequestDto;
 import com.project.back.dto.request.auth.SignInRequestDto;
 import com.project.back.dto.request.auth.SignUpRequestDto;
 import com.project.back.dto.request.auth.TelNumberAuthRequestDto;
 import com.project.back.dto.response.ResponseDto;
+import com.project.back.dto.response.auth.FindEmailResponseDto;
 import com.project.back.dto.response.auth.SignInResponseDto;
 import com.project.back.entity.AuthNumberEntity;
 import com.project.back.entity.UserEntity;
@@ -171,4 +173,42 @@ public class AuthServiceImplementation implements AuthService {
     return ResponseDto.success();
   }
 
+  // @Override
+  // public ResponseEntity<? super FindEmailResponseDto> findEmail(FindEmailRequestDto dto) {
+  //   try {
+  //     String userName = dto.getUserName();
+  //     String userTelNumber = dto.getUserTelNumber();
+
+  //     boolean isMatched = userRepository.existsByUserNameAndUserTelNumber(userName, userTelNumber);
+  //     if (!isMatched) return ResponseDto.authenticationFailed();
+  //   } catch(Exception exception) {
+  //     exception.printStackTrace();
+  //     return ResponseDto.databaseError();
+  //   }
+  //   return ResponseDto.success();
+  // }
+
+  @Override
+  public ResponseEntity<? super FindEmailResponseDto> findEmail(FindEmailRequestDto dto) {
+    try {
+     
+      String userName = dto.getUserName();
+      String userTelNumber = dto.getUserTelNumber();
+
+      UserEntity userEntity = userRepository.findByUserNameAndUserTelNumber(userName, userTelNumber);
+      if (userEntity == null) return ResponseDto.noExistUser();
+
+      String userEmailId = userEntity.getUserEmailId();
+
+      return FindEmailResponseDto.success(userEmailId);
+
+      // boolean isMatched = userRepository.existsByUserNameAndUserTelNumber(userTelNumber);
+      // if (!isMatched) return ResponseDto.authenticationFailed();
+    } catch (Exception exception) {
+      exception.printStackTrace();
+      return ResponseDto.databaseError();
+    }
+    
+  }
 }
+ // 요청에서 사용자 이름과 전화번호 추출
