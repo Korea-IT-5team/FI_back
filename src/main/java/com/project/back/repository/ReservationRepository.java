@@ -14,4 +14,4 @@ public interface ReservationRepository extends JpaRepository<ReservationEntity,I
     List<ReservationEntity> findByReservationRestaurantIdOrderByReservationNumberDesc(Integer restaurantId);
 }
 
-
+//수정

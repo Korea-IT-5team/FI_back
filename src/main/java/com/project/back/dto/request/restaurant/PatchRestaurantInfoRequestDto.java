@@ -30,3 +30,4 @@ public class PatchRestaurantInfoRequestDto {
     @NotBlank
     private String restaurantBusinessRegistrationNumber;
 }
+//수정

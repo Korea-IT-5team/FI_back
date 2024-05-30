@@ -4,7 +4,6 @@ import org.springframework.http.ResponseEntity;
 
 import com.project.back.dto.request.restaurant.PatchRestaurantInfoRequestDto;
 import com.project.back.dto.request.restaurant.PostRestaurantInfoRequestDto;
-import com.project.back.dto.request.restaurant.favorite.PostFavoriteRestaurantRequestDto;
 import com.project.back.dto.request.restaurant.reservation.DeleteReservationRequestDto;
 import com.project.back.dto.request.restaurant.reservation.PostReservationRequestDto;
 import com.project.back.dto.request.restaurant.review.PatchReviewRequestDto;
@@ -38,7 +37,12 @@ public interface RestaurantService {
     ResponseEntity<? super GetReviewListResponseDto> getMyReviewList (String userEmailId);
 
     // 식당 찜
-    ResponseEntity<ResponseDto> postFavorite(PostFavoriteRestaurantRequestDto dto, String userEmailId, int restaurantId);
+    //
+    ResponseEntity<ResponseDto> postFavorite(String userEmailId, int restaurantId);
+    ResponseEntity<ResponseDto> deleteFavorite(String userEmailId,int restaurantId);
+    ResponseEntity<ResponseDto> getFavoriteCheck(String userEmailId, int restaurantId);
+    //
     ResponseEntity<? super GetFavoriteRestaurantListResponseDto> getFavoriteList(String userEmailId);
     
 }
+// 수정

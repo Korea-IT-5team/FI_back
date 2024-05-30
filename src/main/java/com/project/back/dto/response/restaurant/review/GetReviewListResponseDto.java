@@ -27,3 +27,4 @@ public class GetReviewListResponseDto extends ResponseDto {
         return ResponseEntity.status(HttpStatus.OK).body(responseBody);
     }
 }
+//수정

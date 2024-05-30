@@ -21,7 +21,7 @@ public class RestaurantReservationListItem {
 
     private RestaurantReservationListItem(ReservationEntity reservationEntity) throws Exception {
         this.reservationNumber = reservationEntity.getReservationNumber();
-        this.reservationStatus = false;
+        this.reservationStatus = true;
         this.reservationRestaurantId = reservationEntity.getReservationRestaurantId();
         this.reservationRestaurantName = reservationEntity.getReservationRestaurantName();
         this.reservationUserName = reservationEntity.getReservationUserName();
@@ -45,3 +45,4 @@ public class RestaurantReservationListItem {
         return restaurantReservationList;
     }
 }
+//수정
