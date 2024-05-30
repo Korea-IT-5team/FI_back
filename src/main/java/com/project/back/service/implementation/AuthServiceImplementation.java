@@ -173,22 +173,42 @@ public class AuthServiceImplementation implements AuthService {
     return ResponseDto.success();
   }
 
+  // @Override
+  // public ResponseEntity<? super FindEmailResponseDto> findEmail(FindEmailRequestDto dto) {
+  //   try {
+  //     String userName = dto.getUserName();
+  //     String userTelNumber = dto.getUserTelNumber();
+
+  //     boolean isMatched = userRepository.existsByUserNameAndUserTelNumber(userName, userTelNumber);
+  //     if (!isMatched) return ResponseDto.authenticationFailed();
+  //   } catch(Exception exception) {
+  //     exception.printStackTrace();
+  //     return ResponseDto.databaseError();
+  //   }
+  //   return ResponseDto.success();
+  // }
+
   @Override
   public ResponseEntity<? super FindEmailResponseDto> findEmail(FindEmailRequestDto dto) {
     try {
+     
       String userName = dto.getUserName();
       String userTelNumber = dto.getUserTelNumber();
 
-      System.out.println(userName);
-      System.out.println(userTelNumber);
+      UserEntity userEntity = userRepository.findByUserNameAndUserTelNumber(userName, userTelNumber);
+      if (userEntity == null) return ResponseDto.noExistUser();
 
-      boolean isMatched = userRepository.existsByUserNameAndUserTelNumber(userName, userTelNumber);
-      if (!isMatched) return ResponseDto.authenticationFailed();
-    } catch(Exception exception) {
+      String userEmailId = userEntity.getUserEmailId();
+
+      return FindEmailResponseDto.success(userEmailId);
+
+      // boolean isMatched = userRepository.existsByUserNameAndUserTelNumber(userTelNumber);
+      // if (!isMatched) return ResponseDto.authenticationFailed();
+    } catch (Exception exception) {
       exception.printStackTrace();
       return ResponseDto.databaseError();
     }
-    return ResponseDto.success();
+    
   }
-
 }
+ // 요청에서 사용자 이름과 전화번호 추출

@@ -12,18 +12,19 @@ import lombok.Getter;
 
 @Getter 
 public class FindEmailResponseDto extends ResponseDto{
+    
     private String userEmailId;
 
-    private FindEmailResponseDto(UserEntity userEntity) {
+    private FindEmailResponseDto(String userEmailId) {
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
-        String writerId = userEntity.getUserEmailId();
-        writerId = writerId.substring(0, 4) +
-        "*".repeat(writerId.length() - 4); 
-        this.userEmailId = writerId;
+        // String writerId = userEntity.getUserEmailId();
+        // writerId = writerId.substring(0, 4) +
+        // "*".repeat(writerId.length() - 4); 
+        this.userEmailId = userEmailId;
     }
 
-    public static ResponseEntity<FindEmailResponseDto> success(UserEntity userEntity) {
-        FindEmailResponseDto responseBody = new FindEmailResponseDto(userEntity);
+    public static ResponseEntity<FindEmailResponseDto> success(String userEmailId) {
+        FindEmailResponseDto responseBody = new FindEmailResponseDto(userEmailId);
         return ResponseEntity.status(HttpStatus.OK).body(responseBody);
     }
 }
