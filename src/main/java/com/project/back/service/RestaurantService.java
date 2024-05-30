@@ -4,7 +4,6 @@ import org.springframework.http.ResponseEntity;
 
 import com.project.back.dto.request.restaurant.PatchRestaurantInfoRequestDto;
 import com.project.back.dto.request.restaurant.PostRestaurantInfoRequestDto;
-import com.project.back.dto.request.restaurant.reservation.DeleteReservationRequestDto;
 import com.project.back.dto.request.restaurant.reservation.PostReservationRequestDto;
 import com.project.back.dto.request.restaurant.review.PatchReviewRequestDto;
 import com.project.back.dto.request.restaurant.review.PostReviewRequestDto;
@@ -27,7 +26,8 @@ public interface RestaurantService {
     ResponseEntity<? super GetReservationListResponseDto> getUserReservationList(String userEmailId);
     ResponseEntity<? super GetReservationListResponseDto> getCeoReservationList(int restaurantId);
     ResponseEntity<ResponseDto> postReservation (PostReservationRequestDto dto, String userEmailId, int restaurantId);
-    ResponseEntity<ResponseDto> deleteReservation(DeleteReservationRequestDto dto, int reservationNumber, String userEmailId);
+    ResponseEntity<ResponseDto> deleteReservation(String userEmailId, int restaurantId);
+    ResponseEntity<ResponseDto> getReservationCheck(String userEmailId, int restaurantId);
     
     // 식당 리뷰
     ResponseEntity<? super GetReviewResponseDto> getReview (int reviewNumber);

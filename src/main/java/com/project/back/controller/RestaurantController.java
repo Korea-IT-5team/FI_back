@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.project.back.dto.request.restaurant.PatchRestaurantInfoRequestDto;
 import com.project.back.dto.request.restaurant.PostRestaurantInfoRequestDto;
-import com.project.back.dto.request.restaurant.reservation.DeleteReservationRequestDto;
 import com.project.back.dto.request.restaurant.reservation.PostReservationRequestDto;
 import com.project.back.dto.request.restaurant.review.PatchReviewRequestDto;
 import com.project.back.dto.request.restaurant.review.PostReviewRequestDto;
@@ -93,14 +92,23 @@ public class RestaurantController {
         ResponseEntity<ResponseDto> response = restaurantService.postReservation(requestBody, userEmailId, restaurantId);
         return response;
     };
+
+
+    @GetMapping("/reservation/{restaurantId}")
+    public ResponseEntity<ResponseDto> getReservationCheck(
+        @AuthenticationPrincipal String userEmailId,
+        @PathVariable("restaurantId") int restaurantId
+    ) {
+        ResponseEntity<ResponseDto> response = restaurantService.getReservationCheck(userEmailId, restaurantId);
+        return response;
+    };
     
     @DeleteMapping("/reservation/{restaurantId}")
     public ResponseEntity<ResponseDto> deleteReservation (
-        @RequestBody @Valid DeleteReservationRequestDto requestBody,
-        @PathVariable("restaurantId") int reservationNumber, 
+        @PathVariable("restaurantId") int restaurantId, 
         @AuthenticationPrincipal String userEmailId
     ){
-        ResponseEntity<ResponseDto> response = restaurantService.deleteReservation(null, reservationNumber, userEmailId);
+        ResponseEntity<ResponseDto> response = restaurantService.deleteReservation(userEmailId, restaurantId);
         return response;
     };
 

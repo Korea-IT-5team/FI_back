@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import com.project.back.dto.request.restaurant.PatchRestaurantInfoRequestDto;
 import com.project.back.dto.request.restaurant.PostRestaurantInfoRequestDto;
-import com.project.back.dto.request.restaurant.reservation.DeleteReservationRequestDto;
 import com.project.back.dto.request.restaurant.reservation.PostReservationRequestDto;
 import com.project.back.dto.request.restaurant.review.PatchReviewRequestDto;
 import com.project.back.dto.request.restaurant.review.PostReviewRequestDto;
@@ -152,17 +151,36 @@ public class RestaurantServiceImplementation implements RestaurantService
     }
     //
 
+    //
     @Override
-    public ResponseEntity<ResponseDto> deleteReservation(DeleteReservationRequestDto dto, int reservationNumber, String userEmailId) {
+    public ResponseEntity<ResponseDto> getReservationCheck(String userEmailId, int restaurantId) {
+        {
+            try {
+                boolean isReservationStatus = reservationRepository.existsByReservationUserIdAndReservationRestaurantId(userEmailId,restaurantId);
+                if(!isReservationStatus) return ResponseDto.noExistUser();
+                return ResponseDto.success();
+            } catch (Exception exception) {
+                exception.printStackTrace();
+                return ResponseDto.databaseError();
+            }
+        }
+    }
+    //
+
+    @Override
+    public ResponseEntity<ResponseDto> deleteReservation(String userEmailId, int restaurantId) {
         try {
-            ReservationEntity reservationEntity = reservationRepository.findByReservationNumber(reservationNumber);
-            if (reservationEntity == null) return ResponseDto.noExistReservation();
+            boolean isExistUser = userRepository.existsByUserEmailId(userEmailId);
+            if (!isExistUser) return ResponseDto.noExistUser();
 
-            String reservationId = reservationEntity.getReservationUserId();
-            boolean isWriter = userEmailId.equals(reservationId);
-            if (!isWriter) return ResponseDto.authorizationFailed();
+            boolean isExistRestaurant = restaurantRepository.existsByRestaurantId(restaurantId);
+            if (!isExistRestaurant) return ResponseDto.noExistRestaurant();
 
+            ReservationEntity reservationEntity = 
+            reservationRepository.findByReservationUserIdAndReservationRestaurantId(userEmailId, restaurantId);
+            if (reservationEntity == null) return ResponseDto.authorizationFailed();
             reservationRepository.delete(reservationEntity);
+            
         } catch (Exception exception) {
             exception.printStackTrace();
             return ResponseDto.databaseError();
@@ -274,11 +292,11 @@ public class RestaurantServiceImplementation implements RestaurantService
             if (!isExistUser) return ResponseDto.noExistUser();
 
             boolean isExistRestaurant = restaurantRepository.existsByRestaurantId(restaurantId);
-            if (!isExistRestaurant) return ResponseDto.noExistReservation();
+            if (!isExistRestaurant) return ResponseDto.noExistRestaurant();
 
             FavoriteRestaurantEntity favoriteRestaurantEntity = 
             favoriteRestaurantRepository.findByFavoriteUserIdAndFavoriteRestaurantId(userEmailId, restaurantId);
-            if (favoriteRestaurantEntity == null) return ResponseDto.noExistUser();
+            if (favoriteRestaurantEntity == null) return ResponseDto.authorizationFailed();
             favoriteRestaurantRepository.delete(favoriteRestaurantEntity);
             
         } catch (Exception exception) {
@@ -314,7 +332,6 @@ public class RestaurantServiceImplementation implements RestaurantService
             return ResponseDto.databaseError();
         }
     }
-    //
 
 }
 //수정
