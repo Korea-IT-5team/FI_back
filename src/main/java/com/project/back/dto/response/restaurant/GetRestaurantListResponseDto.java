@@ -30,3 +30,4 @@ public class GetRestaurantListResponseDto extends ResponseDto {
 }
 
 
+//수정

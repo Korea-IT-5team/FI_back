@@ -27,9 +27,5 @@ public class PostRestaurantInfoRequestDto {
     private String restaurantFeatures;
     private String restaurantNotice;
     private String restaurantRepresentativeMenu;
-    private String restaurantWriterId;
-    private Double rating;
-    private String ReviewContents;
-    private String reviewImage;
-    
 }
+//수정

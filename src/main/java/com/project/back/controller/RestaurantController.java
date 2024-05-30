@@ -9,12 +9,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.project.back.dto.request.restaurant.PatchRestaurantInfoRequestDto;
 import com.project.back.dto.request.restaurant.PostRestaurantInfoRequestDto;
-import com.project.back.dto.request.restaurant.favorite.PostFavoriteRestaurantRequestDto;
-import com.project.back.dto.request.restaurant.reservation.DeleteReservationRequestDto;
 import com.project.back.dto.request.restaurant.reservation.PostReservationRequestDto;
 import com.project.back.dto.request.restaurant.review.PatchReviewRequestDto;
 import com.project.back.dto.request.restaurant.review.PostReviewRequestDto;
@@ -28,7 +27,6 @@ import com.project.back.dto.response.restaurant.review.GetReviewResponseDto;
 import com.project.back.service.RestaurantService;
 
 import jakarta.validation.Valid;
-import jakarta.websocket.server.PathParam;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -37,15 +35,15 @@ import lombok.RequiredArgsConstructor;
 public class RestaurantController {
 
     private final RestaurantService restaurantService;
-
+    //
     @GetMapping("/search")
     public ResponseEntity<? super GetRestaurantListResponseDto> getRestaurantList ( 
-        @PathParam("word") String word
+        @RequestParam("word") String word
     ){
         ResponseEntity<? super GetRestaurantListResponseDto> response = restaurantService.getRestaurantList(word);
         return response;
     };
-    
+    // 
     @GetMapping("/{restaurantId}")
     public ResponseEntity<? super GetRestaurantInfoResponseDto> getRestaurantInfo (
         @PathVariable("restaurantId") int restaurantId
@@ -94,14 +92,23 @@ public class RestaurantController {
         ResponseEntity<ResponseDto> response = restaurantService.postReservation(requestBody, userEmailId, restaurantId);
         return response;
     };
+
+
+    @GetMapping("/reservation/{restaurantId}")
+    public ResponseEntity<ResponseDto> getReservationCheck(
+        @AuthenticationPrincipal String userEmailId,
+        @PathVariable("restaurantId") int restaurantId
+    ) {
+        ResponseEntity<ResponseDto> response = restaurantService.getReservationCheck(userEmailId, restaurantId);
+        return response;
+    };
     
     @DeleteMapping("/reservation/{restaurantId}")
     public ResponseEntity<ResponseDto> deleteReservation (
-        @RequestBody @Valid DeleteReservationRequestDto requestBody,
-        @PathVariable("restaurantId") int reservationNumber, 
+        @PathVariable("restaurantId") int restaurantId, 
         @AuthenticationPrincipal String userEmailId
     ){
-        ResponseEntity<ResponseDto> response = restaurantService.deleteReservation(null, reservationNumber, userEmailId);
+        ResponseEntity<ResponseDto> response = restaurantService.deleteReservation(userEmailId, restaurantId);
         return response;
     };
 
@@ -147,15 +154,39 @@ public class RestaurantController {
         return response;
     }
     
+    //
     @PostMapping("favorite/restaurantId")
     public ResponseEntity<ResponseDto> postFavorite (
-        @RequestBody @Valid PostFavoriteRestaurantRequestDto requestBody,
         @PathVariable("restaurantId") int restaurantId,
         @AuthenticationPrincipal String userEmailId
     ){
-        ResponseEntity<ResponseDto> response = restaurantService.postFavorite(requestBody, userEmailId, restaurantId);
+        ResponseEntity<ResponseDto> response = restaurantService.postFavorite(userEmailId, restaurantId);
         return response;
     }
+    //
+
+    //
+    @DeleteMapping("favorite/restaurantId")
+    public ResponseEntity<ResponseDto> deleteFavorite (
+         @PathVariable("restaurantId") int restaurantId,
+         @AuthenticationPrincipal String userEmailId
+    ){
+         ResponseEntity<ResponseDto> response = restaurantService.deleteFavorite(userEmailId, restaurantId);
+         return response;
+    }
+    //
+ 
+
+    //
+    @GetMapping("favorite/restaurantId")
+    public ResponseEntity<ResponseDto> getFavoriteCheck (
+        @PathVariable("restaurantId") int restaurantId,
+        @AuthenticationPrincipal String userEmailId
+    ){
+        ResponseEntity<ResponseDto> response = restaurantService.getFavoriteCheck(userEmailId, restaurantId);
+        return response;
+    }
+    // 추가
     
     @GetMapping("favorite/list")
     public ResponseEntity<? super GetFavoriteRestaurantListResponseDto> getFavoriteList (String userEmailId)
@@ -164,3 +195,4 @@ public class RestaurantController {
         return response;
     }
 }
+//수정
