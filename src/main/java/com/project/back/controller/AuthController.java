@@ -10,10 +10,12 @@ import com.project.back.dto.request.auth.CheckBusinessRegistrationRequestDto;
 import com.project.back.dto.request.auth.CheckEmailIdRequestDto;
 import com.project.back.dto.request.auth.CheckNicknameRequestDto;
 import com.project.back.dto.request.auth.CheckTelNumberAuthRequestDto;
+import com.project.back.dto.request.auth.FindEmailRequestDto;
 import com.project.back.dto.request.auth.SignInRequestDto;
 import com.project.back.dto.request.auth.SignUpRequestDto;
 import com.project.back.dto.request.auth.TelNumberAuthRequestDto;
 import com.project.back.dto.response.ResponseDto;
+import com.project.back.dto.response.auth.FindEmailResponseDto;
 import com.project.back.dto.response.auth.SignInResponseDto;
 import com.project.back.service.AuthService;
 
@@ -79,6 +81,14 @@ public class AuthController {
     @RequestBody @Valid SignUpRequestDto requestBody
   ) {
     ResponseEntity<ResponseDto> response = authService.signUp(requestBody);
+    return response;
+  }
+
+  @PostMapping("/find-email")
+  public ResponseEntity<? super FindEmailResponseDto> findEmail (
+    @RequestBody @Valid FindEmailRequestDto requestBody
+  ) {
+    ResponseEntity<? super FindEmailResponseDto> response = authService.findEmail(requestBody);
     return response;
   }
 }

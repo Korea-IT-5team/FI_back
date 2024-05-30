@@ -17,7 +17,7 @@ public interface UserService {
   ResponseEntity<? super GetUserInfoResponseDto> GetSignInUser(String userEmailId);
   ResponseEntity<ResponseDto> passwordReCheck(PasswordRecheckRequestDto dto);
 
-  ResponseEntity<? super FindEmailResponseDto> findEmail(FindEmailRequestDto dto);
+  // ResponseEntity<? super FindEmailResponseDto> findEmail(FindEmailRequestDto dto);
   ResponseEntity<ResponseDto> passwordReset(PasswordResetRequestDto dto);
   ResponseEntity<ResponseDto> newPassword(NewPasswordRequestDto dto, String userEmailId);
 

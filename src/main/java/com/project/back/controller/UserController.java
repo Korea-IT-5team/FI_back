@@ -48,13 +48,13 @@ public class UserController {
     return response;
   }
 
-  @PostMapping("/find-email")
-  public ResponseEntity<? super FindEmailResponseDto> findEmail (
-    @RequestBody @Valid FindEmailRequestDto requestBody
-  ) {
-    ResponseEntity<? super FindEmailResponseDto> response = userService.findEmail(requestBody);
-    return response;
-  }
+  // @PostMapping("/find-email")
+  // public ResponseEntity<? super FindEmailResponseDto> findEmail (
+  //   @RequestBody @Valid FindEmailRequestDto requestBody
+  // ) {
+  //   ResponseEntity<? super FindEmailResponseDto> response = userService.findEmail(requestBody);
+  //   return response;
+  // }
 
   @PostMapping("/password-reset")
   public ResponseEntity<ResponseDto> passwordReset (

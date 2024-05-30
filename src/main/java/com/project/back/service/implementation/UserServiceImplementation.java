@@ -61,20 +61,23 @@ public class UserServiceImplementation implements UserService {
     return ResponseDto.success();
   }
   
-  @Override
-  public ResponseEntity<? super FindEmailResponseDto> findEmail(FindEmailRequestDto dto) {
-    try {
-      String userName = dto.getUserName();
-      String userTelNumber = dto.getUserTelNumber();
+  // @Override
+  // public ResponseEntity<? super FindEmailResponseDto> findEmail(FindEmailRequestDto dto) {
+  //   try {
+  //     String userName = dto.getUserName();
+  //     String userTelNumber = dto.getUserTelNumber();
 
-      boolean isMatched = userRepository.existsByUserNameAndUserTelNumber(userName, userTelNumber);
-      if (!isMatched) return ResponseDto.authenticationFailed();
-    } catch(Exception exception) {
-      exception.printStackTrace();
-      return ResponseDto.databaseError();
-    }
-    return ResponseDto.success();
-  }
+  //     System.out.println(userName);
+  //     System.out.println(userTelNumber);
+
+  //     boolean isMatched = userRepository.existsByUserNameAndUserTelNumber(userName, userTelNumber);
+  //     if (!isMatched) return ResponseDto.authenticationFailed();
+  //   } catch(Exception exception) {
+  //     exception.printStackTrace();
+  //     return ResponseDto.databaseError();
+  //   }
+  //   return ResponseDto.success();
+  // }
 
   @Override
   public ResponseEntity<ResponseDto> passwordReset(PasswordResetRequestDto dto) {
