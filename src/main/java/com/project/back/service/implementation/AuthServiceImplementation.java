@@ -191,7 +191,7 @@ public class AuthServiceImplementation implements AuthService {
   @Override
   public ResponseEntity<? super FindEmailResponseDto> findEmail(FindEmailRequestDto dto) {
     try {
-     
+    
       String userName = dto.getUserName();
       String userTelNumber = dto.getUserTelNumber();
 

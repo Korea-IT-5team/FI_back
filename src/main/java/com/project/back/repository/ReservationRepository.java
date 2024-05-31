@@ -10,7 +10,7 @@ import com.project.back.entity.ReservationEntity;
 @Repository
 public interface ReservationRepository extends JpaRepository<ReservationEntity,Integer> {
     ReservationEntity findByReservationNumber(Integer reservationNumber);
-    List<ReservationEntity> findByReservationUserEmailIdOrderByReservationNumberDesc(String userEmailId);
+    List<ReservationEntity> findByReservationUserIdOrderByReservationNumberDesc(String userEmailId);
     List<ReservationEntity> findByReservationRestaurantIdOrderByReservationNumberDesc(Integer restaurantId);
 
     //
