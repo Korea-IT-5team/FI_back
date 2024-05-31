@@ -9,7 +9,6 @@ import com.project.back.common.object.board.inquiryboard.InquiryBoardListItem;
 import com.project.back.dto.response.ResponseCode;
 import com.project.back.dto.response.ResponseDto;
 import com.project.back.dto.response.ResponseMessage;
-import com.project.back.entity.InquiryBoardEntity;
 import com.project.back.repository.resultSet.GetInquriryBoardListResultSet;
 
 import lombok.Getter;
