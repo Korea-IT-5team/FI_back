@@ -41,7 +41,7 @@ public class InquiryBoardEntity {
         String inquiryWriteDatetime = simpleDateFormat.format(now);
 
         this.inquiryStatus = false;
-        this.inquiryPublic = false;
+        this.inquiryPublic = dto.getIsInquiryPublic();
         this.inquiryTitle = dto.getInquiryTitle();
         this.inquiryContents = dto.getInquiryContents();
         this.inquiryWriterId = userEmailId;
