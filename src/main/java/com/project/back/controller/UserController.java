@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.project.back.dto.request.auth.NewPasswordRequestDto;
+import com.project.back.dto.request.auth.PasswordRecheckRequestDto;
 import com.project.back.dto.request.auth.PasswordResetRequestDto;
 import com.project.back.dto.request.user.DeleteUserRequestDto;
-import com.project.back.dto.request.user.PasswordRecheckRequestDto;
 import com.project.back.dto.request.user.PatchUserInfoRequestDto;
 import com.project.back.dto.response.ResponseDto;
 import com.project.back.dto.response.user.GetMyInfoResponseDto;
@@ -38,38 +38,30 @@ public class UserController {
     return response;
   }
 
-  @PostMapping("/password-recheck")
-  public ResponseEntity<ResponseDto> passwordReCheck (
-    @RequestBody @Valid PasswordRecheckRequestDto requestBody
-  ) {
-    ResponseEntity<ResponseDto> response = userService.passwordReCheck(requestBody);
-    return response;
-  }
-
-  // @PostMapping("/find-email")
-  // public ResponseEntity<? super FindEmailResponseDto> findEmail (
-  //   @RequestBody @Valid FindEmailRequestDto requestBody
+  // @PostMapping("/password-recheck")
+  // public ResponseEntity<ResponseDto> passwordReCheck (
+  //   @RequestBody @Valid PasswordRecheckRequestDto requestBody
   // ) {
-  //   ResponseEntity<? super FindEmailResponseDto> response = userService.findEmail(requestBody);
+  //   ResponseEntity<ResponseDto> response = userService.passwordReCheck(requestBody);
   //   return response;
   // }
 
-  @PostMapping("/password-reset")
-  public ResponseEntity<ResponseDto> passwordReset (
-    @RequestBody @Valid PasswordResetRequestDto requestBody
-  ) {
-    ResponseEntity<ResponseDto> response = userService.passwordReset(requestBody);
-    return response;
-  }
+  // @PostMapping("/password-reset")
+  // public ResponseEntity<ResponseDto> passwordReset (
+  //   @RequestBody @Valid PasswordResetRequestDto requestBody
+  // ) {
+  //   ResponseEntity<ResponseDto> response = userService.passwordReset(requestBody);
+  //   return response;
+  // }
 
-  @PostMapping("/password-update")
-  public ResponseEntity<ResponseDto> newPassword (
-    @RequestBody @Valid NewPasswordRequestDto requestBody,
-    @PathVariable("userEmailId") String userEmailId
-  ) {
-    ResponseEntity<ResponseDto> response = userService.newPassword(requestBody, userEmailId);
-    return response;
-  }
+  // @PostMapping("/password-update")
+  // public ResponseEntity<ResponseDto> newPassword (
+  //   @RequestBody @Valid NewPasswordRequestDto requestBody,
+  //   @PathVariable("userEmailId") String userEmailId
+  // ) {
+  //   ResponseEntity<ResponseDto> response = userService.newPassword(requestBody, userEmailId);
+  //   return response;
+  // }
 
   @PatchMapping("/info-update")
   public ResponseEntity<ResponseDto> patchUserInfo (
