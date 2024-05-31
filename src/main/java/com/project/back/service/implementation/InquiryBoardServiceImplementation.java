@@ -34,7 +34,6 @@ public class InquiryBoardServiceImplementation implements InquiryBoardService {
       boolean isExistUser = userRepository.existsByUserEmailId(userEmailId);
       if (!isExistUser) return ResponseDto.authenticationFailed();
 
-
       InquiryBoardEntity inquiryBoardEntity = new InquiryBoardEntity(dto, userEmailId);
       inquiryBoardRepository.save(inquiryBoardEntity);
     } catch (Exception exception) {
