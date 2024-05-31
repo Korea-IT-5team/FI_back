@@ -7,4 +7,4 @@ public interface GetRestaurantFavoriteItemResultSet {
     String getRestaurantFoodCategory();
     String getRestaurantLocation();
 }
-//수정
+//수정##

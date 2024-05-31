@@ -29,8 +29,9 @@ public interface ReviewRepository extends JpaRepository<ReviewEntity,Integer> {
         nativeQuery = true
     )
     List<GetRestaurantReviewListItemResultSet> findReviewsByRestaurantId(@Param("restaurantId") int restaurantId);
-    ReviewEntity findByReviewRestaurantId(int reviewRestaurantId);
+    ReviewEntity findByReviewNumber(int reviewNumber);
     List<FavoriteRestaurantEntity> findByOrderByReviewRestaurantIdDesc();
+    
     @Query(value=
     "SELECT * " +
     "FROM review " +
@@ -40,4 +41,4 @@ public interface ReviewRepository extends JpaRepository<ReviewEntity,Integer> {
     List<GetRestaurantReviewListItemResultSet> findByOrderByMyReviewListDesc(@Param("userEmailId") String reviewWriterId);
     
 }
-//수정
+//수정##

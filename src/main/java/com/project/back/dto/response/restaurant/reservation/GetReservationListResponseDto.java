@@ -15,11 +15,11 @@ import lombok.Getter;
 
 @Getter
 public class GetReservationListResponseDto extends ResponseDto{
-    private List<RestaurantReservationListItem> reservationList;
+    private List<RestaurantReservationListItem> restaurantReservationList;
     
     private GetReservationListResponseDto(List<ReservationEntity> reservationEntities) throws Exception {
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
-        this.reservationList = RestaurantReservationListItem.getList(reservationEntities);
+        this.restaurantReservationList = RestaurantReservationListItem.getList(reservationEntities);
     }
 
     public static ResponseEntity<GetReservationListResponseDto> success(List<ReservationEntity> reservationEntities)
@@ -28,4 +28,4 @@ public class GetReservationListResponseDto extends ResponseDto{
         return ResponseEntity.status(HttpStatus.OK).body(responseBody);
     }
 }
-//수정
+//###수정

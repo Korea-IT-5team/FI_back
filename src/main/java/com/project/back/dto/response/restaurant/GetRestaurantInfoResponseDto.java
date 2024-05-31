@@ -31,7 +31,7 @@ public class GetRestaurantInfoResponseDto extends ResponseDto {
     private String restaurantBusinessRegistrationNumber;
     private String restaurantWriterId;
     private List<RestaurantReviewListItem> restaurantReviewList;
-    
+
     private GetRestaurantInfoResponseDto(RestaurantEntity restaurantEntity, List<GetRestaurantReviewListItemResultSet> reviewEntities)
     throws Exception {
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
@@ -58,4 +58,3 @@ public class GetRestaurantInfoResponseDto extends ResponseDto {
         return ResponseEntity.status(HttpStatus.OK).body(responseBody);
     }
 }
-//수정

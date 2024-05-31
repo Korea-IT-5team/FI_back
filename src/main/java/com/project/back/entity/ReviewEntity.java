@@ -32,21 +32,21 @@ public class ReviewEntity {
     private Double rating;
     private String reviewContents;
     private String reviewWriterId;
-    private String reviewWriterNickname;
     private String reviewDate;
     private String reviewImage;
+    private String reviewWriterNickname;
 
-    public ReviewEntity(PostReviewRequestDto dto, String userEmailId) {
+    public ReviewEntity(PostReviewRequestDto dto, String userEmailId, int restaurantId,String reviewWriterNickname) {
         Date now = Date.from(Instant.now());
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String reviewDate = simpleDateFormat.format(now);
-
         this.rating = dto.getRating();
         this.reviewContents = dto.getReviewContents();
         this.reviewWriterId = userEmailId;
         this.reviewDate = reviewDate;
         this.reviewImage = dto.getReviewImage();
-        
+        this.reviewRestaurantId = restaurantId;
+        this.reviewWriterNickname = reviewWriterNickname;
     }
 
     public void updateReview(PatchReviewRequestDto dto){
@@ -56,5 +56,4 @@ public class ReviewEntity {
         this.reviewImage = dto.getReviewImage();
     }
 }
-
-
+//###수정
