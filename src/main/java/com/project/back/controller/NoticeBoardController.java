@@ -40,7 +40,7 @@ public class NoticeBoardController {
     }
 
     @GetMapping("list")
-    public ResponseEntity<? super GetNoticeBoardListResponseDto> getnoticeBoardList() {
+    public ResponseEntity<? super GetNoticeBoardListResponseDto> getNoticeBoardList() {
         ResponseEntity<? super GetNoticeBoardListResponseDto> response = noticeBoardService.getNoticeBoardList();
         return response;
     }

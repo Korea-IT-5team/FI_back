@@ -25,6 +25,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class InquiryBoardEntity {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer inquiryNumber;
     private Boolean inquiryStatus;
     private Boolean inquiryPublic;
