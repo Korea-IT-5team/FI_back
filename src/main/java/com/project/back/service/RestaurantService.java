@@ -24,7 +24,7 @@ public interface RestaurantService {
 
     // 식당 예약
     ResponseEntity<? super GetReservationListResponseDto> getUserReservationList(String userEmailId);
-    ResponseEntity<? super GetReservationListResponseDto> getCeoReservationList(int restaurantId);
+    ResponseEntity<? super GetReservationListResponseDto> getCeoReservationList(String userEmailId);
     ResponseEntity<ResponseDto> postReservation (PostReservationRequestDto dto, String userEmailId, int restaurantId);
     ResponseEntity<ResponseDto> deleteReservation(String userEmailId, int restaurantId);
     ResponseEntity<ResponseDto> getReservationCheck(String userEmailId, int restaurantId);
@@ -45,4 +45,4 @@ public interface RestaurantService {
     ResponseEntity<? super GetFavoriteRestaurantListResponseDto> getFavoriteList(String userEmailId);
     
 }
-// 수정
+// 수정##

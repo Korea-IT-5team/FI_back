@@ -28,4 +28,4 @@ public class PostRestaurantInfoRequestDto {
     private String restaurantNotice;
     private String restaurantRepresentativeMenu;
 }
-//수정
+//수정###

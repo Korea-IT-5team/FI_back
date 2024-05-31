@@ -23,5 +23,6 @@ public interface UserRepository extends JpaRepository<UserEntity,String> {
   //
   String getUserNameByUserEmailId(String userEmailId);
   String getUserTelNumberByUserEmailId(String userEmailId);
+  String getNicknameByUserEmailId(String userEmailId); //##수정
   //
 }

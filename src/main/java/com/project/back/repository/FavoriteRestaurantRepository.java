@@ -10,4 +10,4 @@ public interface FavoriteRestaurantRepository extends JpaRepository<FavoriteRest
     FavoriteRestaurantEntity findByFavoriteUserIdAndFavoriteRestaurantId(String favoriteUserId, Integer favoriteRestaurantId);
    
 }
-//수정
+//수정###

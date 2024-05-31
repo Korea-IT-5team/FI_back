@@ -10,8 +10,10 @@ import com.project.back.entity.ReservationEntity;
 @Repository
 public interface ReservationRepository extends JpaRepository<ReservationEntity,Integer> {
     ReservationEntity findByReservationNumber(Integer reservationNumber);
-    List<ReservationEntity> findByReservationUserIdOrderByReservationNumberDesc(String userEmailId);
-    List<ReservationEntity> findByReservationRestaurantIdOrderByReservationNumberDesc(Integer restaurantId);
+    //###수정
+    List<ReservationEntity> findByReservationUserIdOrderByReservationNumberDesc(String reservationUserId);
+    List<ReservationEntity> findByReservationRestaurantIdOrderByReservationNumberDesc(Integer reservationRestaurantId);
+    //###수정
 
     //
     boolean existsByReservationUserIdAndReservationRestaurantId(String reservationUserId, Integer reservationRestaurantId);
@@ -19,4 +21,4 @@ public interface ReservationRepository extends JpaRepository<ReservationEntity,I
     //
 }
 
-//수정
+//수정###

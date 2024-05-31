@@ -64,10 +64,9 @@ public class RestaurantEntity {
         this.restaurantFeatures = dto.getRestaurantFeatures();
         this.restaurantNotice = dto.getRestaurantNotice();
         this.restaurantRepresentativeMenu = dto.getRestaurantRepresentativeMenu();
-        this.restaurantBusinessRegistrationNumber = dto.getRestaurantBusinessRegistrationNumber();
         this.restaurantImage = dto.getRestaurantImage();
     }
 
 
 }
-//수정
+//수정###

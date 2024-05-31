@@ -18,8 +18,6 @@ public class PatchRestaurantInfoRequestDto {
     @NotBlank
     private String restaurantLocation;
     @NotBlank
-    private Integer restaurantId;
-    @NotBlank
     private String restaurantImage;
     private String restaurantTelNumber;
     private String restaurantSnsAddress;
@@ -27,7 +25,5 @@ public class PatchRestaurantInfoRequestDto {
     private String restaurantFeatures;
     private String restaurantNotice;
     private String restaurantRepresentativeMenu;
-    @NotBlank
-    private String restaurantBusinessRegistrationNumber;
 }
-//수정
+//수정###
