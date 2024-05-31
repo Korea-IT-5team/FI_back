@@ -9,7 +9,7 @@ import com.project.back.common.object.board.noticeboard.NoticeBoardListItem;
 import com.project.back.dto.response.ResponseCode;
 import com.project.back.dto.response.ResponseDto;
 import com.project.back.dto.response.ResponseMessage;
-import com.project.back.entity.NoticeBoardEntity;
+import com.project.back.repository.resultSet.GetNoticeBoardListResultSet;
 
 import lombok.Getter;
 
@@ -17,14 +17,14 @@ import lombok.Getter;
 public class GetSearchNoticeBoardResponseDto extends ResponseDto{
     private List<NoticeBoardListItem> noticeBoardList;
     
-    private GetSearchNoticeBoardResponseDto(List<NoticeBoardEntity> noticeBoardEntities) throws Exception {
+    private GetSearchNoticeBoardResponseDto(List<GetNoticeBoardListResultSet> resultSets) throws Exception {
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
-        this.noticeBoardList = NoticeBoardListItem.getList(noticeBoardEntities);
+        this.noticeBoardList = NoticeBoardListItem.getList(resultSets);
     }
 
-    public static ResponseEntity<GetSearchNoticeBoardResponseDto> success(List<NoticeBoardEntity> noticeBoardEntities)
+    public static ResponseEntity<GetSearchNoticeBoardResponseDto> success(List<GetNoticeBoardListResultSet> resultSets)
     throws Exception {
-        GetSearchNoticeBoardResponseDto responseBody = new GetSearchNoticeBoardResponseDto(noticeBoardEntities);
+        GetSearchNoticeBoardResponseDto responseBody = new GetSearchNoticeBoardResponseDto(resultSets);
         return ResponseEntity.status(HttpStatus.OK).body(responseBody);
     }
 }

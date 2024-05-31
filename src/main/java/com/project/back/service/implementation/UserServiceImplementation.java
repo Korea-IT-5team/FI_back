@@ -6,20 +6,16 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.project.back.common.util.PasswordResetLinkCodeUtil;
-import com.project.back.dto.request.auth.FindEmailRequestDto;
 import com.project.back.dto.request.auth.NewPasswordRequestDto;
 import com.project.back.dto.request.auth.PasswordResetRequestDto;
 import com.project.back.dto.request.user.DeleteUserRequestDto;
 import com.project.back.dto.request.user.PasswordRecheckRequestDto;
 import com.project.back.dto.request.user.PatchUserInfoRequestDto;
 import com.project.back.dto.response.ResponseDto;
-import com.project.back.dto.response.auth.FindEmailResponseDto;
 import com.project.back.dto.response.user.GetMyInfoResponseDto;
 import com.project.back.dto.response.user.GetUserInfoResponseDto;
 import com.project.back.entity.UserEntity;
 import com.project.back.provider.SmsProvider;
-import com.project.back.repository.FavoriteRestaurantRepository;
-import com.project.back.repository.ReservationRepository;
 import com.project.back.repository.UserRepository;
 import com.project.back.service.UserService;
 
