@@ -18,7 +18,7 @@ public class JwtProvider {
   @Value("${jwt.secret-key}")
   private String secretKey;
 
-  public String create(String userId) {
+  public String create(String userEmailId) {
     Date expiredDate = Date.from(Instant.now().plus(10, ChronoUnit.HOURS));
 
     String jwt = null;
@@ -28,7 +28,7 @@ public class JwtProvider {
 
       jwt = Jwts.builder()
         .signWith(key, SignatureAlgorithm.HS256)
-        .setSubject(userId)
+        .setSubject(userEmailId)
         .setIssuedAt(new Date())
         .setExpiration(expiredDate)
         .compact();
