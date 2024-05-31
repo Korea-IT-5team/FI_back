@@ -1,4 +1,4 @@
-package com.project.back.dto.request.user;
+package com.project.back.dto.request.auth;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
