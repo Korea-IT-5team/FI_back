@@ -4,7 +4,6 @@ import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.Date;
 
-import com.project.back.dto.request.restaurant.PostRestaurantInfoRequestDto;
 import com.project.back.dto.request.restaurant.review.PatchReviewRequestDto;
 import com.project.back.dto.request.restaurant.review.PostReviewRequestDto;
 
@@ -27,6 +26,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class ReviewEntity {
     @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer reviewNumber;
     private Integer reviewRestaurantId;
     private Double rating;

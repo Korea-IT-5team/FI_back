@@ -8,7 +8,7 @@ import com.project.back.common.object.board.inquiryboard.InquiryBoardListItem;
 import com.project.back.dto.response.ResponseCode;
 import com.project.back.dto.response.ResponseDto;
 import com.project.back.dto.response.ResponseMessage;
-import com.project.back.repository.resultSet.GetInquriryBoardListResultSet;
+import com.project.back.repository.resultSet.GetInquiryBoardListResultSet;
 
 import lombok.Getter;
 
@@ -16,12 +16,12 @@ import lombok.Getter;
 public class GetSearchInquiryBoardListResponseDto extends ResponseDto{
     private List<InquiryBoardListItem> inquiryBoardList;
     
-    private GetSearchInquiryBoardListResponseDto(List<GetInquriryBoardListResultSet> resultSets) throws Exception {
+    private GetSearchInquiryBoardListResponseDto(List<GetInquiryBoardListResultSet> resultSets) throws Exception {
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
         this.inquiryBoardList= InquiryBoardListItem.getList(resultSets);
     }
 
-    public static ResponseEntity<GetSearchInquiryBoardListResponseDto> success(List<GetInquriryBoardListResultSet> resultSets)
+    public static ResponseEntity<GetSearchInquiryBoardListResponseDto> success(List<GetInquiryBoardListResultSet> resultSets)
     throws Exception {
         GetSearchInquiryBoardListResponseDto responseBody = new GetSearchInquiryBoardListResponseDto(resultSets);
         return ResponseEntity.status(HttpStatus.OK).body(responseBody);

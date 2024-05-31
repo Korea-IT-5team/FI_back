@@ -5,12 +5,16 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.project.back.common.util.PasswordResetLinkCodeUtil;
 import com.project.back.common.util.TelNumberAuthNumberUtil;
 import com.project.back.dto.request.auth.CheckBusinessRegistrationRequestDto;
 import com.project.back.dto.request.auth.CheckEmailIdRequestDto;
 import com.project.back.dto.request.auth.CheckNicknameRequestDto;
 import com.project.back.dto.request.auth.CheckTelNumberAuthRequestDto;
 import com.project.back.dto.request.auth.FindEmailRequestDto;
+import com.project.back.dto.request.auth.NewPasswordRequestDto;
+import com.project.back.dto.request.auth.PasswordRecheckRequestDto;
+import com.project.back.dto.request.auth.PasswordResetRequestDto;
 import com.project.back.dto.request.auth.SignInRequestDto;
 import com.project.back.dto.request.auth.SignUpRequestDto;
 import com.project.back.dto.request.auth.TelNumberAuthRequestDto;
@@ -173,25 +177,10 @@ public class AuthServiceImplementation implements AuthService {
     return ResponseDto.success();
   }
 
-  // @Override
-  // public ResponseEntity<? super FindEmailResponseDto> findEmail(FindEmailRequestDto dto) {
-  //   try {
-  //     String userName = dto.getUserName();
-  //     String userTelNumber = dto.getUserTelNumber();
-
-  //     boolean isMatched = userRepository.existsByUserNameAndUserTelNumber(userName, userTelNumber);
-  //     if (!isMatched) return ResponseDto.authenticationFailed();
-  //   } catch(Exception exception) {
-  //     exception.printStackTrace();
-  //     return ResponseDto.databaseError();
-  //   }
-  //   return ResponseDto.success();
-  // }
-
   @Override
   public ResponseEntity<? super FindEmailResponseDto> findEmail(FindEmailRequestDto dto) {
     try {
-     
+    
       String userName = dto.getUserName();
       String userTelNumber = dto.getUserTelNumber();
 
@@ -210,5 +199,75 @@ public class AuthServiceImplementation implements AuthService {
     }
     
   }
+
+  // 비밀번호 재설정 (이메일이랑 전화번호를 받아서 확인하는 코드)
+  @Override
+  public ResponseEntity<ResponseDto> passwordReset(PasswordResetRequestDto dto) {
+    
+    try {
+
+      String userEmailId = dto.getUserEmailId();
+      String userTelNumber = dto.getUserTelNumber();
+      // 링크코드 어려우니깐 일단 보류
+      // String resetLinkCode = PasswordResetLinkCodeUtil.createCode();
+
+      // smsProvider.sendPasswordResetLink(userEmailId, userTelNumber);
+
+      boolean isMatched = userRepository.existsByUserEmailIdAndUserTelNumber(userEmailId, userTelNumber);
+      if (!isMatched) return ResponseDto.authenticationFailed();
+
+    } catch (Exception exception) {
+      exception.printStackTrace();
+      return ResponseDto.databaseError();
+    }
+    return ResponseDto.success();
+  }
+
+  // @Override
+  // public ResponseEntity<ResponseDto> passwordReset(PasswordResetRequestDto dto) {
+  //   try {
+  //     String userTelNumber = dto.getUserTelNumber();
+      
+  //     String resetLinkCode = PasswordResetLinkCodeUtil.createCode();
+
+  //     smsProvider.sendPasswordResetLink(userTelNumber, resetLinkCode);
+  //   } catch (Exception exception) {
+  //     exception.printStackTrace();
+  //     return ResponseDto.databaseError();
+  //   }
+  //   return ResponseDto.success();
+  // }
+
+  @Override
+  public ResponseEntity<ResponseDto> newPassword(NewPasswordRequestDto dto, String userEmailId) {
+    
+    try {
+
+      String password = dto.getPassword();
+
+      UserEntity userEntity = userRepository.findByUserEmailId(userEmailId);
+      System.out.println(userEmailId);
+      if (userEntity == null) return ResponseDto.noExistUser();
+
+      // boolean isUser = userEmailId.equals(userEmailId);
+      // if (!isUser) return ResponseDto.noExistUser();
+
+      boolean isMatched = userRepository.existsById(userEmailId);
+      if (!isMatched) return ResponseDto.authenticationFailed();
+
+      String encodedPassword = passwordEncoder.encode(password);
+
+      dto.setPassword(encodedPassword);
+
+      userEntity.setPassword(encodedPassword);
+      
+      userRepository.save(userEntity);
+      
+    } catch(Exception exception) {
+      exception.printStackTrace();
+      return ResponseDto.databaseError();
+    }
+    return ResponseDto.success();
+  }
+
 }
- // 요청에서 사용자 이름과 전화번호 추출

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.project.back.common.util.ChangeDateFormatUtil;
-import com.project.back.entity.NoticeBoardEntity;
+import com.project.back.repository.resultSet.GetNoticeBoardListResultSet;
 
 import lombok.Getter;
 
@@ -16,22 +16,22 @@ public class NoticeBoardListItem {
     private String noticeWriteDatetime;
     private Integer noticeViewCount;
 
-    private NoticeBoardListItem(NoticeBoardEntity noticeBoardEntity) throws Exception {
-        this.noticeNumber = noticeBoardEntity.getNoticeNumber();
-        this.noticeTitle = noticeBoardEntity.getNoticeTitle();
-        this.noticeWriterNickname = noticeBoardEntity.getNoticeWriterNickname();
+    private NoticeBoardListItem(GetNoticeBoardListResultSet resultSet) throws Exception {
+        this.noticeNumber = resultSet.getNoticeNumber();
+        this.noticeTitle = resultSet.getNoticeTitle();
+        this.noticeWriterNickname = resultSet.getNoticeWriterNickname();
 
-        String writeDate = ChangeDateFormatUtil.changeYYMMDD(noticeBoardEntity.getNoticeWriteDatetime());
+        String writeDate = ChangeDateFormatUtil.changeYYMMDD(resultSet.getNoticeWriteDatetime());
         this.noticeWriteDatetime = writeDate;
 
-        this.noticeViewCount = noticeBoardEntity.getNoticeViewCount();
+        this.noticeViewCount = resultSet.getNoticeViewCount();
     }
 
-    public static List<NoticeBoardListItem> getList(List<NoticeBoardEntity> noticeBoardEntities) throws Exception {
+    public static List<NoticeBoardListItem> getList(List<GetNoticeBoardListResultSet> resultSets) throws Exception {
         List<NoticeBoardListItem> noticeBoardList = new ArrayList<>();
 
-        for(NoticeBoardEntity noticeBoardEntity :noticeBoardEntities) {
-            NoticeBoardListItem noticeBoardListItem = new NoticeBoardListItem(noticeBoardEntity);
+        for(GetNoticeBoardListResultSet resultSet :resultSets) {
+            NoticeBoardListItem noticeBoardListItem = new NoticeBoardListItem(resultSet);
             noticeBoardList.add(noticeBoardListItem);
         }
         return noticeBoardList;

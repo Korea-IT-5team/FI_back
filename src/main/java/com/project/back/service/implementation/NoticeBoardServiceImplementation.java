@@ -14,6 +14,7 @@ import com.project.back.dto.response.board.noticeboard.GetSearchNoticeBoardRespo
 import com.project.back.entity.NoticeBoardEntity;
 import com.project.back.repository.NoticeBoardRepository;
 import com.project.back.repository.UserRepository;
+import com.project.back.repository.resultSet.GetNoticeBoardListResultSet;
 import com.project.back.service.NoticeBoardService;
 
 import lombok.RequiredArgsConstructor;
@@ -42,8 +43,8 @@ public class NoticeBoardServiceImplementation implements NoticeBoardService {
     @Override
     public ResponseEntity<? super GetNoticeBoardListResponseDto> getNoticeBoardList() {
         try {
-            List<NoticeBoardEntity> noticeBoardEntities = noticeBoardRepository.findByOrderByNoticeNumberDesc();
-            return GetNoticeBoardListResponseDto.success(noticeBoardEntities);
+            List<GetNoticeBoardListResultSet> resultSets = noticeBoardRepository.getNoticeBoardList();
+            return GetNoticeBoardListResponseDto.success(resultSets);
         } catch (Exception exception) {
             exception.printStackTrace();
             return ResponseDto.databaseError();
@@ -53,8 +54,8 @@ public class NoticeBoardServiceImplementation implements NoticeBoardService {
     @Override
     public ResponseEntity<? super GetSearchNoticeBoardResponseDto> getSearchNoticeBoardList(String searchWord) {
         try {
-            List<NoticeBoardEntity> noticeBoardEntities = noticeBoardRepository.findByNoticeTitleContainsOrderByNoticeNumberDesc(searchWord);
-            return GetSearchNoticeBoardResponseDto.success(noticeBoardEntities);
+            List<GetNoticeBoardListResultSet> resultSets = noticeBoardRepository.getNoticeSearchBoardList(searchWord);
+            return GetSearchNoticeBoardResponseDto.success(resultSets);
         } catch (Exception exception) {
             exception.printStackTrace();
             return ResponseDto.databaseError();
