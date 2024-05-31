@@ -1,6 +1,6 @@
 package com.project.back.repository.resultSet;
 
-public interface GetInquriryBoardListResultSet {
+public interface GetInquiryBoardListResultSet {
     Integer getInquiryNumber();
     Integer getInquiryStatus();
     String getInquiryTitle();

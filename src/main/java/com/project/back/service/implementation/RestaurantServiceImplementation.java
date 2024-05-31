@@ -107,7 +107,7 @@ public class RestaurantServiceImplementation implements RestaurantService
     @Override
     public ResponseEntity<? super GetReservationListResponseDto> getUserReservationList(String userEmailId) {
         try {
-            List<ReservationEntity> reservationEntities = reservationRepository.findByReservationUserEmailIdOrderByReservationNumberDesc(userEmailId);
+            List<ReservationEntity> reservationEntities = reservationRepository.findByReservationUserIdOrderByReservationNumberDesc(userEmailId);
             return GetReservationListResponseDto.success(reservationEntities);
         } catch (Exception exception) {
             exception.printStackTrace();

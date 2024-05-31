@@ -8,7 +8,8 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.project.back.entity.InquiryBoardEntity;
-import com.project.back.repository.resultSet.GetInquriryBoardListResultSet;
+import com.project.back.repository.resultSet.GetInquiryBoardListResultSet;
+
 
 @Repository
 public interface InquiryBoardRepository extends JpaRepository<InquiryBoardEntity,Integer> {
@@ -30,7 +31,7 @@ public interface InquiryBoardRepository extends JpaRepository<InquiryBoardEntity
     "ORDER BY ib.inquiry_number DESC",
     nativeQuery=true
     )
-    List<GetInquriryBoardListResultSet> getInquiryBoardList();
+    List<GetInquiryBoardListResultSet> getInquiryBoardList();
 
     @Query(value=
     "SELECT ib.inquiry_number inquiryNumber, ib.inquiry_status inquiryStatus, ib.inquiry_title inquiryTitle, u.nickname inquiryWriterNickname, ib.inquiry_write_datetime inquiryWriteDatetime " +
@@ -39,7 +40,7 @@ public interface InquiryBoardRepository extends JpaRepository<InquiryBoardEntity
     "ORDER BY ib.inquiry_number DESC",
     nativeQuery=true
     )
-    List<GetInquriryBoardListResultSet> getInquirySearchBoardList(@Param("title") String title);
+    List<GetInquiryBoardListResultSet> getInquirySearchBoardList(@Param("title") String title);
     @Query(value=
     "SELECT ib.inquiry_number inquiryNumber, ib.inquiry_status inquiryStatus, ib.inquiry_title inquiryTitle, u.nickname inquiryWriterNickname, ib.inquiry_write_datetime inquiryWriteDatetime " +
     "FROM inquiry_board ib LEFT JOIN user u ON ib.inquiry_writer_id = u.user_email_id " +
@@ -47,5 +48,5 @@ public interface InquiryBoardRepository extends JpaRepository<InquiryBoardEntity
     "ORDER BY ib.inquiry_number DESC",
     nativeQuery=true
     )
-    List<GetInquriryBoardListResultSet> getInquiryUserBoardList(@Param("userEmailId") String userEmailId);
+    List<GetInquiryBoardListResultSet> getInquiryUserBoardList(@Param("userEmailId") String userEmailId);
 } 
