@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.project.back.common.util.ChangeDateFormatUtil;
-import com.project.back.repository.resultSet.GetInquriryBoardListResultSet;
+import com.project.back.repository.resultSet.GetInquiryBoardListResultSet;
 
 import lombok.Getter;
 
@@ -16,7 +16,7 @@ public class InquiryBoardListItem {
     private String inquiryWriterNickname;
     private String inquiryWriteDatetime;
 
-    private InquiryBoardListItem(GetInquriryBoardListResultSet resultSets) throws Exception {
+    private InquiryBoardListItem(GetInquiryBoardListResultSet resultSets) throws Exception {
         this.inquiryNumber = resultSets.getInquiryNumber();
         this.inquiryStatus = resultSets.getInquiryStatus() == 1;
         this.inquiryTitle = resultSets.getInquiryTitle();
@@ -26,10 +26,10 @@ public class InquiryBoardListItem {
         this.inquiryWriteDatetime = writeDate;
     }
 
-    public static List<InquiryBoardListItem> getList(List<GetInquriryBoardListResultSet> resultSets) throws Exception {
+    public static List<InquiryBoardListItem> getList(List<GetInquiryBoardListResultSet> resultSets) throws Exception {
         List<InquiryBoardListItem> inquiryBoardList = new ArrayList<>();
 
-        for(GetInquriryBoardListResultSet resultSet :resultSets) {
+        for(GetInquiryBoardListResultSet resultSet :resultSets) {
             InquiryBoardListItem inquiryBoardListItem = new InquiryBoardListItem(resultSet);
             inquiryBoardList.add(inquiryBoardListItem);
         }
