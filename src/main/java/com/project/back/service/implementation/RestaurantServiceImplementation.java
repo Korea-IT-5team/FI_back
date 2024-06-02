@@ -84,7 +84,6 @@ public class RestaurantServiceImplementation implements RestaurantService
         return ResponseDto.success();
     }
 
-    //###수정
     @Override
     public ResponseEntity<ResponseDto> patchRestaurantInfo(PatchRestaurantInfoRequestDto dto, int restaurantId, String userEmailId) {
         try {
@@ -104,9 +103,7 @@ public class RestaurantServiceImplementation implements RestaurantService
         }
         return ResponseDto.success();
     }
-    //###수정
 
-    //###수정
     @Override
     public ResponseEntity<? super GetReservationListResponseDto> getUserReservationList(String userEmailId) {
         try {
@@ -117,9 +114,7 @@ public class RestaurantServiceImplementation implements RestaurantService
             return ResponseDto.databaseError();
         }
     }
-    //###수정
-
-    //###수정
+    
     @Override
     public ResponseEntity<? super GetReservationListResponseDto> getCeoReservationList(String userEmailId) {
         try {
@@ -133,7 +128,7 @@ public class RestaurantServiceImplementation implements RestaurantService
             return ResponseDto.databaseError();
         }
     }
-    //###수정
+
     
     
     @Override
@@ -195,7 +190,7 @@ public class RestaurantServiceImplementation implements RestaurantService
         return ResponseDto.success();
     }
 
-    //###수정
+   
     @Override
     public ResponseEntity<? super GetReviewResponseDto> getReview(int reviewNumber) {
         try {
@@ -208,9 +203,7 @@ public class RestaurantServiceImplementation implements RestaurantService
             return ResponseDto.databaseError();
         }
     }
-    //###수정
-    
-    //###수정
+   
     @Override
     public ResponseEntity<ResponseDto> postReview(PostReviewRequestDto dto, int restaurantId, String userEmailId) {
         try {
@@ -226,9 +219,7 @@ public class RestaurantServiceImplementation implements RestaurantService
         }
         return ResponseDto.success();
     }
-    //###수정
-
-    //###수정
+   
     @Override
     public ResponseEntity<ResponseDto> patchReview(PatchReviewRequestDto dto, int reviewNumber, String userEmailId) {
         try {
@@ -247,9 +238,7 @@ public class RestaurantServiceImplementation implements RestaurantService
         }
         return ResponseDto.success();
     }
-    //###수정
-
-    //###수정
+    
     @Override
     public ResponseEntity<ResponseDto> deleteReview(int reviewNumber, String userEmailId) {
         try {
@@ -267,9 +256,7 @@ public class RestaurantServiceImplementation implements RestaurantService
         }
         return ResponseDto.success();
     }
-    //###수정
-
-    //###수정
+   
     @Override
     public ResponseEntity<? super GetReviewListResponseDto> getMyReviewList(String userEmailId) {
         try {
@@ -280,7 +267,7 @@ public class RestaurantServiceImplementation implements RestaurantService
             return ResponseDto.databaseError();
         }
     }
-    //###최근수정
+    
 
    
     @Override
@@ -346,5 +333,3 @@ public class RestaurantServiceImplementation implements RestaurantService
     }
 
 }
-//###최근수정
-

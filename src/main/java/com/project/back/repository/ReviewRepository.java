@@ -41,4 +41,3 @@ public interface ReviewRepository extends JpaRepository<ReviewEntity,Integer> {
     List<GetRestaurantReviewListItemResultSet> findByOrderByMyReviewListDesc(@Param("userEmailId") String reviewWriterId);
     
 }
-//수정##

@@ -13,10 +13,7 @@ import com.project.back.repository.resultSet.GetRestaurantFavoriteItemResultSet;
 @Repository
 public interface RestaurantRepository extends JpaRepository<RestaurantEntity,Integer> {
     Object restaurantEntity = null;
-
-    //###수정
     Integer getRestaurantIdByRestaurantWriterId(String restaurantWriterId);
-    //###수정
 
     
     List<RestaurantEntity> findByRestaurantNameContainingOrderByRestaurantIdDesc(String searchWord);
@@ -38,4 +35,3 @@ public interface RestaurantRepository extends JpaRepository<RestaurantEntity,Int
     )
     List<GetRestaurantFavoriteItemResultSet> getFavoriteList(@Param("userEmailId") String favoriteUserId);
 }
-//##수정
