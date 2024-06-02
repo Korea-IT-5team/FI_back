@@ -28,4 +28,3 @@ public class GetReservationListResponseDto extends ResponseDto{
         return ResponseEntity.status(HttpStatus.OK).body(responseBody);
     }
 }
-//###수정

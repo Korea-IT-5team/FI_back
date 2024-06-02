@@ -26,4 +26,3 @@ public class PatchRestaurantInfoRequestDto {
     private String restaurantNotice;
     private String restaurantRepresentativeMenu;
 }
-//수정###

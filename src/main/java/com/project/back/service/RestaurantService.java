@@ -37,12 +37,9 @@ public interface RestaurantService {
     ResponseEntity<? super GetReviewListResponseDto> getMyReviewList (String userEmailId);
 
     // 식당 찜
-    //
     ResponseEntity<ResponseDto> postFavorite(String userEmailId, int restaurantId);
     ResponseEntity<ResponseDto> deleteFavorite(String userEmailId,int restaurantId);
     ResponseEntity<ResponseDto> getFavoriteCheck(String userEmailId, int restaurantId);
-    //
     ResponseEntity<? super GetFavoriteRestaurantListResponseDto> getFavoriteList(String userEmailId);
     
 }
-// 수정##
