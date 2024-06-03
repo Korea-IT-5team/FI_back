@@ -114,10 +114,13 @@ public class RestaurantServiceImplementation implements RestaurantService
             return ResponseDto.databaseError();
         }
     }
-
+    
     @Override
-    public ResponseEntity<? super GetReservationListResponseDto> getCeoReservationList(int restaurantId) {
+    public ResponseEntity<? super GetReservationListResponseDto> getCeoReservationList(String userEmailId) {
         try {
+
+            Integer restaurantId = restaurantRepository.getRestaurantIdByRestaurantWriterId(userEmailId);
+            if(restaurantId == null) return ResponseDto.authorizationFailed();
             List<ReservationEntity> reservationEntities = reservationRepository.findByReservationRestaurantIdOrderByReservationNumberDesc(restaurantId);
             return GetReservationListResponseDto.success(reservationEntities);
         } catch (Exception exception) {
@@ -125,8 +128,9 @@ public class RestaurantServiceImplementation implements RestaurantService
             return ResponseDto.databaseError();
         }
     }
+
     
-    //
+    
     @Override
     public ResponseEntity<ResponseDto> postReservation(PostReservationRequestDto dto, String userEmailId, int restaurantId) {
         try {
@@ -149,9 +153,7 @@ public class RestaurantServiceImplementation implements RestaurantService
         }
         return ResponseDto.success();
     }
-    //
-
-    //
+    
     @Override
     public ResponseEntity<ResponseDto> getReservationCheck(String userEmailId, int restaurantId) {
         {
@@ -165,7 +167,7 @@ public class RestaurantServiceImplementation implements RestaurantService
             }
         }
     }
-    //
+    
 
     @Override
     public ResponseEntity<ResponseDto> deleteReservation(String userEmailId, int restaurantId) {
@@ -188,10 +190,11 @@ public class RestaurantServiceImplementation implements RestaurantService
         return ResponseDto.success();
     }
 
+   
     @Override
     public ResponseEntity<? super GetReviewResponseDto> getReview(int reviewNumber) {
         try {
-            ReviewEntity reviewEntity = reviewRepository.findByReviewRestaurantId(reviewNumber);
+            ReviewEntity reviewEntity = reviewRepository.findByReviewNumber(reviewNumber);
             if (reviewEntity == null) return ResponseDto.noExistReview();
 
             return GetReviewResponseDto.success(reviewEntity);
@@ -200,14 +203,15 @@ public class RestaurantServiceImplementation implements RestaurantService
             return ResponseDto.databaseError();
         }
     }
-    
+   
     @Override
-    public ResponseEntity<ResponseDto> postReview(PostReviewRequestDto dto, int restaurantId ,String userEmailId) {
+    public ResponseEntity<ResponseDto> postReview(PostReviewRequestDto dto, int restaurantId, String userEmailId) {
         try {
             boolean isExistUser = userRepository.existsByUserEmailId(userEmailId);
-            if (!isExistUser) return ResponseDto.authenticationFailed();
+            if (!isExistUser) return ResponseDto.authorizationFailed();
+            String reviewWriterNickname = userRepository.getNicknameByUserEmailId(userEmailId);
 
-            ReviewEntity reviewEntity = new ReviewEntity();
+            ReviewEntity reviewEntity = new ReviewEntity(dto, userEmailId, restaurantId,reviewWriterNickname);
             reviewRepository.save(reviewEntity);
         } catch (Exception exception) {
             exception.printStackTrace();
@@ -215,11 +219,11 @@ public class RestaurantServiceImplementation implements RestaurantService
         }
         return ResponseDto.success();
     }
-
+   
     @Override
     public ResponseEntity<ResponseDto> patchReview(PatchReviewRequestDto dto, int reviewNumber, String userEmailId) {
         try {
-            ReviewEntity reviewEntity = reviewRepository.findByReviewRestaurantId(reviewNumber);
+            ReviewEntity reviewEntity = reviewRepository.findByReviewNumber(reviewNumber);
             if (reviewEntity == null) return ResponseDto.noExistReview();
 
             String writerId = reviewEntity.getReviewWriterId();
@@ -234,11 +238,11 @@ public class RestaurantServiceImplementation implements RestaurantService
         }
         return ResponseDto.success();
     }
-
+    
     @Override
     public ResponseEntity<ResponseDto> deleteReview(int reviewNumber, String userEmailId) {
         try {
-            ReviewEntity reviewEntity = reviewRepository.findByReviewRestaurantId(reviewNumber);
+            ReviewEntity reviewEntity = reviewRepository.findByReviewNumber(reviewNumber);
             if (reviewEntity == null) return ResponseDto.noExistReview();
 
             String writerId = reviewEntity.getReviewWriterId();
@@ -252,7 +256,7 @@ public class RestaurantServiceImplementation implements RestaurantService
         }
         return ResponseDto.success();
     }
-
+   
     @Override
     public ResponseEntity<? super GetReviewListResponseDto> getMyReviewList(String userEmailId) {
         try {
@@ -263,8 +267,9 @@ public class RestaurantServiceImplementation implements RestaurantService
             return ResponseDto.databaseError();
         }
     }
+    
 
-    //
+   
     @Override
     public ResponseEntity<ResponseDto> postFavorite(String userEmailId, int restaurantId) {
         try {
@@ -282,9 +287,7 @@ public class RestaurantServiceImplementation implements RestaurantService
         }
         return ResponseDto.success();
     }
-    //
-
-    //
+    
     @Override
     public ResponseEntity<ResponseDto> deleteFavorite(String userEmailId, int restaurantId) {
         try {
@@ -305,9 +308,7 @@ public class RestaurantServiceImplementation implements RestaurantService
         }
         return ResponseDto.success();
     }
-    //
-
-    //
+    
     @Override
     public ResponseEntity<? super GetFavoriteRestaurantListResponseDto> getFavoriteList(String userEmailId) {
         try {
@@ -318,9 +319,7 @@ public class RestaurantServiceImplementation implements RestaurantService
             return ResponseDto.databaseError();
         }
     }
-    //
-
-    //
+    
     @Override
     public ResponseEntity<ResponseDto> getFavoriteCheck(String userEmailId, int restaurantId) {
         try {
@@ -334,4 +333,3 @@ public class RestaurantServiceImplementation implements RestaurantService
     }
 
 }
-//수정

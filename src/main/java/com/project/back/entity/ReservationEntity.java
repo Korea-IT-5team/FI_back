@@ -48,4 +48,3 @@ public class ReservationEntity {
         this.reservationUserTelNumber = userTelNumber;
     }
 }
-//수정

@@ -9,4 +9,3 @@ public interface GetRestaurantReviewListItemResultSet {
     String getReviewWriterNickname();
     String getReviewDate();
 }
-//수정

@@ -13,12 +13,13 @@ import com.project.back.repository.resultSet.GetRestaurantFavoriteItemResultSet;
 @Repository
 public interface RestaurantRepository extends JpaRepository<RestaurantEntity,Integer> {
     Object restaurantEntity = null;
+    Integer getRestaurantIdByRestaurantWriterId(String restaurantWriterId);
 
-    //
+    
     List<RestaurantEntity> findByRestaurantNameContainingOrderByRestaurantIdDesc(String searchWord);
     String getRestaurantNameByRestaurantId(Integer restaurantId);
     String getRestaurantLocationByRestaurantId(Integer restaurantId);
-    //
+    
     RestaurantEntity findByRestaurantId(Integer restaurantId);
 
     boolean existsByRestaurantWriterId(String restaurantWriterId);
@@ -34,4 +35,3 @@ public interface RestaurantRepository extends JpaRepository<RestaurantEntity,Int
     )
     List<GetRestaurantFavoriteItemResultSet> getFavoriteList(@Param("userEmailId") String favoriteUserId);
 }
-//수정
