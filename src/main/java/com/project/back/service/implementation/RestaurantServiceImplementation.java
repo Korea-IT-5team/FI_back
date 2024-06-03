@@ -273,6 +273,7 @@ public class RestaurantServiceImplementation implements RestaurantService
     @Override
     public ResponseEntity<ResponseDto> postFavorite(String userEmailId, int restaurantId) {
         try {
+            System.out.println("User not found with email: " + userEmailId);
             boolean isExistUser = userRepository.existsByUserEmailId(userEmailId);
             if (!isExistUser) return ResponseDto.noExistUser();
 
