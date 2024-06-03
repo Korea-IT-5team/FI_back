@@ -13,14 +13,8 @@ import com.project.back.dto.response.user.GetUserInfoResponseDto;
 
 public interface UserService {
   ResponseEntity<? super GetUserInfoResponseDto> GetSignInUser(String userEmailId);
-  // ResponseEntity<ResponseDto> passwordReCheck(PasswordRecheckRequestDto dto);
-
-  // ResponseEntity<? super FindEmailResponseDto> findEmail(FindEmailRequestDto dto);
-  // ResponseEntity<ResponseDto> passwordReset(PasswordResetRequestDto dto);
-  // ResponseEntity<ResponseDto> newPassword(NewPasswordRequestDto dto, String userEmailId);
 
   ResponseEntity<ResponseDto> patchUserInfo(PatchUserInfoRequestDto dto, String userEmailId);
-  
   ResponseEntity<ResponseDto> deleteUser(DeleteUserRequestDto dto, String userEmailId);
 
   ResponseEntity<? super GetMyInfoResponseDto> getMyInfo (String userEmailId);
