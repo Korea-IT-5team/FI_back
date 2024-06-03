@@ -42,57 +42,6 @@ public class UserServiceImplementation implements UserService {
     }
     return GetUserInfoResponseDto.success(userEntity);
   }
-  
-  // @Override
-  // public ResponseEntity<ResponseDto> passwordReCheck(PasswordRecheckRequestDto dto) {
-  //   try {
-  //     String password = dto.getPassword();
-
-  //     boolean isMatched = userRepository.existsByPassword(password);
-  //     if (!isMatched) return ResponseDto.authenticationFailed();
-  //   } catch (Exception exception) {
-  //     exception.printStackTrace();
-  //     return ResponseDto.databaseError();
-  //   }
-  //   return ResponseDto.success();
-  // }
-  
-  // @Override
-  // public ResponseEntity<ResponseDto> passwordReset(PasswordResetRequestDto dto) {
-  //   try {
-  //     String userTelNumber = dto.getUserTelNumber();
-      
-  //     String resetLinkCode = PasswordResetLinkCodeUtil.createCode();
-
-  //     smsProvider.sendPasswordResetLink(userTelNumber, resetLinkCode);
-  //   } catch (Exception exception) {
-  //     exception.printStackTrace();
-  //     return ResponseDto.databaseError();
-  //   }
-  //   return ResponseDto.success();
-  // }
-
-  // @Override
-  // public ResponseEntity<ResponseDto> newPassword(NewPasswordRequestDto dto, String userEmailId) {
-  //   try {
-  //     UserEntity userEntity = userRepository.findByUserEmailId(userEmailId);
-
-  //     boolean isUser = userEmailId.equals(userEmailId);
-  //     if (!isUser) return ResponseDto.noExistUser();
-
-  //     String password = dto.getPassword();
-
-  //     String encodedPassword = passwordEncoder.encode(password);
-  //     dto.setPassword(encodedPassword);
-
-  //     userEntity.setPassword(encodedPassword);
-  //     userRepository.save(userEntity);
-  //   } catch(Exception exception) {
-  //     exception.printStackTrace();
-  //     return ResponseDto.databaseError();
-  //   }
-  //   return ResponseDto.success();
-  // }
 
   @Override
   public ResponseEntity<ResponseDto> patchUserInfo(PatchUserInfoRequestDto dto, String userEmailId) {
