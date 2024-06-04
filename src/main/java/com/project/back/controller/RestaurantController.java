@@ -158,14 +158,13 @@ public class RestaurantController {
         ResponseEntity<ResponseDto> response = restaurantService.deleteReview(reviewNumber, userEmailId);
         return response;
     }
-    
+
     
     @GetMapping("/review/list")
     public ResponseEntity<? super GetReviewListResponseDto> getMyReviewList (String userEmailId) {
         ResponseEntity<? super GetReviewListResponseDto> response = restaurantService.getMyReviewList(userEmailId);
         return response;
     }
-    
     
    
     @PostMapping("/favorite/{restaurantId}")

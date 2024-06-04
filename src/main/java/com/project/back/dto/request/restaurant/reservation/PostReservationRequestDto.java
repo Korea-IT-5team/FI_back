@@ -1,6 +1,7 @@
 package com.project.back.dto.request.restaurant.reservation;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,6 +14,6 @@ public class PostReservationRequestDto {
     private String reservationDate;
     @NotBlank
     private String reservationTime;
-    @NotBlank
+    @NotNull
     private Integer reservationPeople;
 }

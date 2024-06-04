@@ -17,13 +17,13 @@ public interface ReviewRepository extends JpaRepository<ReviewEntity,Integer> {
         value=
         "SELECT "
             + "r.review_number as reviewNumber, "
-            + "r.review_restaurant_id, "
-            + "r.review_image, "
+            + "r.review_restaurant_id as reviewRestaurantId, "
+            + "r.review_image as reviewImage, "
             + "r.rating, "
-            + "r.review_contents, "
-            + "r.review_writer_id, "
-            + "r.review_date, "
-            + "u.nickname "
+            + "r.review_contents as reviewContents, "
+            + "r.review_writer_id as reviewWriterId, "
+            + "r.review_date as reviewDate, "
+            + "r.review_writer_nickname as reviewWriterNickname "
         + "FROM review r LEFT JOIN user u ON r.review_writer_id = u.user_email_id "
         + "WHERE r.review_restaurant_id = :restaurantId",
         nativeQuery = true
