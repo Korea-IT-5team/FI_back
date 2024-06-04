@@ -2,6 +2,7 @@ package com.project.back.service.implementation;
 
 import java.util.List;
 
+import org.springframework.boot.autoconfigure.security.SecurityProperties.User;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +22,7 @@ import com.project.back.entity.FavoriteRestaurantEntity;
 import com.project.back.entity.ReservationEntity;
 import com.project.back.entity.RestaurantEntity;
 import com.project.back.entity.ReviewEntity;
+import com.project.back.entity.UserEntity;
 import com.project.back.repository.FavoriteRestaurantRepository;
 import com.project.back.repository.ReservationRepository;
 import com.project.back.repository.RestaurantRepository;
@@ -136,13 +138,15 @@ public class RestaurantServiceImplementation implements RestaurantService
         try {
             boolean isExistUser = userRepository.existsByUserEmailId(userEmailId);
             if (!isExistUser) return ResponseDto.noExistUser();
-            String userName = userRepository.getUserNameByUserEmailId(userEmailId);
-            String userTelNumber = userRepository.getUserTelNumberByUserEmailId(userEmailId);
+            UserEntity userEntity = userRepository.findByUserEmailId(userEmailId);
+            String userName = userEntity.getUserName();
+            String userTelNumber = userEntity.getUserTelNumber();
 
             boolean isExistRestaurant = restaurantRepository.existsByRestaurantId(restaurantId);
             if (!isExistRestaurant) return ResponseDto.noExistReservation();
-            String restaurantName = restaurantRepository.getRestaurantNameByRestaurantId(restaurantId);
-            String restaurantLocation = restaurantRepository.getRestaurantLocationByRestaurantId(restaurantId);
+            RestaurantEntity restaurantEntity = restaurantRepository.findByRestaurantId(restaurantId);
+            String restaurantName = restaurantEntity.getRestaurantName();
+            String restaurantLocation = restaurantEntity.getRestaurantLocation();
 
             ReservationEntity reservationEntity = new ReservationEntity(
                 dto,userEmailId,restaurantId,userName,restaurantName,restaurantLocation,userTelNumber);
@@ -209,7 +213,8 @@ public class RestaurantServiceImplementation implements RestaurantService
         try {
             boolean isExistUser = userRepository.existsByUserEmailId(userEmailId);
             if (!isExistUser) return ResponseDto.authorizationFailed();
-            String reviewWriterNickname = userRepository.getNicknameByUserEmailId(userEmailId);
+            UserEntity user = userRepository.findByUserEmailId(userEmailId);
+            String reviewWriterNickname = user.getNickname();
 
             ReviewEntity reviewEntity = new ReviewEntity(dto, userEmailId, restaurantId,reviewWriterNickname);
             reviewRepository.save(reviewEntity);
