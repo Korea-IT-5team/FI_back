@@ -168,7 +168,7 @@ public class RestaurantController {
     
     
    
-    @PostMapping("favorite/restaurantId")
+    @PostMapping("/favorite/{restaurantId}")
     public ResponseEntity<ResponseDto> postFavorite (
         @PathVariable("restaurantId") int restaurantId,
         @AuthenticationPrincipal String userEmailId
@@ -179,7 +179,7 @@ public class RestaurantController {
    
 
     
-    @DeleteMapping("favorite/restaurantId")
+    @DeleteMapping("/favorite/{restaurantId}")
     public ResponseEntity<ResponseDto> deleteFavorite (
          @PathVariable("restaurantId") int restaurantId,
          @AuthenticationPrincipal String userEmailId
@@ -191,7 +191,7 @@ public class RestaurantController {
  
 
     
-    @GetMapping("favorite/restaurantId")
+    @GetMapping("/favorite/{restaurantId}")
     public ResponseEntity<ResponseDto> getFavoriteCheck (
         @PathVariable("restaurantId") int restaurantId,
         @AuthenticationPrincipal String userEmailId
@@ -201,7 +201,7 @@ public class RestaurantController {
     }
   
    
-    @GetMapping("favorite/list")
+    @GetMapping("/favorite/list")
     public ResponseEntity<? super GetFavoriteRestaurantListResponseDto> getFavoriteList (
         @AuthenticationPrincipal String userEmailId
     )

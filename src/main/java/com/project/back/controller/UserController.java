@@ -38,32 +38,7 @@ public class UserController {
     return response;
   }
 
-  // @PostMapping("/password-recheck")
-  // public ResponseEntity<ResponseDto> passwordReCheck (
-  //   @RequestBody @Valid PasswordRecheckRequestDto requestBody
-  // ) {
-  //   ResponseEntity<ResponseDto> response = userService.passwordReCheck(requestBody);
-  //   return response;
-  // }
-
-  // @PostMapping("/password-reset")
-  // public ResponseEntity<ResponseDto> passwordReset (
-  //   @RequestBody @Valid PasswordResetRequestDto requestBody
-  // ) {
-  //   ResponseEntity<ResponseDto> response = userService.passwordReset(requestBody);
-  //   return response;
-  // }
-
-  // @PostMapping("/password-update")
-  // public ResponseEntity<ResponseDto> newPassword (
-  //   @RequestBody @Valid NewPasswordRequestDto requestBody,
-  //   @PathVariable("userEmailId") String userEmailId
-  // ) {
-  //   ResponseEntity<ResponseDto> response = userService.newPassword(requestBody, userEmailId);
-  //   return response;
-  // }
-
-  @PatchMapping("/info-update")
+  @PatchMapping("/info-update/{userEmailId}")
   public ResponseEntity<ResponseDto> patchUserInfo (
     @RequestBody @Valid PatchUserInfoRequestDto requestBody,
     @PathVariable("userEmailId") String userEmailId
