@@ -97,5 +97,4 @@ public class UserServiceImplementation implements UserService {
         return GetMyInfoResponseDto.success(userEntity);
   }
 
-  
 }
