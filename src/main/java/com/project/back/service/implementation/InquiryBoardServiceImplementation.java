@@ -77,9 +77,9 @@ public class InquiryBoardServiceImplementation implements InquiryBoardService {
   }
 
   @Override
-  public ResponseEntity<? super GetSearchInquiryBoardListResponseDto> getSearchInquiryBoardList(String searchWord) {
+  public ResponseEntity<? super GetSearchInquiryBoardListResponseDto> getSearchInquiryBoardList(String title) {
     try {
-      List<GetInquiryBoardListResultSet> resultSets = inquiryBoardRepository.getInquirySearchBoardList(searchWord);
+      List<GetInquiryBoardListResultSet> resultSets = inquiryBoardRepository.getInquirySearchBoardList(title);
       return GetSearchInquiryBoardListResponseDto.success(resultSets);
     } catch (Exception exception) {
       exception.printStackTrace();
@@ -115,6 +115,7 @@ public class InquiryBoardServiceImplementation implements InquiryBoardService {
     }
   }
 
+  // 게시판 수정하기
   @Override
   public ResponseEntity<ResponseDto> patchInquiryBoard(PatchInquiryBoardRequestDto dto, int inquiryNumber, String userEmailId) {
     try {

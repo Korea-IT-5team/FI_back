@@ -79,7 +79,7 @@ public class InquiryBoardController {
     return response;
   }
 
-  @PatchMapping("/{inquiryNumber}")
+  @PatchMapping("/update/{inquiryNumber}")
   public ResponseEntity<ResponseDto> patchInquiryBoard(
     @RequestBody @Valid PatchInquiryBoardRequestDto requestBody,
     @PathVariable("inquiryNumber") int inquiryNumber,

@@ -1,6 +1,7 @@
 package com.project.back.dto.request.board.inquiryboard;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,4 +14,6 @@ public class PostInquiryBoardRequestDto {
     private String inquiryTitle;
     @NotBlank
     private String inquiryContents;
+    @NotNull
+    private Boolean isInquiryPublic;
 }
