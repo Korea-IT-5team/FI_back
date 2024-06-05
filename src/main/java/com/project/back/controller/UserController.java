@@ -47,7 +47,7 @@ public class UserController {
     return response;
   }
 
-  @DeleteMapping("/info-delete")
+  @DeleteMapping("/info-delete/{userEmailId}")
   public ResponseEntity<ResponseDto> deleteUser (
     @RequestBody @Valid DeleteUserRequestDto requestBody,
     @PathVariable("userEmailId") String userEmailId
