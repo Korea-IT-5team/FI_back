@@ -2,7 +2,6 @@ package com.project.back.service.implementation;
 
 import java.util.List;
 
-import org.springframework.boot.autoconfigure.security.SecurityProperties.User;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
