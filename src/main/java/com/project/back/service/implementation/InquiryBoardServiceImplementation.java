@@ -115,6 +115,7 @@ public class InquiryBoardServiceImplementation implements InquiryBoardService {
     }
   }
 
+  // 게시판 수정하기
   @Override
   public ResponseEntity<ResponseDto> patchInquiryBoard(PatchInquiryBoardRequestDto dto, int inquiryNumber, String userEmailId) {
     try {
