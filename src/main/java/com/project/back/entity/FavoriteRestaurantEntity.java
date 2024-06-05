@@ -1,6 +1,8 @@
 package com.project.back.entity;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -15,7 +17,10 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class FavoriteRestaurantEntity {
+   
     @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    private Integer favoriteNumber;
     private String favoriteUserId; 
     private Integer favoriteRestaurantId;
 
@@ -24,3 +29,4 @@ public class FavoriteRestaurantEntity {
         this.favoriteRestaurantId = restaurantId;
     }
 }
+//###수정

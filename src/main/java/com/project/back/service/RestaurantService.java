@@ -10,7 +10,9 @@ import com.project.back.dto.request.restaurant.review.PostReviewRequestDto;
 import com.project.back.dto.response.ResponseDto;
 import com.project.back.dto.response.restaurant.GetRestaurantInfoResponseDto;
 import com.project.back.dto.response.restaurant.GetRestaurantListResponseDto;
+import com.project.back.dto.response.restaurant.favorite.GetFavoriteCheckResponseDto;
 import com.project.back.dto.response.restaurant.favorite.GetFavoriteRestaurantListResponseDto;
+import com.project.back.dto.response.restaurant.reservation.GetReservationCheckResponseDto;
 import com.project.back.dto.response.restaurant.reservation.GetReservationListResponseDto;
 import com.project.back.dto.response.restaurant.review.GetReviewListResponseDto;
 import com.project.back.dto.response.restaurant.review.GetReviewResponseDto;
@@ -18,7 +20,9 @@ import com.project.back.dto.response.restaurant.review.GetReviewResponseDto;
 public interface RestaurantService {
     // 식당 정보
     ResponseEntity<? super GetRestaurantListResponseDto> getRestaurantList(String searchWord);
+    // ##수정
     ResponseEntity<? super GetRestaurantInfoResponseDto> getRestaurantInfo(int restaurantId);
+    // ##수정
     ResponseEntity<ResponseDto> postRestaurantInfo(PostRestaurantInfoRequestDto dto, String userEmailId);
     ResponseEntity<ResponseDto> patchRestaurantInfo(PatchRestaurantInfoRequestDto dto, int restaurantId, String userEmailId);
 
@@ -27,8 +31,10 @@ public interface RestaurantService {
     ResponseEntity<? super GetReservationListResponseDto> getCeoReservationList(String userEmailId);
     ResponseEntity<ResponseDto> postReservation (PostReservationRequestDto dto, String userEmailId, int restaurantId);
     ResponseEntity<ResponseDto> deleteReservation(String userEmailId, int restaurantId);
-    ResponseEntity<ResponseDto> getReservationCheck(String userEmailId, int restaurantId);
-    
+    //##수정
+    ResponseEntity<? super GetReservationCheckResponseDto> getReservationCheck(String userEmailId, int restaurantId);
+    //##수정
+
     // 식당 리뷰
     ResponseEntity<? super GetReviewResponseDto> getReview (int reviewNumber);
     ResponseEntity<ResponseDto> postReview (PostReviewRequestDto dto, int restaurantId, String userEmailId);
@@ -39,7 +45,9 @@ public interface RestaurantService {
     // 식당 찜
     ResponseEntity<ResponseDto> postFavorite(String userEmailId, int restaurantId);
     ResponseEntity<ResponseDto> deleteFavorite(String userEmailId,int restaurantId);
-    ResponseEntity<ResponseDto> getFavoriteCheck(String userEmailId, int restaurantId);
+    //#수정
+    ResponseEntity<? super GetFavoriteCheckResponseDto> getFavoriteCheck(String userEmailId, int restaurantId);
     ResponseEntity<? super GetFavoriteRestaurantListResponseDto> getFavoriteList(String userEmailId);
+    //#수정
     
 }

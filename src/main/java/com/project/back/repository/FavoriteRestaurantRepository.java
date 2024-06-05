@@ -5,8 +5,9 @@ import org.springframework.stereotype.Repository;
 import com.project.back.entity.FavoriteRestaurantEntity;
 
 @Repository
-public interface FavoriteRestaurantRepository extends JpaRepository<FavoriteRestaurantEntity,String> {
+public interface FavoriteRestaurantRepository extends JpaRepository<FavoriteRestaurantEntity, Integer> {
     boolean existsByFavoriteUserIdAndFavoriteRestaurantId(String favoriteUserId, Integer favoriteRestaurantId);
     FavoriteRestaurantEntity findByFavoriteUserIdAndFavoriteRestaurantId(String favoriteUserId, Integer favoriteRestaurantId);
    
 }
+//##수정
