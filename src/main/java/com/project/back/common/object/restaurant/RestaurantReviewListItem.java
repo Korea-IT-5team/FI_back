@@ -26,8 +26,11 @@ public class RestaurantReviewListItem {
         this.reviewContents = getRestaurantReviewListItemResultSet.getReviewContents();
         this.reviewWriterNickname = getRestaurantReviewListItemResultSet.getReviewWriterNickname(); 
 
-        String writeDatetime = ChangeDateFormatUtil.changeYYMMDD(getRestaurantReviewListItemResultSet.getReviewDate());
-        this.reviewDate = writeDatetime;
+        if(getRestaurantReviewListItemResultSet.getReviewDate()!=null)
+        {
+            String writeDatetime = ChangeDateFormatUtil.changeYYMMDD(getRestaurantReviewListItemResultSet.getReviewDate());
+            this.reviewDate = writeDatetime;
+        }
     }
 
     public static List<RestaurantReviewListItem> getList(List<GetRestaurantReviewListItemResultSet> getRestaurantReviewListItemResultSetList) throws Exception {
