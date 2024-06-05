@@ -24,12 +24,19 @@ public interface RestaurantRepository extends JpaRepository<RestaurantEntity,Int
     boolean existsByRestaurantWriterId(String restaurantWriterId);
     boolean existsByRestaurantId(Integer restaurantId);
 
+    
+
     @Query(value=
-        "SELECT * " +
-        "FROM restaurant " +
-        "WHERE restaurant_id " +
-        "IN " + 
-        "(SELECT favorite_restaurant_id FROM favorite_restaurant WHERE `favorite_user_id` = :userEmailId)",
+        "SELECT "
+            + "r.restaurant_id as restaurantId, "
+            + "r.restaurant_image as restaurantImage, "
+            + "r.restaurant_name as restaurantName, "
+            + "r.restaurant_food_category as restaurantFoodCategory, "
+            + "r.restaurant_location as restaurantLocation "
+        + "FROM restaurant r "
+        + "WHERE restaurant_id "
+        + "IN "
+        + "(SELECT favorite_restaurant_id FROM favorite_restaurant WHERE `favorite_user_id` = :userEmailId)",
         nativeQuery=true
     )
     List<GetRestaurantFavoriteItemResultSet> getFavoriteList(@Param("userEmailId") String favoriteUserId);
