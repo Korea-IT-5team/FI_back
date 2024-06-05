@@ -5,10 +5,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.project.back.common.util.PasswordResetLinkCodeUtil;
-import com.project.back.dto.request.auth.NewPasswordRequestDto;
-import com.project.back.dto.request.auth.PasswordRecheckRequestDto;
-import com.project.back.dto.request.auth.PasswordResetRequestDto;
 import com.project.back.dto.request.user.DeleteUserRequestDto;
 import com.project.back.dto.request.user.PatchUserInfoRequestDto;
 import com.project.back.dto.response.ResponseDto;
@@ -31,7 +27,6 @@ public class UserServiceImplementation implements UserService {
   @Override
   public ResponseEntity<? super GetUserInfoResponseDto> GetSignInUser(String userEmailId) {
     UserEntity userEntity = null;
-   
 
     try {
       userEntity = userRepository.findByUserEmailId(userEmailId);

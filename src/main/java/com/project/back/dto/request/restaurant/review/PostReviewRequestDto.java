@@ -1,6 +1,5 @@
 package com.project.back.dto.request.restaurant.review;
 
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
