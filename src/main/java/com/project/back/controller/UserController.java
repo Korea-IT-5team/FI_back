@@ -11,9 +11,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.project.back.dto.request.auth.NewPasswordRequestDto;
-import com.project.back.dto.request.auth.PasswordRecheckRequestDto;
-import com.project.back.dto.request.auth.PasswordResetRequestDto;
 import com.project.back.dto.request.user.DeleteUserRequestDto;
 import com.project.back.dto.request.user.PatchUserInfoRequestDto;
 import com.project.back.dto.response.ResponseDto;
