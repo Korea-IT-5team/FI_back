@@ -78,6 +78,9 @@ public class RestaurantServiceImplementation implements RestaurantService
             boolean isExistUser = userRepository.existsByUserEmailId(userEmailId);
             if (!isExistUser) return ResponseDto.authenticationFailed();
 
+            isExistUser = restaurantRepository.existsByRestaurantWriterId(userEmailId);
+            if(isExistUser) return ResponseDto.duplicatedEmailId();
+
             RestaurantEntity restaurantEntity = new RestaurantEntity(dto, userEmailId);
             restaurantRepository.save(restaurantEntity);
         } catch (Exception exception) {
@@ -122,8 +125,9 @@ public class RestaurantServiceImplementation implements RestaurantService
     public ResponseEntity<? super GetReservationListResponseDto> getCeoReservationList(String userEmailId) {
         try {
 
-            Integer restaurantId = restaurantRepository.getRestaurantIdByRestaurantWriterId(userEmailId);
-            if(restaurantId == null) return ResponseDto.authorizationFailed();
+            RestaurantEntity restaurantEntity = restaurantRepository.getRestaurantIdByRestaurantWriterId(userEmailId);
+            if(restaurantEntity == null) return ResponseDto.authorizationFailed();
+            Integer restaurantId = restaurantEntity.getRestaurantId();
             List<ReservationEntity> reservationEntities = reservationRepository.findByReservationRestaurantIdOrderByReservationNumberDesc(restaurantId);
             return GetReservationListResponseDto.success(reservationEntities);
         } catch (Exception exception) {
@@ -218,6 +222,8 @@ public class RestaurantServiceImplementation implements RestaurantService
         try {
             boolean isExistUser = userRepository.existsByUserEmailId(userEmailId);
             if (!isExistUser) return ResponseDto.authorizationFailed();
+            isExistUser = reviewRepository.existsByReviewWriterIdAndReviewRestaurantId(userEmailId,restaurantId);
+            if(isExistUser) return ResponseDto.duplicatedEmailId();
             UserEntity user = userRepository.findByUserEmailId(userEmailId);
             String reviewWriterNickname = user.getNickname();
 

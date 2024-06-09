@@ -13,7 +13,7 @@ import com.project.back.repository.resultSet.GetRestaurantFavoriteItemResultSet;
 @Repository
 public interface RestaurantRepository extends JpaRepository<RestaurantEntity,Integer> {
     Object restaurantEntity = null;
-    Integer getRestaurantIdByRestaurantWriterId(String restaurantWriterId);
+    RestaurantEntity getRestaurantIdByRestaurantWriterId(String restaurantWriterId);
 
     
     List<RestaurantEntity> findByRestaurantNameContainingOrderByRestaurantIdDesc(String searchWord);

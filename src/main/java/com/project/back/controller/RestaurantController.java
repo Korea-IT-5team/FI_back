@@ -165,7 +165,9 @@ public class RestaurantController {
 
     
     @GetMapping("/review/list")
-    public ResponseEntity<? super GetReviewListResponseDto> getMyReviewList (String userEmailId) {
+    public ResponseEntity<? super GetReviewListResponseDto> getMyReviewList (
+        @AuthenticationPrincipal String userEmailId
+        ){
         ResponseEntity<? super GetReviewListResponseDto> response = restaurantService.getMyReviewList(userEmailId);
         return response;
     }
