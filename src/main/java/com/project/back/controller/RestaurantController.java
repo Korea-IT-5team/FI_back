@@ -54,7 +54,6 @@ public class RestaurantController {
         return response;
     };
     
-    //수정#
     @PostMapping("/info-upload")
     public ResponseEntity<ResponseDto> postRestaurantInfo (
         @RequestBody @Valid PostRestaurantInfoRequestDto requestBody,
@@ -63,7 +62,6 @@ public class RestaurantController {
         ResponseEntity<ResponseDto> response = restaurantService.postRestaurantInfo(requestBody, userEmailId);
         return response;
     };
-    //수정#
     
     @PatchMapping("/{restaurantId}/info-update")
     public ResponseEntity<ResponseDto> patchRestaurantInfo (
@@ -203,4 +201,3 @@ public class RestaurantController {
         return response;
     }
 }
-//수정#
