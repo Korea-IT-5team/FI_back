@@ -19,8 +19,6 @@ public class PostRestaurantInfoRequestDto {
     private String restaurantPostalCode;
     @NotBlank
     private String restaurantLocation;
-    @NotBlank
-    private String restaurantBusinessRegistrationNumber;
     private String restaurantTelNumber;
     private String restaurantSnsAddress;
     private String restaurantOperationHours;
@@ -28,3 +26,4 @@ public class PostRestaurantInfoRequestDto {
     private String restaurantNotice;
     private String restaurantRepresentativeMenu;
 }
+//#수정

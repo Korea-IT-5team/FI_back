@@ -14,11 +14,14 @@ import lombok.Getter;
 public class GetUserInfoResponseDto extends ResponseDto {
     private String userEmailId;
     private String userRole;
+    //추가#
+    private String business_registration_number;
     
     private GetUserInfoResponseDto(UserEntity userEntity) {
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
         this.userEmailId = userEntity.getUserEmailId();
         this.userRole = userEntity.getUserRole();
+        this.business_registration_number = userEntity.getBusinessRegistrationNumber();
     }
 
     public static ResponseEntity<GetUserInfoResponseDto> success(UserEntity userEntity) {
@@ -26,4 +29,4 @@ public class GetUserInfoResponseDto extends ResponseDto {
         return ResponseEntity.status(HttpStatus.OK).body(responseBody);
     }
 }
-
+//수정#

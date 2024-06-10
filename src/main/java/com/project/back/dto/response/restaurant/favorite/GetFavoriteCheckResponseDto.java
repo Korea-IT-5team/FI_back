@@ -31,4 +31,4 @@ public class GetFavoriteCheckResponseDto extends ResponseDto
         return ResponseEntity.status(HttpStatus.OK).body(responseBody);
     }
 }
-//##수정
+//#수정

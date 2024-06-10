@@ -54,7 +54,7 @@ public class RestaurantController {
         return response;
     };
     
-    
+    //수정#
     @PostMapping("/info-upload")
     public ResponseEntity<ResponseDto> postRestaurantInfo (
         @RequestBody @Valid PostRestaurantInfoRequestDto requestBody,
@@ -63,7 +63,7 @@ public class RestaurantController {
         ResponseEntity<ResponseDto> response = restaurantService.postRestaurantInfo(requestBody, userEmailId);
         return response;
     };
-    
+    //수정#
     
     @PatchMapping("/{restaurantId}/info-update")
     public ResponseEntity<ResponseDto> patchRestaurantInfo (
@@ -104,8 +104,6 @@ public class RestaurantController {
         return response;
     };
 
-
-    //##수정
     @GetMapping("/reservation/{restaurantId}")
     public ResponseEntity<? super GetReservationCheckResponseDto> getReservationCheck(
         @AuthenticationPrincipal String userEmailId,
@@ -114,7 +112,6 @@ public class RestaurantController {
         ResponseEntity<? super GetReservationCheckResponseDto> response = restaurantService.getReservationCheck(userEmailId, restaurantId);
         return response;
     };
-    //##수정
     
     @DeleteMapping("/reservation/{restaurantId}")
     public ResponseEntity<ResponseDto> deleteReservation (
@@ -125,7 +122,6 @@ public class RestaurantController {
         return response;
     };
 
-    
     @GetMapping("/review/{reviewNumber}")
     public ResponseEntity<? super GetReviewResponseDto> getReview (
         @PathVariable("reviewNumber") int reviewNumber
@@ -163,7 +159,6 @@ public class RestaurantController {
         return response;
     }
 
-    
     @GetMapping("/review/list")
     public ResponseEntity<? super GetReviewListResponseDto> getMyReviewList (
         @AuthenticationPrincipal String userEmailId
@@ -172,7 +167,6 @@ public class RestaurantController {
         return response;
     }
     
-   
     @PostMapping("/favorite/{restaurantId}")
     public ResponseEntity<ResponseDto> postFavorite (
         @PathVariable("restaurantId") int restaurantId,
@@ -182,8 +176,6 @@ public class RestaurantController {
         return response;
     }
    
-
-    
     @DeleteMapping("/favorite/{restaurantId}")
     public ResponseEntity<ResponseDto> deleteFavorite (
          @PathVariable("restaurantId") int restaurantId,
@@ -192,10 +184,7 @@ public class RestaurantController {
          ResponseEntity<ResponseDto> response = restaurantService.deleteFavorite(userEmailId, restaurantId);
          return response;
     }
-   
- 
-
-    //##수정
+  
     @GetMapping("/favorite/{restaurantId}")
     public ResponseEntity<? super GetFavoriteCheckResponseDto> getFavoriteCheck (
         @PathVariable("restaurantId") int restaurantId,
@@ -204,10 +193,7 @@ public class RestaurantController {
         ResponseEntity<? super GetFavoriteCheckResponseDto> response = restaurantService.getFavoriteCheck(userEmailId, restaurantId);
         return response;
     }
-    //##수정
-  
-  
-    //##수정
+    
     @GetMapping("/favorite/list")
     public ResponseEntity<? super GetFavoriteRestaurantListResponseDto> getFavoriteList (
         @AuthenticationPrincipal String userEmailId
@@ -216,5 +202,5 @@ public class RestaurantController {
         ResponseEntity<? super GetFavoriteRestaurantListResponseDto> response = restaurantService.getFavoriteList(userEmailId);
         return response;
     }
-    //##수정
 }
+//수정#

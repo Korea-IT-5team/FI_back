@@ -72,6 +72,7 @@ public class RestaurantServiceImplementation implements RestaurantService
         }
     }
     
+    //수정##
     @Override
     public ResponseEntity<ResponseDto> postRestaurantInfo(PostRestaurantInfoRequestDto dto, String userEmailId) {
         try {
@@ -81,7 +82,9 @@ public class RestaurantServiceImplementation implements RestaurantService
             isExistUser = restaurantRepository.existsByRestaurantWriterId(userEmailId);
             if(isExistUser) return ResponseDto.duplicatedEmailId();
 
-            RestaurantEntity restaurantEntity = new RestaurantEntity(dto, userEmailId);
+            UserEntity userEntity = userRepository.findByUserEmailId(userEmailId);
+
+            RestaurantEntity restaurantEntity = new RestaurantEntity(dto, userEmailId, userEntity);
             restaurantRepository.save(restaurantEntity);
         } catch (Exception exception) {
             exception.printStackTrace();
@@ -89,6 +92,7 @@ public class RestaurantServiceImplementation implements RestaurantService
         }
         return ResponseDto.success();
     }
+    //수정##
 
     @Override
     public ResponseEntity<ResponseDto> patchRestaurantInfo(PatchRestaurantInfoRequestDto dto, int restaurantId, String userEmailId) {
@@ -163,7 +167,6 @@ public class RestaurantServiceImplementation implements RestaurantService
         return ResponseDto.success();
     }
     
-    //##수정
     @Override
     public ResponseEntity<? super GetReservationCheckResponseDto> getReservationCheck(String userEmailId, int restaurantId) {
         {
@@ -179,8 +182,6 @@ public class RestaurantServiceImplementation implements RestaurantService
             }
         }
     }
-    //##수정
-    
 
     @Override
     public ResponseEntity<ResponseDto> deleteReservation(String userEmailId, int restaurantId) {
@@ -284,12 +285,9 @@ public class RestaurantServiceImplementation implements RestaurantService
         }
     }
     
-
-   
     @Override
     public ResponseEntity<ResponseDto> postFavorite(String userEmailId, int restaurantId) {
         try {
-            System.out.println("User not found with email: " + userEmailId);
             boolean isExistUser = userRepository.existsByUserEmailId(userEmailId);
             if (!isExistUser) return ResponseDto.noExistUser();
 
@@ -326,7 +324,6 @@ public class RestaurantServiceImplementation implements RestaurantService
         return ResponseDto.success();
     }
     
-    //###수정
     @Override
     public ResponseEntity<? super GetFavoriteRestaurantListResponseDto> getFavoriteList(String userEmailId) {
         try {
@@ -337,9 +334,7 @@ public class RestaurantServiceImplementation implements RestaurantService
             return ResponseDto.databaseError();
         }
     }
-    //##수정
-    
-    //##수정
+  
     @Override
     public ResponseEntity<? super GetFavoriteCheckResponseDto> getFavoriteCheck(String userEmailId, int restaurantId) {
         try {
@@ -353,6 +348,5 @@ public class RestaurantServiceImplementation implements RestaurantService
             return ResponseDto.databaseError();
         }
     }
-    //##수정
-
 }
+//수정#

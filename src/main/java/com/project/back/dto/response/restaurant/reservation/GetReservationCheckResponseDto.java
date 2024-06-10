@@ -6,8 +6,6 @@ import org.springframework.http.ResponseEntity;
 import com.project.back.dto.response.ResponseCode;
 import com.project.back.dto.response.ResponseDto;
 import com.project.back.dto.response.ResponseMessage;
-import com.project.back.dto.response.restaurant.favorite.GetFavoriteCheckResponseDto;
-import com.project.back.entity.FavoriteRestaurantEntity;
 import com.project.back.entity.ReservationEntity;
 
 import lombok.Getter;
@@ -30,4 +28,4 @@ public class GetReservationCheckResponseDto extends ResponseDto
         return ResponseEntity.status(HttpStatus.OK).body(responseBody);
     }
 }
-//##수정
+//#수정
