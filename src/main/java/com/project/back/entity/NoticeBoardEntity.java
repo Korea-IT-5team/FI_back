@@ -28,10 +28,10 @@ public class NoticeBoardEntity {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer noticeNumber;
     private String noticeTitle;
-    private String noticeContents;
     private String noticeWriterId;
     private String noticeWriterNickname;
     private String noticeWriteDatetime;
+    private String noticeContents;
     private Integer noticeViewCount;
 
     public NoticeBoardEntity(PostNoticeBoardRequestDto dto, String userEmailId) {
