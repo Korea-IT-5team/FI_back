@@ -37,7 +37,7 @@ public class RestaurantEntity {
     private String restaurantImage;
     private String restaurantWriterId;
 
-    public RestaurantEntity(PostRestaurantInfoRequestDto dto, String userEmailId) {
+    public RestaurantEntity(PostRestaurantInfoRequestDto dto, String userEmailId, UserEntity userEntity) {
         this.restaurantName = dto.getRestaurantName();
         this.restaurantFoodCategory = dto.getRestaurantFoodCategory();
         this.restaurantPostalCode = dto.getRestaurantPostalCode();
@@ -48,7 +48,7 @@ public class RestaurantEntity {
         this.restaurantFeatures = dto.getRestaurantFeatures();
         this.restaurantNotice = dto.getRestaurantNotice();
         this.restaurantRepresentativeMenu = dto.getRestaurantRepresentativeMenu();
-        this.restaurantBusinessRegistrationNumber = dto.getRestaurantBusinessRegistrationNumber();
+        this.restaurantBusinessRegistrationNumber = userEntity.getBusinessRegistrationNumber();
         this.restaurantImage = dto.getRestaurantImage();
         this.restaurantWriterId = userEmailId;
     }
@@ -69,3 +69,4 @@ public class RestaurantEntity {
 
 
 }
+//수정#

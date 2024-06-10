@@ -41,7 +41,5 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
           + "joinPath=" + joinPath;
         response.sendRedirect(url);
       }
-
-      
   };
 }

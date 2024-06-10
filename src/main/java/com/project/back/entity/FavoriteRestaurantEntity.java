@@ -29,4 +29,3 @@ public class FavoriteRestaurantEntity {
         this.favoriteRestaurantId = restaurantId;
     }
 }
-//###수정
