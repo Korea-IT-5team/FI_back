@@ -21,11 +21,7 @@ public interface RestaurantService {
     // 식당 정보
     ResponseEntity<? super GetRestaurantListResponseDto> getRestaurantList(String searchWord);
     ResponseEntity<? super GetRestaurantInfoResponseDto> getRestaurantInfo(int restaurantId);
-
-    // ##수정
     ResponseEntity<ResponseDto> postRestaurantInfo(PostRestaurantInfoRequestDto dto, String userEmailId);
-    // ##수정
-
     ResponseEntity<ResponseDto> patchRestaurantInfo(PatchRestaurantInfoRequestDto dto, int restaurantId, String userEmailId);
 
     // 식당 예약
@@ -48,4 +44,3 @@ public interface RestaurantService {
     ResponseEntity<? super GetFavoriteCheckResponseDto> getFavoriteCheck(String userEmailId, int restaurantId);
     ResponseEntity<? super GetFavoriteRestaurantListResponseDto> getFavoriteList(String userEmailId);
 }
-//수정#

@@ -5,7 +5,6 @@ package com.project.back.dto.response.restaurant.favorite;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-
 import com.project.back.dto.response.ResponseCode;
 import com.project.back.dto.response.ResponseDto;
 import com.project.back.dto.response.ResponseMessage;
@@ -31,4 +30,3 @@ public class GetFavoriteCheckResponseDto extends ResponseDto
         return ResponseEntity.status(HttpStatus.OK).body(responseBody);
     }
 }
-//#수정

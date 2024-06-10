@@ -72,7 +72,6 @@ public class RestaurantServiceImplementation implements RestaurantService
         }
     }
     
-    //수정##
     @Override
     public ResponseEntity<ResponseDto> postRestaurantInfo(PostRestaurantInfoRequestDto dto, String userEmailId) {
         try {
@@ -92,7 +91,6 @@ public class RestaurantServiceImplementation implements RestaurantService
         }
         return ResponseDto.success();
     }
-    //수정##
 
     @Override
     public ResponseEntity<ResponseDto> patchRestaurantInfo(PatchRestaurantInfoRequestDto dto, int restaurantId, String userEmailId) {
@@ -140,8 +138,6 @@ public class RestaurantServiceImplementation implements RestaurantService
         }
     }
 
-    
-    
     @Override
     public ResponseEntity<ResponseDto> postReservation(PostReservationRequestDto dto, String userEmailId, int restaurantId) {
         try {
@@ -349,4 +345,3 @@ public class RestaurantServiceImplementation implements RestaurantService
         }
     }
 }
-//수정#
