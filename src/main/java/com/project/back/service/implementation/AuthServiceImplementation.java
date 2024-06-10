@@ -4,6 +4,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import com.project.back.common.util.TelNumberAuthNumberUtil;
 import com.project.back.dto.request.auth.CheckBusinessRegistrationRequestDto;
@@ -157,8 +158,10 @@ public class AuthServiceImplementation implements AuthService {
       boolean existedNickname = userRepository.existsByNickname(userNickName);
       if (existedNickname) return ResponseDto.duplicatedNickname();
 
-      boolean existedBusinessRegistrationNumber = userRepository.existsByBusinessRegistrationNumber(businessRegistrationNumber);
-      if (existedBusinessRegistrationNumber) return ResponseDto.duplicatedBusinessRegistrationNumber();
+      if (StringUtils.hasText(businessRegistrationNumber)) {
+        boolean existedBusinessRegistrationNumber = userRepository.existsByBusinessRegistrationNumber(businessRegistrationNumber);
+        if (existedBusinessRegistrationNumber) return ResponseDto.duplicatedBusinessRegistrationNumber();
+      }
 
       boolean isMatched = authNumberRepository.existsByTelNumberAndAuthNumber(userTelNumber, authNumber);
       if (!isMatched) return ResponseDto.authenticationFailed();

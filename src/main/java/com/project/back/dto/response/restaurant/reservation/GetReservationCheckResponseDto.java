@@ -27,5 +27,9 @@ public class GetReservationCheckResponseDto extends ResponseDto
         GetReservationCheckResponseDto responseBody = new GetReservationCheckResponseDto(reservationEntity);
         return ResponseEntity.status(HttpStatus.OK).body(responseBody);
     }
+<<<<<<< HEAD
 }
 //#수정
+=======
+}
+>>>>>>> d00a29d377a4fde81046c42bac3f57c64fc6de17

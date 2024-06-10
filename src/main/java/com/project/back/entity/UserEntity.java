@@ -47,4 +47,8 @@ public class UserEntity {
         this.nickname = dto.getNickname();
         this.userAddress = dto.getUserAddress();
     }
+<<<<<<< HEAD
+=======
+    
+>>>>>>> d00a29d377a4fde81046c42bac3f57c64fc6de17
 }

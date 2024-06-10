@@ -1,8 +1,6 @@
 package com.project.back.service.implementation;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.project.back.dto.request.user.DeleteUserRequestDto;
@@ -11,7 +9,6 @@ import com.project.back.dto.response.ResponseDto;
 import com.project.back.dto.response.user.GetMyInfoResponseDto;
 import com.project.back.dto.response.user.GetUserInfoResponseDto;
 import com.project.back.entity.UserEntity;
-import com.project.back.provider.SmsProvider;
 import com.project.back.repository.UserRepository;
 import com.project.back.service.UserService;
 
@@ -21,8 +18,6 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class UserServiceImplementation implements UserService {
   private final UserRepository userRepository;
-  private final SmsProvider smsProvider;
-  private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
   
   @Override
   public ResponseEntity<? super GetUserInfoResponseDto> GetSignInUser(String userEmailId) {
