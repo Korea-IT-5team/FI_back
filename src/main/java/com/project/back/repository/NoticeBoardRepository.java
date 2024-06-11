@@ -9,6 +9,7 @@ import com.project.back.entity.NoticeBoardEntity;
 
 @Repository
 public interface NoticeBoardRepository extends JpaRepository<NoticeBoardEntity,Integer> {
+    
     NoticeBoardEntity findByNoticeNumber(Integer noticeNumber);
     List<NoticeBoardEntity> findByOrderByNoticeNumberDesc();
     List<NoticeBoardEntity> findByNoticeTitleContainsOrderByNoticeNumberDesc(String noticeTitle);

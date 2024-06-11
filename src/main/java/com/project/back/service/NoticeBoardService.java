@@ -10,7 +10,7 @@ import com.project.back.dto.response.board.noticeboard.GetNoticeBoardResponseDto
 import com.project.back.dto.response.board.noticeboard.GetSearchNoticeBoardResponseDto;
 
 public interface NoticeBoardService {
-    ResponseEntity<ResponseDto> postBoard(PostNoticeBoardRequestDto dto, String userEmailId);
+    ResponseEntity<ResponseDto> postNoticeBoard(PostNoticeBoardRequestDto dto, String userEmailId);
 
     ResponseEntity<? super GetNoticeBoardListResponseDto> getNoticeBoardList();
     ResponseEntity<? super GetSearchNoticeBoardResponseDto> getSearchNoticeBoardList(String searchWord);

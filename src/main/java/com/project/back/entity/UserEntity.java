@@ -1,6 +1,6 @@
 package com.project.back.entity;
 
-import com.project.back.dto.request.auth.BusinessRegistrationNumberRequestDto;
+import com.project.back.dto.request.auth.CheckBusinessRegistrationRequestDto;
 import com.project.back.dto.request.auth.SignUpRequestDto;
 import com.project.back.dto.request.user.PatchUserInfoRequestDto;
 
@@ -43,7 +43,7 @@ public class UserEntity {
         this.snsId = dto.getSnsId();
     }
 
-    public void businessRegister(BusinessRegistrationNumberRequestDto dto) {
+    public void businessRegister(CheckBusinessRegistrationRequestDto dto) {
         this.businessRegistrationNumber = dto.getBusinessRegistrationNumber();
     } 
 

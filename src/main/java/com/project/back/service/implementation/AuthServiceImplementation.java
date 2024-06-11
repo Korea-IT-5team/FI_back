@@ -5,15 +5,21 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.project.back.common.util.PasswordResetLinkCodeUtil;
 import com.project.back.common.util.TelNumberAuthNumberUtil;
+import com.project.back.dto.request.auth.CheckBusinessRegistrationRequestDto;
 import com.project.back.dto.request.auth.CheckEmailIdRequestDto;
 import com.project.back.dto.request.auth.CheckNicknameRequestDto;
 import com.project.back.dto.request.auth.CheckTelNumberAuthRequestDto;
-import com.project.back.dto.request.auth.BusinessRegistrationNumberRequestDto;
+import com.project.back.dto.request.auth.FindEmailRequestDto;
+import com.project.back.dto.request.auth.NewPasswordRequestDto;
+import com.project.back.dto.request.auth.PasswordRecheckRequestDto;
+import com.project.back.dto.request.auth.PasswordResetRequestDto;
 import com.project.back.dto.request.auth.SignInRequestDto;
 import com.project.back.dto.request.auth.SignUpRequestDto;
 import com.project.back.dto.request.auth.TelNumberAuthRequestDto;
 import com.project.back.dto.response.ResponseDto;
+import com.project.back.dto.response.auth.FindEmailResponseDto;
 import com.project.back.dto.response.auth.SignInResponseDto;
 import com.project.back.entity.AuthNumberEntity;
 import com.project.back.entity.UserEntity;
@@ -123,6 +129,21 @@ public class AuthServiceImplementation implements AuthService {
   }
 
   @Override
+  public ResponseEntity<ResponseDto> businessRegistrationCheck(CheckBusinessRegistrationRequestDto dto) {
+    try {
+      String businessRegistrationNumber = dto.getBusinessRegistrationNumber();
+
+      boolean existedBusinessRegistrationNumber = userRepository.existsByBusinessRegistrationNumber(businessRegistrationNumber);
+      if (existedBusinessRegistrationNumber) return ResponseDto.duplicatedBusinessRegistrationNumber();
+      
+    } catch (Exception exception) {
+      exception.printStackTrace();
+      return ResponseDto.databaseError();
+    }
+  return ResponseDto.success();
+  }
+
+  @Override
   public ResponseEntity<ResponseDto> signUp(SignUpRequestDto dto) {
     try {
       String userEmailId = dto.getUserEmailId();
@@ -130,12 +151,16 @@ public class AuthServiceImplementation implements AuthService {
       String userNickName = dto.getNickname();
       String userTelNumber = dto.getUserTelNumber();
       String authNumber = dto.getAuthNumber();
+      String businessRegistrationNumber = dto.getBusinessRegistrationNumber();
 
       boolean existedUser = userRepository.existsByUserEmailId(userEmailId);
       if (existedUser) return ResponseDto.duplicatedEmailId();
 
       boolean existedNickname = userRepository.existsByNickname(userNickName);
       if (existedNickname) return ResponseDto.duplicatedNickname();
+
+      boolean existedBusinessRegistrationNumber = userRepository.existsByBusinessRegistrationNumber(businessRegistrationNumber);
+      if (existedBusinessRegistrationNumber) return ResponseDto.duplicatedBusinessRegistrationNumber();
 
       boolean isMatched = authNumberRepository.existsByTelNumberAndAuthNumber(userTelNumber, authNumber);
       if (!isMatched) return ResponseDto.authenticationFailed();
@@ -153,20 +178,96 @@ public class AuthServiceImplementation implements AuthService {
   }
 
   @Override
-  public ResponseEntity<ResponseDto> postCeoBusiness(BusinessRegistrationNumberRequestDto dto) {
+  public ResponseEntity<? super FindEmailResponseDto> findEmail(FindEmailRequestDto dto) {
     try {
-      String businessRegistrationNumber = dto.getBusinessRegistrationNumber();
+    
+      String userName = dto.getUserName();
+      String userTelNumber = dto.getUserTelNumber();
 
-      boolean existedBusinessRegistrationNumber = userRepository.existsByBusinessRegistrationNumber(businessRegistrationNumber);
-      if (existedBusinessRegistrationNumber) return ResponseDto.duplicatedBusinessRegistrationNumber();
+      UserEntity userEntity = userRepository.findByUserNameAndUserTelNumber(userName, userTelNumber);
+      if (userEntity == null) return ResponseDto.noExistUser();
 
-      UserEntity userEntity = new UserEntity();
-      userEntity.businessRegister(dto);
-      userRepository.save(userEntity);
+      String userEmailId = userEntity.getUserEmailId();
+
+      return FindEmailResponseDto.success(userEmailId);
+
+      // boolean isMatched = userRepository.existsByUserNameAndUserTelNumber(userTelNumber);
+      // if (!isMatched) return ResponseDto.authenticationFailed();
     } catch (Exception exception) {
       exception.printStackTrace();
       return ResponseDto.databaseError();
     }
-  return ResponseDto.success();
+    
   }
+
+  // 비밀번호 재설정 (이메일이랑 전화번호를 받아서 확인하는 코드)
+  @Override
+  public ResponseEntity<ResponseDto> passwordReset(PasswordResetRequestDto dto) {
+    
+    try {
+
+      String userEmailId = dto.getUserEmailId();
+      String userTelNumber = dto.getUserTelNumber();
+      // 링크코드 어려우니깐 일단 보류
+      // String resetLinkCode = PasswordResetLinkCodeUtil.createCode();
+
+      // smsProvider.sendPasswordResetLink(userEmailId, userTelNumber);
+
+      boolean isMatched = userRepository.existsByUserEmailIdAndUserTelNumber(userEmailId, userTelNumber);
+      if (!isMatched) return ResponseDto.authenticationFailed();
+
+    } catch (Exception exception) {
+      exception.printStackTrace();
+      return ResponseDto.databaseError();
+    }
+    return ResponseDto.success();
+  }
+
+  // @Override
+  // public ResponseEntity<ResponseDto> passwordReset(PasswordResetRequestDto dto) {
+  //   try {
+  //     String userTelNumber = dto.getUserTelNumber();
+      
+  //     String resetLinkCode = PasswordResetLinkCodeUtil.createCode();
+
+  //     smsProvider.sendPasswordResetLink(userTelNumber, resetLinkCode);
+  //   } catch (Exception exception) {
+  //     exception.printStackTrace();
+  //     return ResponseDto.databaseError();
+  //   }
+  //   return ResponseDto.success();
+  // }
+
+  @Override
+  public ResponseEntity<ResponseDto> newPassword(NewPasswordRequestDto dto, String userEmailId) {
+    
+    try {
+
+      String password = dto.getPassword();
+
+      UserEntity userEntity = userRepository.findByUserEmailId(userEmailId);
+      System.out.println(userEmailId);
+      if (userEntity == null) return ResponseDto.noExistUser();
+
+      // boolean isUser = userEmailId.equals(userEmailId);
+      // if (!isUser) return ResponseDto.noExistUser();
+
+      boolean isMatched = userRepository.existsById(userEmailId);
+      if (!isMatched) return ResponseDto.authenticationFailed();
+
+      String encodedPassword = passwordEncoder.encode(password);
+
+      dto.setPassword(encodedPassword);
+
+      userEntity.setPassword(encodedPassword);
+      
+      userRepository.save(userEntity);
+      
+    } catch(Exception exception) {
+      exception.printStackTrace();
+      return ResponseDto.databaseError();
+    }
+    return ResponseDto.success();
+  }
+
 }

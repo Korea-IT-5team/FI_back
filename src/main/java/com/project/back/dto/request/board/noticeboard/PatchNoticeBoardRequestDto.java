@@ -8,6 +8,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
+// 수정작업
 public class PatchNoticeBoardRequestDto  {
     @NotBlank
     private String noticeTitle;

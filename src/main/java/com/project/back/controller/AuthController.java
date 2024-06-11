@@ -1,19 +1,26 @@
 package com.project.back.controller;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.project.back.dto.request.auth.CheckBusinessRegistrationRequestDto;
 import com.project.back.dto.request.auth.CheckEmailIdRequestDto;
 import com.project.back.dto.request.auth.CheckNicknameRequestDto;
 import com.project.back.dto.request.auth.CheckTelNumberAuthRequestDto;
-import com.project.back.dto.request.auth.BusinessRegistrationNumberRequestDto;
+import com.project.back.dto.request.auth.FindEmailRequestDto;
+import com.project.back.dto.request.auth.NewPasswordRequestDto;
+import com.project.back.dto.request.auth.PasswordRecheckRequestDto;
+import com.project.back.dto.request.auth.PasswordResetRequestDto;
 import com.project.back.dto.request.auth.SignInRequestDto;
 import com.project.back.dto.request.auth.SignUpRequestDto;
 import com.project.back.dto.request.auth.TelNumberAuthRequestDto;
 import com.project.back.dto.response.ResponseDto;
+import com.project.back.dto.response.auth.FindEmailResponseDto;
 import com.project.back.dto.response.auth.SignInResponseDto;
 import com.project.back.service.AuthService;
 
@@ -66,6 +73,14 @@ public class AuthController {
     return response;
   }
 
+  @PostMapping("/business-registration")
+  public ResponseEntity<ResponseDto> businessRegistrationCheck (
+    @RequestBody @Valid CheckBusinessRegistrationRequestDto requestBody
+  ) {
+    ResponseEntity<ResponseDto> response = authService.businessRegistrationCheck(requestBody);
+    return response;
+  }
+
   @PostMapping("/sign-up")
   public ResponseEntity<ResponseDto> signUp (
     @RequestBody @Valid SignUpRequestDto requestBody
@@ -74,12 +89,40 @@ public class AuthController {
     return response;
   }
 
-  @PostMapping("/business-registration")
-  public ResponseEntity<ResponseDto> postCeoBusiness (
-    @RequestBody @Valid BusinessRegistrationNumberRequestDto requestBody
-
+  @PostMapping("/find-email")
+  public ResponseEntity<? super FindEmailResponseDto> findEmail (
+    @RequestBody @Valid FindEmailRequestDto requestBody
   ) {
-    ResponseEntity<ResponseDto> response = authService.postCeoBusiness(requestBody);
+    ResponseEntity<? super FindEmailResponseDto> response = authService.findEmail(requestBody);
     return response;
   }
+
+  // 비밀번호 재설정 (이메일, 전화번호 확인)
+  @PostMapping("/password-reset")
+  public ResponseEntity<ResponseDto> passwordReset (
+      @RequestBody @Valid PasswordResetRequestDto requestBody
+  ) {
+      ResponseEntity<ResponseDto> response = authService.passwordReset(requestBody);
+      return response;
+  }
+
+  // 비밀번호 재설정 요청은 어려워서 잠시 보류 
+  // @PostMapping("/password-recheck")
+  // public ResponseEntity<ResponseDto> passwordReCheck (
+  //   @RequestBody @Valid PasswordRecheckRequestDto requestBody
+  // ) {
+  //   ResponseEntity<ResponseDto> response = authService.passwordReCheck(requestBody);
+  //   return response;
+  // }
+
+  // 새로운 비밀번호 업데이트 
+  @PutMapping("/password-update/{userEmailId}")
+  public ResponseEntity<ResponseDto> newPassword (
+    @RequestBody @Valid NewPasswordRequestDto requestBody,
+    @PathVariable("userEmailId") String userEmailId
+  ) {
+    ResponseEntity<ResponseDto> response = authService.newPassword(requestBody, userEmailId);
+    return response;
+  }
+
 }

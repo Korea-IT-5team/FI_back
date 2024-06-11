@@ -14,12 +14,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.project.back.dto.request.auth.FindEmailRequestDto;
 import com.project.back.dto.request.auth.NewPasswordRequestDto;
 import com.project.back.dto.request.auth.PasswordResetRequestDto;
-import com.project.back.dto.request.auth.BusinessRegistrationNumberRequestDto;
 import com.project.back.dto.request.user.DeleteUserRequestDto;
-import com.project.back.dto.request.user.PasswordRecheckRequestDto;
 import com.project.back.dto.request.user.PatchUserInfoRequestDto;
 import com.project.back.dto.response.ResponseDto;
 import com.project.back.dto.response.auth.FindEmailResponseDto;
+import com.project.back.dto.response.user.GetMyInfoResponseDto;
 import com.project.back.dto.response.user.GetUserInfoResponseDto;
 import com.project.back.service.UserService;
 
@@ -40,40 +39,8 @@ public class UserController {
     return response;
   }
 
-  @PostMapping("/password-recheck")
-  public ResponseEntity<ResponseDto> passwordReCheck (
-    @RequestBody @Valid PasswordRecheckRequestDto requestBody
-  ) {
-    ResponseEntity<ResponseDto> response = userService.passwordReCheck(requestBody);
-    return response;
-  }
-
-  @PostMapping("/find-email")
-  public ResponseEntity<? super FindEmailResponseDto> findEmail (
-    @RequestBody @Valid FindEmailRequestDto requestBody
-  ) {
-    ResponseEntity<? super FindEmailResponseDto> response = userService.findEmail(requestBody);
-    return response;
-  }
-
-  @PostMapping("/password-reset")
-  public ResponseEntity<ResponseDto> passwordReset (
-    @RequestBody @Valid PasswordResetRequestDto requestBody
-  ) {
-    ResponseEntity<ResponseDto> response = userService.passwordReset(requestBody);
-    return response;
-  }
-
-  @PostMapping("/password-update")
-  public ResponseEntity<ResponseDto> newPassword (
-    @RequestBody @Valid NewPasswordRequestDto requestBody,
-    @PathVariable("userEmailId") String userEmailId
-  ) {
-    ResponseEntity<ResponseDto> response = userService.newPassword(requestBody, userEmailId);
-    return response;
-  }
-
-  @PatchMapping("/info-update")
+  // 회원정보 수정
+  @PatchMapping("/info-update/{userEmailId}")
   public ResponseEntity<ResponseDto> patchUserInfo (
     @RequestBody @Valid PatchUserInfoRequestDto requestBody,
     @PathVariable("userEmailId") String userEmailId
@@ -82,7 +49,8 @@ public class UserController {
     return response;
   }
 
-  @DeleteMapping("/info-delete")
+  // 회원 탈퇴
+  @DeleteMapping("/info-delete/{userEmailId}")
   public ResponseEntity<ResponseDto> deleteUser (
     @RequestBody @Valid DeleteUserRequestDto requestBody,
     @PathVariable("userEmailId") String userEmailId
@@ -90,5 +58,12 @@ public class UserController {
     ResponseEntity<ResponseDto> response = userService.deleteUser(requestBody, userEmailId);
     return response;
   }
-}
 
+  @GetMapping("/information")
+    public ResponseEntity<? super GetMyInfoResponseDto> getMyInfo (
+        @AuthenticationPrincipal String userId
+    ){
+        ResponseEntity<? super GetMyInfoResponseDto> response = userService.getMyInfo(userId);
+        return response;
+    }
+}

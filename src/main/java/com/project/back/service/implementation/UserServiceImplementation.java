@@ -5,19 +5,12 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.project.back.common.util.PasswordResetLinkCodeUtil;
-import com.project.back.dto.request.auth.FindEmailRequestDto;
-import com.project.back.dto.request.auth.NewPasswordRequestDto;
-import com.project.back.dto.request.auth.PasswordResetRequestDto;
-import com.project.back.dto.request.auth.BusinessRegistrationNumberRequestDto;
 import com.project.back.dto.request.user.DeleteUserRequestDto;
-import com.project.back.dto.request.user.PasswordRecheckRequestDto;
 import com.project.back.dto.request.user.PatchUserInfoRequestDto;
 import com.project.back.dto.response.ResponseDto;
-import com.project.back.dto.response.auth.FindEmailResponseDto;
+import com.project.back.dto.response.user.GetMyInfoResponseDto;
 import com.project.back.dto.response.user.GetUserInfoResponseDto;
 import com.project.back.entity.UserEntity;
-import com.project.back.provider.JwtProvider;
 import com.project.back.provider.SmsProvider;
 import com.project.back.repository.UserRepository;
 import com.project.back.service.UserService;
@@ -30,10 +23,11 @@ public class UserServiceImplementation implements UserService {
   private final UserRepository userRepository;
   private final SmsProvider smsProvider;
   private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-
+  
   @Override
   public ResponseEntity<? super GetUserInfoResponseDto> GetSignInUser(String userEmailId) {
     UserEntity userEntity = null;
+   
 
     try {
       userEntity = userRepository.findByUserEmailId(userEmailId);
@@ -42,73 +36,7 @@ public class UserServiceImplementation implements UserService {
       exception.printStackTrace();
       return ResponseDto.databaseError();
     }
-    return ResponseDto.success();
-  }
-
-  @Override
-  public ResponseEntity<ResponseDto> passwordReCheck(PasswordRecheckRequestDto dto) {
-    try {
-      String password = dto.getPassword();
-
-      boolean isMatched = userRepository.existsByPassword(password);
-      if (!isMatched) return ResponseDto.authenticationFailed();
-    } catch (Exception exception) {
-      exception.printStackTrace();
-      return ResponseDto.databaseError();
-    }
-    return ResponseDto.success();
-  }
-  
-  @Override
-  public ResponseEntity<? super FindEmailResponseDto> findEmail(FindEmailRequestDto dto) {
-    try {
-      String userName = dto.getUserName();
-      String userTelNumber = dto.getUserTelNumber();
-
-      boolean isMatched = userRepository.existsByUserNameAndUserTelNumber(userName, userTelNumber);
-      if (!isMatched) return ResponseDto.authenticationFailed();
-    } catch(Exception exception) {
-      exception.printStackTrace();
-      return ResponseDto.databaseError();
-    }
-    return ResponseDto.success();
-  }
-
-  @Override
-  public ResponseEntity<ResponseDto> passwordReset(PasswordResetRequestDto dto) {
-    try {
-      String userTelNumber = dto.getUserTelNumber();
-      
-      String resetLinkCode = PasswordResetLinkCodeUtil.createCode();
-
-      smsProvider.sendPasswordResetLink(userTelNumber, resetLinkCode);
-    } catch (Exception exception) {
-      exception.printStackTrace();
-      return ResponseDto.databaseError();
-    }
-    return ResponseDto.success();
-  }
-
-  @Override
-  public ResponseEntity<ResponseDto> newPassword(NewPasswordRequestDto dto, String userEmailId) {
-    try {
-      UserEntity userEntity = userRepository.findByUserEmailId(userEmailId);
-
-      boolean isUser = userEmailId.equals(userEmailId);
-      if (!isUser) return ResponseDto.noExistUser();
-
-      String password = dto.getPassword();
-
-      String encodedPassword = passwordEncoder.encode(password);
-      dto.setPassword(encodedPassword);
-
-      userEntity.setPassword(encodedPassword);
-      userRepository.save(userEntity);
-    } catch(Exception exception) {
-      exception.printStackTrace();
-      return ResponseDto.databaseError();
-    }
-    return ResponseDto.success();
+    return GetUserInfoResponseDto.success(userEntity);
   }
 
   @Override
@@ -146,6 +74,23 @@ public class UserServiceImplementation implements UserService {
       return ResponseDto.databaseError();
     }
     return ResponseDto.success();
+  }
+
+  @Override
+  public ResponseEntity<? super GetMyInfoResponseDto> getMyInfo(String userEmailId) {
+    UserEntity userEntity = null;
+
+        try {
+
+            userEntity = userRepository.findByUserEmailId(userEmailId);
+            if(userEntity == null) return ResponseDto.authenticationFailed();
+
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+
+        return GetMyInfoResponseDto.success(userEntity);
   }
 
   

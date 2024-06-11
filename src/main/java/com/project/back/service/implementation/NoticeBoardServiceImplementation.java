@@ -25,13 +25,14 @@ public class NoticeBoardServiceImplementation implements NoticeBoardService {
     private final UserRepository userRepository;
 
     @Override
-    public ResponseEntity<ResponseDto> postBoard(PostNoticeBoardRequestDto dto, String userEmailId) {
+    public ResponseEntity<ResponseDto> postNoticeBoard(PostNoticeBoardRequestDto dto, String userEmailId) {
         try {
             boolean isExistUser = userRepository.existsByUserEmailId(userEmailId);
             if(!isExistUser) return ResponseDto.authenticationFailed();
 
             NoticeBoardEntity noticeBoardEntity = new NoticeBoardEntity(dto, userEmailId);
             noticeBoardRepository.save(noticeBoardEntity);
+        
         } catch (Exception exception) {
             exception.printStackTrace();
             return ResponseDto.databaseError();
@@ -74,6 +75,7 @@ public class NoticeBoardServiceImplementation implements NoticeBoardService {
           }     
     }
 
+    // 공지 수정
     @Override
     public ResponseEntity<ResponseDto> patchNoticeBoard(PatchNoticeBoardRequestDto dto, int noticeNumber,
             String userEmailId) {
@@ -94,6 +96,7 @@ public class NoticeBoardServiceImplementation implements NoticeBoardService {
         return ResponseDto.success();
     }
 
+    // 공지 삭제
     @Override
     public ResponseEntity<ResponseDto> deleteNoticeBoard(int noticeNumber, String userEmailId) {
         try {

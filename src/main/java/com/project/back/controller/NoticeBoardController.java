@@ -30,12 +30,14 @@ import lombok.RequiredArgsConstructor;
 public class NoticeBoardController {
     private final NoticeBoardService noticeBoardService;
 
+    // 공지 작성 (제목, 내용)
     @PostMapping("/")
     public ResponseEntity<ResponseDto> postNoticeBoard(
         @RequestBody @Valid PostNoticeBoardRequestDto requestBody,
+        // 이메일 가져오기
         @AuthenticationPrincipal String userEmailId
     ) {
-        ResponseEntity<ResponseDto> response = noticeBoardService.postBoard(requestBody, userEmailId);
+        ResponseEntity<ResponseDto> response = noticeBoardService.postNoticeBoard(requestBody, userEmailId);
         return response;
     }
 
@@ -45,6 +47,7 @@ public class NoticeBoardController {
         return response;
     }
 
+    // 검색 
     @GetMapping("/list/search")
   public ResponseEntity<? super GetSearchNoticeBoardResponseDto> getSearchNoticeBoardList(
     @RequestParam("searchWord") String searchWord

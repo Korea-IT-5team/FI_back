@@ -17,7 +17,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Entity(name="noticeBoard")
+@Entity(name="notice_board")
 @Table(name="notice_board")
 @Getter
 @Setter
@@ -29,7 +29,9 @@ public class NoticeBoardEntity {
     private Integer noticeNumber;
     private String noticeTitle;
     private String noticeContents;
+    // 작성자 아이디
     private String noticeWriterId;
+    // 작성자 닉네임
     private String noticeWriterNickname;
     private String noticeWriteDatetime;
     private Integer noticeViewCount;
