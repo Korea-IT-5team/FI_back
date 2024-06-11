@@ -30,14 +30,14 @@ public class UserEntity {
     private String snsId;
     private String businessRegistrationNumber;
 
-    public UserEntity(SignUpRequestDto dto) {
+    public UserEntity(SignUpRequestDto dto, String userRole) {
         this.userEmailId = dto.getUserEmailId();
         this.password = dto.getPassword();
         this.nickname = dto.getNickname();
         this.userName = dto.getUserName();
         this.userTelNumber = dto.getUserTelNumber();
         this.userAddress = dto.getUserAddress();
-        this.userRole = "ROLE_USER";
+        this.userRole = userRole; //수정 
         this.joinPath = "HOME";
         this.snsId = dto.getSnsId();
         this.businessRegistrationNumber = dto.getBusinessRegistrationNumber();
