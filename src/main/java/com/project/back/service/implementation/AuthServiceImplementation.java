@@ -169,7 +169,7 @@ public class AuthServiceImplementation implements AuthService {
       //추가
       if(businessRegistrationNumber=="")
       {
-         userRole="ROLE_USER";
+          userRole="ROLE_USER";
       }
       else
       {
