@@ -15,5 +15,5 @@ public class PostInquiryBoardRequestDto {
     @NotBlank
     private String inquiryContents;
     @NotNull
-    private Boolean isInquiryPublic;
+    private Boolean inquiryPublic;
 }

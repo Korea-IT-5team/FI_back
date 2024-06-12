@@ -11,16 +11,20 @@ import lombok.Getter;
 @Getter
 public class InquiryBoardListItem {
     private Integer inquiryNumber;
-    private boolean inquiryStatus;
+    private boolean status;
+    private boolean inquiryPublic;
     private String inquiryTitle;
     private String inquiryWriterNickname;
     private String inquiryWriteDatetime;
+    private String inquiryWriterId;
 
     private InquiryBoardListItem(GetInquiryBoardListResultSet resultSets) throws Exception {
         this.inquiryNumber = resultSets.getInquiryNumber();
-        this.inquiryStatus = resultSets.getInquiryStatus() == 1;
+        this.status = resultSets.getStatus() == 1;
+        this.inquiryPublic = resultSets.getInquiryPublic() == 1;
         this.inquiryTitle = resultSets.getInquiryTitle();
         this.inquiryWriterNickname = resultSets.getInquiryWriterNickname();
+        this.inquiryWriterId = resultSets.getInquiryWriterId();
 
         String writeDate = ChangeDateFormatUtil.changeYYMMDD(resultSets.getInquiryWriteDatetime());
         this.inquiryWriteDatetime = writeDate;

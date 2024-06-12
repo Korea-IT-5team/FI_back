@@ -29,12 +29,12 @@ public class NoticeBoardEntity {
     private Integer noticeNumber;
     private String noticeTitle;
     private String noticeWriterId;
-    private String noticeWriterNickname;
+    // private String noticeWriterNickname;
     private String noticeWriteDatetime;
     private String noticeContents;
     private Integer viewCount;
 
-    public NoticeBoardEntity(PostNoticeBoardRequestDto dto, String userEmailId) {
+    public NoticeBoardEntity(PostNoticeBoardRequestDto dto, String userEmailId ) {
         Date now = Date.from(Instant.now());
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String noticeWriteDatetime = simpleDateFormat.format(now);
@@ -44,6 +44,10 @@ public class NoticeBoardEntity {
         this.noticeWriterId = userEmailId;
         this.noticeWriteDatetime = noticeWriteDatetime;
         this.viewCount = 0;
+<<<<<<< HEAD
+=======
+        // this.noticeWriterNickname = userNickname;
+>>>>>>> 9c660367b7c510c0bcd679e46935c376d9a60962
     }
 
     public void increaseViewCount() {
