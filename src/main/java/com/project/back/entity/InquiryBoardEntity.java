@@ -29,9 +29,9 @@ public class InquiryBoardEntity {
     private Integer inquiryNumber;
     private Boolean inquiryStatus;
     private Boolean inquiryPublic;
+    private String inquiryWriterId;
     private String inquiryTitle;
     private String inquiryContents;
-    private String inquiryWriterId;
     private String inquiryWriteDatetime;
     private String inquiryComment;
 

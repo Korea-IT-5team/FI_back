@@ -15,15 +15,19 @@ import lombok.Getter;
 public class GetNoticeBoardResponseDto extends ResponseDto {
     private Integer noticeNumber;
     private String noticeTitle;
+    private String noticeWriterId;
     private String noticeWriterNickname;
     private String noticeWriteDatetime;
     private String noticeContents;
+    private Integer viewCount;
     
     private GetNoticeBoardResponseDto(NoticeBoardEntity noticeBoardEntity) throws Exception {
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
         this.noticeNumber = noticeBoardEntity.getNoticeNumber();
         this.noticeTitle = noticeBoardEntity.getNoticeTitle();
+        this.noticeWriterId = noticeBoardEntity.getNoticeWriterId();
         this.noticeWriterNickname = noticeBoardEntity.getNoticeWriterNickname();
+        this.viewCount = noticeBoardEntity.getNoticeViewCount();
 
         String writeDate  = ChangeDateFormatUtil.changeYYYYMMDD(noticeBoardEntity.getNoticeWriteDatetime());
         this.noticeWriteDatetime = writeDate;

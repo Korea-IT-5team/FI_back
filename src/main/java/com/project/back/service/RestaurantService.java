@@ -10,7 +10,9 @@ import com.project.back.dto.request.restaurant.review.PostReviewRequestDto;
 import com.project.back.dto.response.ResponseDto;
 import com.project.back.dto.response.restaurant.GetRestaurantInfoResponseDto;
 import com.project.back.dto.response.restaurant.GetRestaurantListResponseDto;
+import com.project.back.dto.response.restaurant.favorite.GetFavoriteCheckResponseDto;
 import com.project.back.dto.response.restaurant.favorite.GetFavoriteRestaurantListResponseDto;
+import com.project.back.dto.response.restaurant.reservation.GetReservationCheckResponseDto;
 import com.project.back.dto.response.restaurant.reservation.GetReservationListResponseDto;
 import com.project.back.dto.response.restaurant.review.GetReviewListResponseDto;
 import com.project.back.dto.response.restaurant.review.GetReviewResponseDto;
@@ -27,8 +29,8 @@ public interface RestaurantService {
     ResponseEntity<? super GetReservationListResponseDto> getCeoReservationList(String userEmailId);
     ResponseEntity<ResponseDto> postReservation (PostReservationRequestDto dto, String userEmailId, int restaurantId);
     ResponseEntity<ResponseDto> deleteReservation(String userEmailId, int restaurantId);
-    ResponseEntity<ResponseDto> getReservationCheck(String userEmailId, int restaurantId);
-    
+    ResponseEntity<? super GetReservationCheckResponseDto> getReservationCheck(String userEmailId, int restaurantId);
+
     // 식당 리뷰
     ResponseEntity<? super GetReviewResponseDto> getReview (int reviewNumber);
     ResponseEntity<ResponseDto> postReview (PostReviewRequestDto dto, int restaurantId, String userEmailId);
@@ -39,7 +41,6 @@ public interface RestaurantService {
     // 식당 찜
     ResponseEntity<ResponseDto> postFavorite(String userEmailId, int restaurantId);
     ResponseEntity<ResponseDto> deleteFavorite(String userEmailId,int restaurantId);
-    ResponseEntity<ResponseDto> getFavoriteCheck(String userEmailId, int restaurantId);
+    ResponseEntity<? super GetFavoriteCheckResponseDto> getFavoriteCheck(String userEmailId, int restaurantId);
     ResponseEntity<? super GetFavoriteRestaurantListResponseDto> getFavoriteList(String userEmailId);
-    
 }

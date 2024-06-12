@@ -21,7 +21,6 @@ public interface ReviewRepository extends JpaRepository<ReviewEntity,Integer> {
             + "r.review_image as reviewImage, "
             + "r.rating, "
             + "r.review_contents as reviewContents, "
-            + "r.review_writer_id as reviewWriterId, "
             + "r.review_date as reviewDate, "
             + "r.review_writer_nickname as reviewWriterNickname "
         + "FROM review r LEFT JOIN user u ON r.review_writer_id = u.user_email_id "
@@ -32,12 +31,22 @@ public interface ReviewRepository extends JpaRepository<ReviewEntity,Integer> {
     ReviewEntity findByReviewNumber(int reviewNumber);
     List<FavoriteRestaurantEntity> findByOrderByReviewRestaurantIdDesc();
     
-    @Query(value=
-    "SELECT * " +
-    "FROM review " +
-    "WHERE review_writer_id = :userEmailId",
-    nativeQuery=true
+    @Query(
+        value=
+        "SELECT "
+            + "r.review_number as reviewNumber, "
+            + "r.review_restaurant_id as reviewRestaurantId, "
+            + "r.review_image as reviewImage, "
+            + "r.rating, "
+            + "r.review_contents as reviewContents, "
+            + "r.review_date as reviewDate, "
+            + "r.review_writer_nickname as reviewWriterNickname "
+        + "FROM review r "
+        + "WHERE review_writer_id = :userEmailId",
+        nativeQuery=true
     )
     List<GetRestaurantReviewListItemResultSet> findByOrderByMyReviewListDesc(@Param("userEmailId") String reviewWriterId);
+
+    boolean existsByReviewWriterIdAndReviewRestaurantId(String userEmailId, int restaurantId);
     
 }
