@@ -7,4 +7,5 @@ public interface GetInquiryBoardListResultSet {
     String getInquiryTitle();
     String getInquiryWriterNickname();
     String getInquiryWriteDatetime();
+    String getInquiryWriterId();
 }
