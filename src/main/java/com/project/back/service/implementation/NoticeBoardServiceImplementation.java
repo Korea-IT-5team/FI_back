@@ -12,6 +12,7 @@ import com.project.back.dto.response.board.noticeboard.GetNoticeBoardListRespons
 import com.project.back.dto.response.board.noticeboard.GetNoticeBoardResponseDto;
 import com.project.back.dto.response.board.noticeboard.GetSearchNoticeBoardResponseDto;
 import com.project.back.entity.NoticeBoardEntity;
+import com.project.back.entity.UserEntity;
 import com.project.back.repository.NoticeBoardRepository;
 import com.project.back.repository.UserRepository;
 import com.project.back.repository.resultSet.GetNoticeBoardListResultSet;
@@ -67,8 +68,12 @@ public class NoticeBoardServiceImplementation implements NoticeBoardService {
           try {
             NoticeBoardEntity noticeBoardEntity = noticeBoardRepository.findByNoticeNumber(noticeNumber);
             if (noticeBoardEntity == null) return ResponseDto.noExistNoticeBoard();
+            String userEmailId = noticeBoardEntity.getNoticeWriterId();
+            UserEntity userEntity = userRepository.findByUserEmailId(userEmailId);
+            if (userEntity == null) return ResponseDto.authorizationFailed();
+            String nickname = userEntity.getNickname();
 
-            return GetNoticeBoardResponseDto.success(noticeBoardEntity);
+            return GetNoticeBoardResponseDto.success(noticeBoardEntity, nickname);
           } catch (Exception exception) {
             exception.printStackTrace();
             return ResponseDto.databaseError();
