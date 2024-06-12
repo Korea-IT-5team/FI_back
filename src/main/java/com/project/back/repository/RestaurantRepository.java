@@ -18,7 +18,7 @@ public interface RestaurantRepository extends JpaRepository<RestaurantEntity,Int
     
     List<RestaurantEntity> findByRestaurantNameContainingOrderByRestaurantIdDesc(String searchWord);
  
-    
+    RestaurantEntity findByRestaurantWriterId(String restaurantWriterId);
     RestaurantEntity findByRestaurantId(Integer restaurantId);
 
     boolean existsByRestaurantWriterId(String restaurantWriterId);
