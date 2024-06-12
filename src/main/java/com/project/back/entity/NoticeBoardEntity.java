@@ -45,8 +45,6 @@ public class NoticeBoardEntity {
         this.noticeWriteDatetime = noticeWriteDatetime;
         this.viewCount = 0;
 
-        // this.noticeWriterNickname = userNickname;
-
     }
 
     public void increaseViewCount() {
