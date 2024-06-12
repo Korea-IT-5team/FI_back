@@ -24,7 +24,7 @@ public class GetInquiryBoardResponseDto extends ResponseDto{
 
     private GetInquiryBoardResponseDto(InquiryBoardEntity inquiryBoardEntity, String inquiryWriterNickname) throws Exception {
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
-        this.status = inquiryBoardEntity.getInquiryStatus();
+        this.status = inquiryBoardEntity.getStatus();
         this.inquiryNumber = inquiryBoardEntity.getInquiryNumber();
         this.inquiryTitle = inquiryBoardEntity.getInquiryTitle();
         this.inquiryWriterNickname = inquiryWriterNickname;
