@@ -62,7 +62,6 @@ public class UserServiceImplementation implements UserService {
     return ResponseDto.success();
   }
 
-  //수정
   @Override
   @Transactional
   public ResponseEntity<ResponseDto> deleteUser(DeleteUserRequestDto dto, String userEmailId) {
@@ -95,7 +94,6 @@ public class UserServiceImplementation implements UserService {
     }
     return ResponseDto.success();
   }
-  //수정
 
   @Override
   public ResponseEntity<? super GetMyInfoResponseDto> getMyInfo(String userEmailId) {

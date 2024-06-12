@@ -37,7 +37,7 @@ public class UserEntity {
         this.userName = dto.getUserName();
         this.userTelNumber = dto.getUserTelNumber();
         this.userAddress = dto.getUserAddress();
-        this.userRole = userRole; //수정 
+        this.userRole = userRole;
         this.joinPath = "HOME";
         this.snsId = dto.getSnsId();
         this.businessRegistrationNumber = dto.getBusinessRegistrationNumber();

@@ -151,9 +151,7 @@ public class AuthServiceImplementation implements AuthService {
       String userTelNumber = dto.getUserTelNumber();
       String authNumber = dto.getAuthNumber();
       String businessRegistrationNumber = dto.getBusinessRegistrationNumber();
-      String userRole; //수정
-
-
+      String userRole; 
 
       boolean existedUser = userRepository.existsByUserEmailId(userEmailId);
       if (existedUser) return ResponseDto.duplicatedEmailId();
@@ -166,7 +164,6 @@ public class AuthServiceImplementation implements AuthService {
         if (existedBusinessRegistrationNumber) return ResponseDto.duplicatedBusinessRegistrationNumber();
       }
       
-      //추가
       if(businessRegistrationNumber=="")
       {
           userRole="ROLE_USER";
@@ -175,7 +172,6 @@ public class AuthServiceImplementation implements AuthService {
       {
           userRole="ROLE_CEO";
       }
-      //추가
 
       boolean isMatched = authNumberRepository.existsByTelNumberAndAuthNumber(userTelNumber, authNumber);
       if (!isMatched) return ResponseDto.authenticationFailed();
