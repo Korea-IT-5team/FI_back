@@ -14,7 +14,7 @@ public class NoticeBoardListItem {
     private String noticeTitle;
     private String noticeWriterNickname;
     private String noticeWriteDatetime;
-    private Integer noticeViewCount;
+    private Integer viewCount;
 
     private NoticeBoardListItem(GetNoticeBoardListResultSet resultSet) throws Exception {
         this.noticeNumber = resultSet.getNoticeNumber();
@@ -24,7 +24,7 @@ public class NoticeBoardListItem {
         String writeDate = ChangeDateFormatUtil.changeYYMMDD(resultSet.getNoticeWriteDatetime());
         this.noticeWriteDatetime = writeDate;
 
-        this.noticeViewCount = resultSet.getNoticeViewCount();
+        this.viewCount = resultSet.getViewCount();
     }
 
     public static List<NoticeBoardListItem> getList(List<GetNoticeBoardListResultSet> resultSets) throws Exception {
