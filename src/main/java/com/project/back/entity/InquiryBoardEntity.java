@@ -27,7 +27,7 @@ public class InquiryBoardEntity {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer inquiryNumber;
-    private Boolean inquiryStatus;
+    private Boolean status;
     private Boolean inquiryPublic;
     private String inquiryWriterId;
     private String inquiryTitle;
@@ -40,8 +40,8 @@ public class InquiryBoardEntity {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String inquiryWriteDatetime = simpleDateFormat.format(now);
 
-        this.inquiryStatus = false;
-        this.inquiryPublic = dto.getIsInquiryPublic();
+        this.status = false;
+        this.inquiryPublic = dto.getInquiryPublic();
         this.inquiryTitle = dto.getInquiryTitle();
         this.inquiryContents = dto.getInquiryContents();
         this.inquiryWriterId = userEmailId;
