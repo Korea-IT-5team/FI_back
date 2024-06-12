@@ -32,7 +32,7 @@ public class NoticeBoardEntity {
     private String noticeWriterNickname;
     private String noticeWriteDatetime;
     private String noticeContents;
-    private Integer noticeViewCount;
+    private Integer viewCount;
 
     public NoticeBoardEntity(PostNoticeBoardRequestDto dto, String userEmailId) {
         Date now = Date.from(Instant.now());
@@ -43,11 +43,11 @@ public class NoticeBoardEntity {
         this.noticeContents = dto.getNoticeContents();
         this.noticeWriterId = userEmailId;
         this.noticeWriteDatetime = noticeWriteDatetime;
-        this.noticeViewCount = 0;
+        this.viewCount = 0;
     }
 
     public void increaseViewCount() {
-        this.noticeViewCount++;
+        this.viewCount++;
     }
 
     public void update(PatchNoticeBoardRequestDto dto) {

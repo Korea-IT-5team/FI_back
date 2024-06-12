@@ -27,7 +27,7 @@ public class GetNoticeBoardResponseDto extends ResponseDto {
         this.noticeTitle = noticeBoardEntity.getNoticeTitle();
         this.noticeWriterId = noticeBoardEntity.getNoticeWriterId();
         this.noticeWriterNickname = noticeBoardEntity.getNoticeWriterNickname();
-        this.viewCount = noticeBoardEntity.getNoticeViewCount();
+        this.viewCount = noticeBoardEntity.getViewCount();
 
         String writeDate  = ChangeDateFormatUtil.changeYYYYMMDD(noticeBoardEntity.getNoticeWriteDatetime());
         this.noticeWriteDatetime = writeDate;
