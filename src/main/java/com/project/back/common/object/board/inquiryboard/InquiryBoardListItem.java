@@ -11,14 +11,14 @@ import lombok.Getter;
 @Getter
 public class InquiryBoardListItem {
     private Integer inquiryNumber;
-    private boolean inquiryStatus;
+    private boolean status;
     private String inquiryTitle;
     private String inquiryWriterNickname;
     private String inquiryWriteDatetime;
 
     private InquiryBoardListItem(GetInquiryBoardListResultSet resultSets) throws Exception {
         this.inquiryNumber = resultSets.getInquiryNumber();
-        this.inquiryStatus = resultSets.getInquiryStatus() == 1;
+        this.status = resultSets.getStatus() == 1;
         this.inquiryTitle = resultSets.getInquiryTitle();
         this.inquiryWriterNickname = resultSets.getInquiryWriterNickname();
 

@@ -5,5 +5,5 @@ public interface GetNoticeBoardListResultSet {
   String getNoticeTitle();
   String getNoticeWriterNickname();
   String getNoticeWriteDatetime();
-  Integer getNoticeViewCount();
+  Integer getViewCount();
 }

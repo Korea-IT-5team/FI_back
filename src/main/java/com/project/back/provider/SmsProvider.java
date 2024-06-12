@@ -36,26 +36,9 @@ public class SmsProvider {
 
     return result;
   }
+  
   private String getAuthNumberText(String authNumber) {
     String text = "요청하신 인증 번호는 " + authNumber + "입니다.";
-    return text;
-  }
-
-  public boolean sendPasswordResetLink(String userTelNumber, String resetLinkCode) {
-    Message message = new Message();
-    message.setFrom(FROM);
-    message.setTo(userTelNumber);
-    message.setText(getResetLinkCodeText(resetLinkCode));
-
-    SingleMessageSentResponse response = messageService.sendOne(new SingleMessageSendingRequest(message));
-
-    String statusCode = response.getStatusCode();
-    boolean result = statusCode.equals("2000");
-
-    return result;
-  }
-  private String getResetLinkCodeText(String resetLinkCode) {
-    String text = "http://localhost:9999/api/v1/auth/password-update/" + resetLinkCode;
     return text;
   }
 }

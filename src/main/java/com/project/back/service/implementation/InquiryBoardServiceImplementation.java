@@ -50,11 +50,11 @@ public class InquiryBoardServiceImplementation implements InquiryBoardService {
       InquiryBoardEntity inquiryBoardEntity = inquiryBoardRepository.findByInquiryNumber(inquiryNumber);
       if (inquiryBoardEntity == null) return ResponseDto.noExistInquiryBoard();
 
-      boolean status = inquiryBoardEntity.getInquiryStatus();
+      boolean status = inquiryBoardEntity.getStatus();
       if (status) return ResponseDto.writtenComment();
 
       String comment = dto.getInquiryComment();
-      inquiryBoardEntity.setInquiryStatus(true);
+      inquiryBoardEntity.setStatus(true);
       inquiryBoardEntity.setInquiryComment(comment);
 
       inquiryBoardRepository.save(inquiryBoardEntity);
@@ -126,7 +126,7 @@ public class InquiryBoardServiceImplementation implements InquiryBoardService {
       boolean isWriter = userEmailId.equals(writerId);
       if (!isWriter) return ResponseDto.authorizationFailed();
 
-      boolean status = inquiryBoardEntity.getInquiryStatus();
+      boolean status = inquiryBoardEntity.getStatus();
       if (status) return ResponseDto.writtenComment();
 
       inquiryBoardEntity.update(dto);
