@@ -8,7 +8,12 @@ import com.project.back.dto.request.user.PatchUserInfoRequestDto;
 import com.project.back.dto.response.ResponseDto;
 import com.project.back.dto.response.user.GetMyInfoResponseDto;
 import com.project.back.dto.response.user.GetUserInfoResponseDto;
+import com.project.back.entity.RestaurantEntity;
 import com.project.back.entity.UserEntity;
+import com.project.back.repository.FavoriteRestaurantRepository;
+import com.project.back.repository.ReservationRepository;
+import com.project.back.repository.RestaurantRepository;
+import com.project.back.repository.ReviewRepository;
 import com.project.back.repository.UserRepository;
 import com.project.back.service.UserService;
 
@@ -18,7 +23,11 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class UserServiceImplementation implements UserService {
   private final UserRepository userRepository;
-  
+  private final RestaurantRepository restaurantRepository;
+  private final FavoriteRestaurantRepository favoriteRestaurantRepository;
+  private final ReservationRepository reservationRepository;
+  private final ReviewRepository reviewRepository;  
+
   @Override
   public ResponseEntity<? super GetUserInfoResponseDto> GetSignInUser(String userEmailId) {
     UserEntity userEntity = null;
@@ -52,15 +61,30 @@ public class UserServiceImplementation implements UserService {
     return ResponseDto.success();
   }
 
+  //수정
   @Override
   public ResponseEntity<ResponseDto> deleteUser(DeleteUserRequestDto dto, String userEmailId) {
     try {
       UserEntity userEntity = userRepository.findByUserEmailId(userEmailId);
+      RestaurantEntity restaurantEntity = restaurantRepository.findByRestaurantWriterId(userEmailId);
       if (userEntity == null) return ResponseDto.noExistUser();
 
       String deleteId = userEntity.getUserEmailId();
       boolean isEquals = userEmailId.equals(deleteId);
       if (!isEquals) return ResponseDto.authorizationFailed();
+
+      String userRole = userEntity.getUserRole();
+
+      if("ROLE_CEO".equals(userRole) && !"ROLE_ADMIN".equals(userRole))
+      {
+          restaurantRepository.delete(restaurantEntity);
+      }
+      else
+      {
+          favoriteRestaurantRepository.deleteByFavoriteUserId(userEmailId);
+          reservationRepository.deleteByReservationUserId(userEmailId);
+          reviewRepository.deleteByReviewWriterId(userEmailId);
+      }
 
       userRepository.delete(userEntity);
     } catch (Exception exception) {
@@ -69,6 +93,7 @@ public class UserServiceImplementation implements UserService {
     }
     return ResponseDto.success();
   }
+  //수정
 
   @Override
   public ResponseEntity<? super GetMyInfoResponseDto> getMyInfo(String userEmailId) {

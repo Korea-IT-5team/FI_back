@@ -8,5 +8,7 @@ import com.project.back.entity.FavoriteRestaurantEntity;
 public interface FavoriteRestaurantRepository extends JpaRepository<FavoriteRestaurantEntity, Integer> {
     boolean existsByFavoriteUserIdAndFavoriteRestaurantId(String favoriteUserId, Integer favoriteRestaurantId);
     FavoriteRestaurantEntity findByFavoriteUserIdAndFavoriteRestaurantId(String favoriteUserId, Integer favoriteRestaurantId);
-   
+    //수정
+    void deleteByFavoriteUserId(String userEmailId);
+    //수정
 }

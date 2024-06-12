@@ -48,5 +48,9 @@ public interface ReviewRepository extends JpaRepository<ReviewEntity,Integer> {
     List<GetRestaurantReviewListItemResultSet> findByOrderByMyReviewListDesc(@Param("userEmailId") String reviewWriterId);
 
     boolean existsByReviewWriterIdAndReviewRestaurantId(String userEmailId, int restaurantId);
+
+    //수정
+    void deleteByReviewWriterId(String userEmailId);
+    //수정
     
 }
