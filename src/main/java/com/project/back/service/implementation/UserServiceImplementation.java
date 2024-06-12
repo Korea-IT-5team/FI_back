@@ -17,6 +17,7 @@ import com.project.back.repository.ReviewRepository;
 import com.project.back.repository.UserRepository;
 import com.project.back.service.UserService;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -63,6 +64,7 @@ public class UserServiceImplementation implements UserService {
 
   //수정
   @Override
+  @Transactional
   public ResponseEntity<ResponseDto> deleteUser(DeleteUserRequestDto dto, String userEmailId) {
     try {
       UserEntity userEntity = userRepository.findByUserEmailId(userEmailId);
@@ -75,7 +77,7 @@ public class UserServiceImplementation implements UserService {
 
       String userRole = userEntity.getUserRole();
 
-      if("ROLE_CEO".equals(userRole) && !"ROLE_ADMIN".equals(userRole))
+      if("ROLE_CEO".equals(userRole))
       {
           restaurantRepository.delete(restaurantEntity);
       }
