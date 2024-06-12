@@ -21,10 +21,12 @@ public class GetInquiryBoardResponseDto extends ResponseDto{
     private String inquiryContents;
     private String inquiryComment;
     private Boolean status;
+    private Boolean inquiryPublic;
 
     private GetInquiryBoardResponseDto(InquiryBoardEntity inquiryBoardEntity, String inquiryWriterNickname) throws Exception {
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
         this.status = inquiryBoardEntity.getStatus();
+        this.inquiryPublic = inquiryBoardEntity.getInquiryPublic();
         this.inquiryNumber = inquiryBoardEntity.getInquiryNumber();
         this.inquiryTitle = inquiryBoardEntity.getInquiryTitle();
         this.inquiryWriterNickname = inquiryWriterNickname;
