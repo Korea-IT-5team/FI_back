@@ -72,6 +72,16 @@ public class RestaurantController {
         ResponseEntity<ResponseDto> response = restaurantService.patchRestaurantInfo(requestBody, restaurantId, userEmailId);
         return response;
     };
+
+
+    @DeleteMapping("/{restaurantId}/info-delete")
+    public ResponseEntity<ResponseDto> deleteRestaurantInfo (
+        @PathVariable("restaurantId") int restaurantId,
+        @AuthenticationPrincipal String userEmailId
+    ) {
+        ResponseEntity<ResponseDto> response = restaurantService.deleteRestaurantInfo(restaurantId, userEmailId);
+        return response;
+    };
     
     @GetMapping("/reservation/list")
     public ResponseEntity<? super GetReservationListResponseDto> getUserReservationList  (

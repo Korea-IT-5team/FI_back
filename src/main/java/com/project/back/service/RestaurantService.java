@@ -22,6 +22,7 @@ public interface RestaurantService {
     ResponseEntity<? super GetRestaurantInfoResponseDto> getRestaurantInfo(int restaurantId);
     ResponseEntity<ResponseDto> postRestaurantInfo(PostRestaurantInfoRequestDto dto, String userEmailId);
     ResponseEntity<ResponseDto> patchRestaurantInfo(PatchRestaurantInfoRequestDto dto, int restaurantId, String userEmailId);
+    ResponseEntity<ResponseDto> deleteRestaurantInfo(int restaurantId, String userEmailId);
 
     ResponseEntity<? super GetReservationListResponseDto> getUserReservationList(String userEmailId);
     ResponseEntity<? super GetReservationListResponseDto> getCeoReservationList(String userEmailId);
