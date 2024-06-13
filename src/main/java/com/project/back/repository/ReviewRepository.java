@@ -40,7 +40,7 @@ public interface ReviewRepository extends JpaRepository<ReviewEntity,Integer> {
             + "r.rating, "
             + "r.review_contents as reviewContents, "
             + "r.review_date as reviewDate, "
-            + "r.review_writer_nickname as reviewWriterNickname "
+            + "r.review_writer_nickname as reviewWriterNickname, "
             + "r.review_restaurant_name as reviewRestaurantName "
         + "FROM review r "
         + "WHERE review_writer_id = :userEmailId",

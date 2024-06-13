@@ -37,7 +37,7 @@ public class ReviewEntity {
     private String reviewWriterNickname;
     private String reviewRestaurantName;
 
-    public ReviewEntity(PostReviewRequestDto dto, String userEmailId, int restaurantId,String reviewWriterNickname) {
+    public ReviewEntity(PostReviewRequestDto dto, String userEmailId, int restaurantId, UserEntity userEntity, RestaurantEntity restaurantEntity) {
         Date now = Date.from(Instant.now());
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String reviewDate = simpleDateFormat.format(now);
@@ -47,7 +47,8 @@ public class ReviewEntity {
         this.reviewDate = reviewDate;
         this.reviewImage = dto.getReviewImage();
         this.reviewRestaurantId = restaurantId;
-        this.reviewWriterNickname = reviewWriterNickname;
+        this.reviewWriterNickname = userEntity.getNickname();
+        this.reviewRestaurantName = restaurantEntity.getRestaurantName();
     }
 
     public void updateReview(PatchReviewRequestDto dto){
