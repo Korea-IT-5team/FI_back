@@ -8,4 +8,5 @@ public interface GetRestaurantReviewListItemResultSet {
     String getReviewContents();
     String getReviewWriterNickname();
     String getReviewDate();
+    String getReviewRestaurantName();
 }

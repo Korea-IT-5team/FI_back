@@ -35,6 +35,7 @@ public class ReviewEntity {
     private String reviewDate;
     private String reviewImage;
     private String reviewWriterNickname;
+    private String reviewRestaurantName;
 
     public ReviewEntity(PostReviewRequestDto dto, String userEmailId, int restaurantId,String reviewWriterNickname) {
         Date now = Date.from(Instant.now());
