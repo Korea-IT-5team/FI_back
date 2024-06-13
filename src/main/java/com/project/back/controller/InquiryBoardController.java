@@ -49,7 +49,6 @@ public class InquiryBoardController {
     return response;
   }
 
-  // 문의 게시물 보기
   @GetMapping("/list")
   public ResponseEntity<? super GetInquiryBoardListResponseDto> getInquiryBoardList() {
     ResponseEntity<? super GetInquiryBoardListResponseDto> response = inquiryBoardService.getInquiryBoardList();
