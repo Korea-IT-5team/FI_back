@@ -202,8 +202,6 @@ public class AuthServiceImplementation implements AuthService {
 
       return FindEmailResponseDto.success(userEmailId);
 
-      // boolean isMatched = userRepository.existsByUserNameAndUserTelNumber(userTelNumber);
-      // if (!isMatched) return ResponseDto.authenticationFailed();
     } catch (Exception exception) {
       exception.printStackTrace();
       return ResponseDto.databaseError();
@@ -211,7 +209,6 @@ public class AuthServiceImplementation implements AuthService {
     
   }
 
-  // 비밀번호 재설정 (이메일이랑 전화번호를 받아서 확인하는 코드)
   @Override
   public ResponseEntity<ResponseDto> passwordReset(PasswordResetRequestDto dto) {
     
@@ -219,10 +216,6 @@ public class AuthServiceImplementation implements AuthService {
 
       String userEmailId = dto.getUserEmailId();
       String userTelNumber = dto.getUserTelNumber();
-      // 링크코드 어려우니깐 일단 보류
-      // String resetLinkCode = PasswordResetLinkCodeUtil.createCode();
-
-      // smsProvider.sendPasswordResetLink(userEmailId, userTelNumber);
 
       boolean isMatched = userRepository.existsByUserEmailIdAndUserTelNumber(userEmailId, userTelNumber);
       if (!isMatched) return ResponseDto.authenticationFailed();
@@ -234,21 +227,6 @@ public class AuthServiceImplementation implements AuthService {
     return ResponseDto.success();
   }
 
-  // @Override
-  // public ResponseEntity<ResponseDto> passwordReset(PasswordResetRequestDto dto) {
-  //   try {
-  //     String userTelNumber = dto.getUserTelNumber();
-      
-  //     String resetLinkCode = PasswordResetLinkCodeUtil.createCode();
-
-  //     smsProvider.sendPasswordResetLink(userTelNumber, resetLinkCode);
-  //   } catch (Exception exception) {
-  //     exception.printStackTrace();
-  //     return ResponseDto.databaseError();
-  //   }
-  //   return ResponseDto.success();
-  // }
-
   @Override
   public ResponseEntity<ResponseDto> newPassword(NewPasswordRequestDto dto, String userEmailId) {
     
@@ -259,9 +237,6 @@ public class AuthServiceImplementation implements AuthService {
       UserEntity userEntity = userRepository.findByUserEmailId(userEmailId);
       System.out.println(userEmailId);
       if (userEntity == null) return ResponseDto.noExistUser();
-
-      // boolean isUser = userEmailId.equals(userEmailId);
-      // if (!isUser) return ResponseDto.noExistUser();
 
       boolean isMatched = userRepository.existsById(userEmailId);
       if (!isMatched) return ResponseDto.authenticationFailed();
