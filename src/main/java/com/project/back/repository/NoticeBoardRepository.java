@@ -15,7 +15,7 @@ public interface NoticeBoardRepository extends JpaRepository<NoticeBoardEntity,I
     NoticeBoardEntity findByNoticeNumber(Integer noticeNumber);
 
     @Query(value=
-    "SELECT nb.notice_number noticeNumber, nb.notice_title noticeTitle, u.nickname noticeWriterNickname, nb.notice_write_datetime noticeWriteDatetime, nb.notice_view_count viewCount " +
+    "SELECT nb.notice_number noticeNumber, nb.notice_title noticeTitle, u.nickname noticeWriterNickname, nb.notice_write_datetime noticeWriteDatetime, nb.view_count viewCount " +
     "FROM notice_board nb LEFT JOIN user u ON nb.notice_writer_id = u.user_email_id " +
     "ORDER BY nb.notice_number DESC",
     nativeQuery=true
@@ -23,7 +23,7 @@ public interface NoticeBoardRepository extends JpaRepository<NoticeBoardEntity,I
     List<GetNoticeBoardListResultSet> getNoticeBoardList();
 
     @Query(value=
-    "SELECT nb.notice_number noticeNumber, nb.notice_title noticeTitle, u.nickname noticeWriterNickname, nb.notice_write_datetime noticeWriteDatetime, nb.notice_view_count viewCount " +
+    "SELECT nb.notice_number noticeNumber, nb.notice_title noticeTitle, u.nickname noticeWriterNickname, nb.notice_write_datetime noticeWriteDatetime, nb.view_count viewCount " +
     "FROM notice_board nb LEFT JOIN user u ON nb.notice_writer_id = u.user_email_id " +
     "WHERE nb.notice_title LIKE %:title% " +
     "ORDER BY nb.notice_number DESC", 
