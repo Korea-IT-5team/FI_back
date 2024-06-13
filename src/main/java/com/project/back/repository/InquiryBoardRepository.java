@@ -42,6 +42,6 @@ public interface InquiryBoardRepository extends JpaRepository<InquiryBoardEntity
     List<GetInquiryBoardListResultSet> getInquiryUserBoardList(@Param("userEmailId") String userEmailId);
 
     // List<InquiryBoardEntity> findByTitleContainsOrderByInquiryNumberDesc (String inquiryTitle);
-   
+
 } 
     
