@@ -14,4 +14,5 @@ public interface ReservationRepository extends JpaRepository<ReservationEntity,I
     List<ReservationEntity> findByReservationRestaurantIdOrderByReservationNumberDesc(Integer reservationRestaurantId);
     boolean existsByReservationUserIdAndReservationRestaurantId(String reservationUserId, Integer reservationRestaurantId);
     ReservationEntity findByReservationUserIdAndReservationRestaurantId(String reservationUserId, Integer reservationRestaurantId);
+    void deleteByReservationUserId(String userEmailId);
 }

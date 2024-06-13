@@ -29,6 +29,7 @@ public class NoticeBoardEntity {
     private Integer noticeNumber;
     private String noticeTitle;
     private String noticeWriterId;
+    private String noticeWriterNickname;
     private String noticeWriteDatetime;
     private String noticeContents;
     private Integer viewCount;
@@ -43,6 +44,7 @@ public class NoticeBoardEntity {
         this.noticeWriterId = userEmailId;
         this.noticeWriteDatetime = noticeWriteDatetime;
         this.viewCount = 0;
+
     }
 
     public void increaseViewCount() {
