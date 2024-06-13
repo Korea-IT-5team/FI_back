@@ -113,6 +113,28 @@ public class RestaurantServiceImplementation implements RestaurantService
     }
 
     @Override
+    public ResponseEntity<ResponseDto> deleteRestaurantInfo(int restaurantId, String userEmailId) {
+        try {
+
+            boolean isExistUser = userRepository.existsByUserEmailId(userEmailId);
+            if(!isExistUser) return ResponseDto.noExistUser();
+
+            boolean isExistRestaurant = restaurantRepository.existsByRestaurantId(restaurantId);
+            if (!isExistRestaurant) return ResponseDto.noExistRestaurant();
+
+            RestaurantEntity restaurantEntity = 
+            restaurantRepository.findByRestaurantWriterIdAndRestaurantId(userEmailId, restaurantId);
+            if (restaurantEntity == null) return ResponseDto.authorizationFailed();
+            restaurantRepository.delete(restaurantEntity);
+
+        } catch(Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+        return ResponseDto.success();
+    }
+
+    @Override
     public ResponseEntity<? super GetReservationListResponseDto> getUserReservationList(String userEmailId) {
         try {
             List<ReservationEntity> reservationEntities = reservationRepository.findByReservationUserIdOrderByReservationNumberDesc(userEmailId);
