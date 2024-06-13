@@ -26,7 +26,6 @@ public class GetNoticeBoardResponseDto extends ResponseDto {
         this.noticeNumber = noticeBoardEntity.getNoticeNumber();
         this.noticeTitle = noticeBoardEntity.getNoticeTitle();
         this.noticeWriterId = noticeBoardEntity.getNoticeWriterId();
-        this.noticeWriterNickname = noticeBoardEntity.getNoticeWriterNickname();
         this.noticeWriterNickname = noticeWriterNickname;
         this.viewCount = noticeBoardEntity.getViewCount();
 

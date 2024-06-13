@@ -25,11 +25,8 @@ public interface AuthService {
   ResponseEntity<ResponseDto> businessRegistrationCheck(CheckBusinessRegistrationRequestDto dto);
   ResponseEntity<ResponseDto> signUp(SignUpRequestDto dto);
 
-  // 이메일 찾기
   ResponseEntity<? super FindEmailResponseDto> findEmail(FindEmailRequestDto dto);
-  // 비밀번호 재설정 
   ResponseEntity<ResponseDto> passwordReset(PasswordResetRequestDto dto);
-  // ResponseEntity<ResponseDto> passwordReCheck(PasswordRecheckRequestDto dto, String userEmailId);
   ResponseEntity<ResponseDto> newPassword(NewPasswordRequestDto dto, String userEmailId);
 
 }

@@ -16,9 +16,6 @@ public class FindEmailResponseDto extends ResponseDto{
 
     private FindEmailResponseDto(String userEmailId) {
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
-        // String writerId = userEntity.getUserEmailId();
-        // writerId = writerId.substring(0, 4) +
-        // "*".repeat(writerId.length() - 4); 
         this.userEmailId = userEmailId;
     }
 
