@@ -144,17 +144,13 @@ public class RestaurantServiceImplementation implements RestaurantService
             boolean isExistUser = userRepository.existsByUserEmailId(userEmailId);
             if (!isExistUser) return ResponseDto.noExistUser();
             UserEntity userEntity = userRepository.findByUserEmailId(userEmailId);
-            String userName = userEntity.getUserName();
-            String userTelNumber = userEntity.getUserTelNumber();
 
             boolean isExistRestaurant = restaurantRepository.existsByRestaurantId(restaurantId);
             if (!isExistRestaurant) return ResponseDto.noExistReservation();
             RestaurantEntity restaurantEntity = restaurantRepository.findByRestaurantId(restaurantId);
-            String restaurantName = restaurantEntity.getRestaurantName();
-            String restaurantLocation = restaurantEntity.getRestaurantLocation();
 
             ReservationEntity reservationEntity = new ReservationEntity(
-                dto,userEmailId,restaurantId,userName,restaurantName,restaurantLocation,userTelNumber);
+                dto,userEmailId,restaurantId,userEntity,restaurantEntity);
             reservationRepository.save(reservationEntity);
         } catch (Exception exception) {
             exception.printStackTrace();
@@ -219,12 +215,18 @@ public class RestaurantServiceImplementation implements RestaurantService
         try {
             boolean isExistUser = userRepository.existsByUserEmailId(userEmailId);
             if (!isExistUser) return ResponseDto.authorizationFailed();
+
             isExistUser = reviewRepository.existsByReviewWriterIdAndReviewRestaurantId(userEmailId,restaurantId);
             if(isExistUser) return ResponseDto.duplicatedEmailId();
-            UserEntity user = userRepository.findByUserEmailId(userEmailId);
-            String reviewWriterNickname = user.getNickname();
 
-            ReviewEntity reviewEntity = new ReviewEntity(dto, userEmailId, restaurantId,reviewWriterNickname);
+            UserEntity userEntity = userRepository.findByUserEmailId(userEmailId);
+
+            boolean isExistRestaurantId = restaurantRepository.existsByRestaurantId(restaurantId);
+            if(!isExistRestaurantId) return ResponseDto.noExistRestaurant();
+
+            RestaurantEntity restaurantEntity = restaurantRepository.findByRestaurantId(restaurantId);        
+
+            ReviewEntity reviewEntity = new ReviewEntity(dto, userEmailId, restaurantId, userEntity, restaurantEntity);
             reviewRepository.save(reviewEntity);
         } catch (Exception exception) {
             exception.printStackTrace();
