@@ -14,7 +14,6 @@ import lombok.Getter;
 public class GetMyInfoResponseDto extends ResponseDto {
   
     private String userEmailId;
-    // private String userPassword;
     private String nickname;
     private String userName;
     private String userTelNumber;
@@ -25,7 +24,6 @@ public class GetMyInfoResponseDto extends ResponseDto {
     private GetMyInfoResponseDto(UserEntity userEntity) {
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
         this.userEmailId = userEntity.getUserEmailId();
-        // this.userPassword = userEntity.getPassword();
         this.nickname = userEntity.getNickname();
         this.userName = userEntity.getUserName();
         this.userTelNumber = userEntity.getUserTelNumber();
