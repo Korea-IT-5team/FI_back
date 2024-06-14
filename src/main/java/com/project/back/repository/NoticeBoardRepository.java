@@ -30,5 +30,4 @@ public interface NoticeBoardRepository extends JpaRepository<NoticeBoardEntity,I
     nativeQuery=true
     )
     List<GetNoticeBoardListResultSet> getNoticeSearchBoardList(@Param("title") String title);
-
 }
