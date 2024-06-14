@@ -78,8 +78,8 @@ public class RestaurantServiceImplementation implements RestaurantService
             boolean isExistUser = userRepository.existsByUserEmailId(userEmailId);
             if (!isExistUser) return ResponseDto.authenticationFailed();
 
-            // isExistUser = restaurantRepository.existsByRestaurantWriterId(userEmailId);
-            // if(isExistUser) return ResponseDto.duplicatedEmailId();
+            isExistUser = restaurantRepository.existsByRestaurantWriterId(userEmailId);
+            if(isExistUser) return ResponseDto.duplicatedEmailId();
 
             UserEntity userEntity = userRepository.findByUserEmailId(userEmailId);
 
