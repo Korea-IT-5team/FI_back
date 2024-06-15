@@ -18,6 +18,7 @@ public class RestaurantReservationListItem {
     private String reservationDate;
     private String reservationTime;
     private Integer reservationPeople;
+    private String reservationRestaurantLocation;
     private String writeDate;
 
     private RestaurantReservationListItem(ReservationEntity reservationEntity) throws Exception {
@@ -26,6 +27,7 @@ public class RestaurantReservationListItem {
         this.reservationRestaurantId = reservationEntity.getReservationRestaurantId();
         this.reservationRestaurantName = reservationEntity.getReservationRestaurantName();
         this.reservationUserName = reservationEntity.getReservationUserName();
+        this.reservationRestaurantLocation = reservationEntity.getReservationRestaurantLocation();
 
         try
         {
