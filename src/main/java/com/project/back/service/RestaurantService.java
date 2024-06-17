@@ -43,3 +43,4 @@ public interface RestaurantService {
     ResponseEntity<? super GetFavoriteRestaurantListResponseDto> getFavoriteList(String userEmailId);
     ResponseEntity<? super GetRestaurantIdResponseDto>getRestaurantId(String userEmailId);
 }
+////////////
