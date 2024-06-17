@@ -1,9 +1,5 @@
 package com.project.back.entity;
 
-
-
-import org.springframework.boot.autoconfigure.security.SecurityProperties.User;
-
 import com.project.back.dto.request.restaurant.reservation.PostReservationRequestDto;
 
 import jakarta.persistence.Entity;

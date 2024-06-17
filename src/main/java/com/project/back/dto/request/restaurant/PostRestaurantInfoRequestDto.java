@@ -16,8 +16,6 @@ public class PostRestaurantInfoRequestDto {
     @NotBlank
     private String restaurantFoodCategory;
     @NotBlank
-    private String restaurantPostalCode;
-    @NotBlank
     private String restaurantLocation;
     private String restaurantTelNumber;
     private String restaurantSnsAddress;
