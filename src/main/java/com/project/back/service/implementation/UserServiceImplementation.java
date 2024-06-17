@@ -66,6 +66,7 @@ public class UserServiceImplementation implements UserService {
   @Transactional
   public ResponseEntity<ResponseDto> deleteUser(DeleteUserRequestDto dto, String userEmailId) {
     try {
+      
       UserEntity userEntity = userRepository.findByUserEmailId(userEmailId);
       RestaurantEntity restaurantEntity = restaurantRepository.findByRestaurantWriterId(userEmailId);
       if (userEntity == null) return ResponseDto.noExistUser();
