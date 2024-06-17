@@ -12,7 +12,6 @@ import lombok.Getter;
 
 @Getter
 public class GetMyInfoResponseDto extends ResponseDto {
-
     private String userEmailId;
     private String nickname;
     private String userName;
@@ -24,14 +23,14 @@ public class GetMyInfoResponseDto extends ResponseDto {
 
     private GetMyInfoResponseDto(UserEntity userEntity) {
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
-        this.userEmailId = userEntity.getUserEmailId();
-        this.nickname = userEntity.getNickname();
-        this.userName = userEntity.getUserName();
-        this.userTelNumber = userEntity.getUserTelNumber();
-        this.userAddress = userEntity.getUserAddress();
-        this.businessRegistrationNumber = userEntity.getBusinessRegistrationNumber();
-        this.userRole = userEntity.getUserRole();
-        this.joinPath = userEntity.getJoinPath();
+        this.userEmailId=userEntity.getUserEmailId();
+        this.nickname=userEntity.getNickname();
+        this.userName=userEntity.getUserName();
+        this.userTelNumber=userEntity.getUserTelNumber();
+        this.userAddress=userEntity.getUserAddress();
+        this.businessRegistrationNumber=userEntity.getBusinessRegistrationNumber();
+        this.userRole=userEntity.getUserRole();
+        this.joinPath=userEntity.getJoinPath();
     }
 
     public static ResponseEntity<GetMyInfoResponseDto> success(UserEntity userEntity) {

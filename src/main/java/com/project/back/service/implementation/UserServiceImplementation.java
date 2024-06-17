@@ -76,17 +76,13 @@ public class UserServiceImplementation implements UserService {
 
       String userRole = userEntity.getUserRole();
 
-      if("ROLE_CEO".equals(userRole))
-      {
-          restaurantRepository.delete(restaurantEntity);
+      if ("ROLE_CEO".equals(userRole)) {
+        restaurantRepository.delete(restaurantEntity);
+      } else {
+        favoriteRestaurantRepository.deleteByFavoriteUserId(userEmailId);
+        reservationRepository.deleteByReservationUserId(userEmailId);
+        reviewRepository.deleteByReviewWriterId(userEmailId);
       }
-      else
-      {
-          favoriteRestaurantRepository.deleteByFavoriteUserId(userEmailId);
-          reservationRepository.deleteByReservationUserId(userEmailId);
-          reviewRepository.deleteByReviewWriterId(userEmailId);
-      }
-
       userRepository.delete(userEntity);
     } catch (Exception exception) {
       exception.printStackTrace();
@@ -99,17 +95,13 @@ public class UserServiceImplementation implements UserService {
   public ResponseEntity<? super GetMyInfoResponseDto> getMyInfo(String userEmailId) {
     UserEntity userEntity = null;
 
-        try {
-
-            userEntity = userRepository.findByUserEmailId(userEmailId);
-            if(userEntity == null) return ResponseDto.authenticationFailed();
-
-        } catch (Exception exception) {
-            exception.printStackTrace();
-            return ResponseDto.databaseError();
-        }
-
-        return GetMyInfoResponseDto.success(userEntity);
+      try {
+        userEntity = userRepository.findByUserEmailId(userEmailId);
+        if(userEntity == null) return ResponseDto.authenticationFailed();
+      } catch (Exception exception) {
+        exception.printStackTrace();
+        return ResponseDto.databaseError();
+      }
+      return GetMyInfoResponseDto.success(userEntity);
   }
-
 }

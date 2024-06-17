@@ -11,6 +11,6 @@ import lombok.Setter;
 @NoArgsConstructor
 public class NewPasswordRequestDto {
     @NotBlank
-    @Pattern(regexp = "^(?=.*[a-zA-Z])(?=.*[0-9]).{8,13}$")
+    @Pattern(regexp="^(?=.*[a-zA-Z])(?=.*[0-9]).{8,13}$")
     private String password;
 }

@@ -81,8 +81,7 @@ public class NoticeBoardServiceImplementation implements NoticeBoardService {
     }
 
     @Override
-    public ResponseEntity<ResponseDto> patchNoticeBoard(PatchNoticeBoardRequestDto dto, int noticeNumber,
-            String userEmailId) {
+    public ResponseEntity<ResponseDto> patchNoticeBoard(PatchNoticeBoardRequestDto dto, int noticeNumber, String userEmailId) {
         try {
             NoticeBoardEntity noticeBoardEntity = noticeBoardRepository.findByNoticeNumber(noticeNumber);
             if (noticeBoardEntity == null) return ResponseDto.noExistNoticeBoard();

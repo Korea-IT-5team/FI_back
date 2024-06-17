@@ -55,9 +55,8 @@ public class UserController {
   @GetMapping("/information")
     public ResponseEntity<? super GetMyInfoResponseDto> getMyInfo (
         @AuthenticationPrincipal String userId
-    ){
+    ) {
         ResponseEntity<? super GetMyInfoResponseDto> response = userService.getMyInfo(userId);
         return response;
     }
 }
-
