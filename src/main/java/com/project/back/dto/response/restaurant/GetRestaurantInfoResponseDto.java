@@ -20,7 +20,6 @@ public class GetRestaurantInfoResponseDto extends ResponseDto {
     private String restaurantImage;
     private String restaurantName;
     private String restaurantFoodCategory;
-    private String restaurantPostalCode;
     private String restaurantLocation;
     private String restaurantTelNumber;
     private String restaurantSnsAddress;
@@ -39,7 +38,6 @@ public class GetRestaurantInfoResponseDto extends ResponseDto {
         this.restaurantImage = restaurantEntity.getRestaurantImage();
         this.restaurantName = restaurantEntity.getRestaurantName();
         this.restaurantFoodCategory = restaurantEntity.getRestaurantFoodCategory();
-        this.restaurantPostalCode = restaurantEntity.getRestaurantPostalCode();
         this.restaurantLocation = restaurantEntity.getRestaurantLocation();
         this.restaurantTelNumber = restaurantEntity.getRestaurantTelNumber();
         this.restaurantSnsAddress = restaurantEntity.getRestaurantSnsAddress();
