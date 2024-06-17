@@ -33,9 +33,7 @@ public class ReservationEntity {
     private String reservationRestaurantLocation;
     private String reservationUserTelNumber;
 
-    public ReservationEntity(PostReservationRequestDto dto, 
-    String userEmailId, int restaurantId, UserEntity userEntity, RestaurantEntity restaurantEntity)
-    {
+    public ReservationEntity(PostReservationRequestDto dto, String userEmailId, int restaurantId, UserEntity userEntity, RestaurantEntity restaurantEntity) {
         this.reservationStatus = true;
         this.reservationUserId = userEmailId;
         this.reservationUserName = userEntity.getUserName();

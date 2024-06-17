@@ -98,7 +98,7 @@ public class AuthController {
 
   @PostMapping("/password-reset")
   public ResponseEntity<ResponseDto> passwordReset (
-      @RequestBody @Valid PasswordResetRequestDto requestBody
+    @RequestBody @Valid PasswordResetRequestDto requestBody
   ) {
       ResponseEntity<ResponseDto> response = authService.passwordReset(requestBody);
       return response;
@@ -112,5 +112,4 @@ public class AuthController {
     ResponseEntity<ResponseDto> response = authService.newPassword(requestBody, userEmailId);
     return response;
   }
-
 }

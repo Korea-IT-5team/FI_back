@@ -51,8 +51,7 @@ public class ReviewEntity {
         this.reviewRestaurantName = restaurantEntity.getRestaurantName();
     }
 
-    public void updateReview(PatchReviewRequestDto dto){
-        
+    public void updateReview(PatchReviewRequestDto dto) {
         this.rating = dto.getRating();
         this.reviewContents = dto.getReviewContents();
         this.reviewImage = dto.getReviewImage();

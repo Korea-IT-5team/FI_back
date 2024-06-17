@@ -25,7 +25,6 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class InquiryBoardServiceImplementation implements InquiryBoardService {
-  
   private final InquiryBoardRepository inquiryBoardRepository;
   private final UserRepository userRepository;
 

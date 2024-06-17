@@ -19,7 +19,7 @@ public class GetReviewListResponseDto extends ResponseDto {
 
     private GetReviewListResponseDto(List<GetRestaurantReviewListItemResultSet> reviewEntities) throws Exception {
         super(ResponseCode.SUCCESS,ResponseMessage.SUCCESS);
-        this.restaurantReviewList = RestaurantReviewListItem.getList(reviewEntities);
+        this.restaurantReviewList=RestaurantReviewListItem.getList(reviewEntities);
     }
 
     public static ResponseEntity<GetReviewListResponseDto> success(List<GetRestaurantReviewListItemResultSet> getRestaurantReviewListItemResultSets) throws Exception {
