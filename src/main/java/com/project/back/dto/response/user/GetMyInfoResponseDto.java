@@ -12,12 +12,13 @@ import lombok.Getter;
 
 @Getter
 public class GetMyInfoResponseDto extends ResponseDto {
-  
+
     private String userEmailId;
     private String nickname;
     private String userName;
     private String userTelNumber;
     private String userAddress;
+    private String businessRegistrationNumber;
     private String userRole;
     private String joinPath;
 
@@ -28,6 +29,7 @@ public class GetMyInfoResponseDto extends ResponseDto {
         this.userName = userEntity.getUserName();
         this.userTelNumber = userEntity.getUserTelNumber();
         this.userAddress = userEntity.getUserAddress();
+        this.businessRegistrationNumber = userEntity.getBusinessRegistrationNumber();
         this.userRole = userEntity.getUserRole();
         this.joinPath = userEntity.getJoinPath();
     }

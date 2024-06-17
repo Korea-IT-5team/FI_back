@@ -30,7 +30,7 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
         String userId = oAuth2User.getName();
 
         String token = jwtProvider.create(userId);
-        response.sendRedirect("http://localhost:9000/sns/" + token + "/3600");
+        response.sendRedirect("http://localhost:9000/sns/" + token + "/36000");
       }
       // 회원가입이 되지 않은 상태일 때
       else {
