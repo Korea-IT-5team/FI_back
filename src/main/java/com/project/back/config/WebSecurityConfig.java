@@ -67,6 +67,7 @@ public class WebSecurityConfig {
 
       return httpSecurity.build();
   }
+  
   // Cors 정책 설정
   @Bean
   protected CorsConfigurationSource corsConfigurationSource() {
@@ -80,7 +81,6 @@ public class WebSecurityConfig {
 
     return source;
   }
-  
 }
 class AuthorizationFailEntryPoint implements AuthenticationEntryPoint{
 
@@ -94,5 +94,4 @@ class AuthorizationFailEntryPoint implements AuthenticationEntryPoint{
     response.setStatus(HttpServletResponse.SC_FORBIDDEN);
     response.getWriter().write("{ \"code\": \"AF\", \"message\": \"Authorization Failed\" }");
   }
-  
 }

@@ -18,9 +18,9 @@ public class GetUserInfoResponseDto extends ResponseDto {
     
     private GetUserInfoResponseDto(UserEntity userEntity) {
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
-        this.userEmailId = userEntity.getUserEmailId();
-        this.userRole = userEntity.getUserRole();
-        this.business_registration_number = userEntity.getBusinessRegistrationNumber();
+        this.userEmailId=userEntity.getUserEmailId();
+        this.userRole=userEntity.getUserRole();
+        this.business_registration_number=userEntity.getBusinessRegistrationNumber();
     }
 
     public static ResponseEntity<GetUserInfoResponseDto> success(UserEntity userEntity) {

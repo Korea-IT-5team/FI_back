@@ -29,26 +29,19 @@ public class RestaurantReservationListItem {
         this.reservationUserName = reservationEntity.getReservationUserName();
         this.reservationRestaurantLocation = reservationEntity.getReservationRestaurantLocation();
 
-        try
-        {
+        try {
             writeDate = ChangeDateFormatUtil.changeYYMMDD(reservationEntity.getReservationDate());
             this.reservationDate = writeDate;
-        }
-        catch(Exception exception)
-        {
+        } catch(Exception exception) {
             this.reservationDate = reservationEntity.getReservationDate();
         }
 
-        try
-        {
+        try {
             writeDate = ChangeDateFormatUtil.changeHHmm(reservationEntity.getReservationTime());
             this.reservationTime = writeDate;
-        }
-        catch(Exception exception)
-        {
+        } catch(Exception exception) {
             this.reservationTime = reservationEntity.getReservationTime();
         }
-
         this.reservationPeople = reservationEntity.getReservationPeople();
     }
 

@@ -8,6 +8,7 @@ import com.project.back.dto.request.restaurant.reservation.PostReservationReques
 import com.project.back.dto.request.restaurant.review.PatchReviewRequestDto;
 import com.project.back.dto.request.restaurant.review.PostReviewRequestDto;
 import com.project.back.dto.response.ResponseDto;
+import com.project.back.dto.response.restaurant.GetRestaurantIdResponseDto;
 import com.project.back.dto.response.restaurant.GetRestaurantInfoResponseDto;
 import com.project.back.dto.response.restaurant.GetRestaurantListResponseDto;
 import com.project.back.dto.response.restaurant.favorite.GetFavoriteCheckResponseDto;
@@ -40,4 +41,5 @@ public interface RestaurantService {
     ResponseEntity<ResponseDto> deleteFavorite(String userEmailId,int restaurantId);
     ResponseEntity<? super GetFavoriteCheckResponseDto> getFavoriteCheck(String userEmailId, int restaurantId);
     ResponseEntity<? super GetFavoriteRestaurantListResponseDto> getFavoriteList(String userEmailId);
+    ResponseEntity<? super GetRestaurantIdResponseDto>getRestaurantId(String userEmailId);
 }

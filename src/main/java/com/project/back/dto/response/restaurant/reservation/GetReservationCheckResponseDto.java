@@ -11,8 +11,7 @@ import com.project.back.entity.ReservationEntity;
 import lombok.Getter;
 
 @Getter
-public class GetReservationCheckResponseDto extends ResponseDto
-{
+public class GetReservationCheckResponseDto extends ResponseDto {
     private String reservationUserId; 
     private Integer reservationRestaurantId;
 

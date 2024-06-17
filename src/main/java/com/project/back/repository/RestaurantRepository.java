@@ -15,7 +15,6 @@ public interface RestaurantRepository extends JpaRepository<RestaurantEntity,Int
     Object restaurantEntity = null;
     RestaurantEntity getRestaurantIdByRestaurantWriterId(String restaurantWriterId);
 
-    
     List<RestaurantEntity> findByRestaurantNameContainingOrderByRestaurantIdDesc(String searchWord);
  
     RestaurantEntity findByRestaurantWriterId(String restaurantWriterId);
@@ -24,9 +23,7 @@ public interface RestaurantRepository extends JpaRepository<RestaurantEntity,Int
 
     boolean existsByRestaurantWriterId(String restaurantWriterId);
     boolean existsByRestaurantId(Integer restaurantId);
-
     
-
     @Query(value=
         "SELECT "
             + "r.restaurant_id as restaurantId, "
