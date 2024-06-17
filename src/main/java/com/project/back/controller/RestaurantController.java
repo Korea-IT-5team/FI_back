@@ -18,6 +18,7 @@ import com.project.back.dto.request.restaurant.reservation.PostReservationReques
 import com.project.back.dto.request.restaurant.review.PatchReviewRequestDto;
 import com.project.back.dto.request.restaurant.review.PostReviewRequestDto;
 import com.project.back.dto.response.ResponseDto;
+import com.project.back.dto.response.restaurant.GetRestaurantIdResponseDto;
 import com.project.back.dto.response.restaurant.GetRestaurantInfoResponseDto;
 import com.project.back.dto.response.restaurant.GetRestaurantListResponseDto;
 import com.project.back.dto.response.restaurant.favorite.GetFavoriteCheckResponseDto;
@@ -59,6 +60,14 @@ public class RestaurantController {
         @AuthenticationPrincipal String userEmailId 
     ) {
         ResponseEntity<ResponseDto> response = restaurantService.postRestaurantInfo(requestBody, userEmailId);
+        return response;
+    };
+
+    @GetMapping("/restaurantid")
+    public ResponseEntity<? super GetRestaurantIdResponseDto> getRestaurantId (
+        @AuthenticationPrincipal String userEmailId 
+    ){
+        ResponseEntity<? super GetRestaurantIdResponseDto> response = restaurantService.getRestaurantId(userEmailId);
         return response;
     }
     

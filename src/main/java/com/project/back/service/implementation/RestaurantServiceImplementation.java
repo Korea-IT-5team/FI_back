@@ -11,6 +11,7 @@ import com.project.back.dto.request.restaurant.reservation.PostReservationReques
 import com.project.back.dto.request.restaurant.review.PatchReviewRequestDto;
 import com.project.back.dto.request.restaurant.review.PostReviewRequestDto;
 import com.project.back.dto.response.ResponseDto;
+import com.project.back.dto.response.restaurant.GetRestaurantIdResponseDto;
 import com.project.back.dto.response.restaurant.GetRestaurantInfoResponseDto;
 import com.project.back.dto.response.restaurant.GetRestaurantListResponseDto;
 import com.project.back.dto.response.restaurant.favorite.GetFavoriteCheckResponseDto;
@@ -63,9 +64,20 @@ public class RestaurantServiceImplementation implements RestaurantService {
             RestaurantEntity restaurantEntity = restaurantRepository.findByRestaurantId(restaurantId);
             List<GetRestaurantReviewListItemResultSet> reviewEntities = reviewRepository.findReviewsByRestaurantId(restaurantId);
             if (restaurantEntity == null) return ResponseDto.noExistRestaurant();
-
             return GetRestaurantInfoResponseDto.success(restaurantEntity, reviewEntities);
         } catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+    }
+
+    @Override
+    public ResponseEntity<? super GetRestaurantIdResponseDto> getRestaurantId(String userEmailId) {
+        try{
+            RestaurantEntity restaurantEntity = restaurantRepository.findByRestaurantWriterId(userEmailId);
+            if (restaurantEntity == null) return ResponseDto.authorizationFailed();
+            return GetRestaurantIdResponseDto.success(restaurantEntity);
+        }catch(Exception exception) {
             exception.printStackTrace();
             return ResponseDto.databaseError();
         }
