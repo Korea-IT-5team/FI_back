@@ -29,6 +29,8 @@ public class GetRestaurantInfoResponseDto extends ResponseDto {
     private String restaurantRepresentativeMenu;
     private String restaurantBusinessRegistrationNumber;
     private String restaurantWriterId;
+    private double restaurantLat;
+    private double restaurantLng;
     private List<RestaurantReviewListItem> restaurantReviewList;
 
     private GetRestaurantInfoResponseDto(RestaurantEntity restaurantEntity, List<GetRestaurantReviewListItemResultSet> reviewEntities) throws Exception {
@@ -46,6 +48,8 @@ public class GetRestaurantInfoResponseDto extends ResponseDto {
         this.restaurantRepresentativeMenu=restaurantEntity.getRestaurantRepresentativeMenu();
         this.restaurantBusinessRegistrationNumber=restaurantEntity.getRestaurantBusinessRegistrationNumber();
         this.restaurantWriterId=restaurantEntity.getRestaurantWriterId();
+        this.restaurantLat=restaurantEntity.getRestaurantLat();
+        this.restaurantLng=restaurantEntity.getRestaurantLng();
         this.restaurantReviewList=RestaurantReviewListItem.getList(reviewEntities);
     }
 

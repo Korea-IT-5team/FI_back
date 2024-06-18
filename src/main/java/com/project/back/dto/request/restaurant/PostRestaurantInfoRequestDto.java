@@ -1,6 +1,7 @@
 package com.project.back.dto.request.restaurant;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -23,4 +24,8 @@ public class PostRestaurantInfoRequestDto {
     private String restaurantFeatures;
     private String restaurantNotice;
     private String restaurantRepresentativeMenu;
+    @NotNull
+    private double restaurantLat;
+    @NotNull
+    private double restaurantLng;
 }
