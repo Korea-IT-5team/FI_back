@@ -16,7 +16,7 @@ public interface InquiryBoardRepository extends JpaRepository<InquiryBoardEntity
     InquiryBoardEntity findByInquiryNumber(Integer inquiryNumber);
 
     @Query(value=
-    "SELECT ib.inquiry_number inquiryNumber, ib.inquiry_status inquiryStatus, ib.inquiry_public inquiryPublic, ib.inquiry_title inquiryTitle, u.nickname inquiryWriterNickname, ib.inquiry_write_datetime inquiryWriteDatetime " +
+    "SELECT ib.inquiry_number inquiryNumber, ib.status status, ib.inquiry_public inquiryPublic, ib.inquiry_title inquiryTitle, u.nickname inquiryWriterNickname, ib.inquiry_write_datetime inquiryWriteDatetime, ib.inquiry_writer_id inquiryWriterId " +
     "FROM inquiry_board ib LEFT JOIN user u ON ib.inquiry_writer_id = u.user_email_id " +
     "ORDER BY ib.inquiry_number DESC",
     nativeQuery=true
@@ -24,24 +24,21 @@ public interface InquiryBoardRepository extends JpaRepository<InquiryBoardEntity
     List<GetInquiryBoardListResultSet> getInquiryBoardList();
 
     @Query(value=
-    "SELECT ib.inquiry_number inquiryNumber, ib.inquiry_status inquiryStatus, ib.inquiry_public inquiryPublic, ib.inquiry_title inquiryTitle, u.nickname inquiryWriterNickname, ib.inquiry_write_datetime inquiryWriteDatetime " +
+    "SELECT ib.inquiry_number inquiryNumber, ib.status status, ib.inquiry_public inquiryPublic, ib.inquiry_title inquiryTitle, u.nickname inquiryWriterNickname, ib.inquiry_write_datetime inquiryWriteDatetime " +
     "FROM inquiry_board ib LEFT JOIN user u ON ib.inquiry_writer_id = u.user_email_id " +
-    "WHERE ib.inquiry_title LIKE '%:title%' " +
+    "WHERE ib.inquiry_title LIKE %:title% " +
     "ORDER BY ib.inquiry_number DESC",
     nativeQuery=true
     )
     List<GetInquiryBoardListResultSet> getInquirySearchBoardList(@Param("title") String title);
 
     @Query(value=
-    "SELECT ib.inquiry_number inquiryNumber, ib.inquiry_status inquiryStatus, ib.inquiry_public inquiryPublic, ib.inquiry_title inquiryTitle, u.nickname inquiryWriterNickname, ib.inquiry_write_datetime inquiryWriteDatetime " +
+    "SELECT ib.inquiry_number inquiryNumber, ib.status status, ib.inquiry_public inquiryPublic, ib.inquiry_title inquiryTitle, u.nickname inquiryWriterNickname, ib.inquiry_write_datetime inquiryWriteDatetime ib.inquiry_writer_id inquiryWriterId " +
     "FROM inquiry_board ib LEFT JOIN user u ON ib.inquiry_writer_id = u.user_email_id " +
     "WHERE ib.inquiry_writer_id = ':userEmailId' " +
     "ORDER BY ib.inquiry_number DESC",
     nativeQuery=true
     )
     List<GetInquiryBoardListResultSet> getInquiryUserBoardList(@Param("userEmailId") String userEmailId);
-
-    // List<InquiryBoardEntity> findByTitleContainsOrderByInquiryNumberDesc (String inquiryTitle);
-   
 } 
     

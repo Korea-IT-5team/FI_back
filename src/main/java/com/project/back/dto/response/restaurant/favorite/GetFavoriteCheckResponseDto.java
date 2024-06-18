@@ -13,8 +13,7 @@ import com.project.back.entity.FavoriteRestaurantEntity;
 import lombok.Getter;
 
 @Getter
-public class GetFavoriteCheckResponseDto extends ResponseDto
-{
+public class GetFavoriteCheckResponseDto extends ResponseDto {
     private String favoriteUserId; 
     private Integer favoriteRestaurantId;
 

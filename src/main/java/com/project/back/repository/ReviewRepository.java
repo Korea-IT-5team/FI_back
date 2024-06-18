@@ -15,38 +15,42 @@ import com.project.back.repository.resultSet.GetRestaurantReviewListItemResultSe
 public interface ReviewRepository extends JpaRepository<ReviewEntity,Integer> {
     @Query(
         value=
-        "SELECT "
-            + "r.review_number as reviewNumber, "
-            + "r.review_restaurant_id as reviewRestaurantId, "
-            + "r.review_image as reviewImage, "
-            + "r.rating, "
-            + "r.review_contents as reviewContents, "
-            + "r.review_date as reviewDate, "
-            + "r.review_writer_nickname as reviewWriterNickname "
-        + "FROM review r LEFT JOIN user u ON r.review_writer_id = u.user_email_id "
-        + "WHERE r.review_restaurant_id = :restaurantId",
+        "SELECT " +
+            "r.review_number as reviewNumber, " + 
+            "r.review_restaurant_id as reviewRestaurantId, " +
+            "r.review_image as reviewImage, " +
+            "r.rating, " +
+            "r.review_contents as reviewContents, " +
+            "r.review_date as reviewDate, " +
+            "r.review_writer_nickname as reviewWriterNickname " +
+        "FROM review r LEFT JOIN user u ON r.review_writer_id = u.user_email_id " +
+        "WHERE r.review_restaurant_id = :restaurantId " +
+        "ORDER BY r.review_number DESC",
         nativeQuery = true
     )
     List<GetRestaurantReviewListItemResultSet> findReviewsByRestaurantId(@Param("restaurantId") int restaurantId);
+
     ReviewEntity findByReviewNumber(int reviewNumber);
     List<FavoriteRestaurantEntity> findByOrderByReviewRestaurantIdDesc();
     
     @Query(
         value=
-        "SELECT "
-            + "r.review_number as reviewNumber, "
-            + "r.review_restaurant_id as reviewRestaurantId, "
-            + "r.review_image as reviewImage, "
-            + "r.rating, "
-            + "r.review_contents as reviewContents, "
-            + "r.review_date as reviewDate, "
-            + "r.review_writer_nickname as reviewWriterNickname "
-        + "FROM review r "
-        + "WHERE review_writer_id = :userEmailId",
+        "SELECT " +
+            "r.review_number as reviewNumber, " +
+            "r.review_restaurant_id as reviewRestaurantId, " +
+            "r.review_image as reviewImage, " +
+            "r.rating, " +
+            "r.review_contents as reviewContents, " +
+            "r.review_date as reviewDate, " +
+            "r.review_writer_nickname as reviewWriterNickname, " +
+            "r.review_restaurant_name as reviewRestaurantName " +
+        "FROM review r " +
+        "WHERE review_writer_id = :userEmailId " +
+        "ORDER BY r.review_number DESC", 
         nativeQuery=true
     )
     List<GetRestaurantReviewListItemResultSet> findByOrderByMyReviewListDesc(@Param("userEmailId") String reviewWriterId);
 
     boolean existsByReviewWriterIdAndReviewRestaurantId(String userEmailId, int restaurantId);
-    
+    void deleteByReviewWriterId(String userEmailId);
 }

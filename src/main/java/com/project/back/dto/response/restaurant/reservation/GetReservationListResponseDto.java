@@ -14,12 +14,12 @@ import com.project.back.entity.ReservationEntity;
 import lombok.Getter;
 
 @Getter
-public class GetReservationListResponseDto extends ResponseDto{
+public class GetReservationListResponseDto extends ResponseDto {
     private List<RestaurantReservationListItem> restaurantReservationList;
     
     private GetReservationListResponseDto(List<ReservationEntity> reservationEntities) throws Exception {
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
-        this.restaurantReservationList = RestaurantReservationListItem.getList(reservationEntities);
+        this.restaurantReservationList=RestaurantReservationListItem.getList(reservationEntities);
     }
 
     public static ResponseEntity<GetReservationListResponseDto> success(List<ReservationEntity> reservationEntities)

@@ -25,7 +25,6 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class InquiryBoardServiceImplementation implements InquiryBoardService {
-  
   private final InquiryBoardRepository inquiryBoardRepository;
   private final UserRepository userRepository;
 
@@ -50,11 +49,11 @@ public class InquiryBoardServiceImplementation implements InquiryBoardService {
       InquiryBoardEntity inquiryBoardEntity = inquiryBoardRepository.findByInquiryNumber(inquiryNumber);
       if (inquiryBoardEntity == null) return ResponseDto.noExistInquiryBoard();
 
-      boolean status = inquiryBoardEntity.getInquiryStatus();
+      boolean status = inquiryBoardEntity.getStatus();
       if (status) return ResponseDto.writtenComment();
 
       String comment = dto.getInquiryComment();
-      inquiryBoardEntity.setInquiryStatus(true);
+      inquiryBoardEntity.setStatus(true);
       inquiryBoardEntity.setInquiryComment(comment);
 
       inquiryBoardRepository.save(inquiryBoardEntity);
@@ -64,6 +63,8 @@ public class InquiryBoardServiceImplementation implements InquiryBoardService {
     }
     return ResponseDto.success();
   }
+
+  
 
   @Override
   public ResponseEntity<? super GetInquiryBoardListResponseDto> getInquiryBoardList() {
@@ -115,7 +116,6 @@ public class InquiryBoardServiceImplementation implements InquiryBoardService {
     }
   }
 
-  // 게시판 수정하기
   @Override
   public ResponseEntity<ResponseDto> patchInquiryBoard(PatchInquiryBoardRequestDto dto, int inquiryNumber, String userEmailId) {
     try {
@@ -126,7 +126,7 @@ public class InquiryBoardServiceImplementation implements InquiryBoardService {
       boolean isWriter = userEmailId.equals(writerId);
       if (!isWriter) return ResponseDto.authorizationFailed();
 
-      boolean status = inquiryBoardEntity.getInquiryStatus();
+      boolean status = inquiryBoardEntity.getStatus();
       if (status) return ResponseDto.writtenComment();
 
       inquiryBoardEntity.update(dto);

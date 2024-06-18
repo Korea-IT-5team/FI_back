@@ -58,11 +58,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
       List<GrantedAuthority> authorities = new ArrayList<>();
       authorities.add(new SimpleGrantedAuthority(role));
 
-      AbstractAuthenticationToken authenticatoinToken = new UsernamePasswordAuthenticationToken(userEmailId, null, authorities);
-      authenticatoinToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+      AbstractAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userEmailId, null, authorities);
+      authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
       SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
-      securityContext.setAuthentication(authenticatoinToken);
+      securityContext.setAuthentication(authenticationToken);
 
       SecurityContextHolder.setContext(securityContext);
     } catch (Exception exception) {
@@ -70,6 +70,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     }
     filterChain.doFilter(request, response);
   }
+  
   private String parseBearerToken(HttpServletRequest request) {
     String authorization = request.getHeader("Authorization");
     boolean hasAuthorization = StringUtils.hasText(authorization);

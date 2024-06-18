@@ -7,6 +7,7 @@ import com.project.back.entity.RestaurantEntity;
 import com.project.back.repository.resultSet.GetRestaurantFavoriteItemResultSet;
 
 import lombok.Getter;
+
 @Getter
 public class RestaurantListItem {
     private Integer restaurantId;

@@ -49,7 +49,7 @@ public class WebSecurityConfig {
       .cors(cors -> cors.configurationSource(corsConfigurationSource())
       )
       .authorizeHttpRequests(request -> request
-        .requestMatchers("/", "/api/v1/auth/**", "/api/v1/user/**", "/api/v1/auth/password-update/**", "/oauth2/callback/*", "/sms-auth/send-sms/*", "/api/v1/inquiry-board/**", "/api/v1/restaurant/search", "/api/v1/restaurant/{restaurantId}").permitAll()
+        .requestMatchers("/", "/api/v1/auth/**", "/api/v1/user/**", "/api/v1/auth/password-update/**", "/oauth2/callback/*", "/sms-auth/send-sms/*", "/api/v1/inquiry-board/**","/api/v1/notice-board/**", "/api/v1/restaurant/search", "/api/v1/restaurant/{restaurantId}").permitAll()
         .requestMatchers(HttpMethod.POST, "/api/v1/restaurant/review", "/api/v1/inquiry-board/*").hasRole("USER")
         .requestMatchers(HttpMethod.POST, "/api/v1/inquiry-board/*/comment", "/api/v1/notice-board/").hasRole("ADMIN")
         .anyRequest().authenticated()
@@ -67,6 +67,7 @@ public class WebSecurityConfig {
 
       return httpSecurity.build();
   }
+  
   // Cors 정책 설정
   @Bean
   protected CorsConfigurationSource corsConfigurationSource() {
@@ -80,7 +81,6 @@ public class WebSecurityConfig {
 
     return source;
   }
-  
 }
 class AuthorizationFailEntryPoint implements AuthenticationEntryPoint{
 
@@ -94,5 +94,4 @@ class AuthorizationFailEntryPoint implements AuthenticationEntryPoint{
     response.setStatus(HttpServletResponse.SC_FORBIDDEN);
     response.getWriter().write("{ \"code\": \"AF\", \"message\": \"Authorization Failed\" }");
   }
-  
 }

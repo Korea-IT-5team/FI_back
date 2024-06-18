@@ -27,11 +27,9 @@ public class OAuth2UserServiceImplementation extends DefaultOAuth2UserService {
     String snsId = getId(oAuth2User, oauthClientName);
     UserEntity userEntity = userRepository.findBySnsId(snsId);
   
-    // 회원가입이 되어 있지 않은 유저 일때
     if (userEntity == null) {
       return new CustomOAuth2User(snsId, oAuth2User.getAttributes(), false, oauthClientName);
     }
-    // 회원가입이 되어 있는 유저 일때
     else {
       return new CustomOAuth2User(userEntity.getUserEmailId(), oAuth2User.getAttributes(), true, oauthClientName);
     }

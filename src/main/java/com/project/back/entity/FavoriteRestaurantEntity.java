@@ -17,7 +17,6 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class FavoriteRestaurantEntity {
-   
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer favoriteNumber;

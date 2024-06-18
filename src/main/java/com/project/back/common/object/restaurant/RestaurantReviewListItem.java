@@ -17,6 +17,7 @@ public class RestaurantReviewListItem {
     private String reviewContents;
     private String reviewWriterNickname;
     private String reviewDate;
+    private String reviewRestaurantName;
 
     private RestaurantReviewListItem(GetRestaurantReviewListItemResultSet getRestaurantReviewListItemResultSet) throws Exception {
         this.reviewNumber = getRestaurantReviewListItemResultSet.getReviewNumber();
@@ -25,9 +26,9 @@ public class RestaurantReviewListItem {
         this.rating = getRestaurantReviewListItemResultSet.getRating();
         this.reviewContents = getRestaurantReviewListItemResultSet.getReviewContents();
         this.reviewWriterNickname = getRestaurantReviewListItemResultSet.getReviewWriterNickname(); 
+        this.reviewRestaurantName = getRestaurantReviewListItemResultSet.getReviewRestaurantName();
 
-        if(getRestaurantReviewListItemResultSet.getReviewDate()!=null)
-        {
+        if(getRestaurantReviewListItemResultSet.getReviewDate()!=null) {
             String writeDatetime = ChangeDateFormatUtil.changeYYMMDD(getRestaurantReviewListItemResultSet.getReviewDate());
             this.reviewDate = writeDatetime;
         }

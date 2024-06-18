@@ -97,25 +97,14 @@ public class AuthController {
     return response;
   }
 
-  // 비밀번호 재설정 (이메일, 전화번호 확인)
   @PostMapping("/password-reset")
   public ResponseEntity<ResponseDto> passwordReset (
-      @RequestBody @Valid PasswordResetRequestDto requestBody
+    @RequestBody @Valid PasswordResetRequestDto requestBody
   ) {
       ResponseEntity<ResponseDto> response = authService.passwordReset(requestBody);
       return response;
   }
 
-  // 비밀번호 재설정 요청은 어려워서 잠시 보류 
-  // @PostMapping("/password-recheck")
-  // public ResponseEntity<ResponseDto> passwordReCheck (
-  //   @RequestBody @Valid PasswordRecheckRequestDto requestBody
-  // ) {
-  //   ResponseEntity<ResponseDto> response = authService.passwordReCheck(requestBody);
-  //   return response;
-  // }
-
-  // 새로운 비밀번호 업데이트 
   @PutMapping("/password-update/{userEmailId}")
   public ResponseEntity<ResponseDto> newPassword (
     @RequestBody @Valid NewPasswordRequestDto requestBody,
@@ -124,5 +113,4 @@ public class AuthController {
     ResponseEntity<ResponseDto> response = authService.newPassword(requestBody, userEmailId);
     return response;
   }
-
 }

@@ -1,7 +1,5 @@
 package com.project.back.entity;
 
-
-
 import com.project.back.dto.request.restaurant.reservation.PostReservationRequestDto;
 
 import jakarta.persistence.Entity;
@@ -35,19 +33,16 @@ public class ReservationEntity {
     private String reservationRestaurantLocation;
     private String reservationUserTelNumber;
 
-    public ReservationEntity(PostReservationRequestDto dto, 
-    String userEmailId, int restaurantId, String userName, String restaurantName
-    ,String restaurantLocation, String userTelNumber)
-    {
+    public ReservationEntity(PostReservationRequestDto dto, String userEmailId, int restaurantId, UserEntity userEntity, RestaurantEntity restaurantEntity) {
         this.reservationStatus = true;
         this.reservationUserId = userEmailId;
-        this.reservationUserName = userName;
+        this.reservationUserName = userEntity.getUserName();
         this.reservationRestaurantId = restaurantId;
-        this.reservationRestaurantName = restaurantName;
+        this.reservationRestaurantName = restaurantEntity.getRestaurantName();
         this.reservationDate = dto.getReservationDate();
         this.reservationTime = dto.getReservationTime();
         this.reservationPeople = dto.getReservationPeople();
-        this.reservationRestaurantLocation = restaurantLocation;
-        this.reservationUserTelNumber = userTelNumber;
+        this.reservationRestaurantLocation = restaurantEntity.getRestaurantLocation();
+        this.reservationUserTelNumber = userEntity.getUserTelNumber();
     }
 }

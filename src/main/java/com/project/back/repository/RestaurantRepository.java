@@ -15,17 +15,15 @@ public interface RestaurantRepository extends JpaRepository<RestaurantEntity,Int
     Object restaurantEntity = null;
     RestaurantEntity getRestaurantIdByRestaurantWriterId(String restaurantWriterId);
 
-    
     List<RestaurantEntity> findByRestaurantNameContainingOrderByRestaurantIdDesc(String searchWord);
  
-    
+    RestaurantEntity findByRestaurantWriterId(String restaurantWriterId);
     RestaurantEntity findByRestaurantId(Integer restaurantId);
+    RestaurantEntity findByRestaurantWriterIdAndRestaurantId(String userEmailId, Integer restaurantId);
 
     boolean existsByRestaurantWriterId(String restaurantWriterId);
     boolean existsByRestaurantId(Integer restaurantId);
-
     
-
     @Query(value=
         "SELECT "
             + "r.restaurant_id as restaurantId, "
@@ -36,7 +34,8 @@ public interface RestaurantRepository extends JpaRepository<RestaurantEntity,Int
         + "FROM restaurant r "
         + "WHERE restaurant_id "
         + "IN "
-        + "(SELECT favorite_restaurant_id FROM favorite_restaurant WHERE `favorite_user_id` = :userEmailId)",
+        + "(SELECT favorite_restaurant_id FROM favorite_restaurant WHERE `favorite_user_id` = :userEmailId)"
+        + "ORDER BY r.restaurant_id DESC", 
         nativeQuery=true
     )
     List<GetRestaurantFavoriteItemResultSet> getFavoriteList(@Param("userEmailId") String favoriteUserId);

@@ -25,7 +25,6 @@ public class RestaurantEntity {
     private Integer restaurantId; 
     private String restaurantName;
     private String restaurantFoodCategory;
-    private String restaurantPostalCode;
     private String restaurantLocation;
     private String restaurantTelNumber;
     private String restaurantSnsAddress;
@@ -36,11 +35,12 @@ public class RestaurantEntity {
     private String restaurantBusinessRegistrationNumber;
     private String restaurantImage;
     private String restaurantWriterId;
+    private double restaurantLat;
+    private double restaurantLng;
 
     public RestaurantEntity(PostRestaurantInfoRequestDto dto, String userEmailId, UserEntity userEntity) {
         this.restaurantName = dto.getRestaurantName();
         this.restaurantFoodCategory = dto.getRestaurantFoodCategory();
-        this.restaurantPostalCode = dto.getRestaurantPostalCode();
         this.restaurantLocation = dto.getRestaurantLocation();
         this.restaurantTelNumber = dto.getRestaurantTelNumber();
         this.restaurantSnsAddress = dto.getRestaurantSnsAddress();
@@ -51,12 +51,13 @@ public class RestaurantEntity {
         this.restaurantBusinessRegistrationNumber = userEntity.getBusinessRegistrationNumber();
         this.restaurantImage = dto.getRestaurantImage();
         this.restaurantWriterId = userEmailId;
+        this.restaurantLat = dto.getRestaurantLat();
+        this.restaurantLng = dto.getRestaurantLng();
     }
 
     public void updateRestaurantInfo(PatchRestaurantInfoRequestDto dto) {
         this.restaurantName = dto.getRestaurantName();
         this.restaurantFoodCategory = dto.getRestaurantFoodCategory();
-        this.restaurantPostalCode = dto.getRestaurantPostalCode();
         this.restaurantLocation = dto.getRestaurantLocation();
         this.restaurantTelNumber = dto.getRestaurantTelNumber();
         this.restaurantSnsAddress = dto.getRestaurantSnsAddress();
@@ -65,7 +66,7 @@ public class RestaurantEntity {
         this.restaurantNotice = dto.getRestaurantNotice();
         this.restaurantRepresentativeMenu = dto.getRestaurantRepresentativeMenu();
         this.restaurantImage = dto.getRestaurantImage();
+        this.restaurantLat = dto.getRestaurantLat();
+        this.restaurantLng = dto.getRestaurantLng();
     }
-
-
 }
