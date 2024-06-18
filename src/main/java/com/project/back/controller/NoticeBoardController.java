@@ -30,11 +30,10 @@ import lombok.RequiredArgsConstructor;
 public class NoticeBoardController {
     private final NoticeBoardService noticeBoardService;
 
-    // 공지 작성 (제목, 내용)
+    // 공지 작성
     @PostMapping("/")
     public ResponseEntity<ResponseDto> postNoticeBoard(
         @RequestBody @Valid PostNoticeBoardRequestDto requestBody,
-        // 이메일 가져오기
         @AuthenticationPrincipal String userEmailId
     ) {
         ResponseEntity<ResponseDto> response = noticeBoardService.postNoticeBoard(requestBody, userEmailId);
@@ -42,12 +41,12 @@ public class NoticeBoardController {
     }
 
     @GetMapping("list")
-    public ResponseEntity<? super GetNoticeBoardListResponseDto> getnoticeBoardList() {
+    public ResponseEntity<? super GetNoticeBoardListResponseDto> getNoticeBoardList() {
         ResponseEntity<? super GetNoticeBoardListResponseDto> response = noticeBoardService.getNoticeBoardList();
         return response;
     }
 
-    // 검색 
+    // 검색
     @GetMapping("/list/search")
   public ResponseEntity<? super GetSearchNoticeBoardResponseDto> getSearchNoticeBoardList(
     @RequestParam("searchWord") String searchWord
@@ -64,7 +63,8 @@ public class NoticeBoardController {
     return response;
   }
 
-  @PatchMapping("/{noticeNumber}")
+  // 수정
+  @PatchMapping("/update/{noticeNumber}")
   public ResponseEntity<ResponseDto> patchNoticeBoard(
     @RequestBody @Valid PatchNoticeBoardRequestDto requestBody,
     @PathVariable("noticeNumber") int noticeNumber,
@@ -74,8 +74,7 @@ public class NoticeBoardController {
     return response;
   }
 
-  
-  @PatchMapping("/{receptionNumber}/view-count")
+  @PatchMapping("/{noticeNumber}/increase-view-count")
   public ResponseEntity<ResponseDto> increaseViewCount (
       @PathVariable("noticeNumber") int noticeNumber
   ) {

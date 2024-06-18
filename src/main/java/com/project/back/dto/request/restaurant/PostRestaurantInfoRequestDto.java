@@ -19,17 +19,11 @@ public class PostRestaurantInfoRequestDto {
     private String restaurantPostalCode;
     @NotBlank
     private String restaurantLocation;
-    @NotBlank
-    private String restaurantBusinessRegistrationNumber;
     private String restaurantTelNumber;
     private String restaurantSnsAddress;
     private String restaurantOperationHours;
     private String restaurantFeatures;
     private String restaurantNotice;
     private String restaurantRepresentativeMenu;
-    private String restaurantWriterId;
-    private Double rating;
-    private String ReviewContents;
-    private String reviewImage;
-    
 }
+//#수정

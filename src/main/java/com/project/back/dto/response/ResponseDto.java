@@ -33,13 +33,13 @@ public class ResponseDto {
 
     // 응답: 실패 (중복된 닉네임)
     public static ResponseEntity<ResponseDto> duplicatedNickname() {
-        ResponseDto responseBody = new ResponseDto(ResponseCode.DUPLICATED_BUSINESS_REGISTRATION_NUMBER,ResponseMessage.DUPLICATED_BUSINESS_REGISTRATION_NUMBER);
+        ResponseDto responseBody = new ResponseDto(ResponseCode.DUPLICATED_NICKNAME,ResponseMessage.DUPLICATED_NICKNAME);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseBody);
     }
 
      // 응답: 실패 (중복된 사업자등록번호)
     public static ResponseEntity<ResponseDto> duplicatedBusinessRegistrationNumber() {
-        ResponseDto responseBody = new ResponseDto(ResponseCode.DUPLICATED_NICKNAME,ResponseMessage.DUPLICATED_NICKNAME);
+        ResponseDto responseBody = new ResponseDto(ResponseCode.DUPLICATED_BUSINESS_REGISTRATION_NUMBER,ResponseMessage.DUPLICATED_BUSINESS_REGISTRATION_NUMBER);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseBody);
     }
 

@@ -25,14 +25,13 @@ import lombok.Setter;
 @AllArgsConstructor
 public class InquiryBoardEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer inquiryNumber;
     private Boolean inquiryStatus;
     private Boolean inquiryPublic;
+    private String inquiryWriterId;
     private String inquiryTitle;
     private String inquiryContents;
-    private String inquiryWriterId;
-    private String inquiryWriterNickname;
     private String inquiryWriteDatetime;
     private String inquiryComment;
 
@@ -42,7 +41,7 @@ public class InquiryBoardEntity {
         String inquiryWriteDatetime = simpleDateFormat.format(now);
 
         this.inquiryStatus = false;
-        this.inquiryPublic = false;
+        this.inquiryPublic = dto.getIsInquiryPublic();
         this.inquiryTitle = dto.getInquiryTitle();
         this.inquiryContents = dto.getInquiryContents();
         this.inquiryWriterId = userEmailId;

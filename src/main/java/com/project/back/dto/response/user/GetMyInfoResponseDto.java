@@ -14,6 +14,7 @@ import lombok.Getter;
 public class GetMyInfoResponseDto extends ResponseDto {
   
     private String userEmailId;
+    // private String userPassword;
     private String nickname;
     private String userName;
     private String userTelNumber;

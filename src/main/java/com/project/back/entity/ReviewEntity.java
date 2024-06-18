@@ -4,7 +4,6 @@ import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.Date;
 
-import com.project.back.dto.request.restaurant.PostRestaurantInfoRequestDto;
 import com.project.back.dto.request.restaurant.review.PatchReviewRequestDto;
 import com.project.back.dto.request.restaurant.review.PostReviewRequestDto;
 
@@ -27,27 +26,27 @@ import lombok.Setter;
 @AllArgsConstructor
 public class ReviewEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer reviewNumber;
     private Integer reviewRestaurantId;
     private Double rating;
     private String reviewContents;
     private String reviewWriterId;
-    private String reviewWriterNickname;
     private String reviewDate;
     private String reviewImage;
+    private String reviewWriterNickname;
 
-    public ReviewEntity(PostReviewRequestDto dto, String userEmailId) {
+    public ReviewEntity(PostReviewRequestDto dto, String userEmailId, int restaurantId,String reviewWriterNickname) {
         Date now = Date.from(Instant.now());
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String reviewDate = simpleDateFormat.format(now);
-
         this.rating = dto.getRating();
         this.reviewContents = dto.getReviewContents();
         this.reviewWriterId = userEmailId;
         this.reviewDate = reviewDate;
         this.reviewImage = dto.getReviewImage();
-        
+        this.reviewRestaurantId = restaurantId;
+        this.reviewWriterNickname = reviewWriterNickname;
     }
 
     public void updateReview(PatchReviewRequestDto dto){
@@ -57,5 +56,3 @@ public class ReviewEntity {
         this.reviewImage = dto.getReviewImage();
     }
 }
-
-

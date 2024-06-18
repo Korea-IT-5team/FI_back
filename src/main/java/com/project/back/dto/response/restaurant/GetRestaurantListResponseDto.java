@@ -28,5 +28,3 @@ public class GetRestaurantListResponseDto extends ResponseDto {
         return ResponseEntity.status(HttpStatus.OK).body(responseBody);
     }
 }
-
-

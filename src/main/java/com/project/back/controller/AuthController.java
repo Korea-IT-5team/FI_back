@@ -1,3 +1,4 @@
+
 package com.project.back.controller;
 
 import org.springframework.http.ResponseEntity;
@@ -14,7 +15,6 @@ import com.project.back.dto.request.auth.CheckNicknameRequestDto;
 import com.project.back.dto.request.auth.CheckTelNumberAuthRequestDto;
 import com.project.back.dto.request.auth.FindEmailRequestDto;
 import com.project.back.dto.request.auth.NewPasswordRequestDto;
-import com.project.back.dto.request.auth.PasswordRecheckRequestDto;
 import com.project.back.dto.request.auth.PasswordResetRequestDto;
 import com.project.back.dto.request.auth.SignInRequestDto;
 import com.project.back.dto.request.auth.SignUpRequestDto;

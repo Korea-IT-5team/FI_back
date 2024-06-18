@@ -17,7 +17,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Entity(name="notice_board")
+@Entity(name="noticeBoard")
 @Table(name="notice_board")
 @Getter
 @Setter
@@ -25,14 +25,12 @@ import lombok.Setter;
 @AllArgsConstructor
 public class NoticeBoardEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer noticeNumber;
-    private String noticeTitle;
-    private String noticeContents;
-    // 작성자 아이디
     private String noticeWriterId;
-    // 작성자 닉네임
+    private String noticeTitle;
     private String noticeWriterNickname;
+    private String noticeContents;
     private String noticeWriteDatetime;
     private Integer noticeViewCount;
 

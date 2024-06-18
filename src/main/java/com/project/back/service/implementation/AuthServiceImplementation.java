@@ -4,8 +4,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
-import com.project.back.common.util.PasswordResetLinkCodeUtil;
 import com.project.back.common.util.TelNumberAuthNumberUtil;
 import com.project.back.dto.request.auth.CheckBusinessRegistrationRequestDto;
 import com.project.back.dto.request.auth.CheckEmailIdRequestDto;
@@ -13,7 +13,6 @@ import com.project.back.dto.request.auth.CheckNicknameRequestDto;
 import com.project.back.dto.request.auth.CheckTelNumberAuthRequestDto;
 import com.project.back.dto.request.auth.FindEmailRequestDto;
 import com.project.back.dto.request.auth.NewPasswordRequestDto;
-import com.project.back.dto.request.auth.PasswordRecheckRequestDto;
 import com.project.back.dto.request.auth.PasswordResetRequestDto;
 import com.project.back.dto.request.auth.SignInRequestDto;
 import com.project.back.dto.request.auth.SignUpRequestDto;
@@ -152,6 +151,9 @@ public class AuthServiceImplementation implements AuthService {
       String userTelNumber = dto.getUserTelNumber();
       String authNumber = dto.getAuthNumber();
       String businessRegistrationNumber = dto.getBusinessRegistrationNumber();
+      String userRole; //수정
+
+
 
       boolean existedUser = userRepository.existsByUserEmailId(userEmailId);
       if (existedUser) return ResponseDto.duplicatedEmailId();
@@ -159,8 +161,21 @@ public class AuthServiceImplementation implements AuthService {
       boolean existedNickname = userRepository.existsByNickname(userNickName);
       if (existedNickname) return ResponseDto.duplicatedNickname();
 
-      boolean existedBusinessRegistrationNumber = userRepository.existsByBusinessRegistrationNumber(businessRegistrationNumber);
-      if (existedBusinessRegistrationNumber) return ResponseDto.duplicatedBusinessRegistrationNumber();
+      if (StringUtils.hasText(businessRegistrationNumber)) {
+        boolean existedBusinessRegistrationNumber = userRepository.existsByBusinessRegistrationNumber(businessRegistrationNumber);
+        if (existedBusinessRegistrationNumber) return ResponseDto.duplicatedBusinessRegistrationNumber();
+      }
+      
+      //추가
+      if(businessRegistrationNumber=="")
+      {
+          userRole="ROLE_USER";
+      }
+      else
+      {
+          userRole="ROLE_CEO";
+      }
+      //추가
 
       boolean isMatched = authNumberRepository.existsByTelNumberAndAuthNumber(userTelNumber, authNumber);
       if (!isMatched) return ResponseDto.authenticationFailed();
@@ -168,7 +183,7 @@ public class AuthServiceImplementation implements AuthService {
       String encodedPassword = passwordEncoder.encode(password);
       dto.setPassword(encodedPassword);
 
-      UserEntity userEntity = new UserEntity(dto);
+      UserEntity userEntity = new UserEntity(dto,userRole);
       userRepository.save(userEntity);
     } catch(Exception exception) {
       exception.printStackTrace();

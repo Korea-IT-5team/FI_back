@@ -16,7 +16,7 @@ import lombok.Getter;
 @Getter
 public class GetFavoriteRestaurantListResponseDto extends ResponseDto{
     private List<RestaurantListItem> restaurantFavoriteList;
-    
+
     private GetFavoriteRestaurantListResponseDto(List<GetRestaurantFavoriteItemResultSet> favoriteRestaurantEntities) throws Exception {
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
         this.restaurantFavoriteList = RestaurantListItem.getFavoriteRestaurantList(favoriteRestaurantEntities);

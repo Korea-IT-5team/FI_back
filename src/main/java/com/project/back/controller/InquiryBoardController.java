@@ -40,6 +40,7 @@ public class InquiryBoardController {
     return response;
   }
 
+  // 답글달기
   @PostMapping("/{inquiryNumber}/comment")
   public ResponseEntity<ResponseDto> postComment(
     @RequestBody @Valid PostCommentRequestDto requestBody,
@@ -79,7 +80,7 @@ public class InquiryBoardController {
     return response;
   }
 
-  @PatchMapping("/{inquiryNumber}")
+  @PatchMapping("/update/{inquiryNumber}")
   public ResponseEntity<ResponseDto> patchInquiryBoard(
     @RequestBody @Valid PatchInquiryBoardRequestDto requestBody,
     @PathVariable("inquiryNumber") int inquiryNumber,

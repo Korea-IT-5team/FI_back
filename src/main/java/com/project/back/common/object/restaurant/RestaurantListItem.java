@@ -7,15 +7,16 @@ import com.project.back.entity.RestaurantEntity;
 import com.project.back.repository.resultSet.GetRestaurantFavoriteItemResultSet;
 
 import lombok.Getter;
-
 @Getter
 public class RestaurantListItem {
+    private Integer restaurantId;
     private String restaurantImage;
     private String restaurantName;
     private String restaurantFoodCategory;
     private String restaurantLocation;
 
     private RestaurantListItem(RestaurantEntity restaurantEntity) throws Exception {
+        this.restaurantId=restaurantEntity.getRestaurantId();
         this.restaurantImage=restaurantEntity.getRestaurantImage();
         this.restaurantName=restaurantEntity.getRestaurantName();
         this.restaurantFoodCategory=restaurantEntity.getRestaurantFoodCategory();
@@ -23,6 +24,7 @@ public class RestaurantListItem {
     }
 
     private RestaurantListItem(GetRestaurantFavoriteItemResultSet getRestaurantFavoriteItemResultSet) throws Exception {
+        this.restaurantId=getRestaurantFavoriteItemResultSet.getRestaurantId();
         this.restaurantImage=getRestaurantFavoriteItemResultSet.getRestaurantImage();
         this.restaurantName=getRestaurantFavoriteItemResultSet.getRestaurantName();
         this.restaurantFoodCategory=getRestaurantFavoriteItemResultSet.getRestaurantFoodCategory();

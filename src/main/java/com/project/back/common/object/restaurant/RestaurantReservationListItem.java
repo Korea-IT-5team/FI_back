@@ -18,19 +18,34 @@ public class RestaurantReservationListItem {
     private String reservationDate;
     private String reservationTime;
     private Integer reservationPeople;
+    private String writeDate;
 
     private RestaurantReservationListItem(ReservationEntity reservationEntity) throws Exception {
         this.reservationNumber = reservationEntity.getReservationNumber();
-        this.reservationStatus = false;
+        this.reservationStatus = true;
         this.reservationRestaurantId = reservationEntity.getReservationRestaurantId();
         this.reservationRestaurantName = reservationEntity.getReservationRestaurantName();
         this.reservationUserName = reservationEntity.getReservationUserName();
 
-        String writeDate = ChangeDateFormatUtil.changeYYMMDD(reservationEntity.getReservationDate());
-        this.reservationDate = writeDate;
+        try
+        {
+            writeDate = ChangeDateFormatUtil.changeYYMMDD(reservationEntity.getReservationDate());
+            this.reservationDate = writeDate;
+        }
+        catch(Exception exception)
+        {
+            this.reservationDate = reservationEntity.getReservationDate();
+        }
 
-        writeDate = ChangeDateFormatUtil.changeHHmm(reservationEntity.getReservationTime());
-        this.reservationTime = writeDate;
+        try
+        {
+            writeDate = ChangeDateFormatUtil.changeHHmm(reservationEntity.getReservationTime());
+            this.reservationTime = writeDate;
+        }
+        catch(Exception exception)
+        {
+            this.reservationTime = reservationEntity.getReservationTime();
+        }
 
         this.reservationPeople = reservationEntity.getReservationPeople();
     }

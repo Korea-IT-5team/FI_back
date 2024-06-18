@@ -1,8 +1,8 @@
 package com.project.back.entity;
 
-import com.project.back.dto.request.restaurant.favorite.PostFavoriteRestaurantRequestDto;
-
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -17,19 +17,15 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class FavoriteRestaurantEntity {
+   
     @Id
-    private String favoriteUserEmailId; 
-    private Integer favoriteRestaurantId; 
-    private Integer favoriteCount;
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    private Integer favoriteNumber;
+    private String favoriteUserId; 
+    private Integer favoriteRestaurantId;
 
-    public FavoriteRestaurantEntity(PostFavoriteRestaurantRequestDto dto) {
-        this.favoriteUserEmailId = dto.getFavoriteUserEmailId();
-        this.favoriteRestaurantId = dto.getFavoriteRestaurantId();
-        this.favoriteCount = 0;
+    public FavoriteRestaurantEntity(String userEmailId, int restaurantId) {
+        this.favoriteUserId = userEmailId;
+        this.favoriteRestaurantId = restaurantId;
     }
-
-    public void increaseFavoriteCount() {
-        this.favoriteCount++;
-    }
-    
 }
