@@ -66,5 +66,7 @@ public class RestaurantEntity {
         this.restaurantNotice = dto.getRestaurantNotice();
         this.restaurantRepresentativeMenu = dto.getRestaurantRepresentativeMenu();
         this.restaurantImage = dto.getRestaurantImage();
+        this.restaurantLat = dto.getRestaurantLat();
+        this.restaurantLng = dto.getRestaurantLng();
     }
 }
