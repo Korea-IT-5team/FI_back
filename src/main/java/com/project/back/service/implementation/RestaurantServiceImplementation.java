@@ -88,9 +88,7 @@ public class RestaurantServiceImplementation implements RestaurantService {
         try {
             boolean isExistUser = userRepository.existsByUserEmailId(userEmailId);
             if (!isExistUser) return ResponseDto.authenticationFailed();
-
             UserEntity userEntity = userRepository.findByUserEmailId(userEmailId);
-
             RestaurantEntity restaurantEntity = new RestaurantEntity(dto, userEmailId, userEntity);
             restaurantRepository.save(restaurantEntity);
         } catch (Exception exception) {
