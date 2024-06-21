@@ -45,7 +45,7 @@ public class RestaurantListItem {
     public static List<RestaurantListItem> getFavoriteRestaurantList(List<GetRestaurantFavoriteItemResultSet> getRestaurantFavoriteItemResultSetList) throws Exception {
         List<RestaurantListItem> restaurantList = new ArrayList<>();
 
-        for(GetRestaurantFavoriteItemResultSet getRestaurantFavoriteItemResultSet:getRestaurantFavoriteItemResultSetList) {
+        for (GetRestaurantFavoriteItemResultSet getRestaurantFavoriteItemResultSet:getRestaurantFavoriteItemResultSetList) {
             RestaurantListItem restaurantFavoriteListItem = new RestaurantListItem(getRestaurantFavoriteItemResultSet);
             restaurantList.add(restaurantFavoriteListItem);
         }

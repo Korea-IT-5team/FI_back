@@ -22,8 +22,7 @@ public class GetMyInquiryBoardListResponseDto extends ResponseDto{
         this.inquiryBoardList = InquiryBoardListItem.getList(resultSets);
     }
 
-    public static ResponseEntity<GetMyInquiryBoardListResponseDto> success(List<GetInquiryBoardListResultSet> resultSets)
-    throws Exception {
+    public static ResponseEntity<GetMyInquiryBoardListResponseDto> success(List<GetInquiryBoardListResultSet> resultSets) throws Exception {
         GetMyInquiryBoardListResponseDto responseBody = new GetMyInquiryBoardListResponseDto(resultSets);
         return ResponseEntity.status(HttpStatus.OK).body(responseBody);
     }

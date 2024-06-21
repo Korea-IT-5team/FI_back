@@ -28,7 +28,7 @@ public class RestaurantReviewListItem {
         this.reviewWriterNickname = getRestaurantReviewListItemResultSet.getReviewWriterNickname(); 
         this.reviewRestaurantName = getRestaurantReviewListItemResultSet.getReviewRestaurantName();
 
-        if(getRestaurantReviewListItemResultSet.getReviewDate()!=null) {
+        if (getRestaurantReviewListItemResultSet.getReviewDate()!=null) {
             String writeDatetime = ChangeDateFormatUtil.changeYYMMDD(getRestaurantReviewListItemResultSet.getReviewDate());
             this.reviewDate = writeDatetime;
         }
@@ -37,7 +37,7 @@ public class RestaurantReviewListItem {
     public static List<RestaurantReviewListItem> getList(List<GetRestaurantReviewListItemResultSet> getRestaurantReviewListItemResultSetList) throws Exception {
         List<RestaurantReviewListItem> restaurantReviewList = new ArrayList<>();
 
-        for(GetRestaurantReviewListItemResultSet getRestaurantReviewListItemResultSet:getRestaurantReviewListItemResultSetList) {
+        for (GetRestaurantReviewListItemResultSet getRestaurantReviewListItemResultSet:getRestaurantReviewListItemResultSetList) {
             RestaurantReviewListItem restaurantReviewListItem = new RestaurantReviewListItem(getRestaurantReviewListItemResultSet);
             restaurantReviewList.add(restaurantReviewListItem);
         }

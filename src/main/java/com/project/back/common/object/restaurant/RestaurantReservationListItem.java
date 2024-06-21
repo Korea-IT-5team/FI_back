@@ -48,7 +48,7 @@ public class RestaurantReservationListItem {
     public static List<RestaurantReservationListItem> getList(List<ReservationEntity> reservationEntities) throws Exception {
         List<RestaurantReservationListItem> restaurantReservationList = new ArrayList<>();
 
-        for(ReservationEntity reservationEntity:reservationEntities) {
+        for (ReservationEntity reservationEntity:reservationEntities) {
             RestaurantReservationListItem restaurantReservationListItem = new RestaurantReservationListItem(reservationEntity);
             restaurantReservationList.add(restaurantReservationListItem);
         }

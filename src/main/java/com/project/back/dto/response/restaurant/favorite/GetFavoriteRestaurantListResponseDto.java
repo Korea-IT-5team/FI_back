@@ -22,8 +22,7 @@ public class GetFavoriteRestaurantListResponseDto extends ResponseDto{
         this.restaurantFavoriteList = RestaurantListItem.getFavoriteRestaurantList(favoriteRestaurantEntities);
     }
 
-    public static ResponseEntity<GetFavoriteRestaurantListResponseDto> success(List<GetRestaurantFavoriteItemResultSet> getRestaurantFavoriteItemResultSets)
-    throws Exception {
+    public static ResponseEntity<GetFavoriteRestaurantListResponseDto> success(List<GetRestaurantFavoriteItemResultSet> getRestaurantFavoriteItemResultSets) throws Exception {
         GetFavoriteRestaurantListResponseDto responseBody = new GetFavoriteRestaurantListResponseDto(getRestaurantFavoriteItemResultSets);
         return ResponseEntity.status(HttpStatus.OK).body(responseBody);
     }

@@ -39,8 +39,7 @@ public class GetInquiryBoardResponseDto extends ResponseDto{
         this.inquiryComment = inquiryBoardEntity.getInquiryComment();
     }
 
-    public static ResponseEntity<GetInquiryBoardResponseDto> success(InquiryBoardEntity inquiryBoardEntity, String nickname)
-    throws Exception {
+    public static ResponseEntity<GetInquiryBoardResponseDto> success(InquiryBoardEntity inquiryBoardEntity, String nickname) throws Exception {
         GetInquiryBoardResponseDto responseBody = new GetInquiryBoardResponseDto(inquiryBoardEntity, nickname);
         return ResponseEntity.status(HttpStatus.OK).body(responseBody);
     }

@@ -21,8 +21,7 @@ public class GetReservationCheckResponseDto extends ResponseDto {
         this.reservationRestaurantId=reservationEntity.getReservationRestaurantId();
     }
 
-    public static ResponseEntity<GetReservationCheckResponseDto> success(ReservationEntity reservationEntity)
-    throws Exception {
+    public static ResponseEntity<GetReservationCheckResponseDto> success(ReservationEntity reservationEntity) throws Exception {
         GetReservationCheckResponseDto responseBody = new GetReservationCheckResponseDto(reservationEntity);
         return ResponseEntity.status(HttpStatus.OK).body(responseBody);
     }

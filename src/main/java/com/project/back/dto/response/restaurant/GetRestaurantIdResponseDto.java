@@ -9,8 +9,7 @@ import com.project.back.entity.RestaurantEntity;
 import lombok.Getter;
 
 @Getter
-public class GetRestaurantIdResponseDto extends ResponseDto
-{
+public class GetRestaurantIdResponseDto extends ResponseDto {
     private Integer restaurantId; 
 
     private GetRestaurantIdResponseDto(RestaurantEntity restaurantEntity)
@@ -19,8 +18,7 @@ public class GetRestaurantIdResponseDto extends ResponseDto
         this.restaurantId = restaurantEntity.getRestaurantId();
     }
 
-    public static ResponseEntity<GetRestaurantIdResponseDto> success(RestaurantEntity restaurantEntity)
-    throws Exception {
+    public static ResponseEntity<GetRestaurantIdResponseDto> success(RestaurantEntity restaurantEntity) throws Exception {
         GetRestaurantIdResponseDto responseBody = new GetRestaurantIdResponseDto(restaurantEntity);
         return ResponseEntity.status(HttpStatus.OK).body(responseBody);
     }
