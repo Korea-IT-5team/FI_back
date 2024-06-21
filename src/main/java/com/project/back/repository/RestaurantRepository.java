@@ -15,14 +15,14 @@ public interface RestaurantRepository extends JpaRepository<RestaurantEntity,Int
     Object restaurantEntity = null;
     RestaurantEntity getRestaurantIdByRestaurantWriterId(String restaurantWriterId);
 
+    boolean existsByRestaurantWriterId(String restaurantWriterId);
+    boolean existsByRestaurantId(Integer restaurantId);
+
     List<RestaurantEntity> findByRestaurantNameContainingOrderByRestaurantIdDesc(String searchWord);
- 
     RestaurantEntity findByRestaurantWriterId(String restaurantWriterId);
     RestaurantEntity findByRestaurantId(Integer restaurantId);
     RestaurantEntity findByRestaurantWriterIdAndRestaurantId(String userEmailId, Integer restaurantId);
 
-    boolean existsByRestaurantWriterId(String restaurantWriterId);
-    boolean existsByRestaurantId(Integer restaurantId);
     
     @Query(value=
         "SELECT "

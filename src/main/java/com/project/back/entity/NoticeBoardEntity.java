@@ -43,7 +43,6 @@ public class NoticeBoardEntity {
         this.noticeWriterId = userEmailId;
         this.noticeWriteDatetime = noticeWriteDatetime;
         this.viewCount = 0;
-
     }
 
     public void increaseViewCount() {
