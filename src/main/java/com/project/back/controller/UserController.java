@@ -51,7 +51,7 @@ public class UserController {
     ResponseEntity<ResponseDto> response = userService.deleteUser(requestBody, userEmailId);
     return response;
   }
-
+  
   @GetMapping("/information")
     public ResponseEntity<? super GetMyInfoResponseDto> getMyInfo (
         @AuthenticationPrincipal String userId
