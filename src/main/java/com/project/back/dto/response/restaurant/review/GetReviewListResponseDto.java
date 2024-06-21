@@ -14,7 +14,6 @@ import com.project.back.repository.resultSet.GetRestaurantReviewListItemResultSe
 import lombok.Getter;
 @Getter
 public class GetReviewListResponseDto extends ResponseDto {
-
     private List<RestaurantReviewListItem> restaurantReviewList;
 
     private GetReviewListResponseDto(List<GetRestaurantReviewListItemResultSet> reviewEntities) throws Exception {

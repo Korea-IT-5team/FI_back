@@ -11,34 +11,34 @@ import net.nurigo.sdk.message.service.DefaultMessageService;
 
 @Component
 public class SmsProvider {
-  private final DefaultMessageService messageService;
+    private final DefaultMessageService messageService;
 
-  @Value("${sms.from-number}") String FROM;
+    @Value("${sms.from-number}") String FROM;
 
-  public SmsProvider(
-    @Value("${sms.api-key}") String API_KEY,
-    @Value("${sms.api-secret-key}") String API_SECRET_KEY,
-    @Value("${sms.domain}") String API_DOMAIN
-  ) {
-    this.messageService = NurigoApp.INSTANCE.initialize(API_KEY, API_SECRET_KEY, API_DOMAIN);
-  }
+    public SmsProvider(
+        @Value("${sms.api-key}") String API_KEY,
+        @Value("${sms.api-secret-key}") String API_SECRET_KEY,
+        @Value("${sms.domain}") String API_DOMAIN
+    ) {
+        this.messageService = NurigoApp.INSTANCE.initialize(API_KEY, API_SECRET_KEY, API_DOMAIN);
+    }
 
-  public boolean sendAuthNumber(String userTelNumber, String authNumber) {
-    Message message = new Message();
-    message.setFrom(FROM);
-    message.setTo(userTelNumber);
-    message.setText(getAuthNumberText(authNumber));
+    public boolean sendAuthNumber(String userTelNumber, String authNumber) {
+        Message message = new Message();
+        message.setFrom(FROM);
+        message.setTo(userTelNumber);
+        message.setText(getAuthNumberText(authNumber));
 
-    SingleMessageSentResponse response = messageService.sendOne(new SingleMessageSendingRequest(message));
+        SingleMessageSentResponse response = messageService.sendOne(new SingleMessageSendingRequest(message));
 
-    String statusCode = response.getStatusCode();
-    boolean result = statusCode.equals("2000");
+        String statusCode = response.getStatusCode();
+        boolean result = statusCode.equals("2000");
 
-    return result;
-  }
-  
-  private String getAuthNumberText(String authNumber) {
-    String text = "요청하신 인증 번호는 " + authNumber + "입니다.";
-    return text;
-  }
+        return result;
+    }
+    
+    private String getAuthNumberText(String authNumber) {
+        String text = "요청하신 인증 번호는 " + authNumber + "입니다.";
+        return text;
+    }
 }

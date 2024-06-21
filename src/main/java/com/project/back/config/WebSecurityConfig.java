@@ -34,64 +34,65 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class WebSecurityConfig {
 
-  private final JwtAuthenticationFilter JwtAuthenticationFilter;
-  private final OAuth2UserServiceImplementation oAuth2UserService;
-  private final OAuth2SuccessHandler oAuth2SuccessHandler;
+    private final JwtAuthenticationFilter JwtAuthenticationFilter;
+    private final OAuth2UserServiceImplementation oAuth2UserService;
+    private final OAuth2SuccessHandler oAuth2SuccessHandler;
   
-  @Bean
-  protected SecurityFilterChain configure(HttpSecurity httpSecurity) throws Exception {
-    httpSecurity
-      .httpBasic(HttpBasicConfigurer::disable)
-      .csrf(CsrfConfigurer::disable)
-      .sessionManagement(sessionManagement -> sessionManagement
-        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-      )
-      .cors(cors -> cors.configurationSource(corsConfigurationSource())
-      )
-      .authorizeHttpRequests(request -> request
-        .requestMatchers("/", "/api/v1/auth/**", "/api/v1/user/**", "/api/v1/auth/password-update/**", "/oauth2/callback/*", "/sms-auth/send-sms/*", "/api/v1/inquiry-board/**","/api/v1/notice-board/**", "/api/v1/restaurant/search", "/api/v1/restaurant/{restaurantId}").permitAll()
-        .requestMatchers(HttpMethod.POST, "/api/v1/restaurant/review", "/api/v1/inquiry-board/*").hasRole("USER")
-        .requestMatchers(HttpMethod.POST, "/api/v1/inquiry-board/*/comment", "/api/v1/notice-board/").hasRole("ADMIN")
-        .anyRequest().authenticated()
-      )
-      .oauth2Login(oauth2 -> oauth2
-        .authorizationEndpoint(endpoint -> endpoint.baseUri("/api/v1/auth/oauth2"))
-        .redirectionEndpoint(endpoint -> endpoint.baseUri("/oauth2/callback/*"))
-        .userInfoEndpoint(endpoint -> endpoint.userService(oAuth2UserService))
-        .successHandler(oAuth2SuccessHandler)
-      )
-      .exceptionHandling(exception -> exception
-        .authenticationEntryPoint(new AuthorizationFailEntryPoint())
-      )
-      .addFilterBefore(JwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+    @Bean
+    protected SecurityFilterChain configure(HttpSecurity httpSecurity) throws Exception {
+        httpSecurity
+            .httpBasic(HttpBasicConfigurer::disable)
+            .csrf(CsrfConfigurer::disable)
+            .sessionManagement(sessionManagement -> sessionManagement
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+            )
+            .cors(cors -> cors.configurationSource(corsConfigurationSource())
+            )
+            .authorizeHttpRequests(request -> request
+                .requestMatchers("/", "/api/v1/auth/**", "/api/v1/user/**", "/api/v1/auth/password-update/**", "/oauth2/callback/*", "/sms-auth/send-sms/*", "/api/v1/inquiry-board/**","/api/v1/notice-board/**", "/api/v1/restaurant/search", "/api/v1/restaurant/{restaurantId}").permitAll()
+                .requestMatchers(HttpMethod.POST, "/api/v1/restaurant/review", "/api/v1/inquiry-board/*").hasRole("USER")
+                .requestMatchers(HttpMethod.POST, "/api/v1/inquiry-board/*/comment", "/api/v1/notice-board/").hasRole("ADMIN")
+                .anyRequest().authenticated()
+            )
+            .oauth2Login(oauth2 -> oauth2
+                .authorizationEndpoint(endpoint -> endpoint.baseUri("/api/v1/auth/oauth2"))
+                .redirectionEndpoint(endpoint -> endpoint.baseUri("/oauth2/callback/*"))
+                .userInfoEndpoint(endpoint -> endpoint.userService(oAuth2UserService))
+                .successHandler(oAuth2SuccessHandler)
+            )
+            .exceptionHandling(exception -> exception
+                .authenticationEntryPoint(new AuthorizationFailEntryPoint())
+            )
+            .addFilterBefore(JwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
-      return httpSecurity.build();
-  }
+        return httpSecurity.build();
+    }
   
   // Cors 정책 설정
-  @Bean
-  protected CorsConfigurationSource corsConfigurationSource() {
-    CorsConfiguration configuration = new CorsConfiguration();
-    configuration.addAllowedOrigin("*");
-    configuration.addAllowedHeader("*");
-    configuration.addAllowedMethod("*");
+    @Bean
+    protected CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.addAllowedOrigin("*");
+        configuration.addAllowedHeader("*");
+        configuration.addAllowedMethod("*");
 
-    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-    source.registerCorsConfiguration("/**", configuration);
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
 
-    return source;
-  }
+        return source;
+    }
 }
+
 class AuthorizationFailEntryPoint implements AuthenticationEntryPoint{
 
-  @Override
-  public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) 
-    throws IOException, ServletException {
-    
-      authException.printStackTrace();
+    @Override
+    public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) 
+        throws IOException, ServletException {
+      
+          authException.printStackTrace();
 
-    response.setContentType("application/json");
-    response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-    response.getWriter().write("{ \"code\": \"AF\", \"message\": \"Authorization Failed\" }");
-  }
+        response.setContentType("application/json");
+        response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+        response.getWriter().write("{ \"code\": \"AF\", \"message\": \"Authorization Failed\" }");
+    }
 }

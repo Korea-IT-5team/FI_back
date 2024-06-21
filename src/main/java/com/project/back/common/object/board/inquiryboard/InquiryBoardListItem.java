@@ -33,7 +33,7 @@ public class InquiryBoardListItem {
     public static List<InquiryBoardListItem> getList(List<GetInquiryBoardListResultSet> resultSets) throws Exception {
         List<InquiryBoardListItem> inquiryBoardList = new ArrayList<>();
 
-        for(GetInquiryBoardListResultSet resultSet :resultSets) {
+        for (GetInquiryBoardListResultSet resultSet :resultSets) {
             InquiryBoardListItem inquiryBoardListItem = new InquiryBoardListItem(resultSet);
             inquiryBoardList.add(inquiryBoardListItem);
         }

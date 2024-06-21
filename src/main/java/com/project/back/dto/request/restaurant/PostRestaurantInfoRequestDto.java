@@ -18,14 +18,14 @@ public class PostRestaurantInfoRequestDto {
     private String restaurantFoodCategory;
     @NotBlank
     private String restaurantLocation;
+    @NotNull
+    private String restaurantLat;
+    @NotNull
+    private String restaurantLng;
     private String restaurantTelNumber;
     private String restaurantSnsAddress;
     private String restaurantOperationHours;
     private String restaurantFeatures;
     private String restaurantNotice;
     private String restaurantRepresentativeMenu;
-    @NotNull
-    private double restaurantLat;
-    @NotNull
-    private double restaurantLng;
 }

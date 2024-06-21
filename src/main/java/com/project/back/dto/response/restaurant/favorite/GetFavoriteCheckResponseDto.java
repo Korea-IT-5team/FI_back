@@ -23,8 +23,7 @@ public class GetFavoriteCheckResponseDto extends ResponseDto {
         this.favoriteRestaurantId=favoriteRestaurantEntity.getFavoriteRestaurantId();
     }
 
-    public static ResponseEntity<GetFavoriteCheckResponseDto> success(FavoriteRestaurantEntity favoriteRestaurantEntity)
-    throws Exception {
+    public static ResponseEntity<GetFavoriteCheckResponseDto> success(FavoriteRestaurantEntity favoriteRestaurantEntity) throws Exception {
         GetFavoriteCheckResponseDto responseBody = new GetFavoriteCheckResponseDto(favoriteRestaurantEntity);
         return ResponseEntity.status(HttpStatus.OK).body(responseBody);
     }

@@ -17,29 +17,23 @@ import lombok.RequiredArgsConstructor;
 @Component
 @RequiredArgsConstructor
 public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
-  private final JwtProvider jwtProvider;
+    private final JwtProvider jwtProvider;
 
-  @Override
-  public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) 
-    throws IOException, ServletException {
-      CustomOAuth2User oAuth2User = (CustomOAuth2User) authentication.getPrincipal();
-      boolean status = oAuth2User.getStatus();
+    @Override
+    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
+        CustomOAuth2User oAuth2User = (CustomOAuth2User) authentication.getPrincipal();
+        boolean status = oAuth2User.getStatus();
 
-      // 회원가입이 되어 있는 상태일 때
-      if (status) {
-        String userId = oAuth2User.getName();
+        if (status) {
+            String userId = oAuth2User.getName();
 
-        String token = jwtProvider.create(userId);
-        response.sendRedirect("http://localhost:9000/sns/" + token + "/36000");
-      }
-      // 회원가입이 되지 않은 상태일 때
-      else {
-        String snsId = oAuth2User.getName();
-        String joinPath = oAuth2User.getJoinPath();
-        String url = "http://localhost:9000/authentication/sign-up?"
-          + "snsId=" + snsId + "&"
-          + "joinPath=" + joinPath;
-        response.sendRedirect(url);
-      }
-  };
+            String token = jwtProvider.create(userId);
+            response.sendRedirect("http://localhost:9000/sns/" + token + "/36000");
+        } else {
+            String snsId = oAuth2User.getName();
+            String joinPath = oAuth2User.getJoinPath();
+            String url = "http://localhost:9000/authentication/sign-up?" + "snsId=" + snsId + "&" + "joinPath=" + joinPath;
+            response.sendRedirect(url);
+        }
+    };
 }
