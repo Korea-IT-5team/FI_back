@@ -35,8 +35,8 @@ public class RestaurantEntity {
     private String restaurantBusinessRegistrationNumber;
     private String restaurantImage;
     private String restaurantWriterId;
-    private double restaurantLat;
-    private double restaurantLng;
+    private String restaurantLat;
+    private String restaurantLng;
 
     public RestaurantEntity(PostRestaurantInfoRequestDto dto, String userEmailId, UserEntity userEntity) {
         this.restaurantName = dto.getRestaurantName();

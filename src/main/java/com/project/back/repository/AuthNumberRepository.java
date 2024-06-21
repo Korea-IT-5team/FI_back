@@ -7,5 +7,5 @@ import com.project.back.entity.AuthNumberEntity;
 
 @Repository
 public interface AuthNumberRepository extends JpaRepository<AuthNumberEntity, String> {
-  boolean existsByTelNumberAndAuthNumber(String telNumber, String authNumber);
+    boolean existsByTelNumberAndAuthNumber(String telNumber, String authNumber);
 }

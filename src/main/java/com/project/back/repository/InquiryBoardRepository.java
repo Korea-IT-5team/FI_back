@@ -40,5 +40,4 @@ public interface InquiryBoardRepository extends JpaRepository<InquiryBoardEntity
     nativeQuery=true
     )
     List<GetInquiryBoardListResultSet> getInquiryUserBoardList(@Param("userEmailId") String userEmailId);
-} 
-    
+}

@@ -29,8 +29,8 @@ public class GetRestaurantInfoResponseDto extends ResponseDto {
     private String restaurantRepresentativeMenu;
     private String restaurantBusinessRegistrationNumber;
     private String restaurantWriterId;
-    private double restaurantLat;
-    private double restaurantLng;
+    private String restaurantLat;
+    private String restaurantLng;
     private List<RestaurantReviewListItem> restaurantReviewList;
 
     private GetRestaurantInfoResponseDto(RestaurantEntity restaurantEntity, List<GetRestaurantReviewListItemResultSet> reviewEntities) throws Exception {

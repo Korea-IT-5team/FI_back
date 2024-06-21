@@ -15,17 +15,13 @@ public class CustomExceptionHandler {
     MethodArgumentNotValidException.class,
     HttpMessageNotReadableException.class
   })
-  public ResponseEntity<ResponseDto> validationExceptionHandler (
-    Exception exception
-  ) {
+  public ResponseEntity<ResponseDto> validationExceptionHandler (Exception exception) {
     exception.printStackTrace();
     return ResponseDto.validationFailed();
   }
 
   @ExceptionHandler(NoHandlerFoundException.class)
-  public ResponseEntity<ResponseDto> noHandlerFoundExceptionHandler (
-    Exception exception
-  ) {
+  public ResponseEntity<ResponseDto> noHandlerFoundExceptionHandler (Exception exception) {
     exception.printStackTrace();
     return ResponseDto.noExistUser();
   }
