@@ -33,211 +33,211 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class AuthServiceImplementation implements AuthService {
-  private final UserRepository userRepository;
-  private final AuthNumberRepository authNumberRepository;
+    private final UserRepository userRepository;
+    private final AuthNumberRepository authNumberRepository;
 
-  private final SmsProvider smsProvider;
-  private final JwtProvider jwtProvider;
+    private final SmsProvider smsProvider;
+    private final JwtProvider jwtProvider;
 
-  private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+    private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-  @Override
-  public ResponseEntity<? super SignInResponseDto> signIn(SignInRequestDto dto) {
-    String accessToken = null;
+    @Override
+    public ResponseEntity<? super SignInResponseDto> signIn(SignInRequestDto dto) {
+        String accessToken = null;
 
-    try {
-      String userEmailId = dto.getUserEmailId();
-      String password = dto.getPassword();
+        try {
+            String userEmailId = dto.getUserEmailId();
+            String password = dto.getPassword();
 
-      UserEntity userEntity = userRepository.findByUserEmailId(userEmailId);
-      if (userEntity == null) return ResponseDto.signInFailed();
+            UserEntity userEntity = userRepository.findByUserEmailId(userEmailId);
+            if (userEntity == null) return ResponseDto.signInFailed();
 
-      String encodedPassword = userEntity.getPassword();
+            String encodedPassword = userEntity.getPassword();
 
-      boolean isMatched = passwordEncoder.matches(password, encodedPassword);
-      if (!isMatched) return ResponseDto.signInFailed();
+            boolean isMatched = passwordEncoder.matches(password, encodedPassword);
+            if (!isMatched) return ResponseDto.signInFailed();
 
-      accessToken = jwtProvider.create(userEmailId);
-      if (accessToken == null) return ResponseDto.tokenCreationFailed();
-    } catch (Exception exception) {
-      exception.printStackTrace();
-      return ResponseDto.databaseError();
+            accessToken = jwtProvider.create(userEmailId);
+            if (accessToken == null) return ResponseDto.tokenCreationFailed();
+        } catch(Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+        return SignInResponseDto.success(accessToken);
     }
-    return SignInResponseDto.success(accessToken);
-  }
 
-  @Override
-  public ResponseEntity<ResponseDto> emailIdCheck(CheckEmailIdRequestDto dto) {
-    try {
-      String userEmailId = dto.getUserEmailId();
+    @Override
+    public ResponseEntity<ResponseDto> emailIdCheck(CheckEmailIdRequestDto dto) {
+        try {
+            String userEmailId = dto.getUserEmailId();
 
-      boolean existedUser = userRepository.existsByUserEmailId(userEmailId);
-      if (existedUser) return ResponseDto.duplicatedEmailId();
-    } catch (Exception exception) {
-      exception.printStackTrace();
-      return ResponseDto.databaseError();
+            boolean existedUser = userRepository.existsByUserEmailId(userEmailId);
+            if (existedUser) return ResponseDto.duplicatedEmailId();
+        } catch(Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+        return ResponseDto.success();
     }
-    return ResponseDto.success();
-  }
 
-  @Override
-  public ResponseEntity<ResponseDto> nicknameCheck(CheckNicknameRequestDto dto) {
-    try {
-      String nickname = dto.getNickname();
+    @Override
+    public ResponseEntity<ResponseDto> nicknameCheck(CheckNicknameRequestDto dto) {
+        try {
+            String nickname = dto.getNickname();
 
-      boolean existedNickname = userRepository.existsByNickname(nickname);
-      if (existedNickname) return ResponseDto.duplicatedNickname();
-    } catch (Exception exception) {
-      exception.printStackTrace();
-      return ResponseDto.databaseError();
-    }
-    return ResponseDto.success();
-  }
-
-  @Override
-  public ResponseEntity<ResponseDto> telNumberAuth(TelNumberAuthRequestDto dto) {
-    try {
-      String userTelNumber = dto.getUserTelNumber();
-
-      String authNumber = TelNumberAuthNumberUtil.createNumber();
-
-      AuthNumberEntity authNumberEntity = new AuthNumberEntity(userTelNumber, authNumber);
-      authNumberRepository.save(authNumberEntity);
-
-      smsProvider.sendAuthNumber(userTelNumber, authNumber);
-    } catch (Exception exception) {
-      exception.printStackTrace();
-      return ResponseDto.databaseError();
-    }
-    return ResponseDto.success();
-  }
-
-  @Override
-  public ResponseEntity<ResponseDto> telNumberAuthCheck(CheckTelNumberAuthRequestDto dto) {
-    try {
-      String userTelNumber = dto.getUserTelNumber();
-      String authNumber = dto.getAuthNumber();
-
-      boolean isMatched = authNumberRepository.existsByTelNumberAndAuthNumber(userTelNumber, authNumber);
-      if (!isMatched) return ResponseDto.authenticationFailed();
-    } catch(Exception exception) {
-      exception.printStackTrace();
-      return ResponseDto.databaseError();
-    }
-    return ResponseDto.success();
-  }
-
-  @Override
-  public ResponseEntity<ResponseDto> businessRegistrationCheck(CheckBusinessRegistrationRequestDto dto) {
-    try {
-      String businessRegistrationNumber = dto.getBusinessRegistrationNumber();
-
-      boolean existedBusinessRegistrationNumber = userRepository.existsByBusinessRegistrationNumber(businessRegistrationNumber);
-      if (existedBusinessRegistrationNumber) return ResponseDto.duplicatedBusinessRegistrationNumber();
-    } catch (Exception exception) {
-      exception.printStackTrace();
-      return ResponseDto.databaseError();
-    }
-  return ResponseDto.success();
-  }
-
-  @Override
-  public ResponseEntity<ResponseDto> signUp(SignUpRequestDto dto) {
-    try {
-      String userEmailId = dto.getUserEmailId();
-      String password = dto.getPassword();
-      String userNickName = dto.getNickname();
-      String userTelNumber = dto.getUserTelNumber();
-      String authNumber = dto.getAuthNumber();
-      String businessRegistrationNumber = dto.getBusinessRegistrationNumber();
-      String userRole; 
-
-      boolean existedUser = userRepository.existsByUserEmailId(userEmailId);
-      if (existedUser) return ResponseDto.duplicatedEmailId();
-
-      boolean existedNickname = userRepository.existsByNickname(userNickName);
-      if (existedNickname) return ResponseDto.duplicatedNickname();
-
-      if (StringUtils.hasText(businessRegistrationNumber)) {
-        boolean existedBusinessRegistrationNumber = userRepository.existsByBusinessRegistrationNumber(businessRegistrationNumber);
-        if (existedBusinessRegistrationNumber) return ResponseDto.duplicatedBusinessRegistrationNumber();
-      }
-      
-      if (businessRegistrationNumber=="") {
-        userRole="ROLE_USER";
-      } else {
-        userRole="ROLE_CEO";
+            boolean existedNickname = userRepository.existsByNickname(nickname);
+            if (existedNickname) return ResponseDto.duplicatedNickname();
+        } catch(Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+        return ResponseDto.success();
       }
 
-      boolean isMatched = authNumberRepository.existsByTelNumberAndAuthNumber(userTelNumber, authNumber);
-      if (!isMatched) return ResponseDto.authenticationFailed();
+    @Override
+    public ResponseEntity<ResponseDto> telNumberAuth(TelNumberAuthRequestDto dto) {
+        try {
+            String userTelNumber = dto.getUserTelNumber();
 
-      String encodedPassword = passwordEncoder.encode(password);
-      dto.setPassword(encodedPassword);
+            String authNumber = TelNumberAuthNumberUtil.createNumber();
 
-      UserEntity userEntity = new UserEntity(dto,userRole);
-      userRepository.save(userEntity);
-    } catch(Exception exception) {
-      exception.printStackTrace();
-      return ResponseDto.databaseError();
+            AuthNumberEntity authNumberEntity = new AuthNumberEntity(userTelNumber, authNumber);
+            authNumberRepository.save(authNumberEntity);
+
+            smsProvider.sendAuthNumber(userTelNumber, authNumber);
+        } catch(Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+        return ResponseDto.success();
     }
-    return ResponseDto.success();
-  }
 
-  @Override
-  public ResponseEntity<? super FindEmailResponseDto> findEmail(FindEmailRequestDto dto) {
-    try {
-      String userName = dto.getUserName();
-      String userTelNumber = dto.getUserTelNumber();
+    @Override
+    public ResponseEntity<ResponseDto> telNumberAuthCheck(CheckTelNumberAuthRequestDto dto) {
+        try {
+            String userTelNumber = dto.getUserTelNumber();
+            String authNumber = dto.getAuthNumber();
 
-      UserEntity userEntity = userRepository.findByUserNameAndUserTelNumber(userName, userTelNumber);
-      if (userEntity == null) return ResponseDto.noExistUser();
-
-      String userEmailId = userEntity.getUserEmailId();
-
-      return FindEmailResponseDto.success(userEmailId);
-    } catch (Exception exception) {
-      exception.printStackTrace();
-      return ResponseDto.databaseError();
+            boolean isMatched = authNumberRepository.existsByTelNumberAndAuthNumber(userTelNumber, authNumber);
+            if (!isMatched) return ResponseDto.authenticationFailed();
+        } catch(Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+        return ResponseDto.success();
     }
-  }
 
-  @Override
-  public ResponseEntity<ResponseDto> passwordReset(PasswordResetRequestDto dto) {
-    try {
-      String userEmailId = dto.getUserEmailId();
-      String userTelNumber = dto.getUserTelNumber();
+    @Override
+    public ResponseEntity<ResponseDto> businessRegistrationCheck(CheckBusinessRegistrationRequestDto dto) {
+        try {
+            String businessRegistrationNumber = dto.getBusinessRegistrationNumber();
 
-      boolean isMatched = userRepository.existsByUserEmailIdAndUserTelNumber(userEmailId, userTelNumber);
-      if (!isMatched) return ResponseDto.authenticationFailed();
-    } catch (Exception exception) {
-      exception.printStackTrace();
-      return ResponseDto.databaseError();
+            boolean existedBusinessRegistrationNumber = userRepository.existsByBusinessRegistrationNumber(businessRegistrationNumber);
+            if (existedBusinessRegistrationNumber) return ResponseDto.duplicatedBusinessRegistrationNumber();
+        } catch(Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+        return ResponseDto.success();
     }
-    return ResponseDto.success();
-  }
 
-  @Override
-  public ResponseEntity<ResponseDto> newPassword(NewPasswordRequestDto dto, String userEmailId) {
-    try {
-      String password = dto.getPassword();
+    @Override
+    public ResponseEntity<ResponseDto> signUp(SignUpRequestDto dto) {
+        try {
+            String userEmailId = dto.getUserEmailId();
+            String password = dto.getPassword();
+            String userNickName = dto.getNickname();
+            String userTelNumber = dto.getUserTelNumber();
+            String authNumber = dto.getAuthNumber();
+            String businessRegistrationNumber = dto.getBusinessRegistrationNumber();
+            String userRole; 
 
-      UserEntity userEntity = userRepository.findByUserEmailId(userEmailId);
-      System.out.println(userEmailId);
-      if (userEntity == null) return ResponseDto.noExistUser();
+            boolean existedUser = userRepository.existsByUserEmailId(userEmailId);
+            if (existedUser) return ResponseDto.duplicatedEmailId();
 
-      boolean isMatched = userRepository.existsById(userEmailId);
-      if (!isMatched) return ResponseDto.authenticationFailed();
+            boolean existedNickname = userRepository.existsByNickname(userNickName);
+            if (existedNickname) return ResponseDto.duplicatedNickname();
 
-      String encodedPassword = passwordEncoder.encode(password);
+            if (StringUtils.hasText(businessRegistrationNumber)) {
+                boolean existedBusinessRegistrationNumber = userRepository.existsByBusinessRegistrationNumber(businessRegistrationNumber);
+                if (existedBusinessRegistrationNumber) return ResponseDto.duplicatedBusinessRegistrationNumber();
+            }
+            
+            if (businessRegistrationNumber=="") {
+              userRole="ROLE_USER";
+            } else {
+              userRole="ROLE_CEO";
+            }
 
-      dto.setPassword(encodedPassword);
-      userEntity.setPassword(encodedPassword);
-      userRepository.save(userEntity);
-    } catch(Exception exception) {
-      exception.printStackTrace();
-      return ResponseDto.databaseError();
+            boolean isMatched = authNumberRepository.existsByTelNumberAndAuthNumber(userTelNumber, authNumber);
+            if (!isMatched) return ResponseDto.authenticationFailed();
+
+            String encodedPassword = passwordEncoder.encode(password);
+            dto.setPassword(encodedPassword);
+
+            UserEntity userEntity = new UserEntity(dto,userRole);
+            userRepository.save(userEntity);
+        } catch(Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+        return ResponseDto.success();
     }
-    return ResponseDto.success();
-  }
+
+    @Override
+    public ResponseEntity<? super FindEmailResponseDto> findEmail(FindEmailRequestDto dto) {
+        try {
+            String userName = dto.getUserName();
+            String userTelNumber = dto.getUserTelNumber();
+
+            UserEntity userEntity = userRepository.findByUserNameAndUserTelNumber(userName, userTelNumber);
+            if (userEntity == null) return ResponseDto.noExistUser();
+
+            String userEmailId = userEntity.getUserEmailId();
+
+            return FindEmailResponseDto.success(userEmailId);
+        } catch(Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+    }
+
+    @Override
+    public ResponseEntity<ResponseDto> passwordReset(PasswordResetRequestDto dto) {
+        try {
+            String userEmailId = dto.getUserEmailId();
+            String userTelNumber = dto.getUserTelNumber();
+
+            boolean isMatched = userRepository.existsByUserEmailIdAndUserTelNumber(userEmailId, userTelNumber);
+            if (!isMatched) return ResponseDto.authenticationFailed();
+        } catch(Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+        return ResponseDto.success();
+    }
+
+    @Override
+    public ResponseEntity<ResponseDto> newPassword(NewPasswordRequestDto dto, String userEmailId) {
+        try {
+            String password = dto.getPassword();
+
+            UserEntity userEntity = userRepository.findByUserEmailId(userEmailId);
+            System.out.println(userEmailId);
+            if (userEntity == null) return ResponseDto.noExistUser();
+
+            boolean isMatched = userRepository.existsById(userEmailId);
+            if (!isMatched) return ResponseDto.authenticationFailed();
+
+            String encodedPassword = passwordEncoder.encode(password);
+
+            dto.setPassword(encodedPassword);
+            userEntity.setPassword(encodedPassword);
+            userRepository.save(userEntity);
+        } catch(Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+        return ResponseDto.success();
+      }
 }

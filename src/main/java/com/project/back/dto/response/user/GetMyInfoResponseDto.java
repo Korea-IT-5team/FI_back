@@ -21,7 +21,7 @@ public class GetMyInfoResponseDto extends ResponseDto {
     private String userRole;
     private String joinPath;
 
-    private GetMyInfoResponseDto(UserEntity userEntity) throws Exception {
+    private GetMyInfoResponseDto(UserEntity userEntity) {
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
         this.userEmailId=userEntity.getUserEmailId();
         this.nickname=userEntity.getNickname();
@@ -33,7 +33,7 @@ public class GetMyInfoResponseDto extends ResponseDto {
         this.joinPath=userEntity.getJoinPath();
     }
 
-    public static ResponseEntity<GetMyInfoResponseDto> success(UserEntity userEntity) throws Exception {
+    public static ResponseEntity<GetMyInfoResponseDto> success(UserEntity userEntity) {
         GetMyInfoResponseDto responseBody = new GetMyInfoResponseDto(userEntity);
         return ResponseEntity.status(HttpStatus.OK).body(responseBody);
     }
