@@ -30,7 +30,7 @@ public class NoticeBoardListItem {
     public static List<NoticeBoardListItem> getList(List<GetNoticeBoardListResultSet> resultSets) throws Exception {
         List<NoticeBoardListItem> noticeBoardList = new ArrayList<>();
 
-        for(GetNoticeBoardListResultSet resultSet :resultSets) {
+        for (GetNoticeBoardListResultSet resultSet :resultSets) {
             NoticeBoardListItem noticeBoardListItem = new NoticeBoardListItem(resultSet);
             noticeBoardList.add(noticeBoardListItem);
         }

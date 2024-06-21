@@ -22,8 +22,7 @@ public class GetReservationListResponseDto extends ResponseDto {
         this.restaurantReservationList=RestaurantReservationListItem.getList(reservationEntities);
     }
 
-    public static ResponseEntity<GetReservationListResponseDto> success(List<ReservationEntity> reservationEntities)
-    throws Exception {
+    public static ResponseEntity<GetReservationListResponseDto> success(List<ReservationEntity> reservationEntities) throws Exception {
         GetReservationListResponseDto responseBody = new GetReservationListResponseDto(reservationEntities);
         return ResponseEntity.status(HttpStatus.OK).body(responseBody);
     }

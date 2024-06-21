@@ -8,5 +8,5 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class CheckBusinessRegistrationRequestDto {
-  private String businessRegistrationNumber;
+    private String businessRegistrationNumber;
 }

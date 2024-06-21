@@ -24,36 +24,37 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/user")
 public class UserController {
-  private final UserService userService;
 
-  @GetMapping("/")
-  public ResponseEntity<? super GetUserInfoResponseDto> GetSignInUser (
-    @AuthenticationPrincipal String userEmailId
-  ) {
-    ResponseEntity<? super GetUserInfoResponseDto> response = userService.GetSignInUser(userEmailId);
-    return response;
-  }
+    private final UserService userService;
 
-  @PatchMapping("/info-update/{userEmailId}")
-  public ResponseEntity<ResponseDto> patchUserInfo (
-    @RequestBody @Valid PatchUserInfoRequestDto requestBody,
-    @PathVariable("userEmailId") String userEmailId
-  ) {
-    ResponseEntity<ResponseDto> response = userService.patchUserInfo(requestBody, userEmailId);
-    return response;
-  }
+    @GetMapping("/")
+    public ResponseEntity<? super GetUserInfoResponseDto> GetSignInUser(
+        @AuthenticationPrincipal String userEmailId
+    ) {
+        ResponseEntity<? super GetUserInfoResponseDto> response = userService.GetSignInUser(userEmailId);
+        return response;
+    }
 
-  @PostMapping("/info-delete/{userEmailId}")
-  public ResponseEntity<ResponseDto> deleteUser (
-    @RequestBody @Valid DeleteUserRequestDto requestBody,
-    @PathVariable("userEmailId") String userEmailId
-  ) {
-    ResponseEntity<ResponseDto> response = userService.deleteUser(requestBody, userEmailId);
-    return response;
-  }
+    @PatchMapping("/info-update/{userEmailId}")
+    public ResponseEntity<ResponseDto> patchUserInfo(
+        @RequestBody @Valid PatchUserInfoRequestDto requestBody,
+        @PathVariable("userEmailId") String userEmailId
+    ) {
+        ResponseEntity<ResponseDto> response = userService.patchUserInfo(requestBody, userEmailId);
+        return response;
+    }
 
-  @GetMapping("/information")
-    public ResponseEntity<? super GetMyInfoResponseDto> getMyInfo (
+    @PostMapping("/info-delete/{userEmailId}")
+    public ResponseEntity<ResponseDto> deleteUser(
+        @RequestBody @Valid DeleteUserRequestDto requestBody,
+        @PathVariable("userEmailId") String userEmailId
+    ) {
+        ResponseEntity<ResponseDto> response = userService.deleteUser(requestBody, userEmailId);
+        return response;
+    }
+
+    @GetMapping("/information")
+    public ResponseEntity<? super GetMyInfoResponseDto> getMyInfo(
         @AuthenticationPrincipal String userId
     ) {
         ResponseEntity<? super GetMyInfoResponseDto> response = userService.getMyInfo(userId);
