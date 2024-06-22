@@ -25,134 +25,136 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class InquiryBoardServiceImplementation implements InquiryBoardService {
-  private final InquiryBoardRepository inquiryBoardRepository;
-  private final UserRepository userRepository;
+    private final InquiryBoardRepository inquiryBoardRepository;
+    private final UserRepository userRepository;
 
-  @Override
-  public ResponseEntity<ResponseDto> postBoard(PostInquiryBoardRequestDto dto, String userEmailId) {
-    try {
-      boolean isExistUser = userRepository.existsByUserEmailId(userEmailId);
-      if (!isExistUser) return ResponseDto.authenticationFailed();
+    @Override
+    public ResponseEntity<ResponseDto> postBoard(PostInquiryBoardRequestDto dto, String userEmailId) {
+        try {
+            boolean isExistUser = userRepository.existsByUserEmailId(userEmailId);
+            if (!isExistUser) return ResponseDto.authenticationFailed();
 
-      InquiryBoardEntity inquiryBoardEntity = new InquiryBoardEntity(dto, userEmailId);
-      inquiryBoardRepository.save(inquiryBoardEntity);
-    } catch (Exception exception) {
-      exception.printStackTrace();
-      return ResponseDto.databaseError();
+            InquiryBoardEntity inquiryBoardEntity = new InquiryBoardEntity(dto, userEmailId);
+            inquiryBoardRepository.save(inquiryBoardEntity);
+        } catch(Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+        return ResponseDto.success();
     }
-    return ResponseDto.success();
-  }
 
-  @Override
-  public ResponseEntity<ResponseDto> postComment(PostCommentRequestDto dto, int inquiryNumber) {
-    try {
-      InquiryBoardEntity inquiryBoardEntity = inquiryBoardRepository.findByInquiryNumber(inquiryNumber);
-      if (inquiryBoardEntity == null) return ResponseDto.noExistInquiryBoard();
+    @Override
+    public ResponseEntity<ResponseDto> postComment(PostCommentRequestDto dto, int inquiryNumber) {
+        try {
+            InquiryBoardEntity inquiryBoardEntity = inquiryBoardRepository.findByInquiryNumber(inquiryNumber);
+            if (inquiryBoardEntity == null) return ResponseDto.noExistInquiryBoard();
 
-      boolean status = inquiryBoardEntity.getStatus();
-      if (status) return ResponseDto.writtenComment();
+            boolean status = inquiryBoardEntity.getStatus();
+            if (status) return ResponseDto.writtenComment();
 
-      String comment = dto.getInquiryComment();
-      inquiryBoardEntity.setStatus(true);
-      inquiryBoardEntity.setInquiryComment(comment);
-
-      inquiryBoardRepository.save(inquiryBoardEntity);
-    } catch (Exception exception) {
-      exception.printStackTrace();
-      return ResponseDto.databaseError();
+            String comment = dto.getInquiryComment();
+            inquiryBoardEntity.setStatus(true);
+            inquiryBoardEntity.setInquiryComment(comment);
+            inquiryBoardRepository.save(inquiryBoardEntity);
+        } catch(Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+        return ResponseDto.success();
     }
-    return ResponseDto.success();
-  }
 
-  
+    @Override
+    public ResponseEntity<? super GetInquiryBoardListResponseDto> getInquiryBoardList() {
+        try {
+            List<GetInquiryBoardListResultSet> resultSets = inquiryBoardRepository.getInquiryBoardList();
 
-  @Override
-  public ResponseEntity<? super GetInquiryBoardListResponseDto> getInquiryBoardList() {
-    try {
-      List<GetInquiryBoardListResultSet> resultSets = inquiryBoardRepository.getInquiryBoardList();
-      return GetInquiryBoardListResponseDto.success(resultSets);
-    } catch (Exception exception) {
-      exception.printStackTrace();
-      return ResponseDto.databaseError();
+            return GetInquiryBoardListResponseDto.success(resultSets);
+        } catch(Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
     }
-  }
 
-  @Override
-  public ResponseEntity<? super GetSearchInquiryBoardListResponseDto> getSearchInquiryBoardList(String searchWord) {
-    try {
-      List<GetInquiryBoardListResultSet> resultSets = inquiryBoardRepository.getInquirySearchBoardList(searchWord);
-      return GetSearchInquiryBoardListResponseDto.success(resultSets);
-    } catch (Exception exception) {
-      exception.printStackTrace();
-      return ResponseDto.databaseError();
+    @Override
+    public ResponseEntity<? super GetSearchInquiryBoardListResponseDto> getSearchInquiryBoardList(String searchWord) {
+        try {
+            List<GetInquiryBoardListResultSet> resultSets = inquiryBoardRepository.getInquirySearchBoardList(searchWord);
+
+            return GetSearchInquiryBoardListResponseDto.success(resultSets);
+        } catch(Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
     }
-  }
 
-  @Override
-  public ResponseEntity<? super GetMyInquiryBoardListResponseDto> getMyInquiryBoardList(String userEmailId) {
-    try {
-      List<GetInquiryBoardListResultSet> resultSets = inquiryBoardRepository.getInquiryUserBoardList(userEmailId);
-      return GetMyInquiryBoardListResponseDto.success(resultSets);
-    } catch (Exception exception) {
-      exception.printStackTrace();
-      return ResponseDto.databaseError();
+    @Override
+    public ResponseEntity<? super GetMyInquiryBoardListResponseDto> getMyInquiryBoardList(String userEmailId) {
+        try {
+            List<GetInquiryBoardListResultSet> resultSets = inquiryBoardRepository.getInquiryUserBoardList(userEmailId);
+
+            return GetMyInquiryBoardListResponseDto.success(resultSets);
+        } catch(Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
     }
-  }
 
-  @Override
-  public ResponseEntity<? super GetInquiryBoardResponseDto> getInquiryBoard(int inquiryNumber) {
-    try {
-      InquiryBoardEntity inquiryBoardEntity = inquiryBoardRepository.findByInquiryNumber(inquiryNumber);
-      if (inquiryBoardEntity == null) return ResponseDto.noExistInquiryBoard();
-      String userEmailId = inquiryBoardEntity.getInquiryWriterId();
-      UserEntity userEntity = userRepository.findByUserEmailId(userEmailId);
-      if (userEntity == null) return ResponseDto.authorizationFailed();
-      String nickname = userEntity.getNickname();
+    @Override
+    public ResponseEntity<? super GetInquiryBoardResponseDto> getInquiryBoard(int inquiryNumber) {
+        try {
+            InquiryBoardEntity inquiryBoardEntity = inquiryBoardRepository.findByInquiryNumber(inquiryNumber);
+            if (inquiryBoardEntity == null) return ResponseDto.noExistInquiryBoard();
 
-      return GetInquiryBoardResponseDto.success(inquiryBoardEntity, nickname);
-    } catch (Exception exception){
-      exception.printStackTrace();
-      return ResponseDto.databaseError();
+            String userEmailId = inquiryBoardEntity.getInquiryWriterId();
+            UserEntity userEntity = userRepository.findByUserEmailId(userEmailId);
+            if (userEntity == null) return ResponseDto.authorizationFailed();
+
+            String nickname = userEntity.getNickname();
+
+            return GetInquiryBoardResponseDto.success(inquiryBoardEntity, nickname);
+        } catch(Exception exception){
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
     }
-  }
 
-  @Override
-  public ResponseEntity<ResponseDto> patchInquiryBoard(PatchInquiryBoardRequestDto dto, int inquiryNumber, String userEmailId) {
-    try {
-      InquiryBoardEntity inquiryBoardEntity = inquiryBoardRepository.findByInquiryNumber(inquiryNumber);
-      if (inquiryBoardEntity == null) return ResponseDto.noExistInquiryBoard();
+    @Override
+    public ResponseEntity<ResponseDto> patchInquiryBoard(PatchInquiryBoardRequestDto dto, int inquiryNumber, String userEmailId) {
+        try {
+            InquiryBoardEntity inquiryBoardEntity = inquiryBoardRepository.findByInquiryNumber(inquiryNumber);
+            if (inquiryBoardEntity == null) return ResponseDto.noExistInquiryBoard();
 
-      String writerId = inquiryBoardEntity.getInquiryWriterId();
-      boolean isWriter = userEmailId.equals(writerId);
-      if (!isWriter) return ResponseDto.authorizationFailed();
+            String writerId = inquiryBoardEntity.getInquiryWriterId();
+            boolean isWriter = userEmailId.equals(writerId);
+            if (!isWriter) return ResponseDto.authorizationFailed();
 
-      boolean status = inquiryBoardEntity.getStatus();
-      if (status) return ResponseDto.writtenComment();
+            boolean status = inquiryBoardEntity.getStatus();
+            if (status) return ResponseDto.writtenComment();
 
-      inquiryBoardEntity.update(dto);
-      inquiryBoardRepository.save(inquiryBoardEntity);
-    } catch (Exception exception) {
-      exception.printStackTrace();
-      return ResponseDto.databaseError();
+            inquiryBoardEntity.update(dto);
+            inquiryBoardRepository.save(inquiryBoardEntity);
+        } catch(Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+        return ResponseDto.success();
     }
-    return ResponseDto.success();
-  }
 
-  @Override
-  public ResponseEntity<ResponseDto> deleteInquiryBoard(int inquiryNumber, String userEmailId) {
-    try {
-      InquiryBoardEntity inquiryBoardEntity = inquiryBoardRepository.findByInquiryNumber(inquiryNumber);
-      if (inquiryBoardEntity == null) return ResponseDto.noExistInquiryBoard();
-  
-      String writerId = inquiryBoardEntity.getInquiryWriterId();
-      boolean isWriter = userEmailId.equals(writerId);
-      if (!isWriter) return ResponseDto.authorizationFailed();
+    @Override
+    public ResponseEntity<ResponseDto> deleteInquiryBoard(int inquiryNumber, String userEmailId) {
+        try {
+            InquiryBoardEntity inquiryBoardEntity = inquiryBoardRepository.findByInquiryNumber(inquiryNumber);
+            if (inquiryBoardEntity == null) return ResponseDto.noExistInquiryBoard();
+        
+            String writerId = inquiryBoardEntity.getInquiryWriterId();
+            boolean isWriter = userEmailId.equals(writerId);
+            if (!isWriter) return ResponseDto.authorizationFailed();
 
-      inquiryBoardRepository.delete(inquiryBoardEntity);
-    } catch (Exception exception) {
-      exception.printStackTrace();
-      return ResponseDto.databaseError();
-    }
-    return ResponseDto.success();
-  }
+            inquiryBoardRepository.delete(inquiryBoardEntity);
+        } catch(Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+        return ResponseDto.success();
+      }
 }

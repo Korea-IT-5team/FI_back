@@ -27,18 +27,11 @@ public class NoticeBoardEntity {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer noticeNumber;
-    private String noticeWriterId;
-<<<<<<< HEAD
     private String noticeTitle;
-    private String noticeWriterNickname;
-    private String noticeContents;
-    private String noticeWriteDatetime;
-    private Integer noticeViewCount;
-=======
+    private String noticeWriterId;
     private String noticeWriteDatetime;
     private String noticeContents;
     private Integer viewCount;
->>>>>>> b4dc1566f06014b5889cabac9d9dabc0957fd43a
 
     public NoticeBoardEntity(PostNoticeBoardRequestDto dto, String userEmailId ) {
         Date now = Date.from(Instant.now());
@@ -50,7 +43,6 @@ public class NoticeBoardEntity {
         this.noticeWriterId = userEmailId;
         this.noticeWriteDatetime = noticeWriteDatetime;
         this.viewCount = 0;
-
     }
 
     public void increaseViewCount() {

@@ -13,6 +13,13 @@ import com.project.back.repository.resultSet.GetRestaurantReviewListItemResultSe
 
 @Repository
 public interface ReviewRepository extends JpaRepository<ReviewEntity,Integer> {
+    boolean existsByReviewWriterIdAndReviewRestaurantId(String userEmailId, int restaurantId);
+
+    ReviewEntity findByReviewNumber(int reviewNumber);
+    List<FavoriteRestaurantEntity> findByOrderByReviewRestaurantIdDesc();
+
+    void deleteByReviewWriterId(String userEmailId);
+
     @Query(
         value=
         "SELECT " +
@@ -30,9 +37,6 @@ public interface ReviewRepository extends JpaRepository<ReviewEntity,Integer> {
     )
     List<GetRestaurantReviewListItemResultSet> findReviewsByRestaurantId(@Param("restaurantId") int restaurantId);
 
-    ReviewEntity findByReviewNumber(int reviewNumber);
-    List<FavoriteRestaurantEntity> findByOrderByReviewRestaurantIdDesc();
-    
     @Query(
         value=
         "SELECT " +
@@ -50,7 +54,4 @@ public interface ReviewRepository extends JpaRepository<ReviewEntity,Integer> {
         nativeQuery=true
     )
     List<GetRestaurantReviewListItemResultSet> findByOrderByMyReviewListDesc(@Param("userEmailId") String reviewWriterId);
-
-    boolean existsByReviewWriterIdAndReviewRestaurantId(String userEmailId, int restaurantId);
-    void deleteByReviewWriterId(String userEmailId);
 }

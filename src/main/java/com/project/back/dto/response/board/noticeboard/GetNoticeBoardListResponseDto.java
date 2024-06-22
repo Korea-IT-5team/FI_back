@@ -22,8 +22,7 @@ public class GetNoticeBoardListResponseDto extends ResponseDto {
         this.noticeBoardList = NoticeBoardListItem.getList(resultSets);
     }
 
-    public static ResponseEntity<GetNoticeBoardListResponseDto> success(List<GetNoticeBoardListResultSet> resultSets)
-    throws Exception {
+    public static ResponseEntity<GetNoticeBoardListResponseDto> success(List<GetNoticeBoardListResultSet> resultSets) throws Exception {
         GetNoticeBoardListResponseDto responseBody = new GetNoticeBoardListResponseDto(resultSets);
         return ResponseEntity.status(HttpStatus.OK).body(responseBody);
     }

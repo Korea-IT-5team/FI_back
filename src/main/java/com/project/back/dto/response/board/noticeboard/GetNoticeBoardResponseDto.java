@@ -35,8 +35,7 @@ public class GetNoticeBoardResponseDto extends ResponseDto {
         this.noticeContents = noticeBoardEntity.getNoticeContents();
     }
 
-    public static ResponseEntity<GetNoticeBoardResponseDto> success(NoticeBoardEntity noticeBoardEntity, String nickname)
-    throws Exception {
+    public static ResponseEntity<GetNoticeBoardResponseDto> success(NoticeBoardEntity noticeBoardEntity, String nickname) throws Exception {
         GetNoticeBoardResponseDto responseBody = new GetNoticeBoardResponseDto(noticeBoardEntity, nickname);
         return ResponseEntity.status(HttpStatus.OK).body(responseBody);
     }

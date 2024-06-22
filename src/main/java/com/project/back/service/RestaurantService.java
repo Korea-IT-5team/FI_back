@@ -19,27 +19,40 @@ import com.project.back.dto.response.restaurant.review.GetReviewListResponseDto;
 import com.project.back.dto.response.restaurant.review.GetReviewResponseDto;
 
 public interface RestaurantService {
+    ResponseEntity<ResponseDto> postRestaurantInfo(PostRestaurantInfoRequestDto dto, String userEmailId);
+
     ResponseEntity<? super GetRestaurantListResponseDto> getRestaurantList(String searchWord);
     ResponseEntity<? super GetRestaurantInfoResponseDto> getRestaurantInfo(int restaurantId);
-    ResponseEntity<ResponseDto> postRestaurantInfo(PostRestaurantInfoRequestDto dto, String userEmailId);
+
     ResponseEntity<ResponseDto> patchRestaurantInfo(PatchRestaurantInfoRequestDto dto, int restaurantId, String userEmailId);
+
     ResponseEntity<ResponseDto> deleteRestaurantInfo(int restaurantId, String userEmailId);
+
+
+    ResponseEntity<ResponseDto> postReservation (PostReservationRequestDto dto, String userEmailId, int restaurantId);
 
     ResponseEntity<? super GetReservationListResponseDto> getUserReservationList(String userEmailId);
     ResponseEntity<? super GetReservationListResponseDto> getCeoReservationList(String userEmailId);
-    ResponseEntity<ResponseDto> postReservation (PostReservationRequestDto dto, String userEmailId, int restaurantId);
-    ResponseEntity<ResponseDto> deleteReservation(String userEmailId, int restaurantId);
     ResponseEntity<? super GetReservationCheckResponseDto> getReservationCheck(String userEmailId, int restaurantId);
 
-    ResponseEntity<? super GetReviewResponseDto> getReview (int reviewNumber);
+    ResponseEntity<ResponseDto> deleteReservation(String userEmailId, int restaurantId);
+
+
     ResponseEntity<ResponseDto> postReview (PostReviewRequestDto dto, int restaurantId, String userEmailId);
-    ResponseEntity<ResponseDto> patchReview (PatchReviewRequestDto dto, int reviewNumber, String userEmailId);
-    ResponseEntity<ResponseDto> deleteReview (int reviewNumber, String userEmailId);
+
     ResponseEntity<? super GetReviewListResponseDto> getMyReviewList (String userEmailId);
+    ResponseEntity<? super GetReviewResponseDto> getReview (int reviewNumber);
+
+    ResponseEntity<ResponseDto> patchReview (PatchReviewRequestDto dto, int reviewNumber, String userEmailId);
+
+    ResponseEntity<ResponseDto> deleteReview (int reviewNumber, String userEmailId);
+
 
     ResponseEntity<ResponseDto> postFavorite(String userEmailId, int restaurantId);
-    ResponseEntity<ResponseDto> deleteFavorite(String userEmailId,int restaurantId);
-    ResponseEntity<? super GetFavoriteCheckResponseDto> getFavoriteCheck(String userEmailId, int restaurantId);
+
     ResponseEntity<? super GetFavoriteRestaurantListResponseDto> getFavoriteList(String userEmailId);
+    ResponseEntity<? super GetFavoriteCheckResponseDto> getFavoriteCheck(String userEmailId, int restaurantId);
     ResponseEntity<? super GetRestaurantIdResponseDto>getRestaurantId(String userEmailId);
+    
+    ResponseEntity<ResponseDto> deleteFavorite(String userEmailId,int restaurantId);
 }

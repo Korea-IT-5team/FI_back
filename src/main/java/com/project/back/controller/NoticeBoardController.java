@@ -27,6 +27,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/notice-board")
 public class NoticeBoardController {
+
     private final NoticeBoardService noticeBoardService;
 
     @PostMapping("/")
@@ -45,33 +46,33 @@ public class NoticeBoardController {
     }
 
     @GetMapping("/list/search")
-  public ResponseEntity<? super GetSearchNoticeBoardResponseDto> getSearchNoticeBoardList(
-    @RequestParam("searchWord") String searchWord
-  ) {
-    ResponseEntity<? super GetSearchNoticeBoardResponseDto> response = noticeBoardService.getSearchNoticeBoardList(searchWord);
-    return response;
-  } 
+    public ResponseEntity<? super GetSearchNoticeBoardResponseDto> getSearchNoticeBoardList(
+        @RequestParam("searchWord") String searchWord
+    ) {
+        ResponseEntity<? super GetSearchNoticeBoardResponseDto> response = noticeBoardService.getSearchNoticeBoardList(searchWord);
+        return response;
+    }
 
   @GetMapping("{noticeNumber}")
   public ResponseEntity<? super GetNoticeBoardResponseDto> getNoticeBoard(
-    @PathVariable("noticeNumber") int noticeNumber
+      @PathVariable("noticeNumber") int noticeNumber
   ) {
-    ResponseEntity<? super GetNoticeBoardResponseDto> response = noticeBoardService.getNoticeBoard(noticeNumber);
-    return response;
+      ResponseEntity<? super GetNoticeBoardResponseDto> response = noticeBoardService.getNoticeBoard(noticeNumber);
+      return response;
   }
 
   @PatchMapping("/update/{noticeNumber}")
   public ResponseEntity<ResponseDto> patchNoticeBoard(
-    @RequestBody @Valid PatchNoticeBoardRequestDto requestBody,
-    @PathVariable("noticeNumber") int noticeNumber,
-    @AuthenticationPrincipal String userEmailId
+      @RequestBody @Valid PatchNoticeBoardRequestDto requestBody,
+      @PathVariable("noticeNumber") int noticeNumber,
+      @AuthenticationPrincipal String userEmailId
   ) {
-    ResponseEntity<ResponseDto> response = noticeBoardService.patchNoticeBoard(requestBody, noticeNumber, userEmailId);
-    return response;
+      ResponseEntity<ResponseDto> response = noticeBoardService.patchNoticeBoard(requestBody, noticeNumber, userEmailId);
+      return response;
   }
 
   @PatchMapping("/{noticeNumber}/increase-view-count")
-  public ResponseEntity<ResponseDto> increaseViewCount (
+  public ResponseEntity<ResponseDto> increaseViewCount(
       @PathVariable("noticeNumber") int noticeNumber
   ) {
       ResponseEntity<ResponseDto> response = noticeBoardService.increaseViewCount(noticeNumber);
@@ -80,10 +81,10 @@ public class NoticeBoardController {
 
   @DeleteMapping("/{noticeNumber}")
   public ResponseEntity<ResponseDto> deleteNoticeBoard(
-    @PathVariable("noticeNumber") int noticeNumber,
-    @AuthenticationPrincipal String userEmailId
+      @PathVariable("noticeNumber") int noticeNumber,
+      @AuthenticationPrincipal String userEmailId
   ) {
-    ResponseEntity<ResponseDto> response = noticeBoardService.deleteNoticeBoard(noticeNumber, userEmailId);
-    return response;
+      ResponseEntity<ResponseDto> response = noticeBoardService.deleteNoticeBoard(noticeNumber, userEmailId);
+      return response;
   }
 }

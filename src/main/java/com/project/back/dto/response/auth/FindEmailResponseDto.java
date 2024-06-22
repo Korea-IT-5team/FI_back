@@ -11,7 +11,6 @@ import lombok.Getter;
 
 @Getter 
 public class FindEmailResponseDto extends ResponseDto{
-    
     private String userEmailId;
 
     private FindEmailResponseDto(String userEmailId) {

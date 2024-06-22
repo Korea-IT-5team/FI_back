@@ -34,8 +34,7 @@ public class NoticeBoardServiceImplementation implements NoticeBoardService {
 
             NoticeBoardEntity noticeBoardEntity = new NoticeBoardEntity(dto, userEmailId);
             noticeBoardRepository.save(noticeBoardEntity);
-        
-        } catch (Exception exception) {
+        } catch(Exception exception) {
             exception.printStackTrace();
             return ResponseDto.databaseError();
         }
@@ -46,8 +45,9 @@ public class NoticeBoardServiceImplementation implements NoticeBoardService {
     public ResponseEntity<? super GetNoticeBoardListResponseDto> getNoticeBoardList() {
         try {
             List<GetNoticeBoardListResultSet> resultSets = noticeBoardRepository.getNoticeBoardList();
+
             return GetNoticeBoardListResponseDto.success(resultSets);
-        } catch (Exception exception) {
+        } catch(Exception exception) {
             exception.printStackTrace();
             return ResponseDto.databaseError();
         }
@@ -57,8 +57,9 @@ public class NoticeBoardServiceImplementation implements NoticeBoardService {
     public ResponseEntity<? super GetSearchNoticeBoardResponseDto> getSearchNoticeBoardList(String searchWord) {
         try {
             List<GetNoticeBoardListResultSet> resultSets = noticeBoardRepository.getNoticeSearchBoardList(searchWord);
+
             return GetSearchNoticeBoardResponseDto.success(resultSets);
-        } catch (Exception exception) {
+        } catch(Exception exception) {
             exception.printStackTrace();
             return ResponseDto.databaseError();
         }
@@ -66,19 +67,21 @@ public class NoticeBoardServiceImplementation implements NoticeBoardService {
 
     @Override
     public ResponseEntity<? super GetNoticeBoardResponseDto> getNoticeBoard(int noticeNumber) {
-          try {
+        try {
             NoticeBoardEntity noticeBoardEntity = noticeBoardRepository.findByNoticeNumber(noticeNumber);
             if (noticeBoardEntity == null) return ResponseDto.noExistNoticeBoard();
+
             String userEmailId = noticeBoardEntity.getNoticeWriterId();
             UserEntity userEntity = userRepository.findByUserEmailId(userEmailId);
             if (userEntity == null) return ResponseDto.authorizationFailed();
+
             String nickname = userEntity.getNickname();
 
             return GetNoticeBoardResponseDto.success(noticeBoardEntity, nickname);
-          } catch (Exception exception) {
+        } catch(Exception exception) {
             exception.printStackTrace();
             return ResponseDto.databaseError();
-          }     
+        }     
     }
 
     // 공지 수정
@@ -94,7 +97,7 @@ public class NoticeBoardServiceImplementation implements NoticeBoardService {
 
             noticeBoardEntity.update(dto);
             noticeBoardRepository.save(noticeBoardEntity);
-        } catch (Exception exception) {
+        } catch(Exception exception) {
             exception.printStackTrace();
             return ResponseDto.databaseError();
         }
@@ -113,7 +116,7 @@ public class NoticeBoardServiceImplementation implements NoticeBoardService {
             if (!isWriter) return ResponseDto.authorizationFailed();
 
             noticeBoardRepository.delete(noticeBoardEntity);
-        } catch (Exception exception) {
+        } catch(Exception exception) {
             exception.printStackTrace();
             return ResponseDto.databaseError();
         }
@@ -128,11 +131,10 @@ public class NoticeBoardServiceImplementation implements NoticeBoardService {
 
             noticeBoardEntity.increaseViewCount();
             noticeBoardRepository.save(noticeBoardEntity);
-        } catch (Exception exception) {
+        } catch(Exception exception) {
             exception.printStackTrace();
             return ResponseDto.databaseError();
         }
         return ResponseDto.success();
     }
-    
 }
