@@ -144,7 +144,7 @@ Content-Type: application/json;charset=UTF-8
 ###### Example
 
 ```bash
-curl -v -X POST "http://localhost:4000/api/v1/auth/email-check" \
+curl -v -X POST "http://localhost:9999/api/v1/auth/email-check" \
  -d "userEamilId=service123@email.com" 
 ```
 
@@ -232,7 +232,7 @@ Content-Type: application/json;charset=UTF-8
 ###### Example
 
 ```bash
-curl -v -X POST "http://localhost:4000/api/v1/auth/nickname-check" \
+curl -v -X POST "http://localhost:9999/api/v1/auth/nickname-check" \
  -d "nickname=service22"
 ```
 
@@ -320,7 +320,7 @@ Content-Type: application/json;charset=UTF-8
 ###### Example
 
 ```bash
-curl -v -X POST "http://localhost:4000/api/v1/auth/busines-registration-check" \
+curl -v -X POST "http://localhost:9999/api/v1/auth/busines-registration-check" \
  -d "businessRegistrationNumber=222-22-22222"
 ```
 
@@ -408,7 +408,7 @@ Content-Type: application/json;charset=UTF-8
 ###### Example
 
 ```bash
-curl -v -X POST "http://localhost:4000/api/v1/auth/tel-number-auth" \
+curl -v -X POST "http://localhost:9999/api/v1/auth/tel-number-auth" \
  -d "userTelNumber=010-0000-0000" 
 ```
 
@@ -496,7 +496,7 @@ Content-Type: application/json;charset=UTF-8
 ###### Example
 
 ```bash
-curl -v -X POST "http://localhost:4000/api/v1/auth/email-auth-check" \
+curl -v -X POST "http://localhost:9999/api/v1/auth/email-auth-check" \
  -d "userTelNumber=010-0000-0000" \
  -d "authNumber=012345"
 ```
@@ -592,7 +592,7 @@ Content-Type: application/json;charset=UTF-8
 ###### Example
 
 ```bash
-curl -v -X POST "http://localhost:4000/api/v1/auth/sign-up" \
+curl -v -X POST "http://localhost:9999/api/v1/auth/sign-up" \
  -d "userEmailId=service123@email.com" \
  -d "userPassword=P!ssw0rd" \
  -d "nickname=service22" \
@@ -718,7 +718,7 @@ Content-Type: application/json;charset=UTF-8
 ###### Example
 
 ```bash
-curl -v -X POST "http://localhost:4000/api/v1/auth/sign-up" \
+curl -v -X POST "http://localhost:9999/api/v1/auth/sign-up" \
  -d "userName=홍길동" \
  -d "userTelNumber=010-0000-0000" 
 ```
@@ -809,7 +809,7 @@ Content-Type: application/json;charset=UTF-8
 ###### Example
 
 ```bash
-curl -v -X POST "http://localhost:4000/api/v1/auth/sign-up" \
+curl -v -X POST "http://localhost:9999/api/v1/auth/sign-up" \
  -d "userEmailId=service123@email.com" \
  -d "userTelNumber=010-0000-0000" 
 ```
@@ -898,7 +898,7 @@ Content-Type: application/json;charset=UTF-8
 ###### Example
 
 ```bash
-curl -v -X POST "http://localhost:4000/api/v1/auth/sign-up" \
+curl -v -X POST "http://localhost:9999/api/v1/auth/sign-up" \
  -d "password=P!ssw0rd00" 
 ```
 
@@ -969,7 +969,7 @@ Content-Type: application/json;charset=UTF-8
 ###### Example
 
 ```bash
-curl -v -X GET "http://localhost:4000/api/v1/user/" \
+curl -v -X GET "http://localhost:9999/api/v1/user/" \
  -H "Authorization: Bearer {JWT}"
 ```
 
@@ -1063,7 +1063,7 @@ Content-Type: application/json;charset=UTF-8
 ###### Example
 
 ```bash
-curl -v -X GET "http://localhost:4000/api/v1/user/info-update" \
+curl -v -X GET "http://localhost:9999/api/v1/user/info-update" \
  -d "nickname=service56" \
  -d "userAddress=서울특별시"
 ```
@@ -1172,7 +1172,7 @@ Content-Type: application/json;charset=UTF-8
 ###### Example
 
 ```bash
-curl -v -X GET "http://localhost:4000/api/v1/user/info-delete" \
+curl -v -X GET "http://localhost:9999/api/v1/user/info-delete" \
  -d "userPassword=P!ssw0rd" 
 ```
 
@@ -1273,7 +1273,7 @@ Content-Type: application/json;charset=UTF-8
 ###### Example
 
 ```bash
-curl -v -X PUT "http://localhost:4000/api/v1/restaurant/search?word=${searchword}" 
+curl -v -X PUT "http://localhost:9999/api/v1/restaurant/search?word=${searchword}" 
 ```
 
 ##### Response
@@ -1354,7 +1354,7 @@ Content-Type: application/json;charset=UTF-8
 ###### Example
 
 ```bash
-curl -v -X PUT "http://localhost:4000/api/v1/restaurant/${restaurantId}" 
+curl -v -X PUT "http://localhost:9999/api/v1/restaurant/${restaurantId}" 
 ```
 
 ##### Response
@@ -1432,6 +1432,254 @@ Content-Type: application/json;charset=UTF-8
       "reviewDate": ${reviewDate}
     }, ...
   ]
+}
+```
+
+**응답 : 실패 (데이터베이스 에러)**
+```bash
+HTTP/1.1 500 Internal Server Error
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "DBE",
+  "message": "Database Error."
+}
+```
+
+***
+
+#### - 식당 정보 등록
+  
+##### 설명
+
+클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 식당 상세 정보(대표사진, 식당명, 음식카테고리, 우편번호, 주소, 연락처, sns주소, 운영시간, 특징, 공지, 대표메뉴)를 입력받고 등록에 성공하면 성공 처리를 합니다. 만약 등록에 실패하면 실패 처리를 합니다. 인가 실패, 데이터 유효성 검사 실패, 데이터베이스 에러가 발생할 수 있습니다.
+
+- method : **POST**  
+- URL : **/info-upload**  
+
+##### Request
+
+###### Header
+
+| name | description | required |
+|---|:---:|:---:|
+| Authorization | 인증에 사용될 Bearer 토큰 | O |
+
+###### Request Body
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| restaurantImage | String | 식당 대표 사진 | O |
+| restaurantName | String | 식당 이름 | O |
+| restaurantFoodCategory | String | 식당 음식 카테고리 | O |
+| restaurantLocation | String | 식당 주소 | O |
+| restaurantTelNumber | String | 식당 연락처 |  |
+| restaurantSnsAddress | String | 식당 SNS 주소 |  |
+| restaurantOperationHours | String | 식당 운영 시간 |  |
+| restaurantFeatures | String | 식당 특징 |  |
+| restaurantNotice | String | 식당 공지 |  |
+| restaurantRepresentativeMenu | String | 식당 대표 메뉴 |  |
+| restaurantBusinessRegistrationNumber | String | 식당 등록자 사업자등록번호 | O |
+
+###### Example
+
+```bash
+curl -v -X PUT "http://localhost:9999/api/v1/restaurant/info-upload" \
+ -H "Authorization: Bearer {JWT}" \ 
+ -d "restaurantImage=https://www.rawshorts.com/freeicons/wp-content/uploads/2017/01/orange_travelpictdinner_1484336833.png" \ 
+ -d "restaurantName=restaurant22" \ 
+ -d "restaurantFoodCategory=한식" \ 
+ -d "restaurantLocation=부산광역시 부산진구" \
+ -d "restaurantTelNumber=051-000-0000" \
+ -d "restaurantSnsAdress=https://blog.naver.com/yeohye99" \
+ -d "restaurantOperationHours=09:00~18:00" \
+ -d "restaurantFeatures=애견 동반 가능" \
+ -d "restaurantNotice=일주일 간 서비스 제공" \
+ -d "restaurantRepresentativeMenu=김치찌개" \
+ -d "restaurantBusinessRegistrationNumber=222-22-22222"
+```
+
+##### Response
+
+###### Header
+
+| name | description | required |
+|---|:---:|:---:|
+| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
+
+###### Response Body
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| code | String | 결과 코드 | O |
+| message | String | 결과 메세지 | O |
+
+###### Example
+
+**응답 성공**
+```bash
+HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "SU",
+  "message": "Success."
+}
+```
+
+**응답 : 실패 (데이터 유효성 검사 실패)**
+```bash
+HTTP/1.1 400 Bad Request
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "VF",
+  "message": "Validation Failed."
+}
+```
+
+**응답 : 실패 (인가 실패)**
+```bash
+HTTP/1.1 403 Forbidden
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "AF",
+  "message": "Authorization Failed."
+}
+```
+
+**응답 : 실패 (권한 없음)**
+```bash
+HTTP/1.1 403 Forbidden
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "AF",
+  "message": "Authorization Failed."
+}
+```
+
+**응답 : 실패 (데이터베이스 에러)**
+```bash
+HTTP/1.1 500 Internal Server Error
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "DBE",
+  "message": "Database Error."
+}
+```
+
+***
+
+#### - 식당 정보 수정
+  
+##### 설명
+
+클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 식당 상세 정보(대표사진, 식당명, 음식카테고리, 우편번호, 주소, 연락처, sns주소, 운영시간, 특징, 공지, 대표메뉴)를 입력받고 수정에 성공하면 성공 처리를 합니다. 만약 수정에 실패하면 실패 처리를 합니다. 인가 실패, 데이터 유효성 검사 실패, 데이터베이스 에러가 발생할 수 있습니다.
+
+- method : **PATCH**  
+- URL : **/{restaurantId}**  
+
+##### Request
+
+###### Header
+
+| name | description | required |
+|---|:---:|:---:|
+| Authorization | 인증에 사용될 Bearer 토큰 | O |
+
+###### Request Body
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| restaurantImage | String | 식당 대표 사진 | O |
+| restaurantName | String | 식당 이름 | O |
+| restaurantFoodCategory | String | 식당 음식 카테고리 | O |
+| restaurantLocation | String | 식당 주소 | O |
+| restaurantTelNumber | String | 식당 연락처 |  |
+| restaurantSnsAddress | String | 식당 SNS 주소 |  |
+| restaurantOperationHours | String | 식당 운영 시간 |  |
+| restaurantFeatures | String | 식당 특징 |  |
+| restaurantNotice | String | 식당 공지 |  |
+| restaurantRepresentativeMenu | String | 식당 대표 메뉴 |  |
+
+###### Example
+
+```bash
+curl -v -X PUT "http://localhost:9999/api/v1/restaurant/${restaurantId}" \
+ -H "Authorization: Bearer {JWT}" \ 
+ -d "restaurantImage=https://www.rawshorts.com/freeicons/wp-content/uploads/2017/01/orange_travelpictdinner_1484336833.png" \ 
+ -d "restaurantName=restaurant56" \ 
+ -d "restaurantFoodCategory=양식" \ 
+ -d "restaurantLocation=부산광역시 해운대구" \
+ -d "restaurantTelNumber=051-000-1111" \
+ -d "restaurantSnsAdress=https://blog.naver.com/yeohye99" \
+ -d "restaurantOperationHours=09:00~14:00" \
+ -d "restaurantFeatures=주차장 구비" \
+ -d "restaurantNotice=금일 휴무" \
+ -d "restaurantRepresentativeMenu=파스타" 
+```
+
+##### Response
+
+###### Header
+
+| name | description | required |
+|---|:---:|:---:|
+| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
+
+###### Response Body
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| code | String | 결과 코드 | O |
+| message | String | 결과 메세지 | O |
+
+###### Example
+
+**응답 성공**
+```bash
+HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "SU",
+  "message": "Success."
+}
+```
+
+**응답 : 실패 (데이터 유효성 검사 실패)**
+```bash
+HTTP/1.1 400 Bad Request
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "VF",
+  "message": "Validation Failed."
+}
+```
+
+**응답 : 실패 (존재하지 않는 식당)**
+```bash
+HTTP/1.1 400 Bad Request
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "NR",
+  "message": "No Exist Restaurant."
+}
+```
+
+**응답 : 실패 (인가 실패)**
+```bash
+HTTP/1.1 403 Forbidden
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "AF",
+  "message": "Authorization Failed."
+}
+```
+
+**응답 : 실패 (권한 없음)**
+```bash
+HTTP/1.1 403 Forbidden
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "AF",
+  "message": "Authorization Failed."
 }
 ```
 
