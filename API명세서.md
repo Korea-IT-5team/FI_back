@@ -692,6 +692,255 @@ Content-Type: application/json;charset=UTF-8
 
 ***
 
+#### - 아이디(이메일 찾기)
+  
+##### 설명
+
+클라이언트로부터 이름, 전화번호를 입력받아 이메일을 확인할 수 있습니다. 입력된 이름과 전화번호가 일치하는 사용자의 이메일 일부분을 보여주어 성공 처리를 합니다. 실패하면 실패 처리를 합니다. 사용자 정보 불일치, 인증 실패, 데이터베이스 에러가 발생할 수 있습니다.
+
+- method : **POST**  
+- URL : **/find-email**  
+
+##### Request
+
+###### Header
+
+| name | description | required |
+|---|:---:|:---:|
+
+###### Request Body
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| userName | String | 사용자 이름 | O |
+| userTelNumber | String | 사용자 전화번호 | O |
+
+###### Example
+
+```bash
+curl -v -X POST "http://localhost:4000/api/v1/auth/sign-up" \
+ -d "userName=홍길동" \
+ -d "userTelNumber=010-0000-0000" 
+```
+
+##### Response
+
+###### Header
+
+| name | description | required |
+|---|:---:|:---:|
+| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
+
+###### Response Body
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| code | String | 결과 코드 | O |
+| message | String | 결과 메세지 | O |
+| userEmailId | String | 사용자 이메일 아이디 | O |
+
+###### Example
+
+**응답 성공**
+```bash
+HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "SU",
+  "message": "Success."
+}
+```
+
+**응답 : 실패 (데이터 유효성 검사 실패)**
+```bash
+HTTP/1.1 400 Bad Request
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "VF",
+  "message": "Validation Failed."
+}
+```
+
+**응답 : 실패 (사용자 정보 불일치)**
+```bash
+HTTP/1.1 404 Not Found
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "NF",
+  "message": "Not Found User."
+}
+```
+
+**응답 : 실패 (데이터베이스 에러)**
+```bash
+HTTP/1.1 500 Internal Server Error
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "DBE",
+  "message": "Database Error."
+}
+```
+
+***
+
+#### - 비밀번호 재설정 요청
+  
+##### 설명
+
+클라이언트로부터 아이디, 전화번호를 입력받아 입력된 아이디와 전화번호가 일치하는 사용자를 찾으면 성공 처리를 합니다. 실패하면 실패 처리를 합니다. 사용자 정보 불일치, 인증 실패, 데이터베이스 에러가 발생할 수 있습니다.
+
+- method : **POST**  
+- URL : **/password-reset**  
+
+##### Request
+
+###### Header
+
+| name | description | required |
+|---|:---:|:---:|
+
+###### Request Body
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| userEmailId | String | 사용자 이메일 아이디(이메일 형식) | O |
+| userTelNumber | String | 사용자 전화번호 | O |
+
+###### Example
+
+```bash
+curl -v -X POST "http://localhost:4000/api/v1/auth/sign-up" \
+ -d "userEmailId=service123@email.com" \
+ -d "userTelNumber=010-0000-0000" 
+```
+
+##### Response
+
+###### Header
+
+| name | description | required |
+|---|:---:|:---:|
+| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
+
+###### Response Body
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| code | String | 결과 코드 | O |
+| message | String | 결과 메세지 | O |
+
+###### Example
+
+**응답 성공**
+```bash
+HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "SU",
+  "message": "Success."
+}
+```
+
+**응답 : 실패 (데이터 유효성 검사 실패)**
+```bash
+HTTP/1.1 400 Bad Request
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "VF",
+  "message": "Validation Failed."
+}
+```
+
+**응답 : 실패 (사용자 정보 불일치)**
+```bash
+HTTP/1.1 404 Not Found
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "NF",
+  "message": "Not Found User."
+}
+```
+
+**응답 : 실패 (데이터베이스 에러)**
+```bash
+HTTP/1.1 500 Internal Server Error
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "DBE",
+  "message": "Database Error."
+}
+```
+
+***
+
+#### - 새로운 비밀번호 설정
+  
+##### 설명
+
+클라이언트로부터 새로운 비밀번호를 입력받아 비밀번호를 재설정하여 성공 처리를 합니다. 실패하면 실패 처리를 합니다. 데이터베이스 에러가 발생할 수 있습니다.
+
+- method : **POST**  
+- URL : **/password-update/${userEmailId}**  
+
+##### Request
+
+###### Header
+
+| name | description | required |
+|---|:---:|:---:|
+
+###### Request Body
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| password | String | 재설정할 비밀번호 | O |
+
+###### Example
+
+```bash
+curl -v -X POST "http://localhost:4000/api/v1/auth/sign-up" \
+ -d "password=P!ssw0rd00" 
+```
+
+##### Response
+
+###### Header
+
+| name | description | required |
+|---|:---:|:---:|
+| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
+
+###### Response Body
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| code | String | 결과 코드 | O |
+| message | String | 결과 메세지 | O |
+
+###### Example
+
+**응답 성공**
+```bash
+HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "SU",
+  "message": "Success."
+}
+```
+
+**응답 : 실패 (데이터베이스 에러)**
+```bash
+HTTP/1.1 500 Internal Server Error
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "DBE",
+  "message": "Database Error."
+}
+```
+
+***
+
 <h2 style='background-color: rgba(55, 55, 55, 0.2); text-align: center'>User 모듈</h2>
 
 사용자 정보와 관련된 REST API 모듈 
