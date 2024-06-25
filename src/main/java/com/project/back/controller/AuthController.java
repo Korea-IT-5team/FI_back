@@ -74,7 +74,7 @@ public class AuthController {
         return response;
     }
 
-    @PostMapping("/business-registration")
+    @PostMapping("/business-registration-check")
     public ResponseEntity<ResponseDto> businessRegistrationCheck(
         @RequestBody @Valid CheckBusinessRegistrationRequestDto requestBody
     ) {
