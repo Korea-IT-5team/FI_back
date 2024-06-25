@@ -737,7 +737,7 @@ curl -v -X POST "http://localhost:4000/api/v1/auth/sign-up" \
 |---|:---:|:---:|:---:|
 | code | String | 결과 코드 | O |
 | message | String | 결과 메세지 | O |
-| userEmailId | String | 사용자 아이디(이메일 형식) | O |
+| userEmailId | String | 사용자 아이디(이메일 형식)</br>(첫글자를 제외한 나머지 문자는 *) | O |
 
 ###### Example
 
@@ -1230,6 +1230,208 @@ Content-Type: application/json;charset=UTF-8
 {
   "code": "AF",
   "message": "Authorization Failed."
+}
+```
+
+**응답 : 실패 (데이터베이스 에러)**
+```bash
+HTTP/1.1 500 Internal Server Error
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "DBE",
+  "message": "Database Error."
+}
+```
+
+***
+
+<h2 style='background-color: rgba(55, 55, 55, 0.2); text-align: center'>Restaurant 모듈</h2>
+
+식당 정보와 관련된 REST API 모듈  
+  
+- url : /api/v1/restaurant  
+
+***
+
+#### - 식당 검색 목록 불러오기
+  
+##### 설명
+
+클라이언트로부터 식당명을 입력받고 요청을 보내면 데이터베이스에 저장된 순서로 식당 목록을 반환합니다. 만약 불러오기에 실패하면 실패 처리됩니다. 데이터베이스 에러가 발생할 수 있습니다.
+
+- method : **GET**  
+- URL : **/search**  
+
+##### Request
+
+###### Query Param
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| word | String | 검색할 식당명 | O |
+
+###### Example
+
+```bash
+curl -v -X PUT "http://localhost:4000/api/v1/restaurant/search?word=${searchword}" 
+```
+
+##### Response
+
+###### Header
+
+| name | description | required |
+|---|:---:|:---:|
+| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
+
+###### Response Body
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| code | String | 결과 코드 | O |
+| message | String | 결과 메세지 | O |
+| restaurantList | restaurantListItem[] | 식당 리스트 | O |
+
+**RestaurantListItem**
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| restaurantId | int | 식당 번호 | O |
+| restaurantImage | String | 식당 대표 사진 | O |
+| restaurantName | String | 식당 이름 | O |
+| restaurantFoodCategory | String | 식당 음식 카테고리 | O |
+| restaurantLocation | String | 식당 주소 | O |
+
+###### Example
+
+**응답 성공**
+```bash
+HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "SU",
+  "message": "Success.", 
+  "restaurantListItem": [
+    {
+      "restaurantId": ${restaurantId},
+      "restaurantImage": ${restaurantImage},
+      "restaurantName": ${restaurantName},
+      "restaurantFoodCategory": ${restaurantFoodCategory},
+      "restaurantLocation": ${restaurantLocation}
+    }, ...
+  ]
+}
+```
+
+**응답 : 실패 (데이터베이스 에러)**
+```bash
+HTTP/1.1 500 Internal Server Error
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "DBE",
+  "message": "Database Error."
+}
+```
+
+***
+
+#### - 식당 상세 페이지 불러오기
+  
+##### 설명
+
+클라이언트로부터 요청을 받고 불러오기에 성공하면 성공 처리를 합니다. 만약 불러오기에 실패하면 실패 처리됩니다. 데이터베이스 에러가 발생할 수 있습니다.
+
+- method : **GET**  
+- URL : **/{restaurantId}**  
+
+##### Request
+
+###### Path Variable
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| restaurantId | int | 식당 번호 | O |
+
+###### Example
+
+```bash
+curl -v -X PUT "http://localhost:4000/api/v1/restaurant/${restaurantId}" 
+```
+
+##### Response
+
+###### Header
+
+| name | description | required |
+|---|:---:|:---:|
+| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
+
+###### Response Body
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| code | String | 결과 코드 | O |
+| message | String | 결과 메세지 | O |
+| restaurantID | int | 식당 번호 | O |
+| restaurantImage | String | 식당 대표 사진 | O |
+| restaurantName | String | 식당 이름 | O |
+| restaurantFoodCategory | String | 식당 음식 카테고리 | O |
+| retaurantLocation | String | 식당 주소 | O |
+| restaurantTelNumber | String | 식당 전화번호 |  |
+| restaurantSnsAddress | String | 식당 SNS 주소 |  |
+| restaurantOperationHours | String | 식당 운영 시간 |  |
+| restaurantFeatures | String | 식당 특징 |  |
+| restaurantNotice | String | 식당 공지 |  |
+| restaurantRepresentativeMenu | String | 식당 대표 메뉴 |  |
+| restaurntBusinessRegistrationNumber | String | 식당 사업자등록번호 | O |
+| restaurantWriterId | String | 식당 등록자 아이디 | O |
+| restaurantReviewList | restaurantReviewListItem[] | 식당 리뷰 리스트 | O |
+
+**RestaurantReviewListItem**
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| reviewNumber | int | 리뷰 접수 번호 | O |
+| reviewRestaurantId | int | 식당 번호 | O |
+| reviewImage | String | 리뷰 사진 |  |
+| rating | double | 평점 | O |
+| reviewContents | String | 리뷰 내용 |  |
+| reviewWriterId | String | 작성자 아이디 | O |
+| reviewWriterNickname | String | 작성자 닉네임 | O |
+| reviewDate | datetime | 작성일 | O |
+
+###### Example
+
+**응답 성공**
+```bash
+HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "SU",
+  "message": "Success.", 
+  "restaurantId": ${restaurantId}
+  "restaurantImage": ${restaurantImage},
+  "restaurantName": ${restaurantName},
+  "restaurantFoodCategory": ${restaurantFoodCategory},
+  "restaurantPostalCode": ${restaurantPostalCode},
+  "restaurantLocation": ${restaurantLocation},
+  "restaurantTelNumber": ${restaurantTelNumber},
+  "restaurantSnsAddress": ${restaurantSnsAddress},
+  "restaurantOperationHours": ${restaurantOperationHours},
+  "restaurantFeatures": ${restaurantFeatures},
+  "restaurantNotice": ${restaurantNotice},
+  "restaurantRepresentativeMenu": ${restaurantRepresentativeMenu},
+  "restaurantBuisnessRegistrationNumber": ${restaurantBuisnessRegistrationNumber},
+  "restaurantReviewLisyItem": [
+    {
+      "reviewNumber": ${reviewNumber},
+      "reviewRestaurantId": ${reviewRestaurantId},
+      "reviewImage": ${reviewImage},
+      "rating": ${rating},
+      "reviewContents": ${reviewContents},
+      "reviewWriterId": ${reviewWriterId},
+      "reviewWriterNickname": ${reviewWriterNickname},
+      "reviewDate": ${reviewDate}
+    }, ...
+  ]
 }
 ```
 
@@ -2165,225 +2367,6 @@ Content-Type: application/json;charset=UTF-8
 ```
 
 **응답 : 실패 (권한 없음)**
-```bash
-HTTP/1.1 403 Forbidden
-Content-Type: application/json;charset=UTF-8
-{
-  "code": "AF",
-  "message": "Authorization Failed."
-}
-```
-
-**응답 : 실패 (데이터베이스 에러)**
-```bash
-HTTP/1.1 500 Internal Server Error
-Content-Type: application/json;charset=UTF-8
-{
-  "code": "DBE",
-  "message": "Database Error."
-}
-```
-
-***
-
-<h2 style='background-color: rgba(55, 55, 55, 0.2); text-align: center'>Estate 모듈</h2>
-
-오피스텔 부동산 가격 정보와 관련된 REST API 모듈  
-지역 평균 데이터, 비율 관련 데이터 API가 포함되어 있습니다.  
-  
-- url : /api/v1/estate  
-
-***
-
-#### - 지역 평균 데이터 불러오기
-  
-##### 설명
-
-클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 지역을 입력받고 불러오기에 성공하면 성공 처리를 합니다.(매매가, 전세가, 월세 보증금의 단위는 1,000원 단위) 만약 불러오기에 실패하면 실패 처리됩니다. 인가 실패, 데이터 유효성 검사 실패, 데이터베이스 에러가 발생할 수 있습니다.
-
-- method : **GET**  
-- URL : **/local/{local}**  
-
-##### Request
-
-###### Header
-
-| name | description | required |
-|---|:---:|:---:|
-| Authorization | 인증에 사용될 Bearer 토큰 | O |
-
-###### Path Variable
-
-| name | type | description | required |
-|---|:---:|:---:|:---:|
-| local | String | 조회할 지역 | O |
-
-###### Example
-
-```bash
-curl -v -X PUT "http://localhost:4000/api/v1/estate/local/{local}" \
- -H "Authorization: Bearer {JWT}" 
-```
-
-##### Response
-
-###### Header
-
-| name | description | required |
-|---|:---:|:---:|
-| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
-
-###### Response Body
-
-| name | type | description | required |
-|---|:---:|:---:|:---:|
-| code | String | 결과 코드 | O |
-| message | String | 결과 메세지 | O |
-| yearMonth | String[] | 연월 리스트 | O |
-| sale | int[] | 매매가 리스트 | O |
-| lease | int[] | 전세가 리스트 | O |
-| monthRent | int[] | 월세 보증금 리스트 | O |
-
-###### Example
-
-**응답 성공**
-```bash
-HTTP/1.1 200 OK
-Content-Type: application/json;charset=UTF-8
-{
-  "code": "SU",
-  "message": "Success.", 
-  "yearMonth": ['23-01', '23-02', '23-03', '23-04', ..., '23-12'],
-  "Sale": [4354, 3434, 4343, ..., 2146],
-  "lease": [4354, 3434, 4343, ..., 2146],
-  "monthRent": [4354, 3434, 4343, ..., 2146]
-}
-```
-**응답 : 실패 (데이터 유효성 검사 실패)**
-```bash
-HTTP/1.1 400 Bad Request
-Content-Type: application/json;charset=UTF-8
-{
-  "code": "VF",
-  "message": "Validation Failed."
-}
-```
-
-**응답 : 실패 (인가 실패)**
-```bash
-HTTP/1.1 403 Forbidden
-Content-Type: application/json;charset=UTF-8
-{
-  "code": "AF",
-  "message": "Authorization Failed."
-}
-```
-
-**응답 : 실패 (데이터베이스 에러)**
-```bash
-HTTP/1.1 500 Internal Server Error
-Content-Type: application/json;charset=UTF-8
-{
-  "code": "DBE",
-  "message": "Database Error."
-}
-```
-
-***
-
-#### - 비율 데이터 불러오기
-  
-##### 설명
-
-클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 지역을 입력받고 불러오기에 성공하면 성공 처리를 합니다.(날짜 데이터를 제외한 모든 단위는 백분율 단위) 만약 불러오기에 실패하면 실패 처리됩니다. 인가 실패, 데이터 유효성 검사 실패, 데이터베이스 에러가 발생할 수 있습니다.
-
-- method : **GET**  
-- URL : **/ratio/{local}**  
-
-##### Request
-
-###### Header
-
-| name | description | required |
-|---|:---:|:---:|
-| Authorization | 인증에 사용될 Bearer 토큰 | O |
-
-###### Path Variable
-
-| name | type | description | required |
-|---|:---:|:---:|:---:|
-| local | String | 조회할 지역 | O |
-
-###### Example
-
-```bash
-curl -v -X PUT "http://localhost:4000/api/v1/estate/ratio/{local}" \
- -H "Authorization: Bearer {JWT}" 
-```
-
-##### Response
-
-###### Header
-
-| name | description | required |
-|---|:---:|:---:|
-| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
-
-###### Response Body
-
-| name | type | description | required |
-|---|:---:|:---:|:---:|
-| code | String | 결과 코드 | O |
-| message | String | 결과 메세지 | O |
-| yearMonth | String[] | 연월 리스트 | O |
-| return40 | double[] | 40m^2 이하 수익률 리스트 | O |
-| return4060 | double[] | 40m^2 초과 60m^2 이하 수익률 리스트 | O |
-| return6085 | double[] | 60m^2 초과 85m^2 이하 수익률 리스트 | O |
-| return85 | double[] | 85m^2 초과 수익률 리스트 | O |
-| leaseRatio40 | double[] | 40m^2 이하 매매가 대비 전세가 비율 리스트 | O |
-| leaseRatio4060 | double[] | 40m^2 초과 60m^2 이하 매매가 대비 전세가 비율 리스트 | O |
-| leaseRatio6085 | double[] | 60m^2 초과 85m^2 이하 매매가 대비 전세가 비율 리스트 | O |
-| leaseRatio85 | double[] | 85m^2 초과 매매가 대비 전세가 비율 리스트 | O |
-| monthRentRatio40 | double[] | 40m^2 이하 전세가 대비 월세 보증금 비율 리스트 | O |
-| monthRentRatio4060 | double[] | 40m^2 초과 60m^2 이하 전세가 대비 월세 보증금 비율 리스트 | O |
-| monthRentRatio6085 | double[] | 60m^2 초과 85m^2 이하 전세가 대비 월세 보증금 비율 리스트 | O |
-| monthRentRatio85 | double[] | 85m^2 초과 전세가 대비 월세 보증금 비율 리스트 | O |
-
-###### Example
-
-**응답 성공**
-```bash
-HTTP/1.1 200 OK
-Content-Type: application/json;charset=UTF-8
-{
-  "code": "SU",
-  "message": "Success.", 
-  "yearMonth": ['23-01', '23-02', '23-03', '23-04', ..., '23-12'],
-  "return40": [10.5, 11.1, 12.5, ..., 11.8],
-  "return4060": [10.5, 11.1, 12.5, ..., 11.8],
-  "return6085": [10.5, 11.1, 12.5, ..., 11.8],
-  "return85": [10.5, 11.1, 12.5, ..., 11.8],
-  "leaseRatio40": [10.5, 11.1, 12.5, ..., 11.8],
-  "leaseRatio4060": [10.5, 11.1, 12.5, ..., 11.8],
-  "leaseRatio6085": [10.5, 11.1, 12.5, ..., 11.8],
-  "leaseRatio85": [10.5, 11.1, 12.5, ..., 11.8],
-  "monthRentRatio40": [10.5, 11.1, 12.5, ..., 11.8],
-  "monthRentRatio4060": [10.5, 11.1, 12.5, ..., 11.8],
-  "monthRentRatio6085": [10.5, 11.1, 12.5, ..., 11.8],
-  "monthRentRatio85": [10.5, 11.1, 12.5, ..., 11.8],
-}
-```
-**응답 : 실패 (데이터 유효성 검사 실패)**
-```bash
-HTTP/1.1 400 Bad Request
-Content-Type: application/json;charset=UTF-8
-{
-  "code": "VF",
-  "message": "Validation Failed."
-}
-```
-
-**응답 : 실패 (인가 실패)**
 ```bash
 HTTP/1.1 403 Forbidden
 Content-Type: application/json;charset=UTF-8
