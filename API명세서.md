@@ -737,7 +737,7 @@ curl -v -X POST "http://localhost:4000/api/v1/auth/sign-up" \
 |---|:---:|:---:|:---:|
 | code | String | 결과 코드 | O |
 | message | String | 결과 메세지 | O |
-| userEmailId | String | 사용자 이메일 아이디 | O |
+| userEmailId | String | 사용자 아이디(이메일 형식) | O |
 
 ###### Example
 
@@ -803,7 +803,7 @@ Content-Type: application/json;charset=UTF-8
 
 | name | type | description | required |
 |---|:---:|:---:|:---:|
-| userEmailId | String | 사용자 이메일 아이디(이메일 형식) | O |
+| userEmailId | String | 사용자 아이디(이메일 형식) | O |
 | userTelNumber | String | 사용자 전화번호 | O |
 
 ###### Example
@@ -953,7 +953,7 @@ Content-Type: application/json;charset=UTF-8
   
 ##### 설명
 
-클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 요청을 받으면 해당 토큰의 작성자(subject)에 해당하는 사용자 정보를 반환합니다. 성공 시에는 사용자의 아이디와 권한을 반환합니다. 인증 실패 및 데이터베이스 에러가 발생할 수 있습니다.
+클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 요청을 받으면 해당 토큰의 작성자(subject)에 해당하는 사용자 정보를 반환합니다. 성공 시에는 사용자의 아이디, 권한을 반환합니다. 인증 실패 및 데이터베이스 에러가 발생할 수 있습니다.
 
 - method : **GET**  
 - URL : **/**  
@@ -987,7 +987,7 @@ curl -v -X GET "http://localhost:4000/api/v1/user/" \
 |---|:---:|:---:|:---:|
 | code | String | 결과 코드 | O |
 | message | String | 결과 메세지 | O |
-| userId | String | 사용자의 아이디 | O |
+| userEmailId | String | 사용자의 아이디(이메일 형식) | O |
 | userRole | String | 사용자의 권한 | O |
 
 ###### Example
@@ -1004,6 +1004,16 @@ Content-Type: application/json;charset=UTF-8
 }
 ```
 
+**응답 : 실패 (인증 실패)**
+```bash
+HTTP/1.1 401 Unauthorized
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "AF",
+  "message": "Authentication Failed."
+}
+```
+
 **응답 : 실패 (인가 실패)**
 ```bash
 HTTP/1.1 403 Forbidden
@@ -1014,6 +1024,97 @@ Content-Type: application/json;charset=UTF-8
 }
 ```
 
+**응답 : 실패 (데이터베이스 에러)**
+```bash
+HTTP/1.1 500 Internal Server Error
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "DBE",
+  "message": "Database Error."
+}
+```
+
+***
+
+#### - 회원 정보 수정
+  
+##### 설명
+
+클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 닉네임, 주소를 입력받고 회원 정보를 수정합니다. 성공 시에는 성공 처리를 합니다. 인증 실패, 인가 실패, 유효성 검사 실패, 중복된 닉네임, 데이터베이스 에러가 발생할 수 있습니다.
+
+- method : **PATCH**  
+- URL : **/info-uppdate**  
+
+##### Request
+
+###### Header
+
+| name | description | required |
+|---|:---:|:---:|
+| Authorization | 인증에 사용될 Bearer 토큰 | O |
+
+###### Request Body
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| nickname | String | 사용자 닉네임 | O |
+| userAddress | String | 사용자 주소 | O |
+
+###### Example
+
+```bash
+curl -v -X GET "http://localhost:4000/api/v1/user/info-update" \
+ -d "nickname=service56" \
+ -d "userAddress=서울특별시"
+```
+
+##### Response
+
+###### Header
+
+| name | description | required |
+|---|:---:|:---:|
+| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
+
+###### Response Body
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| code | String | 결과 코드 | O |
+| message | String | 결과 메세지 | O |
+
+###### Example
+
+**응답 성공**
+```bash
+HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "SU",
+  "message": "Success."
+}
+```
+
+**응답 : 실패 (데이터 유효성 검사 실패)**
+```bash
+HTTP/1.1 400 Bad Request
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "VF",
+  "message": "Validation Failed."
+}
+```
+
+**응답 : 실패 (중복된 닉네임)**
+```bash
+HTTP/1.1 400 Bad Request
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "DN",
+  "message": "Duplicatied Nickname."
+}
+```
+
 **응답 : 실패 (인증 실패)**
 ```bash
 HTTP/1.1 401 Unauthorized
@@ -1021,6 +1122,114 @@ Content-Type: application/json;charset=UTF-8
 {
   "code": "AF",
   "message": "Authentication Failed."
+}
+```
+
+**응답 : 실패 (인가 실패)**
+```bash
+HTTP/1.1 403 Forbidden
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "AF",
+  "message": "Authorization Failed."
+}
+```
+
+**응답 : 실패 (데이터베이스 에러)**
+```bash
+HTTP/1.1 500 Internal Server Error
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "DBE",
+  "message": "Database Error."
+}
+```
+***
+
+#### - 회원 탈퇴
+  
+##### 설명
+
+클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 비밀번호를 입력받고 회원 탈퇴를 합니다. 성공 시에는 성공 처리를 합니다. 인증 실패, 인가 실패, 유효성 검사 실패, 데이터베이스 에러가 발생할 수 있습니다.
+
+- method : **POST**  
+- URL : **/info-delete**  
+
+##### Request
+
+###### Header
+
+| name | description | required |
+|---|:---:|:---:|
+| Authorization | 인증에 사용될 Bearer 토큰 | O |
+
+###### Request Body
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| userPassword | String | 사용자 비밀번호 | O |
+
+###### Example
+
+```bash
+curl -v -X GET "http://localhost:4000/api/v1/user/info-delete" \
+ -d "userPassword=P!ssw0rd" 
+```
+
+##### Response
+
+###### Header
+
+| name | description | required |
+|---|:---:|:---:|
+| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
+
+###### Response Body
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| code | String | 결과 코드 | O |
+| message | String | 결과 메세지 | O |
+
+###### Example
+
+**응답 성공**
+```bash
+HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "SU",
+  "message": "Success."
+}
+```
+
+**응답 : 실패 (데이터 유효성 검사 실패)**
+```bash
+HTTP/1.1 400 Bad Request
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "VF",
+  "message": "Validation Failed."
+}
+```
+
+**응답 : 실패 (인증 실패)**
+```bash
+HTTP/1.1 401 Unauthorized
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "AF",
+  "message": "Authentication Failed."
+}
+```
+
+**응답 : 실패 (인가 실패)**
+```bash
+HTTP/1.1 403 Forbidden
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "AF",
+  "message": "Authorization Failed."
 }
 ```
 
@@ -1102,6 +1311,7 @@ Content-Type: application/json;charset=UTF-8
   "message": "Success."
 }
 ```
+
 **응답 : 실패 (데이터 유효성 검사 실패)**
 ```bash
 HTTP/1.1 400 Bad Request
