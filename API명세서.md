@@ -1063,7 +1063,7 @@ Content-Type: application/json;charset=UTF-8
 ###### Example
 
 ```bash
-curl -v -X GET "http://localhost:9999/api/v1/user/info-update" \
+curl -v -X PATCH "http://localhost:9999/api/v1/user/info-update" \
  -d "nickname=service56" \
  -d "userAddress=서울특별시"
 ```
@@ -1144,6 +1144,7 @@ Content-Type: application/json;charset=UTF-8
   "message": "Database Error."
 }
 ```
+
 ***
 
 #### - 회원 탈퇴
@@ -1172,7 +1173,7 @@ Content-Type: application/json;charset=UTF-8
 ###### Example
 
 ```bash
-curl -v -X GET "http://localhost:9999/api/v1/user/info-delete" \
+curl -v -X POST "http://localhost:9999/api/v1/user/info-delete" \
  -d "userPassword=P!ssw0rd" 
 ```
 
@@ -1273,7 +1274,7 @@ Content-Type: application/json;charset=UTF-8
 ###### Example
 
 ```bash
-curl -v -X PUT "http://localhost:9999/api/v1/restaurant/search?word=${searchword}" 
+curl -v -X GET "http://localhost:9999/api/v1/restaurant/search?word=${searchword}" 
 ```
 
 ##### Response
@@ -1354,7 +1355,7 @@ Content-Type: application/json;charset=UTF-8
 ###### Example
 
 ```bash
-curl -v -X PUT "http://localhost:9999/api/v1/restaurant/${restaurantId}" 
+curl -v -X GET "http://localhost:9999/api/v1/restaurant/${restaurantId}" 
 ```
 
 ##### Response
@@ -1483,7 +1484,7 @@ Content-Type: application/json;charset=UTF-8
 ###### Example
 
 ```bash
-curl -v -X PUT "http://localhost:9999/api/v1/restaurant/info-upload" \
+curl -v -X POST "http://localhost:9999/api/v1/restaurant/info-upload" \
  -H "Authorization: Bearer {JWT}" \ 
  -d "restaurantImage=https://www.rawshorts.com/freeicons/wp-content/uploads/2017/01/orange_travelpictdinner_1484336833.png" \ 
  -d "restaurantName=restaurant22" \ 
@@ -1602,7 +1603,7 @@ Content-Type: application/json;charset=UTF-8
 ###### Example
 
 ```bash
-curl -v -X PUT "http://localhost:9999/api/v1/restaurant/${restaurantId}" \
+curl -v -X PATCH "http://localhost:9999/api/v1/restaurant/${restaurantId}" \
  -H "Authorization: Bearer {JWT}" \ 
  -d "restaurantImage=https://www.rawshorts.com/freeicons/wp-content/uploads/2017/01/orange_travelpictdinner_1484336833.png" \ 
  -d "restaurantName=restaurant56" \ 
@@ -1614,6 +1615,511 @@ curl -v -X PUT "http://localhost:9999/api/v1/restaurant/${restaurantId}" \
  -d "restaurantFeatures=주차장 구비" \
  -d "restaurantNotice=금일 휴무" \
  -d "restaurantRepresentativeMenu=파스타" 
+```
+
+##### Response
+
+###### Header
+
+| name | description | required |
+|---|:---:|:---:|
+| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
+
+###### Response Body
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| code | String | 결과 코드 | O |
+| message | String | 결과 메세지 | O |
+
+###### Example
+
+**응답 성공**
+```bash
+HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "SU",
+  "message": "Success."
+}
+```
+
+**응답 : 실패 (데이터 유효성 검사 실패)**
+```bash
+HTTP/1.1 400 Bad Request
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "VF",
+  "message": "Validation Failed."
+}
+```
+
+**응답 : 실패 (존재하지 않는 식당)**
+```bash
+HTTP/1.1 400 Bad Request
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "NR",
+  "message": "No Exist Restaurant."
+}
+```
+
+**응답 : 실패 (인가 실패)**
+```bash
+HTTP/1.1 403 Forbidden
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "AF",
+  "message": "Authorization Failed."
+}
+```
+
+**응답 : 실패 (권한 없음)**
+```bash
+HTTP/1.1 403 Forbidden
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "AF",
+  "message": "Authorization Failed."
+}
+```
+
+**응답 : 실패 (데이터베이스 에러)**
+```bash
+HTTP/1.1 500 Internal Server Error
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "DBE",
+  "message": "Database Error."
+}
+```
+
+***
+
+<h2 style='background-color: rgba(55, 55, 55, 0.2); text-align: center'>Review 모듈</h2>
+
+식당 리뷰와 관련된 REST API 모듈  
+  
+- url : /api/v1/restaurant/review  
+
+***
+
+#### - 본인 리뷰 목록 불러오기
+  
+##### 설명
+
+클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여  사용자 본인의 리뷰 내역 리스트를 반환합니다. 만약 불러오기에 실패하면 실패 처리를 합니다. 인가 실패, 유효성 검사 실패, 데이터베이스 에러가 발생할 수 있습니다.
+
+- method : **GET**  
+- URL : **/list**  
+
+##### Request
+
+###### Header
+
+| name | description | required |
+|---|:---:|:---:|
+| Authorization | 인증에 사용될 Bearer 토큰 | O |
+
+###### Example
+
+```bash
+curl -v -X GET "http://localhost:9999/api/v1/restaurant/review/list" 
+```
+
+##### Response
+
+###### Header
+
+| name | description | required |
+|---|:---:|:---:|
+| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
+
+###### Response Body
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| code | String | 결과 코드 | O |
+| message | String | 결과 메세지 | O |
+| reviewNumber | int | 리뷰 접수 번호 | O |
+| reviewRestaurantId | String | 식당 아이디 | O |
+| reviewRestaurantName | String | 식당 이름 | O |
+| rating | double | 평점 | O |
+| reviewDate | String | 리뷰 작성일 | O |
+
+###### Example
+
+**응답 성공**
+```bash
+HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "SU",
+  "message": "Success.", 
+  "reviewNumber": ${reviewNumber},
+  "reviewRestaurantId": ${reviewRestaurantId},
+  "reviewRestaurantName": ${reviewRestaurantName},
+  "rating": ${rating},
+  "reviewDate": ${reviewDate}
+}
+```
+
+**응답 : 실패 (데이터베이스 에러)**
+```bash
+HTTP/1.1 500 Internal Server Error
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "DBE",
+  "message": "Database Error."
+}
+```
+
+***
+
+#### - 리뷰 상세 페이지 불러오기
+  
+##### 설명
+
+클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 리뷰를 반환합니다. 만약 불러오기에 실패하면 실패 처리를 합니다. 인가 실패, 유효성 검사 실패, 데이터베이스 에러가 발생할 수 있습니다.
+
+- method : **GET**  
+- URL : **/{reviewNumber}**  
+
+##### Request
+
+###### Header
+
+| name | description | required |
+|---|:---:|:---:|
+| Authorization | 인증에 사용될 Bearer 토큰 | O |
+
+###### Example
+
+```bash
+curl -v -X GET "http://localhost:9999/api/v1/restaurant/review/${reviewNumber}" 
+```
+
+##### Response
+
+###### Header
+
+| name | description | required |
+|---|:---:|:---:|
+| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
+
+###### Response Body
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| code | String | 결과 코드 | O |
+| message | String | 결과 메세지 | O |
+| reviewNumber | int | 리뷰 접수 번호 | O |
+| reviewRestaurantId | String | 식당 아이디 | O |
+| reviewRestaurantName | String | 식당 이름 | O |
+| rating | double | 평점 | O |
+| reviewImage | String | 리뷰 사진 | O |
+| reviewContent | String | 리뷰 내용 | O |
+| reviewDate | String | 리뷰 작성일 | O |
+
+###### Example
+
+**응답 성공**
+```bash
+HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "SU",
+  "message": "Success.", 
+  "reviewNumber": ${reviewNumber},
+  "reviewRestaurantId": ${reviewRestaurantId},
+  "reviewRestaurantName": ${reviewRestaurantName},
+  "reviewImage": ${reviewImage},
+  "rating": ${rating},
+  "reviewDate": ${reviewDate},
+  "reviewContent": ${reviewContent}
+}
+```
+
+**응답 : 실패 (데이터베이스 에러)**
+```bash
+HTTP/1.1 500 Internal Server Error
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "DBE",
+  "message": "Database Error."
+}
+```
+
+***
+
+#### - 식당 리뷰 작성
+  
+##### 설명
+
+클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 리뷰 사진, 평점, 리뷰 내용을 입력받고 작성에 성공하면 성공 처리를 합니다. 만약 작성에 실패하면 실패 처리를 합니다. 인가 실패, 데이터 유효성 검사 실패, 데이터베이스 에러가 발생할 수 있습니다.
+
+- method : **POST**  
+- URL : **/{restaurantId}**  
+
+##### Request
+
+###### Header
+
+| name | description | required |
+|---|:---:|:---:|
+| Authorization | 인증에 사용될 Bearer 토큰 | O |
+
+###### Path Variable
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| restaurantId | int | 식당 번호 | O |
+
+###### Request Body
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| reviewImage | String | 리뷰 사진 |  |
+| rating | double | 평점 | O |
+| reviewContents | String | 리뷰 내용 |  |
+
+###### Example
+
+```bash
+curl -v -X POST "http://localhost:9999/api/v1/restaurant/review/{restaurantId}" \
+ -H "Authorization: Bearer {JWT}" \ 
+ -d "reviewImage=https://www.rawshorts.com/freeicons/wp-content/uploads/2017/01/orange_travelpictdinner_1484336833.png" \ 
+ -d "rating=3.5" \ 
+ -d "reviewContents=식당이 깔끔하고 좋네요!" 
+```
+
+##### Response
+
+###### Header
+
+| name | description | required |
+|---|:---:|:---:|
+| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
+
+###### Response Body
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| code | String | 결과 코드 | O |
+| message | String | 결과 메세지 | O |
+
+###### Example
+
+**응답 성공**
+```bash
+HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "SU",
+  "message": "Success."
+}
+```
+
+**응답 : 실패 (데이터 유효성 검사 실패)**
+```bash
+HTTP/1.1 400 Bad Request
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "VF",
+  "message": "Validation Failed."
+}
+```
+
+**응답 : 실패 (존재하지 않는 식당)**
+```bash
+HTTP/1.1 400 Bad Request
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "NR",
+  "message": "No Exist Restaurant."
+}
+```
+
+**응답 : 실패 (인가 실패)**
+```bash
+HTTP/1.1 403 Forbidden
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "AF",
+  "message": "Authorization Failed."
+}
+```
+
+**응답 : 실패 (권한 없음)**
+```bash
+HTTP/1.1 403 Forbidden
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "AF",
+  "message": "Authorization Failed."
+}
+```
+
+**응답 : 실패 (데이터베이스 에러)**
+```bash
+HTTP/1.1 500 Internal Server Error
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "DBE",
+  "message": "Database Error."
+}
+```
+
+***
+
+#### - 식당 리뷰 수정
+  
+##### 설명
+
+클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 리뷰 사진, 평점, 리뷰 내용을 입력받고 수정에 성공하면 성공 처리를 합니다. 만약 수정에 실패하면 실패 처리를 합니다. 인가 실패, 데이터 유효성 검사 실패, 데이터베이스 에러가 발생할 수 있습니다.
+
+- method : **PATCH**  
+- URL : **/{reviewNumber}**  
+
+##### Request
+
+###### Header
+
+| name | description | required |
+|---|:---:|:---:|
+| Authorization | 인증에 사용될 Bearer 토큰 | O |
+
+###### Path Variable
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| reviewNumber | int | 리뷰 접수 번호 | O |
+
+###### Request Body
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| reviewImage | String | 리뷰 사진 |  |
+| rating | double | 평점 | O |
+| reviewContents | String | 리뷰 내용 |  |
+
+###### Example
+
+```bash
+curl -v -X PATCH "http://localhost:9999/api/v1/restaurant/review/{reviewNumber}" \
+ -H "Authorization: Bearer {JWT}" \ 
+ -d "reviewImage=https://www.rawshorts.com/freeicons/wp-content/uploads/2017/01/orange_travelpictdinner_1484336833.png" \ 
+ -d "rating=4.0" \ 
+ -d "reviewContents=별로였어요.." 
+```
+
+##### Response
+
+###### Header
+
+| name | description | required |
+|---|:---:|:---:|
+| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
+
+###### Response Body
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| code | String | 결과 코드 | O |
+| message | String | 결과 메세지 | O |
+
+###### Example
+
+**응답 성공**
+```bash
+HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "SU",
+  "message": "Success."
+}
+```
+
+**응답 : 실패 (데이터 유효성 검사 실패)**
+```bash
+HTTP/1.1 400 Bad Request
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "VF",
+  "message": "Validation Failed."
+}
+```
+
+**응답 : 실패 (존재하지 않는 식당)**
+```bash
+HTTP/1.1 400 Bad Request
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "NR",
+  "message": "No Exist Restaurant."
+}
+```
+
+**응답 : 실패 (인가 실패)**
+```bash
+HTTP/1.1 403 Forbidden
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "AF",
+  "message": "Authorization Failed."
+}
+```
+
+**응답 : 실패 (권한 없음)**
+```bash
+HTTP/1.1 403 Forbidden
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "AF",
+  "message": "Authorization Failed."
+}
+```
+
+**응답 : 실패 (데이터베이스 에러)**
+```bash
+HTTP/1.1 500 Internal Server Error
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "DBE",
+  "message": "Database Error."
+}
+```
+
+***
+
+#### - 식당 리뷰 삭제
+  
+##### 설명
+
+클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 삭제에 성공하면 성공 처리를 합니다. 만약 삭제에 실패하면 실패 처리를 합니다. 인가 실패, 데이터 유효성 검사 실패, 데이터베이스 에러가 발생할 수 있습니다.
+
+- method : **DELETE**  
+- URL : **/{reviewNumber}**  
+
+##### Request
+
+###### Header
+
+| name | description | required |
+|---|:---:|:---:|
+| Authorization | 인증에 사용될 Bearer 토큰 | O |
+
+###### Path Variable
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| reviewNumber | int | 리뷰 접수 번호 | O |
+
+###### Example
+
+```bash
+curl -v -X DELETE "http://localhost:9999/api/v1/restaurant/review/{reviewNumber}" \
+ -H "Authorization: Bearer {JWT}" 
 ```
 
 ##### Response
