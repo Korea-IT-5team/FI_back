@@ -2823,99 +2823,7 @@ inquiry-board와 관련된 REST API 모듈
 
 ***
 
-#### - 게시물 문의 작성
-  
-##### 설명
-
-클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 제목, 내용을 입력받고 작성에 성공하면 성공 처리를 합니다. 만약 작성에 실패하면 실패 처리 됩니다. 인가 실패, 데이터베이스 에러, 데이터 유효성 검사 실패가 발생할 수 있습니다.
-
-- method : **POST**  
-- URL : **/**  
-
-##### Request
-
-###### Header
-
-| name | description | required |
-|---|:---:|:---:|
-| Authorization | 인증에 사용될 Bearer 토큰 | O |
-
-###### Request Body
-
-| name | type | description | required |
-|---|:---:|:---:|:---:|
-| title | String | 제목 | O |
-| contents | String | 내용 | O |
-
-###### Example
-
-```bash
-curl -v -X POST "http:////localhost:9999/api/v1/inquiry-board/" \
- -H "Authorization: Bearer {JWT}" \
- -d "title={title}" \
- -d "contents={contents}"
-```
-
-##### Response
-
-###### Header
-
-| name | description | required |
-|---|:---:|:---:|
-| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
-
-###### Response Body
-
-| name | type | description | required |
-|---|:---:|:---:|:---:|
-| code | String | 결과 코드 | O |
-| message | String | 결과 메세지 | O |
-
-###### Example
-
-**응답 성공**
-```bash
-HTTP/1.1 200 OK
-Content-Type: application/json;charset=UTF-8
-{
-  "code": "SU",
-  "message": "Success."
-}
-```
-
-**응답 : 실패 (데이터 유효성 검사 실패)**
-```bash
-HTTP/1.1 400 Bad Request
-Content-Type: application/json;charset=UTF-8
-{
-  "code": "VF",
-  "message": "Validation Failed."
-}
-```
-
-**응답 : 실패 (인가 실패)**
-```bash
-HTTP/1.1 403 Forbidden
-Content-Type: application/json;charset=UTF-8
-{
-  "code": "AF",
-  "message": "Authorization Failed."
-}
-```
-
-**응답 : 실패 (데이터베이스 에러)**
-```bash
-HTTP/1.1 500 Internal Server Error
-Content-Type: application/json;charset=UTF-8
-{
-  "code": "DBE",
-  "message": "Database Error."
-}
-```
-
-***
-
-#### - 전체 게시판 리스트 불러오기
+#### - 전체 문의 게시판 리스트 불러오기
   
 ##### 설명
 
@@ -3011,7 +2919,7 @@ Content-Type: application/json;charset=UTF-8
 
 ***
 
-#### - 검색 게시판 리스트 불러오기
+#### - 문의 검색 게시판 리스트 불러오기
   
 ##### 설명
 
@@ -3123,7 +3031,7 @@ Content-Type: application/json;charset=UTF-8
 
 ***
 
-#### - 게시물 상세보기
+#### - 문의 게시물 상세보기
   
 ##### 설명
 
@@ -3240,7 +3148,99 @@ Content-Type: application/json;charset=UTF-8
 
 ***
 
-#### - 게시물 답글 작성
+#### - 게시물 문의 작성
+  
+##### 설명
+
+클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 제목, 내용을 입력받고 작성에 성공하면 성공 처리를 합니다. 만약 작성에 실패하면 실패 처리 됩니다. 인가 실패, 데이터베이스 에러, 데이터 유효성 검사 실패가 발생할 수 있습니다.
+
+- method : **POST**  
+- URL : **/**  
+
+##### Request
+
+###### Header
+
+| name | description | required |
+|---|:---:|:---:|
+| Authorization | 인증에 사용될 Bearer 토큰 | O |
+
+###### Request Body
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| title | String | 제목 | O |
+| contents | String | 내용 | O |
+
+###### Example
+
+```bash
+curl -v -X POST "http:////localhost:9999/api/v1/inquiry-board/" \
+ -H "Authorization: Bearer {JWT}" \
+ -d "title={title}" \
+ -d "contents={contents}"
+```
+
+##### Response
+
+###### Header
+
+| name | description | required |
+|---|:---:|:---:|
+| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
+
+###### Response Body
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| code | String | 결과 코드 | O |
+| message | String | 결과 메세지 | O |
+
+###### Example
+
+**응답 성공**
+```bash
+HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "SU",
+  "message": "Success."
+}
+```
+
+**응답 : 실패 (데이터 유효성 검사 실패)**
+```bash
+HTTP/1.1 400 Bad Request
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "VF",
+  "message": "Validation Failed."
+}
+```
+
+**응답 : 실패 (인가 실패)**
+```bash
+HTTP/1.1 403 Forbidden
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "AF",
+  "message": "Authorization Failed."
+}
+```
+
+**응답 : 실패 (데이터베이스 에러)**
+```bash
+HTTP/1.1 500 Internal Server Error
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "DBE",
+  "message": "Database Error."
+}
+```
+
+***
+
+#### - 문의 게시물 답글 작성
   
 ##### 설명
 
@@ -3356,106 +3356,7 @@ Content-Type: application/json;charset=UTF-8
 
 ***
 
-#### - 게시물 삭제
-  
-##### 설명
-
-클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 문의 번호를 입력받고 요청을 보내면 해당하는 게시물이 삭제됩니다. 만약 삭제에 실패하면 실패 처리를 합니다. 인가 실패, 데이터베이스 에러가 발생할 수 있습니다.
-
-- method : **DELETE**  
-- URL : **/{inquiryNumber}**  
-
-##### Request
-
-###### Header
-
-| name | description | required |
-|---|:---:|:---:|
-| Authorization | 인증에 사용될 Bearer 토큰 | O |
-
-###### Path Variable
-
-| name | type | description | required |
-|---|:---:|:---:|:---:|
-| inquiryNumber | int | 문의 번호 | O |
-
-###### Example
-
-```bash
-curl -v -X DELETE "http://localhost::9999/api/v1/inquiry-board/${inquiryNumber}" \
- -H "Authorization: Bearer {JWT}" 
-```
-
-##### Response
-
-###### Header
-
-| name | description | required |
-|---|:---:|:---:|
-| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
-
-###### Response Body
-
-| name | type | description | required |
-|---|:---:|:---:|:---:|
-| code | String | 결과 코드 | O |
-| message | String | 결과 메세지 | O |
-
-###### Example
-
-**응답 성공**
-```bash
-HTTP/1.1 200 OK
-Content-Type: application/json;charset=UTF-8
-{
-  "code": "SU",
-  "message": "Success."
-}
-```
-
-**응답 : 실패 (데이터 유효성 검사 실패)**
-```bash
-HTTP/1.1 400 Bad Request
-Content-Type: application/json;charset=UTF-8
-{
-  "code": "VF",
-  "message": "Validation Failed."
-}
-```
-
-**응답 : 실패 (존재하지 않는 게시물)**
-```bash
-HTTP/1.1 400 Bad Request
-Content-Type: application/json;charset=UTF-8
-{
-  "code": "NB",
-  "message": "No Exist Board."
-}
-```
-
-**응답 : 실패 (인가 실패)**
-```bash
-HTTP/1.1 403 Forbidden
-Content-Type: application/json;charset=UTF-8
-{
-  "code": "AF",
-  "message": "Authorization Failed."
-}
-```
-
-**응답 : 실패 (데이터베이스 에러)**
-```bash
-HTTP/1.1 500 Internal Server Error
-Content-Type: application/json;charset=UTF-8
-{
-  "code": "DBE",
-  "message": "Database Error."
-}
-```
-
-***
-
-#### - 게시물 수정
+#### - 문의 게시물 수정
   
 ##### 설명
 
@@ -3557,6 +3458,105 @@ Content-Type: application/json;charset=UTF-8
 {
   "code": "WC",
   "message": "Written Comment."
+}
+```
+
+**응답 : 실패 (데이터베이스 에러)**
+```bash
+HTTP/1.1 500 Internal Server Error
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "DBE",
+  "message": "Database Error."
+}
+```
+
+***
+
+#### - 문의 게시물 삭제
+  
+##### 설명
+
+클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 문의 번호를 입력받고 요청을 보내면 해당하는 게시물이 삭제됩니다. 만약 삭제에 실패하면 실패 처리를 합니다. 인가 실패, 데이터베이스 에러가 발생할 수 있습니다.
+
+- method : **DELETE**  
+- URL : **/{inquiryNumber}**  
+
+##### Request
+
+###### Header
+
+| name | description | required |
+|---|:---:|:---:|
+| Authorization | 인증에 사용될 Bearer 토큰 | O |
+
+###### Path Variable
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| inquiryNumber | int | 문의 번호 | O |
+
+###### Example
+
+```bash
+curl -v -X DELETE "http://localhost::9999/api/v1/inquiry-board/${inquiryNumber}" \
+ -H "Authorization: Bearer {JWT}" 
+```
+
+##### Response
+
+###### Header
+
+| name | description | required |
+|---|:---:|:---:|
+| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
+
+###### Response Body
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| code | String | 결과 코드 | O |
+| message | String | 결과 메세지 | O |
+
+###### Example
+
+**응답 성공**
+```bash
+HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "SU",
+  "message": "Success."
+}
+```
+
+**응답 : 실패 (데이터 유효성 검사 실패)**
+```bash
+HTTP/1.1 400 Bad Request
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "VF",
+  "message": "Validation Failed."
+}
+```
+
+**응답 : 실패 (존재하지 않는 게시물)**
+```bash
+HTTP/1.1 400 Bad Request
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "NB",
+  "message": "No Exist Board."
+}
+```
+
+**응답 : 실패 (인가 실패)**
+```bash
+HTTP/1.1 403 Forbidden
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "AF",
+  "message": "Authorization Failed."
 }
 ```
 
@@ -3762,98 +3762,6 @@ Content-Type: application/json;charset=UTF-8
 Notice-board와 관련된 REST API 모듈 
   
 - url : /api/v1/notice-board
-
-***
-
-#### - 공지 게시물 작성
-  
-##### 설명
-
-클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 제목, 내용을 입력받고 작성에 성공하면 성공 처리를 합니다. 만약 작성에 실패하면 실패 처리 됩니다. 인가 실패, 데이터베이스 에러, 데이터 유효성 검사 실패가 발생할 수 있습니다.
-
-- method : **POST**  
-- URL : **/**  
-
-##### Request
-
-###### Header
-
-| name | description | required |
-|---|:---:|:---:|
-| Authorization | 인증에 사용될 Bearer 토큰 | O |
-
-###### Request Body
-
-| name | type | description | required |
-|---|:---:|:---:|:---:|
-| noticeTitle | String | 공지 제목 | O |
-| noticeContents | String | 공지 내용 | O |
-
-###### Example
-
-```bash
-curl -v -X POST "http:////localhost:9999/api/v1/notice-board/" \
- -H "Authorization: Bearer {JWT}" \
- -d "noticeTitle={noticeTitle}" \
- -d "noticeContents={noticeContents}"
-```
-
-##### Response
-
-###### Header
-
-| name | description | required |
-|---|:---:|:---:|
-| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
-
-###### Response Body
-
-| name | type | description | required |
-|---|:---:|:---:|:---:|
-| code | String | 결과 코드 | O |
-| message | String | 결과 메세지 | O |
-
-###### Example
-
-**응답 성공**
-```bash
-HTTP/1.1 200 OK
-Content-Type: application/json;charset=UTF-8
-{
-  "code": "SU",
-  "message": "Success."
-}
-```
-
-**응답 : 실패 (데이터 유효성 검사 실패)**
-```bash
-HTTP/1.1 400 Bad Request
-Content-Type: application/json;charset=UTF-8
-{
-  "code": "VF",
-  "message": "Validation Failed."
-}
-```
-
-**응답 : 실패 (인가 실패)**
-```bash
-HTTP/1.1 403 Forbidden
-Content-Type: application/json;charset=UTF-8
-{
-  "code": "AF",
-  "message": "Authorization Failed."
-}
-```
-
-**응답 : 실패 (데이터베이스 에러)**
-```bash
-HTTP/1.1 500 Internal Server Error
-Content-Type: application/json;charset=UTF-8
-{
-  "code": "DBE",
-  "message": "Database Error."
-}
-```
 
 ***
 
@@ -4170,6 +4078,98 @@ Content-Type: application/json;charset=UTF-8
 
 ***
 
+#### - 공지 게시물 작성
+  
+##### 설명
+
+클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 제목, 내용을 입력받고 작성에 성공하면 성공 처리를 합니다. 만약 작성에 실패하면 실패 처리 됩니다. 인가 실패, 데이터베이스 에러, 데이터 유효성 검사 실패가 발생할 수 있습니다.
+
+- method : **POST**  
+- URL : **/**  
+
+##### Request
+
+###### Header
+
+| name | description | required |
+|---|:---:|:---:|
+| Authorization | 인증에 사용될 Bearer 토큰 | O |
+
+###### Request Body
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| noticeTitle | String | 공지 제목 | O |
+| noticeContents | String | 공지 내용 | O |
+
+###### Example
+
+```bash
+curl -v -X POST "http:////localhost:9999/api/v1/notice-board/" \
+ -H "Authorization: Bearer {JWT}" \
+ -d "noticeTitle={noticeTitle}" \
+ -d "noticeContents={noticeContents}"
+```
+
+##### Response
+
+###### Header
+
+| name | description | required |
+|---|:---:|:---:|
+| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
+
+###### Response Body
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| code | String | 결과 코드 | O |
+| message | String | 결과 메세지 | O |
+
+###### Example
+
+**응답 성공**
+```bash
+HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "SU",
+  "message": "Success."
+}
+```
+
+**응답 : 실패 (데이터 유효성 검사 실패)**
+```bash
+HTTP/1.1 400 Bad Request
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "VF",
+  "message": "Validation Failed."
+}
+```
+
+**응답 : 실패 (인가 실패)**
+```bash
+HTTP/1.1 403 Forbidden
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "AF",
+  "message": "Authorization Failed."
+}
+```
+
+**응답 : 실패 (데이터베이스 에러)**
+```bash
+HTTP/1.1 500 Internal Server Error
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "DBE",
+  "message": "Database Error."
+}
+```
+
+***
+
 #### - 공지 게시물 조회수 증가
 
 ##### 설명
@@ -4254,102 +4254,6 @@ Content-Type: application/json;charset=UTF-8
 {
   "code": "AF",
   "message": "Authentication Failed."
-}
-```
-
-**응답 : 실패 (데이터베이스 에러)**
-```bash
-HTTP/1.1 500 Internal Server Error
-Content-Type: application/json;charset=UTF-8
-{
-  "code": "DBE",
-  "message": "Database Error."
-}
-```
-
-***
-
-#### - 공지 게시물 삭제
-
-##### 설명
-
-클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 접수 번호를 입력받고 요청을 보내면 해당하는 공지 게시물이 삭제됩니다. 만약 삭제에 실패하면 실패 처리를 합니다. 인가 실패, 데이터베이스 에러가 발생할 수 있습니다.
-
-##### Request
-
-###### Header
-
-| name | description | required |
-|---|:---:|:---:|
-| Authorization | 인증에 사용될 Bearer 토큰 | O |
-
-###### Path Variable
-
-| name | type | description | required |
-|---|:---:|:---:|:---:|
-| noticeNumber | int | 공지 번호 | O |
-
-###### Example
-
-```bash
-curl -v -X DELETE "http://localhost::9999/api/v1/notice-board/${noticeNumber}" \
- -H "Authorization: Bearer {JWT}" 
-```
-
-##### Response
-
-###### Header
-
-| name | description | required |
-|---|:---:|:---:|
-| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
-
-###### Response Body
-
-| name | type | description | required |
-|---|:---:|:---:|:---:|
-| code | String | 결과 코드 | O |
-| message | String | 결과 메세지 | O |
-
-###### Example
-
-**응답 성공**
-```bash
-HTTP/1.1 200 OK
-Content-Type: application/json;charset=UTF-8
-{
-  "code": "SU",
-  "message": "Success."
-}
-```
-
-**응답 : 실패 (데이터 유효성 검사 실패)**
-```bash
-HTTP/1.1 400 Bad Request
-Content-Type: application/json;charset=UTF-8
-{
-  "code": "VF",
-  "message": "Validation Failed."
-}
-```
-
-**응답 : 실패 (존재하지 않는 게시물)**
-```bash
-HTTP/1.1 400 Bad Request
-Content-Type: application/json;charset=UTF-8
-{
-  "code": "NB",
-  "message": "No Exist Board."
-}
-```
-
-**응답 : 실패 (인가 실패)**
-```bash
-HTTP/1.1 403 Forbidden
-Content-Type: application/json;charset=UTF-8
-{
-  "code": "AF",
-  "message": "Authorization Failed."
 }
 ```
 
@@ -4457,6 +4361,102 @@ Content-Type: application/json;charset=UTF-8
 {
   "code": "NB",
   "message": "No Exist Board."
+}
+```
+
+**응답 : 실패 (데이터베이스 에러)**
+```bash
+HTTP/1.1 500 Internal Server Error
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "DBE",
+  "message": "Database Error."
+}
+```
+
+***
+
+#### - 공지 게시물 삭제
+
+##### 설명
+
+클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 접수 번호를 입력받고 요청을 보내면 해당하는 공지 게시물이 삭제됩니다. 만약 삭제에 실패하면 실패 처리를 합니다. 인가 실패, 데이터베이스 에러가 발생할 수 있습니다.
+
+##### Request
+
+###### Header
+
+| name | description | required |
+|---|:---:|:---:|
+| Authorization | 인증에 사용될 Bearer 토큰 | O |
+
+###### Path Variable
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| noticeNumber | int | 공지 번호 | O |
+
+###### Example
+
+```bash
+curl -v -X DELETE "http://localhost::9999/api/v1/notice-board/${noticeNumber}" \
+ -H "Authorization: Bearer {JWT}" 
+```
+
+##### Response
+
+###### Header
+
+| name | description | required |
+|---|:---:|:---:|
+| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
+
+###### Response Body
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| code | String | 결과 코드 | O |
+| message | String | 결과 메세지 | O |
+
+###### Example
+
+**응답 성공**
+```bash
+HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "SU",
+  "message": "Success."
+}
+```
+
+**응답 : 실패 (데이터 유효성 검사 실패)**
+```bash
+HTTP/1.1 400 Bad Request
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "VF",
+  "message": "Validation Failed."
+}
+```
+
+**응답 : 실패 (존재하지 않는 게시물)**
+```bash
+HTTP/1.1 400 Bad Request
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "NB",
+  "message": "No Exist Board."
+}
+```
+
+**응답 : 실패 (인가 실패)**
+```bash
+HTTP/1.1 403 Forbidden
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "AF",
+  "message": "Authorization Failed."
 }
 ```
 
