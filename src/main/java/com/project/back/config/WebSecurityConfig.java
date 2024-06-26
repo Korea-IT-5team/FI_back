@@ -2,31 +2,31 @@ package com.project.back.config;
 
 import java.io.IOException;
 
-import org.springframework.beans.factory.annotation.Configurable;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configurers.CsrfConfigurer;
-import org.springframework.security.config.annotation.web.configurers.HttpBasicConfigurer;
-import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.web.AuthenticationEntryPoint;
-import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.context.annotation.Bean;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.beans.factory.annotation.Configurable;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configurers.CsrfConfigurer;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.HttpBasicConfigurer;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import com.project.back.filter.JwtAuthenticationFilter;
 import com.project.back.handler.OAuth2SuccessHandler;
+import com.project.back.filter.JwtAuthenticationFilter;
 import com.project.back.service.implementation.OAuth2UserServiceImplementation;
 
+import lombok.RequiredArgsConstructor;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import lombok.RequiredArgsConstructor;
 
 @Configurable
 @Configuration
@@ -34,10 +34,10 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class WebSecurityConfig {
 
+    private final OAuth2SuccessHandler oAuth2SuccessHandler;
     private final JwtAuthenticationFilter JwtAuthenticationFilter;
     private final OAuth2UserServiceImplementation oAuth2UserService;
-    private final OAuth2SuccessHandler oAuth2SuccessHandler;
-  
+
     @Bean
     protected SecurityFilterChain configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
@@ -67,8 +67,8 @@ public class WebSecurityConfig {
 
         return httpSecurity.build();
     }
-  
-  // Cors 정책 설정
+
+
     @Bean
     protected CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
@@ -88,8 +88,8 @@ class AuthorizationFailEntryPoint implements AuthenticationEntryPoint{
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) 
         throws IOException, ServletException {
-      
-          authException.printStackTrace();
+
+        authException.printStackTrace();
 
         response.setContentType("application/json");
         response.setStatus(HttpServletResponse.SC_FORBIDDEN);

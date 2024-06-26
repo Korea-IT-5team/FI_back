@@ -1,9 +1,9 @@
 package com.project.back.dto.request.restaurant.favorite;
 
-import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.NoArgsConstructor;
+import jakarta.validation.constraints.NotBlank;
 
 @Getter
 @Setter

@@ -5,11 +5,11 @@ import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import com.project.back.common.object.board.noticeboard.NoticeBoardListItem;
-import com.project.back.dto.response.ResponseCode;
 import com.project.back.dto.response.ResponseDto;
+import com.project.back.dto.response.ResponseCode;
 import com.project.back.dto.response.ResponseMessage;
 import com.project.back.repository.resultSet.GetNoticeBoardListResultSet;
+import com.project.back.common.object.board.noticeboard.NoticeBoardListItem;
 
 import lombok.Getter;
 

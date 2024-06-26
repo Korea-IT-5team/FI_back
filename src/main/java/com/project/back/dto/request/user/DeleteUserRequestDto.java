@@ -1,16 +1,19 @@
 package com.project.back.dto.request.user;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.NoArgsConstructor;
+
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.NotBlank;
+
+import com.project.back.constant.PatternType;
 
 @Getter
 @Setter
 @NoArgsConstructor
 public class DeleteUserRequestDto {
     @NotBlank
-    @Pattern(regexp="^(?=.*[a-zA-Z])(?=.*[0-9]).{8,13}$")
+    @Pattern(regexp=PatternType.patternType1)
     private String password;
 }

@@ -5,11 +5,11 @@ import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import com.project.back.common.object.board.inquiryboard.InquiryBoardListItem;
-import com.project.back.dto.response.ResponseCode;
 import com.project.back.dto.response.ResponseDto;
+import com.project.back.dto.response.ResponseCode;
 import com.project.back.dto.response.ResponseMessage;
 import com.project.back.repository.resultSet.GetInquiryBoardListResultSet;
+import com.project.back.common.object.board.inquiryboard.InquiryBoardListItem;
 
 import lombok.Getter;
 

@@ -1,7 +1,7 @@
 package com.project.back.common.object.restaurant;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.ArrayList;
 
 import com.project.back.common.util.ChangeDateFormatUtil;
 import com.project.back.repository.resultSet.GetRestaurantReviewListItemResultSet;
@@ -10,21 +10,21 @@ import lombok.Getter;
 
 @Getter
 public class RestaurantReviewListItem {
+    private double rating;
     private Integer reviewNumber;
     private Integer reviewRestaurantId;
+    private String reviewDate;
     private String reviewImage;
-    private double rating;
     private String reviewContents;
     private String reviewWriterNickname;
-    private String reviewDate;
     private String reviewRestaurantName;
 
     private RestaurantReviewListItem(GetRestaurantReviewListItemResultSet getRestaurantReviewListItemResultSet) throws Exception {
-        this.reviewNumber = getRestaurantReviewListItemResultSet.getReviewNumber();
-        this.reviewRestaurantId = getRestaurantReviewListItemResultSet.getReviewRestaurantId();
-        this.reviewImage = getRestaurantReviewListItemResultSet.getReviewImage();
         this.rating = getRestaurantReviewListItemResultSet.getRating();
+        this.reviewImage = getRestaurantReviewListItemResultSet.getReviewImage();
+        this.reviewNumber = getRestaurantReviewListItemResultSet.getReviewNumber();
         this.reviewContents = getRestaurantReviewListItemResultSet.getReviewContents();
+        this.reviewRestaurantId = getRestaurantReviewListItemResultSet.getReviewRestaurantId();
         this.reviewWriterNickname = getRestaurantReviewListItemResultSet.getReviewWriterNickname(); 
         this.reviewRestaurantName = getRestaurantReviewListItemResultSet.getReviewRestaurantName();
 

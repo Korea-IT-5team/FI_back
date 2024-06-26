@@ -1,24 +1,30 @@
 package com.project.back.service.implementation;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import com.project.back.entity.UserEntity;
+import com.project.back.service.UserService;
+import com.project.back.entity.RestaurantEntity;
+
+import com.project.back.repository.UserRepository;
+import com.project.back.repository.ReviewRepository;
+import com.project.back.repository.RestaurantRepository;
+import com.project.back.repository.ReservationRepository;
+import com.project.back.repository.FavoriteRestaurantRepository;
 
 import com.project.back.dto.request.user.DeleteUserRequestDto;
 import com.project.back.dto.request.user.PatchUserInfoRequestDto;
+
 import com.project.back.dto.response.ResponseDto;
 import com.project.back.dto.response.user.GetMyInfoResponseDto;
 import com.project.back.dto.response.user.GetUserInfoResponseDto;
-import com.project.back.entity.RestaurantEntity;
-import com.project.back.entity.UserEntity;
-import com.project.back.repository.FavoriteRestaurantRepository;
-import com.project.back.repository.ReservationRepository;
-import com.project.back.repository.RestaurantRepository;
-import com.project.back.repository.ReviewRepository;
-import com.project.back.repository.UserRepository;
-import com.project.back.service.UserService;
+
+import lombok.RequiredArgsConstructor;
 
 import jakarta.transaction.Transactional;
-import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
@@ -27,7 +33,9 @@ public class UserServiceImplementation implements UserService {
     private final RestaurantRepository restaurantRepository;
     private final FavoriteRestaurantRepository favoriteRestaurantRepository;
     private final ReservationRepository reservationRepository;
-    private final ReviewRepository reviewRepository;  
+    private final ReviewRepository reviewRepository;
+
+    private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     @Override
     public ResponseEntity<? super GetUserInfoResponseDto> GetSignInUser(String userEmailId) {
@@ -75,6 +83,12 @@ public class UserServiceImplementation implements UserService {
             boolean isEquals = userEmailId.equals(deleteId);
             if (!isEquals) return ResponseDto.authorizationFailed();
 
+            String password = dto.getPassword();
+            String encodedPassword = userEntity.getPassword();
+
+            boolean isMatched = passwordEncoder.matches(password, encodedPassword);
+            if (!isMatched) return ResponseDto.noExistUser();
+            
             String userRole = userEntity.getUserRole();
 
             if ("ROLE_CEO".equals(userRole)) {

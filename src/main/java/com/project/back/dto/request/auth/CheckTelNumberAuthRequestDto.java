@@ -1,16 +1,16 @@
 package com.project.back.dto.request.auth;
 
-import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.NoArgsConstructor;
+import jakarta.validation.constraints.NotBlank;
 
 @Getter
 @Setter
 @NoArgsConstructor
 public class CheckTelNumberAuthRequestDto {
     @NotBlank
-    private String userTelNumber;
-    @NotBlank
     private String authNumber;
+    @NotBlank
+    private String userTelNumber;
 }

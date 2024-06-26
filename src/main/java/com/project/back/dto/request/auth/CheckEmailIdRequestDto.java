@@ -1,16 +1,20 @@
 package com.project.back.dto.request.auth;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.NoArgsConstructor;
+
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.NotBlank;
+
+import com.project.back.constant.PatternType;
+
 
 @Getter
 @Setter
 @NoArgsConstructor
 public class CheckEmailIdRequestDto {
     @NotBlank
-    @Pattern(regexp="^[a-zA-Z0-9]*@([-.]?[a-zA-Z0-9])*\\.[a-zA-Z]{2,4}$")
+    @Pattern(regexp=PatternType.patternType2)
     private String userEmailId;
 }

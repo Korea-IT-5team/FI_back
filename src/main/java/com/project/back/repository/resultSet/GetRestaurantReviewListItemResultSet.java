@@ -1,12 +1,12 @@
 package com.project.back.repository.resultSet;
 
 public interface GetRestaurantReviewListItemResultSet {
+    Double getRating();
     Integer getReviewNumber();
     Integer getReviewRestaurantId();
+    String getReviewDate();
     String getReviewImage();
-    Double getRating();
     String getReviewContents();
     String getReviewWriterNickname();
-    String getReviewDate();
     String getReviewRestaurantName();
 }
