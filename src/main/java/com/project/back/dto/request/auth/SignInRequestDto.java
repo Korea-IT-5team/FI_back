@@ -1,19 +1,23 @@
 package com.project.back.dto.request.auth;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.NoArgsConstructor;
+
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.NotBlank;
+
+import com.project.back.constant.PatternType;
+
 
 @Getter
 @Setter
 @NoArgsConstructor
 public class SignInRequestDto {
     @NotBlank
-    @Pattern(regexp="^[a-zA-Z0-9]*@([-.]?[a-zA-Z0-9])*\\.[a-zA-Z]{2,4}$")
-    private String userEmailId;
-    @NotBlank
-    @Pattern(regexp="^(?=.*[a-zA-Z])(?=.*[0-9]).{8,13}$")
+    @Pattern(regexp=PatternType.patternType1)
     private String password;
+    @NotBlank
+    @Pattern(regexp=PatternType.patternType2)
+    private String userEmailId;
 }

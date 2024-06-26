@@ -2,49 +2,51 @@ package com.project.back.service.implementation;
 
 import java.util.List;
 
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
-
-import com.project.back.dto.request.restaurant.PatchRestaurantInfoRequestDto;
-import com.project.back.dto.request.restaurant.PostRestaurantInfoRequestDto;
-import com.project.back.dto.request.restaurant.reservation.PostReservationRequestDto;
-import com.project.back.dto.request.restaurant.review.PatchReviewRequestDto;
-import com.project.back.dto.request.restaurant.review.PostReviewRequestDto;
-import com.project.back.dto.response.ResponseDto;
-import com.project.back.dto.response.restaurant.GetRestaurantIdResponseDto;
-import com.project.back.dto.response.restaurant.GetRestaurantInfoResponseDto;
-import com.project.back.dto.response.restaurant.GetRestaurantListResponseDto;
-import com.project.back.dto.response.restaurant.favorite.GetFavoriteCheckResponseDto;
-import com.project.back.dto.response.restaurant.favorite.GetFavoriteRestaurantListResponseDto;
-import com.project.back.dto.response.restaurant.reservation.GetReservationCheckResponseDto;
-import com.project.back.dto.response.restaurant.reservation.GetReservationListResponseDto;
-import com.project.back.dto.response.restaurant.review.GetReviewListResponseDto;
-import com.project.back.dto.response.restaurant.review.GetReviewResponseDto;
-import com.project.back.entity.FavoriteRestaurantEntity;
-import com.project.back.entity.ReservationEntity;
-import com.project.back.entity.RestaurantEntity;
-import com.project.back.entity.ReviewEntity;
 import com.project.back.entity.UserEntity;
-import com.project.back.repository.FavoriteRestaurantRepository;
-import com.project.back.repository.ReservationRepository;
-import com.project.back.repository.RestaurantRepository;
-import com.project.back.repository.ReviewRepository;
+import com.project.back.entity.ReviewEntity;
+import com.project.back.entity.RestaurantEntity;
+import com.project.back.entity.ReservationEntity;
+import com.project.back.entity.FavoriteRestaurantEntity;
+
+import com.project.back.service.RestaurantService;
 import com.project.back.repository.UserRepository;
+import com.project.back.repository.ReviewRepository;
+import com.project.back.repository.RestaurantRepository;
+import com.project.back.repository.ReservationRepository;
+import com.project.back.repository.FavoriteRestaurantRepository;
 import com.project.back.repository.resultSet.GetRestaurantFavoriteItemResultSet;
 import com.project.back.repository.resultSet.GetRestaurantReviewListItemResultSet;
-import com.project.back.service.RestaurantService;
+
+import com.project.back.dto.request.restaurant.review.PatchReviewRequestDto;
+import com.project.back.dto.request.restaurant.review.PostReviewRequestDto;
+import com.project.back.dto.request.restaurant.PostRestaurantInfoRequestDto;
+import com.project.back.dto.request.restaurant.PatchRestaurantInfoRequestDto;
+import com.project.back.dto.request.restaurant.reservation.PostReservationRequestDto;
+
+import com.project.back.dto.response.ResponseDto;
+import com.project.back.dto.response.restaurant.GetRestaurantIdResponseDto;
+import com.project.back.dto.response.restaurant.review.GetReviewResponseDto;
+import com.project.back.dto.response.restaurant.GetRestaurantInfoResponseDto;
+import com.project.back.dto.response.restaurant.GetRestaurantListResponseDto;
+import com.project.back.dto.response.restaurant.review.GetReviewListResponseDto;
+import com.project.back.dto.response.restaurant.favorite.GetFavoriteCheckResponseDto;
+import com.project.back.dto.response.restaurant.reservation.GetReservationListResponseDto;
+import com.project.back.dto.response.restaurant.reservation.GetReservationCheckResponseDto;
+import com.project.back.dto.response.restaurant.favorite.GetFavoriteRestaurantListResponseDto;
 
 import lombok.RequiredArgsConstructor;
+
+import org.springframework.stereotype.Service;
+import org.springframework.http.ResponseEntity;
 
 @Service
 @RequiredArgsConstructor
 public class RestaurantServiceImplementation implements RestaurantService {
+    private final UserRepository userRepository;
+    private final ReviewRepository reviewRepository;
     private final RestaurantRepository restaurantRepository;
     private final ReservationRepository reservationRepository;
     private final FavoriteRestaurantRepository favoriteRestaurantRepository;
-    private final ReviewRepository reviewRepository;
-    
-    private final UserRepository userRepository;
 
     @Override
     public ResponseEntity<? super GetRestaurantListResponseDto> getRestaurantList(String searchWord) {
@@ -92,6 +94,9 @@ public class RestaurantServiceImplementation implements RestaurantService {
         try {
             boolean isExistUser = userRepository.existsByUserEmailId(userEmailId);
             if (!isExistUser) return ResponseDto.authenticationFailed();
+
+            isExistUser = restaurantRepository.existsByRestaurantWriterId(userEmailId);
+            if(isExistUser) return ResponseDto.duplicatedEmailId();
 
             UserEntity userEntity = userRepository.findByUserEmailId(userEmailId);
 

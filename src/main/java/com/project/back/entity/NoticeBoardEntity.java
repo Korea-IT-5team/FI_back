@@ -1,21 +1,23 @@
 package com.project.back.entity;
 
-import java.text.SimpleDateFormat;
-import java.time.Instant;
 import java.util.Date;
+import java.time.Instant;
+import java.text.SimpleDateFormat;
 
-import com.project.back.dto.request.board.noticeboard.PatchNoticeBoardRequestDto;
-import com.project.back.dto.request.board.noticeboard.PostNoticeBoardRequestDto;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+
+import com.project.back.common.util.ChangeDateFormatUtil;
+import com.project.back.dto.request.board.noticeboard.PatchNoticeBoardRequestDto;
+import com.project.back.dto.request.board.noticeboard.PostNoticeBoardRequestDto;
 
 @Entity(name="noticeBoard")
 @Table(name="notice_board")
@@ -27,22 +29,22 @@ public class NoticeBoardEntity {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer noticeNumber;
+    private Integer viewCount;
     private String noticeTitle;
     private String noticeWriterId;
-    private String noticeWriteDatetime;
     private String noticeContents;
-    private Integer viewCount;
+    private String noticeWriteDatetime;
 
     public NoticeBoardEntity(PostNoticeBoardRequestDto dto, String userEmailId ) {
-        Date now = Date.from(Instant.now());
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String noticeWriteDatetime = simpleDateFormat.format(now);
+        String dateNow = ChangeDateFormatUtil.nowYYYYMMDD();
+        this.noticeWriteDatetime = dateNow;
+
+
+        this.viewCount = 0;
+        this.noticeWriterId = userEmailId;
 
         this.noticeTitle = dto.getNoticeTitle();
         this.noticeContents = dto.getNoticeContents();
-        this.noticeWriterId = userEmailId;
-        this.noticeWriteDatetime = noticeWriteDatetime;
-        this.viewCount = 0;
     }
 
     public void increaseViewCount() {

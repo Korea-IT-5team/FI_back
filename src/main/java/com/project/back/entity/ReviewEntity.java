@@ -1,23 +1,24 @@
 package com.project.back.entity;
 
-import java.text.SimpleDateFormat;
-import java.time.Instant;
 import java.util.Date;
+import java.time.Instant;
+import java.text.SimpleDateFormat;
 
-import com.project.back.dto.request.restaurant.review.PatchReviewRequestDto;
-import com.project.back.dto.request.restaurant.review.PostReviewRequestDto;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-// project 데이터베이스의 review 테이블과 매핑되는 Entity 클래스
+import com.project.back.common.util.ChangeDateFormatUtil;
+import com.project.back.dto.request.restaurant.review.PatchReviewRequestDto;
+import com.project.back.dto.request.restaurant.review.PostReviewRequestDto;
+
 @Entity(name="review")
 @Table(name="review")
 @Getter
@@ -30,30 +31,30 @@ public class ReviewEntity {
     private Integer reviewNumber;
     private Integer reviewRestaurantId;
     private Double rating;
-    private String reviewContents;
-    private String reviewWriterId;
     private String reviewDate;
     private String reviewImage;
+    private String reviewContents;
+    private String reviewWriterId;
     private String reviewWriterNickname;
     private String reviewRestaurantName;
 
     public ReviewEntity(PostReviewRequestDto dto, String userEmailId, int restaurantId, UserEntity userEntity, RestaurantEntity restaurantEntity) {
-        Date now = Date.from(Instant.now());
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String reviewDate = simpleDateFormat.format(now);
-        this.rating = dto.getRating();
-        this.reviewContents = dto.getReviewContents();
+        String dateNow = ChangeDateFormatUtil.nowYYYYMMDD();
+        this.reviewDate = dateNow;
+
         this.reviewWriterId = userEmailId;
-        this.reviewDate = reviewDate;
-        this.reviewImage = dto.getReviewImage();
         this.reviewRestaurantId = restaurantId;
+
+        this.rating = dto.getRating();
+        this.reviewImage = dto.getReviewImage();
+        this.reviewContents = dto.getReviewContents();
         this.reviewWriterNickname = userEntity.getNickname();
         this.reviewRestaurantName = restaurantEntity.getRestaurantName();
     }
 
     public void updateReview(PatchReviewRequestDto dto) {
         this.rating = dto.getRating();
-        this.reviewContents = dto.getReviewContents();
         this.reviewImage = dto.getReviewImage();
+        this.reviewContents = dto.getReviewContents();
     }
 }

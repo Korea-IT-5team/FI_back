@@ -23,14 +23,14 @@ public class GetMyInfoResponseDto extends ResponseDto {
 
     private GetMyInfoResponseDto(UserEntity userEntity) {
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
-        this.userEmailId=userEntity.getUserEmailId();
         this.nickname=userEntity.getNickname();
         this.userName=userEntity.getUserName();
-        this.userTelNumber=userEntity.getUserTelNumber();
-        this.userAddress=userEntity.getUserAddress();
-        this.businessRegistrationNumber=userEntity.getBusinessRegistrationNumber();
         this.userRole=userEntity.getUserRole();
         this.joinPath=userEntity.getJoinPath();
+        this.userEmailId=userEntity.getUserEmailId();
+        this.userAddress=userEntity.getUserAddress();
+        this.userTelNumber=userEntity.getUserTelNumber();
+        this.businessRegistrationNumber=userEntity.getBusinessRegistrationNumber();
     }
 
     public static ResponseEntity<GetMyInfoResponseDto> success(UserEntity userEntity) {

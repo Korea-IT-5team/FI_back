@@ -1,18 +1,18 @@
 package com.project.back.provider;
 
-import java.nio.charset.StandardCharsets;
+import java.util.Date;
 import java.security.Key;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
-import java.util.Date;
+import java.nio.charset.StandardCharsets;
 
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
 
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
+import io.jsonwebtoken.SignatureAlgorithm;
 
+import org.springframework.stereotype.Component;
+import org.springframework.beans.factory.annotation.Value;
 @Component
 public class JwtProvider {
     @Value("${jwt.secret-key}")
