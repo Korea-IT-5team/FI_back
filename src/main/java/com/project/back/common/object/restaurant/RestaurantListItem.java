@@ -11,25 +11,25 @@ import lombok.Getter;
 @Getter
 public class RestaurantListItem {
     private Integer restaurantId;
-    private String restaurantImage;
     private String restaurantName;
-    private String restaurantFoodCategory;
+    private String restaurantImage;
     private String restaurantLocation;
+    private String restaurantFoodCategory;
 
     private RestaurantListItem(RestaurantEntity restaurantEntity) throws Exception {
         this.restaurantId=restaurantEntity.getRestaurantId();
-        this.restaurantImage=restaurantEntity.getRestaurantImage();
         this.restaurantName=restaurantEntity.getRestaurantName();
-        this.restaurantFoodCategory=restaurantEntity.getRestaurantFoodCategory();
+        this.restaurantImage=restaurantEntity.getRestaurantImage();
         this.restaurantLocation=restaurantEntity.getRestaurantLocation();
+        this.restaurantFoodCategory=restaurantEntity.getRestaurantFoodCategory();
     }
 
     private RestaurantListItem(GetRestaurantFavoriteItemResultSet getRestaurantFavoriteItemResultSet) throws Exception {
         this.restaurantId=getRestaurantFavoriteItemResultSet.getRestaurantId();
-        this.restaurantImage=getRestaurantFavoriteItemResultSet.getRestaurantImage();
         this.restaurantName=getRestaurantFavoriteItemResultSet.getRestaurantName();
-        this.restaurantFoodCategory=getRestaurantFavoriteItemResultSet.getRestaurantFoodCategory();
+        this.restaurantImage=getRestaurantFavoriteItemResultSet.getRestaurantImage();
         this.restaurantLocation=getRestaurantFavoriteItemResultSet.getRestaurantLocation();
+        this.restaurantFoodCategory=getRestaurantFavoriteItemResultSet.getRestaurantFoodCategory();
     }
 
     public static List<RestaurantListItem> getRestaurantList(List<RestaurantEntity> restaurantEntities) throws Exception {

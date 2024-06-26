@@ -2,26 +2,25 @@ package com.project.back.repository;
 
 import java.util.List;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
-import org.springframework.stereotype.Repository;
-
 import com.project.back.entity.RestaurantEntity;
 import com.project.back.repository.resultSet.GetRestaurantFavoriteItemResultSet;
 
+import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import org.springframework.data.jpa.repository.JpaRepository;
+
 @Repository
 public interface RestaurantRepository extends JpaRepository<RestaurantEntity,Integer> {
-    Object restaurantEntity = null;
-    RestaurantEntity getRestaurantIdByRestaurantWriterId(String restaurantWriterId);
-
-    boolean existsByRestaurantWriterId(String restaurantWriterId);
+    // Object restaurantEntity = null;
     boolean existsByRestaurantId(Integer restaurantId);
+    RestaurantEntity findByRestaurantId(Integer restaurantId);
+    boolean existsByRestaurantWriterId(String restaurantWriterId);
+    RestaurantEntity findByRestaurantWriterId(String restaurantWriterId);
+    RestaurantEntity getRestaurantIdByRestaurantWriterId(String restaurantWriterId);
+    RestaurantEntity findByRestaurantWriterIdAndRestaurantId(String userEmailId, Integer restaurantId);
 
     List<RestaurantEntity> findByRestaurantNameContainingOrderByRestaurantIdDesc(String searchWord);
-    RestaurantEntity findByRestaurantWriterId(String restaurantWriterId);
-    RestaurantEntity findByRestaurantId(Integer restaurantId);
-    RestaurantEntity findByRestaurantWriterIdAndRestaurantId(String userEmailId, Integer restaurantId);
 
     
     @Query(value=

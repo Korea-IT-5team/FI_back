@@ -2,17 +2,17 @@ package com.project.back.service.implementation;
 
 import java.util.Map;
 
-import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
-import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
-import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
-import org.springframework.security.oauth2.core.user.OAuth2User;
-import org.springframework.stereotype.Service;
-
 import com.project.back.entity.UserEntity;
-import com.project.back.common.object.CustomOAuth2User;
 import com.project.back.repository.UserRepository;
+import com.project.back.common.object.CustomOAuth2User;
 
 import lombok.RequiredArgsConstructor;
+
+import org.springframework.stereotype.Service;
+import org.springframework.security.oauth2.core.user.OAuth2User;
+import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
+import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
+import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 
 @Service
 @RequiredArgsConstructor
@@ -26,7 +26,7 @@ public class OAuth2UserServiceImplementation extends DefaultOAuth2UserService {
 
         String snsId = getId(oAuth2User, oauthClientName);
         UserEntity userEntity = userRepository.findBySnsId(snsId);
-      
+        
         if (userEntity == null) {
             return new CustomOAuth2User(snsId, oAuth2User.getAttributes(), false, oauthClientName);
         } else {

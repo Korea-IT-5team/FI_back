@@ -2,17 +2,19 @@ package com.project.back.handler;
 
 import java.io.IOException;
 
-import org.springframework.security.core.Authentication;
-import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
-import org.springframework.stereotype.Component;
 
-import com.project.back.common.object.CustomOAuth2User;
 import com.project.back.provider.JwtProvider;
+import com.project.back.common.object.CustomOAuth2User;
+
+import lombok.RequiredArgsConstructor;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import lombok.RequiredArgsConstructor;
+
+import org.springframework.stereotype.Component;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 
 @Component
 @RequiredArgsConstructor

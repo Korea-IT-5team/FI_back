@@ -2,21 +2,22 @@ package com.project.back.service;
 
 import org.springframework.http.ResponseEntity;
 
-import com.project.back.dto.request.restaurant.PatchRestaurantInfoRequestDto;
-import com.project.back.dto.request.restaurant.PostRestaurantInfoRequestDto;
-import com.project.back.dto.request.restaurant.reservation.PostReservationRequestDto;
-import com.project.back.dto.request.restaurant.review.PatchReviewRequestDto;
 import com.project.back.dto.request.restaurant.review.PostReviewRequestDto;
+import com.project.back.dto.request.restaurant.review.PatchReviewRequestDto;
+import com.project.back.dto.request.restaurant.PostRestaurantInfoRequestDto;
+import com.project.back.dto.request.restaurant.PatchRestaurantInfoRequestDto;
+import com.project.back.dto.request.restaurant.reservation.PostReservationRequestDto;
+
 import com.project.back.dto.response.ResponseDto;
 import com.project.back.dto.response.restaurant.GetRestaurantIdResponseDto;
+import com.project.back.dto.response.restaurant.review.GetReviewResponseDto;
 import com.project.back.dto.response.restaurant.GetRestaurantInfoResponseDto;
 import com.project.back.dto.response.restaurant.GetRestaurantListResponseDto;
-import com.project.back.dto.response.restaurant.favorite.GetFavoriteCheckResponseDto;
-import com.project.back.dto.response.restaurant.favorite.GetFavoriteRestaurantListResponseDto;
-import com.project.back.dto.response.restaurant.reservation.GetReservationCheckResponseDto;
-import com.project.back.dto.response.restaurant.reservation.GetReservationListResponseDto;
 import com.project.back.dto.response.restaurant.review.GetReviewListResponseDto;
-import com.project.back.dto.response.restaurant.review.GetReviewResponseDto;
+import com.project.back.dto.response.restaurant.favorite.GetFavoriteCheckResponseDto;
+import com.project.back.dto.response.restaurant.reservation.GetReservationListResponseDto;
+import com.project.back.dto.response.restaurant.reservation.GetReservationCheckResponseDto;
+import com.project.back.dto.response.restaurant.favorite.GetFavoriteRestaurantListResponseDto;
 
 public interface RestaurantService {
     ResponseEntity<ResponseDto> postRestaurantInfo(PostRestaurantInfoRequestDto dto, String userEmailId);

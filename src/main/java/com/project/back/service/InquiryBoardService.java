@@ -2,12 +2,13 @@ package com.project.back.service;
 
 import org.springframework.http.ResponseEntity;
 
-import com.project.back.dto.request.board.inquiryboard.PatchInquiryBoardRequestDto;
 import com.project.back.dto.request.board.inquiryboard.PostCommentRequestDto;
 import com.project.back.dto.request.board.inquiryboard.PostInquiryBoardRequestDto;
+import com.project.back.dto.request.board.inquiryboard.PatchInquiryBoardRequestDto;
+
 import com.project.back.dto.response.ResponseDto;
-import com.project.back.dto.response.board.inquiryboard.GetInquiryBoardListResponseDto;
 import com.project.back.dto.response.board.inquiryboard.GetInquiryBoardResponseDto;
+import com.project.back.dto.response.board.inquiryboard.GetInquiryBoardListResponseDto;
 import com.project.back.dto.response.board.inquiryboard.GetMyInquiryBoardListResponseDto;
 import com.project.back.dto.response.board.inquiryboard.GetSearchInquiryBoardListResponseDto;
 

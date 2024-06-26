@@ -1,34 +1,37 @@
 package com.project.back.service.implementation;
 
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
-
-import com.project.back.common.util.TelNumberAuthNumberUtil;
-import com.project.back.dto.request.auth.CheckBusinessRegistrationRequestDto;
-import com.project.back.dto.request.auth.CheckEmailIdRequestDto;
-import com.project.back.dto.request.auth.CheckNicknameRequestDto;
-import com.project.back.dto.request.auth.CheckTelNumberAuthRequestDto;
-import com.project.back.dto.request.auth.FindEmailRequestDto;
-import com.project.back.dto.request.auth.NewPasswordRequestDto;
-import com.project.back.dto.request.auth.PasswordResetRequestDto;
-import com.project.back.dto.request.auth.SignInRequestDto;
-import com.project.back.dto.request.auth.SignUpRequestDto;
-import com.project.back.dto.request.auth.TelNumberAuthRequestDto;
-import com.project.back.dto.response.ResponseDto;
-import com.project.back.dto.response.auth.FindEmailResponseDto;
-import com.project.back.dto.response.auth.SignInResponseDto;
-import com.project.back.entity.AuthNumberEntity;
 import com.project.back.entity.UserEntity;
+import com.project.back.service.AuthService;
 import com.project.back.provider.JwtProvider;
 import com.project.back.provider.SmsProvider;
-import com.project.back.repository.AuthNumberRepository;
+import com.project.back.entity.AuthNumberEntity;
+import com.project.back.common.util.TelNumberAuthNumberUtil;
+
 import com.project.back.repository.UserRepository;
-import com.project.back.service.AuthService;
+import com.project.back.repository.AuthNumberRepository;
+
+import com.project.back.dto.response.ResponseDto;
+import com.project.back.dto.response.auth.SignInResponseDto;
+import com.project.back.dto.response.auth.FindEmailResponseDto;
+
+import com.project.back.dto.request.auth.SignInRequestDto;
+import com.project.back.dto.request.auth.SignUpRequestDto;
+import com.project.back.dto.request.auth.FindEmailRequestDto;
+import com.project.back.dto.request.auth.NewPasswordRequestDto;
+import com.project.back.dto.request.auth.CheckEmailIdRequestDto;
+import com.project.back.dto.request.auth.CheckNicknameRequestDto;
+import com.project.back.dto.request.auth.PasswordResetRequestDto;
+import com.project.back.dto.request.auth.TelNumberAuthRequestDto;
+import com.project.back.dto.request.auth.CheckTelNumberAuthRequestDto;
+import com.project.back.dto.request.auth.CheckBusinessRegistrationRequestDto;
 
 import lombok.RequiredArgsConstructor;
+
+import org.springframework.util.StringUtils;
+import org.springframework.stereotype.Service;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Service
 @RequiredArgsConstructor
@@ -92,7 +95,7 @@ public class AuthServiceImplementation implements AuthService {
             return ResponseDto.databaseError();
         }
         return ResponseDto.success();
-      }
+    }
 
     @Override
     public ResponseEntity<ResponseDto> telNumberAuth(TelNumberAuthRequestDto dto) {

@@ -1,48 +1,42 @@
 package com.project.back.common.object.restaurant;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.ArrayList;
 
-import com.project.back.common.util.ChangeDateFormatUtil;
 import com.project.back.entity.ReservationEntity;
+import com.project.back.common.util.ChangeDateFormatUtil;
 
 import lombok.Getter;
 
 @Getter
 public class RestaurantReservationListItem {
-    private Integer reservationNumber;
     private boolean reservationStatus;
+    private Integer reservationNumber;
+    private Integer reservationPeople;
     private Integer reservationRestaurantId;
-    private String reservationRestaurantName;
-    private String reservationUserName;
+    private String writeDate;
     private String reservationDate;
     private String reservationTime;
-    private Integer reservationPeople;
+    private String reservationUserName;
+    private String reservationRestaurantName;
     private String reservationRestaurantLocation;
-    private String writeDate;
 
     private RestaurantReservationListItem(ReservationEntity reservationEntity) throws Exception {
-        this.reservationNumber = reservationEntity.getReservationNumber();
         this.reservationStatus = true;
+        this.reservationNumber = reservationEntity.getReservationNumber();
+        this.reservationUserName = reservationEntity.getReservationUserName();
         this.reservationRestaurantId = reservationEntity.getReservationRestaurantId();
         this.reservationRestaurantName = reservationEntity.getReservationRestaurantName();
-        this.reservationUserName = reservationEntity.getReservationUserName();
         this.reservationRestaurantLocation = reservationEntity.getReservationRestaurantLocation();
-
-        try {
-            writeDate = ChangeDateFormatUtil.changeYYMMDD(reservationEntity.getReservationDate());
-            this.reservationDate = writeDate;
-        } catch(Exception exception) {
-            this.reservationDate = reservationEntity.getReservationDate();
-        }
-
-        try {
-            writeDate = ChangeDateFormatUtil.changeHHmm(reservationEntity.getReservationTime());
-            this.reservationTime = writeDate;
-        } catch(Exception exception) {
-            this.reservationTime = reservationEntity.getReservationTime();
-        }
         this.reservationPeople = reservationEntity.getReservationPeople();
+        
+        writeDate = reservationEntity.getReservationTime();
+        this.reservationTime = writeDate;
+        
+        writeDate = reservationEntity.getReservationDate();
+        this.reservationDate = writeDate;
+        
+        
     }
 
     public static List<RestaurantReservationListItem> getList(List<ReservationEntity> reservationEntities) throws Exception {

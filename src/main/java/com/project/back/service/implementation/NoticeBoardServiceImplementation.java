@@ -2,29 +2,32 @@ package com.project.back.service.implementation;
 
 import java.util.List;
 
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
-
-import com.project.back.dto.request.board.noticeboard.PatchNoticeBoardRequestDto;
-import com.project.back.dto.request.board.noticeboard.PostNoticeBoardRequestDto;
-import com.project.back.dto.response.ResponseDto;
-import com.project.back.dto.response.board.noticeboard.GetNoticeBoardListResponseDto;
-import com.project.back.dto.response.board.noticeboard.GetNoticeBoardResponseDto;
-import com.project.back.dto.response.board.noticeboard.GetSearchNoticeBoardResponseDto;
-import com.project.back.entity.NoticeBoardEntity;
 import com.project.back.entity.UserEntity;
-import com.project.back.repository.NoticeBoardRepository;
-import com.project.back.repository.UserRepository;
-import com.project.back.repository.resultSet.GetNoticeBoardListResultSet;
+import com.project.back.dto.response.ResponseDto;
+import com.project.back.entity.NoticeBoardEntity;
 import com.project.back.service.NoticeBoardService;
 
+import com.project.back.repository.UserRepository;
+import com.project.back.repository.NoticeBoardRepository;
+import com.project.back.repository.resultSet.GetNoticeBoardListResultSet;
+
+import com.project.back.dto.request.board.noticeboard.PostNoticeBoardRequestDto;
+import com.project.back.dto.request.board.noticeboard.PatchNoticeBoardRequestDto;
+
+import com.project.back.dto.response.board.noticeboard.GetNoticeBoardResponseDto;
+import com.project.back.dto.response.board.noticeboard.GetNoticeBoardListResponseDto;
+import com.project.back.dto.response.board.noticeboard.GetSearchNoticeBoardResponseDto;
+
 import lombok.RequiredArgsConstructor;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
 public class NoticeBoardServiceImplementation implements NoticeBoardService {
-    private final NoticeBoardRepository noticeBoardRepository;
     private final UserRepository userRepository;
+    private final NoticeBoardRepository noticeBoardRepository;
 
     @Override
     public ResponseEntity<ResponseDto> postBoard(PostNoticeBoardRequestDto dto, String userEmailId) {

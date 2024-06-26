@@ -1,12 +1,14 @@
 package com.project.back.entity;
 
-import jakarta.persistence.Entity;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import jakarta.persistence.Entity;
+
 
 @Entity(name="authNumber")
 @Table(name="auth_number")

@@ -1,11 +1,11 @@
 package com.project.back.repository.resultSet;
 
 public interface GetInquiryBoardListResultSet {
-    Integer getInquiryNumber();
     Integer getStatus();
+    Integer getInquiryNumber();
     Integer getInquiryPublic();
     String getInquiryTitle();
+    String getInquiryWriterId();
     String getInquiryWriterNickname();
     String getInquiryWriteDatetime();
-    String getInquiryWriterId();
 }
