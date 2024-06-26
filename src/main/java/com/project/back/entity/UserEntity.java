@@ -1,15 +1,16 @@
 package com.project.back.entity;
 
+import lombok.Getter;
+import lombok.Setter;
+import jakarta.persistence.Id;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+
+import jakarta.persistence.Table;
+import jakarta.persistence.Entity;
+
 import com.project.back.dto.request.auth.SignUpRequestDto;
 import com.project.back.dto.request.user.PatchUserInfoRequestDto;
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Entity(name="user")
 @Table(name="user")
@@ -20,26 +21,27 @@ import lombok.Setter;
 public class UserEntity {
     @Id
     private String userEmailId;
-    private String password;
-    private String nickname;
-    private String userName;
-    private String userTelNumber;
-    private String userAddress;
-    private String userRole;
-    private String joinPath;
     private String snsId;
+    private String joinPath;
+    private String userRole;
+    private String userName;
+    private String nickname;
+    private String password;
+    private String userAddress;
+    private String userTelNumber;
     private String businessRegistrationNumber;
 
     public UserEntity(SignUpRequestDto dto, String userRole) {
-        this.userEmailId = dto.getUserEmailId();
+        this.joinPath = "HOME";
+        this.userRole = userRole;
+
+        this.snsId = dto.getSnsId();
+        this.userName = dto.getUserName();
         this.password = dto.getPassword();
         this.nickname = dto.getNickname();
-        this.userName = dto.getUserName();
-        this.userTelNumber = dto.getUserTelNumber();
         this.userAddress = dto.getUserAddress();
-        this.userRole = userRole;
-        this.joinPath = "HOME";
-        this.snsId = dto.getSnsId();
+        this.userEmailId = dto.getUserEmailId();
+        this.userTelNumber = dto.getUserTelNumber();
         this.businessRegistrationNumber = dto.getBusinessRegistrationNumber();
     }
 

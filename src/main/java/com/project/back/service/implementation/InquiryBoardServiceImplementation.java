@@ -2,31 +2,34 @@ package com.project.back.service.implementation;
 
 import java.util.List;
 
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
+import com.project.back.entity.UserEntity;
+import com.project.back.entity.InquiryBoardEntity;
+import com.project.back.service.InquiryBoardService;
 
-import com.project.back.dto.request.board.inquiryboard.PatchInquiryBoardRequestDto;
+import com.project.back.repository.UserRepository;
+import com.project.back.repository.InquiryBoardRepository;
+import com.project.back.repository.resultSet.GetInquiryBoardListResultSet;
+
 import com.project.back.dto.request.board.inquiryboard.PostCommentRequestDto;
+import com.project.back.dto.request.board.inquiryboard.PatchInquiryBoardRequestDto;
 import com.project.back.dto.request.board.inquiryboard.PostInquiryBoardRequestDto;
+
 import com.project.back.dto.response.ResponseDto;
 import com.project.back.dto.response.board.inquiryboard.GetInquiryBoardListResponseDto;
 import com.project.back.dto.response.board.inquiryboard.GetInquiryBoardResponseDto;
 import com.project.back.dto.response.board.inquiryboard.GetMyInquiryBoardListResponseDto;
 import com.project.back.dto.response.board.inquiryboard.GetSearchInquiryBoardListResponseDto;
-import com.project.back.entity.InquiryBoardEntity;
-import com.project.back.entity.UserEntity;
-import com.project.back.repository.InquiryBoardRepository;
-import com.project.back.repository.UserRepository;
-import com.project.back.repository.resultSet.GetInquiryBoardListResultSet;
-import com.project.back.service.InquiryBoardService;
 
 import lombok.RequiredArgsConstructor;
+
+import org.springframework.stereotype.Service;
+import org.springframework.http.ResponseEntity;
 
 @Service
 @RequiredArgsConstructor
 public class InquiryBoardServiceImplementation implements InquiryBoardService {
-    private final InquiryBoardRepository inquiryBoardRepository;
     private final UserRepository userRepository;
+    private final InquiryBoardRepository inquiryBoardRepository;
 
     @Override
     public ResponseEntity<ResponseDto> postBoard(PostInquiryBoardRequestDto dto, String userEmailId) {

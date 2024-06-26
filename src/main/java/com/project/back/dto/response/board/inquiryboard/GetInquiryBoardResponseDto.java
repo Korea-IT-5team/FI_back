@@ -3,11 +3,11 @@ package com.project.back.dto.response.board.inquiryboard;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import com.project.back.common.util.ChangeDateFormatUtil;
-import com.project.back.dto.response.ResponseCode;
 import com.project.back.dto.response.ResponseDto;
-import com.project.back.dto.response.ResponseMessage;
+import com.project.back.dto.response.ResponseCode;
 import com.project.back.entity.InquiryBoardEntity;
+import com.project.back.dto.response.ResponseMessage;
+import com.project.back.common.util.ChangeDateFormatUtil;
 
 import lombok.Getter;
 
@@ -25,11 +25,12 @@ public class GetInquiryBoardResponseDto extends ResponseDto{
 
     private GetInquiryBoardResponseDto(InquiryBoardEntity inquiryBoardEntity, String inquiryWriterNickname) throws Exception {
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
+        this.inquiryWriterNickname = inquiryWriterNickname;
+
         this.status = inquiryBoardEntity.getStatus();
+        this.inquiryTitle = inquiryBoardEntity.getInquiryTitle();
         this.inquiryPublic = inquiryBoardEntity.getInquiryPublic();
         this.inquiryNumber = inquiryBoardEntity.getInquiryNumber();
-        this.inquiryTitle = inquiryBoardEntity.getInquiryTitle();
-        this.inquiryWriterNickname = inquiryWriterNickname;
         this.inquiryWriterId = inquiryBoardEntity.getInquiryWriterId();
 
         String writeDate = ChangeDateFormatUtil.changeYYYYMMDD(inquiryBoardEntity.getInquiryWriteDatetime());

@@ -1,27 +1,27 @@
 package com.project.back.controller;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.project.back.dto.request.auth.CheckBusinessRegistrationRequestDto;
-import com.project.back.dto.request.auth.CheckEmailIdRequestDto;
-import com.project.back.dto.request.auth.CheckNicknameRequestDto;
-import com.project.back.dto.request.auth.CheckTelNumberAuthRequestDto;
-import com.project.back.dto.request.auth.FindEmailRequestDto;
-import com.project.back.dto.request.auth.NewPasswordRequestDto;
-import com.project.back.dto.request.auth.PasswordResetRequestDto;
+import com.project.back.service.AuthService;
+import com.project.back.dto.response.ResponseDto;
+import com.project.back.dto.response.auth.SignInResponseDto;
+import com.project.back.dto.response.auth.FindEmailResponseDto;
 import com.project.back.dto.request.auth.SignInRequestDto;
 import com.project.back.dto.request.auth.SignUpRequestDto;
+import com.project.back.dto.request.auth.FindEmailRequestDto;
+import com.project.back.dto.request.auth.NewPasswordRequestDto;
+import com.project.back.dto.request.auth.CheckEmailIdRequestDto;
+import com.project.back.dto.request.auth.PasswordResetRequestDto;
+import com.project.back.dto.request.auth.CheckNicknameRequestDto;
 import com.project.back.dto.request.auth.TelNumberAuthRequestDto;
-import com.project.back.dto.response.ResponseDto;
-import com.project.back.dto.response.auth.FindEmailResponseDto;
-import com.project.back.dto.response.auth.SignInResponseDto;
-import com.project.back.service.AuthService;
+import com.project.back.dto.request.auth.CheckTelNumberAuthRequestDto;
+import com.project.back.dto.request.auth.CheckBusinessRegistrationRequestDto;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

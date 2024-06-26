@@ -1,9 +1,9 @@
 package com.project.back.repository.resultSet;
 
 public interface GetNoticeBoardListResultSet {
+    Integer getViewCount();
     Integer getNoticeNumber();
     String getNoticeTitle();
-    String getNoticeWriterNickname();
     String getNoticeWriteDatetime();
-    Integer getViewCount();
+    String getNoticeWriterNickname();
 }

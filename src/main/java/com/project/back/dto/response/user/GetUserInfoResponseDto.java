@@ -12,14 +12,14 @@ import lombok.Getter;
 
 @Getter
 public class GetUserInfoResponseDto extends ResponseDto {
-    private String userEmailId;
     private String userRole;
+    private String userEmailId;
     private String business_registration_number;
     
     private GetUserInfoResponseDto(UserEntity userEntity) {
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
-        this.userEmailId=userEntity.getUserEmailId();
         this.userRole=userEntity.getUserRole();
+        this.userEmailId=userEntity.getUserEmailId();
         this.business_registration_number=userEntity.getBusinessRegistrationNumber();
     }
 

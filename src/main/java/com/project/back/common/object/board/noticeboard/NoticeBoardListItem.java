@@ -1,7 +1,7 @@
 package com.project.back.common.object.board.noticeboard;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.ArrayList;
 
 import com.project.back.common.util.ChangeDateFormatUtil;
 import com.project.back.repository.resultSet.GetNoticeBoardListResultSet;
@@ -10,11 +10,11 @@ import lombok.Getter;
 
 @Getter
 public class NoticeBoardListItem {
+    private Integer viewCount;
     private Integer noticeNumber;
     private String noticeTitle;
-    private String noticeWriterNickname;
     private String noticeWriteDatetime;
-    private Integer viewCount;
+    private String noticeWriterNickname;
 
     private NoticeBoardListItem(GetNoticeBoardListResultSet resultSet) throws Exception {
         this.noticeNumber = resultSet.getNoticeNumber();

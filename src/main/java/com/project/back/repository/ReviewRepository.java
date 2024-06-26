@@ -2,20 +2,20 @@ package com.project.back.repository;
 
 import java.util.List;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.project.back.entity.ReviewEntity;
+import com.project.back.entity.FavoriteRestaurantEntity;
+import com.project.back.repository.resultSet.GetRestaurantReviewListItemResultSet;
+
+import org.springframework.stereotype.Repository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-import org.springframework.stereotype.Repository;
-
-import com.project.back.entity.FavoriteRestaurantEntity;
-import com.project.back.entity.ReviewEntity;
-import com.project.back.repository.resultSet.GetRestaurantReviewListItemResultSet;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 @Repository
 public interface ReviewRepository extends JpaRepository<ReviewEntity,Integer> {
+    ReviewEntity findByReviewNumber(int reviewNumber);
     boolean existsByReviewWriterIdAndReviewRestaurantId(String userEmailId, int restaurantId);
 
-    ReviewEntity findByReviewNumber(int reviewNumber);
     List<FavoriteRestaurantEntity> findByOrderByReviewRestaurantIdDesc();
 
     void deleteByReviewWriterId(String userEmailId);
