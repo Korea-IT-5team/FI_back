@@ -92,7 +92,7 @@ public class AuthServiceImplementation implements AuthService {
             return ResponseDto.databaseError();
         }
         return ResponseDto.success();
-      }
+    }
 
     @Override
     public ResponseEntity<ResponseDto> telNumberAuth(TelNumberAuthRequestDto dto) {
@@ -164,9 +164,9 @@ public class AuthServiceImplementation implements AuthService {
             }
             
             if (businessRegistrationNumber=="") {
-              userRole="ROLE_USER";
+                userRole="ROLE_USER";
             } else {
-              userRole="ROLE_CEO";
+                userRole="ROLE_CEO";
             }
 
             boolean isMatched = authNumberRepository.existsByTelNumberAndAuthNumber(userTelNumber, authNumber);
@@ -239,5 +239,5 @@ public class AuthServiceImplementation implements AuthService {
             return ResponseDto.databaseError();
         }
         return ResponseDto.success();
-      }
+    }
 }
