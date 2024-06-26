@@ -1708,7 +1708,7 @@ Content-Type: application/json;charset=UTF-8
   
 ##### 설명
 
-클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여  사용자 본인의 리뷰 내역 리스트를 반환합니다. 만약 불러오기에 실패하면 실패 처리를 합니다. 인가 실패, 유효성 검사 실패, 데이터베이스 에러가 발생할 수 있습니다.
+클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 사용자 본인의 리뷰 내역 리스트를 반환합니다. 만약 불러오기에 실패하면 실패 처리를 합니다. 인가 실패, 유효성 검사 실패, 데이터베이스 에러가 발생할 수 있습니다.
 
 - method : **GET**  
 - URL : **/list**  
@@ -2199,7 +2199,6 @@ Content-Type: application/json;charset=UTF-8
 }
 ```
 
-
 ***
 
 <h2 style='background-color: rgba(55, 55, 55, 0.2); text-align: center'>Reservation 모듈</h2>
@@ -2210,11 +2209,11 @@ Content-Type: application/json;charset=UTF-8
 
 ***
 
-#### - 본인 예약 목록 불러오기
+#### - 사용자 본인 예약 목록 불러오기
   
 ##### 설명
 
-클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여  사용자 본인의 예약 내역 리스트를 반환합니다. 만약 불러오기에 실패하면 실패 처리를 합니다. 인가 실패, 유효성 검사 실패, 데이터베이스 에러가 발생할 수 있습니다.
+클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 사용자 본인의 예약 내역 리스트를 반환합니다. 만약 불러오기에 실패하면 실패 처리를 합니다. 인가 실패, 유효성 검사 실패, 데이터베이스 에러가 발생할 수 있습니다.
 
 - method : **GET**  
 - URL : **/list**  
@@ -2299,11 +2298,11 @@ Content-Type: application/json;charset=UTF-8
 
 ***
 
-#### - 본인 예약 목록 불러오기
+#### - 사장 본인 식당 예약 목록 불러오기
   
 ##### 설명
 
-클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여  사장 본인 식당의 예약 내역 리스트를 반환합니다. 만약 불러오기에 실패하면 실패 처리를 합니다. 인가 실패, 유효성 검사 실패, 데이터베이스 에러가 발생할 수 있습니다.
+클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 사장 본인 식당의 예약 내역 리스트를 반환합니다. 만약 불러오기에 실패하면 실패 처리를 합니다. 인가 실패, 유효성 검사 실패, 데이터베이스 에러가 발생할 수 있습니다.
 
 - method : **GET**  
 - URL : **/ceo-list**  
@@ -2512,7 +2511,7 @@ Content-Type: application/json;charset=UTF-8
   
 ##### 설명
 
-클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 예약 취소에 성공하면성공 처리를 합니다. 만약 실패하면 실패 처리를 합니다. 인가 실패, 유효성 검사 실패, 데이터베이스 에러가 발생할 수 있습니다.
+클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 예약 취소에 성공하면 성공 처리를 합니다. 만약 실패하면 실패 처리를 합니다. 인가 실패, 유효성 검사 실패, 데이터베이스 에러가 발생할 수 있습니다.
 
 - method : **DELETE**  
 - URL : **/{restaurantId}**  
@@ -2529,12 +2528,212 @@ Content-Type: application/json;charset=UTF-8
 
 | name | type | description | required |
 |---|:---:|:---:|:---:|
-| reviewNumber | int | 리뷰 접수 번호 | O |
+| restaurantId | int | 식당 번호 | O |
 
 ###### Example
 
 ```bash
 curl -v -X DELETE "http://localhost:9999/api/v1/restaurant/reservation/{restaurantId}" \
+ -H "Authorization: Bearer {JWT}" 
+```
+
+##### Response
+
+###### Header
+
+| name | description | required |
+|---|:---:|:---:|
+| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
+
+###### Response Body
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| code | String | 결과 코드 | O |
+| message | String | 결과 메세지 | O |
+
+###### Example
+
+**응답 성공**
+```bash
+HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "SU",
+  "message": "Success."
+}
+```
+
+**응답 : 실패 (데이터 유효성 검사 실패)**
+```bash
+HTTP/1.1 400 Bad Request
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "VF",
+  "message": "Validation Failed."
+}
+```
+
+**응답 : 실패 (존재하지 않는 식당)**
+```bash
+HTTP/1.1 400 Bad Request
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "NR",
+  "message": "No Exist Restaurant."
+}
+```
+
+**응답 : 실패 (인가 실패)**
+```bash
+HTTP/1.1 403 Forbidden
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "AF",
+  "message": "Authorization Failed."
+}
+```
+
+**응답 : 실패 (권한 없음)**
+```bash
+HTTP/1.1 403 Forbidden
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "AF",
+  "message": "Authorization Failed."
+}
+```
+
+**응답 : 실패 (데이터베이스 에러)**
+```bash
+HTTP/1.1 500 Internal Server Error
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "DBE",
+  "message": "Database Error."
+}
+```
+
+***
+
+<h2 style='background-color: rgba(55, 55, 55, 0.2); text-align: center'>Favorite 모듈</h2>
+
+식당 찜과 관련된 REST API 모듈  
+  
+- url : /api/v1/restaurant/favorite  
+
+***
+
+#### - 본인 찜 목록 불러오기
+  
+##### 설명
+
+클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 사용자 본인의 찜 내역 리스트를 반환합니다. 만약 불러오기에 실패하면 실패 처리를 합니다. 데이터베이스 에러가 발생할 수 있습니다.
+
+- method : **GET**  
+- URL : **/list**  
+
+##### Request
+
+###### Header
+
+| name | description | required |
+|---|:---:|:---:|
+| Authorization | 인증에 사용될 Bearer 토큰 | O |
+
+###### Example
+
+```bash
+curl -v -X GET "http://localhost:9999/api/v1/restaurant/favorite/list" 
+```
+
+##### Response
+
+###### Header
+
+| name | description | required |
+|---|:---:|:---:|
+| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
+
+###### Response Body
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| code | String | 결과 코드 | O |
+| message | String | 결과 메세지 | O |
+| favoriteUserEmailId | String | 사용자 아이디 | O |
+| restaurantList | restaurantListItem[] | 식당 리스트 | O |
+
+**RestaurantListItem**
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| restaurantId | int | 식당 번호 | O |
+| restaurantImage | String | 식당 대표 사진 | O |
+| restaurantName | String | 식당 이름 | O |
+| restaurantFoodCateogory | String | 식당 음식 카테고리 | O |
+| restaurantLocation | String | 식당 주소 | O |
+
+###### Example
+
+**응답 성공**
+```bash
+HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "SU",
+  "message": "Success.",
+  "favoriteUserEmailId": ${favoriteUserEmailId},
+  "restaurantListItem": [
+    {
+      "restaurantId": ${restaurantId},
+      "restaurantImage": ${restaurantImage},
+      "restaurantName": ${restaurantName},
+      "restaurantFoodCateogory": ${restaurantFoodCateogory},
+      "restaurantLocation": ${restaurantLocation}
+    }, ...
+  ]
+}
+```
+
+**응답 : 실패 (데이터베이스 에러)**
+```bash
+HTTP/1.1 500 Internal Server Error
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "DBE",
+  "message": "Database Error."
+}
+```
+
+***
+
+#### - 식당 찜 등록
+  
+##### 설명
+
+클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 식당 아이디를 입력받고 찜(저장)에 성공하면 성공 처리를 합니다. 만약 실패하면 실패 처리를 합니다. 인가 실패, 유효성 검사 실패, 데이터베이스 에러가 발생할 수 있습니다.
+
+- method : **POST**  
+- URL : **/{restaurantId}**  
+
+##### Request
+
+###### Header
+
+| name | description | required |
+|---|:---:|:---:|
+| Authorization | 인증에 사용될 Bearer 토큰 | O |
+
+###### Path Variable
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| restaurantId | int | 식당 번호 | O |
+
+###### Example
+
+```bash
+curl -v -X POST "http://localhost:9999/api/v1/restaurant/favorite/{restaurantId}" \
  -H "Authorization: Bearer {JWT}" 
 ```
 
