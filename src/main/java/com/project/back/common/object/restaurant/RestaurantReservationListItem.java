@@ -35,8 +35,6 @@ public class RestaurantReservationListItem {
         
         writeDate = reservationEntity.getReservationDate();
         this.reservationDate = writeDate;
-        
-        
     }
 
     public static List<RestaurantReservationListItem> getList(List<ReservationEntity> reservationEntities) throws Exception {

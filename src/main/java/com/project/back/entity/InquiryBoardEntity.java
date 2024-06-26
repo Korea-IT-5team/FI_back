@@ -1,9 +1,5 @@
 package com.project.back.entity;
 
-import java.util.Date;
-import java.time.Instant;
-import java.text.SimpleDateFormat;
-
 import lombok.Getter;
 import lombok.Setter;
 import lombok.NoArgsConstructor;
@@ -38,14 +34,9 @@ public class InquiryBoardEntity {
     private String inquiryWriteDatetime;
 
     public InquiryBoardEntity(PostInquiryBoardRequestDto dto, String userEmailId) {
-        // Date now = Date.from(Instant.now());
-        // SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        // String inquiryWriteDatetime = simpleDateFormat.format(now);
-
         String dateNow = ChangeDateFormatUtil.nowYYYYMMDD();
         this.inquiryWriteDatetime = dateNow;
     
-
         this.status = false;
         this.inquiryWriterId = userEmailId;
         

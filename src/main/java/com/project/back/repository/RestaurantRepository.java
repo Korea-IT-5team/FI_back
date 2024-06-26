@@ -34,7 +34,7 @@ public interface RestaurantRepository extends JpaRepository<RestaurantEntity,Int
         + "WHERE restaurant_id "
         + "IN "
         + "(SELECT favorite_restaurant_id FROM favorite_restaurant WHERE `favorite_user_id` = :userEmailId)"
-        + "ORDER BY r.restaurant_id DESC", 
+        + "ORDER BY r.restaurant_id ", 
         nativeQuery=true
     )
     List<GetRestaurantFavoriteItemResultSet> getFavoriteList(@Param("userEmailId") String favoriteUserId);
