@@ -156,5 +156,5 @@ public class InquiryBoardServiceImplementation implements InquiryBoardService {
             return ResponseDto.databaseError();
         }
         return ResponseDto.success();
-      }
+    }
 }

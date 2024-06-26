@@ -2202,17 +2202,17 @@ Content-Type: application/json;charset=UTF-8
 ***
 <h2 style='background-color: rgba(55, 55, 55, 0.2); text-align: center'>Board 모듈</h2>
 
-Q&A 게시물과 관련된 REST API 모듈 
+inquiry-board와 관련된 REST API 모듈 
   
-- url : /api/v1/board  
+- url : /api/v1/inquiry-board  
 
 ***
 
-#### - Q&A 게시물 작성
+#### - 게시물 문의 작성
   
 ##### 설명
 
-클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 제목, 내용을 입력받고 작성에 성공하면 성공 처리를 합니다. 만약 작성에 실패하면 실패 처리됩니다. 인가 실패, 데이터 유효성 검사 실패, 데이터베이스 에러가 발생할 수 있습니다.
+클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 제목, 내용을 입력받고 작성에 성공하면 성공 처리를 합니다. 만약 작성에 실패하면 실패 처리 됩니다. 인가 실패, 데이터베이스 에러, 데이터 유효성 검사 실패가 발생할 수 있습니다.
 
 - method : **POST**  
 - URL : **/**  
@@ -2229,13 +2229,13 @@ Q&A 게시물과 관련된 REST API 모듈
 
 | name | type | description | required |
 |---|:---:|:---:|:---:|
-| title | String | Q&A 제목 | O |
-| contents | String | Q&A 내용 | O |
+| title | String | 제목 | O |
+| contents | String | 내용 | O |
 
 ###### Example
 
 ```bash
-curl -v -X POST "http://localhost:4000/api/v1/board/" \
+curl -v -X POST "http:////localhost:9999/api/v1/inquiry-board/" \
  -H "Authorization: Bearer {JWT}" \
  -d "title={title}" \
  -d "contents={contents}"
@@ -2288,16 +2288,6 @@ Content-Type: application/json;charset=UTF-8
 }
 ```
 
-**응답 : 실패 (인증 실패)**
-```bash
-HTTP/1.1 401 Unauthorized
-Content-Type: application/json;charset=UTF-8
-{
-  "code": "AF",
-  "message": "Authentication Failed."
-}
-```
-
 **응답 : 실패 (데이터베이스 에러)**
 ```bash
 HTTP/1.1 500 Internal Server Error
@@ -2310,7 +2300,7 @@ Content-Type: application/json;charset=UTF-8
 
 ***
 
-#### - Q&A 전체 게시물 리스트 불러오기
+#### - 전체 게시판 리스트 불러오기
   
 ##### 설명
 
@@ -2330,7 +2320,7 @@ Content-Type: application/json;charset=UTF-8
 ###### Example
 
 ```bash
-curl -v -X GET "http://localhost:4000/api/v1/board/list" \
+curl -v -X GET "http:////localhost:9999/api/v1/inquiry-board/list" \" \
  -H "Authorization: Bearer {JWT}" 
 ```
 
@@ -2348,17 +2338,18 @@ curl -v -X GET "http://localhost:4000/api/v1/board/list" \
 |---|:---:|:---:|:---:|
 | code | String | 결과 코드 | O |
 | message | String | 결과 메세지 | O |
-| boardList | BoardListItem[ ] | Q&A 게시물 리스트 | O |
+| inquiryBoardList | inquiryBoardListItem[ ] | 문의  내역  게시물 리스트 | O |
 
-**BoardListItem**
+**InquiryBoardListItem**
 | name | type | description | required |
 |---|:---:|:---:|:---:|
-| receptionNumber | int | 접수 번호 | O |
-| status | boolean | 상태 | O |
-| title | String | 제목 | O |
-| writerId | String | 작성자 아이디</br>(첫글자를 제외한 나머지 문자는 *) | O |
-| writeDatetime | String | 작성일</br>(yy.mm.dd 형태) | O |
-| ciewCount | int | 조회수 | O |
+| inquiryNumber | int | 문의 번호 | O |
+| status | boolean | 문의 상태 | O |
+| inquiryPublic | boolean | 문의 조회 | O |
+| inquiryTitle | String | 문의 제목 | O |
+| inquiryWriterId | String | 문의 작성자 | O |
+| inquiryWriterNickname | String | 문의 작성자 닉네임 | O |
+| inquiryWriteDatetime | String |문의 작성(yy.mm.dd 형태) | O |
 
 ###### Example
 
@@ -2371,30 +2362,21 @@ Content-Type: application/json;charset=UTF-8
   "message": "Success.",
   "boardList": [
     {
-      "receptionNumber": 1,
+      "inquiryNumber": 1,
       "status": false,
-      "title": "test",
-      "writerId": "s*********",
-      "wirteDatetime": "24.05.02",
-      "viewCount": 0
+      "inquiryPublic": false,
+      "inquiryTitle": "test",
+      "inquiryWriterId": "service123",
+      "inquiryWriterNickname": "service123",
+      "inquiryWriteDatetime": "24.05.02"
     }, ...
   ]
 }
 ```
 
-**응답 : 실패 (인가 실패)**
-```bash
-HTTP/1.1 403 Forbidden
-Content-Type: application/json;charset=UTF-8
-{
-  "code": "AF",
-  "message": "Authorization Failed."
-}
-```
-
 **응답 : 실패 (인증 실패)**
 ```bash
-HTTP/1.1 401 Unauthorized
+HTTP/1.1 403 Forbidden
 Content-Type: application/json;charset=UTF-8
 {
   "code": "AF",
@@ -2414,14 +2396,14 @@ Content-Type: application/json;charset=UTF-8
 
 ***
 
-#### - Q&A 검색 게시물 리스트 불러오기
+#### - 검색 게시판 리스트 불러오기
   
 ##### 설명
 
 클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 검색어를 입력받고 요청을 보내면 작성일 기준 내림차순으로 제목에 해당 검색어가 포함된 게시물 리스트를 반환합니다. 만약 불러오기에 실패하면 실패 처리를 합니다. 인가 실패, 데이터베이스 에러가 발생할 수 있습니다.
 
 - method : **GET**  
-- URL : **/list/${searchWord}**  
+- URL : **/list/search**  
 
 ##### Request
 
@@ -2431,28 +2413,16 @@ Content-Type: application/json;charset=UTF-8
 |---|:---:|:---:|
 | Authorization | 인증에 사용될 Bearer 토큰 | O |
 
-<<<<<<< HEAD
-###### Query Pram
-
-| name | type | description | required |
-|---|:---:|:---:|:---:|
-| word | String | 검색어 | O |
-=======
 ###### Path Variable
 
 | name | type | description | required |
 |---|:---:|:---:|:---:|
 | searchWord | String | 검색어 | O |
->>>>>>> c4993b3f46c5d47ef83764c5f55a7f9e58306319
 
 ###### Example
 
 ```bash
-<<<<<<< HEAD
-curl -v -X GET "http://localhost:4000/api/v1/board/list/search?word=${searchWord}" \
-=======
-curl -v -X GET "http://localhost:4000/api/v1/board/list/${searchWord}" \
->>>>>>> c4993b3f46c5d47ef83764c5f55a7f9e58306319
+curl -v -X GET "http://localhost:9999/api/v1/inquiry-board/list/search?word=${searchWord}" \
  -H "Authorization: Bearer {JWT}" 
 ```
 
@@ -2470,17 +2440,18 @@ curl -v -X GET "http://localhost:4000/api/v1/board/list/${searchWord}" \
 |---|:---:|:---:|:---:|
 | code | String | 결과 코드 | O |
 | message | String | 결과 메세지 | O |
-| boardList | BoardListItem[ ] | Q&A 게시물 리스트 | O |
+| inquiryBoardList | inquiryBoardListItem[] | 문의 내역 게시물 리스트 | O |
 
-**BoardListItem**
+**InquiryBoardListItem**
 | name | type | description | required |
 |---|:---:|:---:|:---:|
-| receptionNumber | int | 접수 번호 | O |
-| status | boolean | 상태 | O |
-| title | String | 제목 | O |
-| writerId | String | 작성자 아이디</br>(첫글자를 제외한 나머지 문자는 *) | O |
-| writeDatetime | String | 작성일</br>(yy.mm.dd 형태) | O |
-| ciewCount | int | 조회수 | O |
+| inquiryNumber | int | 문의 번호 | O |
+| status | boolean | 문의 상태 | O |
+| inquiryPublic | boolean | 문의 조회 | O |
+| inquiryTitle | String | 문의 제목 | O |
+| inquiryWriterId | String | 문의 작성자 | O |
+| inquiryWriterNickname | String | 문의 작성자 닉네임 | O |
+| inquiryWriteDatetime | String | 문의 작성(yy.mm.dd 형태) | O |
 
 ###### Example
 
@@ -2493,12 +2464,13 @@ Content-Type: application/json;charset=UTF-8
   "message": "Success.",
   "boardList": [
     {
-      "receptionNumber": 1,
+      "inquiryNumber": 1,
       "status": false,
-      "title": "test",
-      "writerId": "s*********",
-      "wirteDatetime": "24.05.02",
-      "viewCount": 0
+      "inquiryPublic": false,
+      "inquiryTitle": "test",
+      "inquiryWriterId": "service123",
+      "inquiryWriterNickname": "service123",
+      "inquiryWriteDatetime": "24.06.25"
     }, ...
   ]
 }
@@ -2514,19 +2486,9 @@ Content-Type: application/json;charset=UTF-8
 }
 ```
 
-**응답 : 실패 (인가 실패)**
-```bash
-HTTP/1.1 403 Forbidden
-Content-Type: application/json;charset=UTF-8
-{
-  "code": "AF",
-  "message": "Authorization Failed."
-}
-```
-
 **응답 : 실패 (인증 실패)**
 ```bash
-HTTP/1.1 401 Unauthorized
+HTTP/1.1 403 Forbidden
 Content-Type: application/json;charset=UTF-8
 {
   "code": "AF",
@@ -2546,14 +2508,14 @@ Content-Type: application/json;charset=UTF-8
 
 ***
 
-#### - Q&A 게시물 불러오기
+#### - 게시물 상세보기
   
 ##### 설명
 
-클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 접수번호를 입력받고 요청을 보내면 해당하는 Q&A 게시물 데이터를 반환합니다. 만약 불러오기에 실패하면 실패 처리를 합니다. 인가 실패, 데이터베이스 에러가 발생할 수 있습니다.
+클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 문의 번호를 입력받고 요청을 보내면 해당하는 게시물을 반환합니다. 만약 불러오기에 실패하면 실패 처리를 합니다. 인가 실패, 데이터베이스 에러가 발생할 수 있습니다.
 
 - method : **GET**  
-- URL : **/{receptionNumber}**  
+- URL : **/{inquiryNumber}**  
 
 ##### Request
 
@@ -2567,12 +2529,12 @@ Content-Type: application/json;charset=UTF-8
 
 | name | type | description | required |
 |---|:---:|:---:|:---:|
-| receptionNumber | int | 접수 번호 | O |
+| inquiryNumber | int | 문의 번호 | O |
 
 ###### Example
 
 ```bash
-curl -v -X GET "http://localhost:4000/api/v1/board/${receptionNumber}" \
+curl -v -X GET "http://localhost:9999/api/v1/inquiry-board/${inquiryNumber}" \
  -H "Authorization: Bearer {JWT}" 
 ```
 
@@ -2590,14 +2552,15 @@ curl -v -X GET "http://localhost:4000/api/v1/board/${receptionNumber}" \
 |---|:---:|:---:|:---:|
 | code | String | 결과 코드 | O |
 | message | String | 결과 메세지 | O |
-| receptionNumber | int | 접수 번호 | O |
-| status | boolean | 상태 | O |
-| title | String | 제목 | O |
-| writerId | String | 작성자 아이디 | O |
-| writeDatetime | String | 작성일</br>(yyyy.mm.dd 형태) | O |
-| viewCount | int | 조회수 | O |
-| contents | String | 내용 | O |
-| comment | String | 답글 내용 | X |
+| inquiryNumber | int | 문의 번호 | O |
+| status | boolean | 문의 상태 | O |
+| inquiryPublic | boolean | 문의 조회 | O |
+| inquiryTitle | String | 제목 | O |
+| inquiryWriterId | String | 작성자 아이디 | O |
+| inquiryWriterNickname | String | 문의 작성자 닉네임 | O |
+| inquiryWriteDatetime | String | 작성일</br>(yyyy.mm.dd 형태) | O |
+| inquiryContents | String | 내용 | O |
+| inquiryComment | String | 답글 내용 | X |
 
 ###### Example
 
@@ -2608,14 +2571,15 @@ Content-Type: application/json;charset=UTF-8
 {
   "code": "SU",
   "message": "Success.",
-  "receptionNumber": ${receptionNumber},
+  "inquiryNumber": ${inquiryNumber},
   "status": ${status},
-  "title": ${title},
-  "writerId": ${writerId},
-  "writeDatetime": ${writeDatetime},
-  "viewCount": ${viewCount},
-  "contents": ${contents},
-  "comment": ${comment}
+  "inquiryPublic": ${inquiryPublic},
+  "inquiryTitle": ${inquiryTitle},
+  "inquiryWriterId": ${inquiryWriterId},
+  "inquiryWriterNickname": ${inquiryWriterNickname},
+  "inquiryWriteDatetime": ${inquiryWriteDatetime},
+  "inquiryContents": ${inquiryContents},
+  "inquiryComment": ${inquiryComment}
 }
 ```
 
@@ -2645,16 +2609,6 @@ HTTP/1.1 403 Forbidden
 Content-Type: application/json;charset=UTF-8
 {
   "code": "AF",
-  "message": "Authorization Failed."
-}
-```
-
-**응답 : 실패 (인증 실패)**
-```bash
-HTTP/1.1 401 Unauthorized
-Content-Type: application/json;charset=UTF-8
-{
-  "code": "AF",
   "message": "Authentication Failed."
 }
 ```
@@ -2671,123 +2625,14 @@ Content-Type: application/json;charset=UTF-8
 
 ***
 
-#### - Q&A 게시물 조회수 증가
+#### - 게시물 답글 작성
   
 ##### 설명
 
-클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 접수번호를 입력받고 요청을 보내면 해당하는 Q&A 게시물의 조회수가 증가합니다. 만약 증가에 실패하면 실패 처리를 합니다. 인가 실패, 데이터베이스 에러가 발생할 수 있습니다.
-
-- method : **PATCH**  
-- URL : **/{receptionNumber}/increase-view-count**  
-
-##### Request
-
-###### Header
-
-| name | description | required |
-|---|:---:|:---:|
-| Authorization | 인증에 사용될 Bearer 토큰 | O |
-
-###### Path Variable
-
-| name | type | description | required |
-|---|:---:|:---:|:---:|
-| receptionNumber | int | 접수 번호 | O |
-
-###### Example
-
-```bash
-curl -v -X PATCH "http://localhost:4000/api/v1/board/${receptionNumber}/increase-view-count" \
- -H "Authorization: Bearer {JWT}" 
-```
-
-##### Response
-
-###### Header
-
-| name | description | required |
-|---|:---:|:---:|
-| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
-
-###### Response Body
-
-| name | type | description | required |
-|---|:---:|:---:|:---:|
-| code | String | 결과 코드 | O |
-| message | String | 결과 메세지 | O |
-
-###### Example
-
-**응답 성공**
-```bash
-HTTP/1.1 200 OK
-Content-Type: application/json;charset=UTF-8
-{
-  "code": "SU",
-  "message": "Success."
-}
-```
-
-**응답 : 실패 (데이터 유효성 검사 실패)**
-```bash
-HTTP/1.1 400 Bad Request
-Content-Type: application/json;charset=UTF-8
-{
-  "code": "VF",
-  "message": "Validation Failed."
-}
-```
-
-**응답 : 실패 (존재하지 않는 게시물)**
-```bash
-HTTP/1.1 400 Bad Request
-Content-Type: application/json;charset=UTF-8
-{
-  "code": "NB",
-  "message": "No Exist Board."
-}
-```
-
-**응답 : 실패 (인가 실패)**
-```bash
-HTTP/1.1 403 Forbidden
-Content-Type: application/json;charset=UTF-8
-{
-  "code": "AF",
-  "message": "Authorization Failed."
-}
-```
-
-**응답 : 실패 (인증 실패)**
-```bash
-HTTP/1.1 401 Unauthorized
-Content-Type: application/json;charset=UTF-8
-{
-  "code": "AF",
-  "message": "Authentication Failed."
-}
-```
-
-**응답 : 실패 (데이터베이스 에러)**
-```bash
-HTTP/1.1 500 Internal Server Error
-Content-Type: application/json;charset=UTF-8
-{
-  "code": "DBE",
-  "message": "Database Error."
-}
-```
-
-***
-
-#### - Q&A 게시물 답글 작성
-  
-##### 설명
-
-클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 접수번호와 답글 내용을 입력받고 요청을 보내면 해당하는 Q&A 게시물의 답글이 작성됩니다. 만약 증가에 실패하면 실패 처리를 합니다. 인가 실패, 데이터베이스 에러가 발생할 수 있습니다.
+클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 접수 번호와 답글 내용을 입력받고 요청을 보내면 해당하는 게시물의 답글이 작성됩니다. 만약 증가에 실패하면 실패 처리를 합니다. 인가 실패, 데이터베이스 에러가 발생할 수 있습니다.
 
 - method : **POST**  
-- URL : **/{receptionNumber}/comment**  
+- URL : **/{inquiryNumber}/comment**  
 
 ##### Request
 
@@ -2801,7 +2646,7 @@ Content-Type: application/json;charset=UTF-8
 
 | name | type | description | required |
 |---|:---:|:---:|:---:|
-| receptionNumber | int | 접수 번호 | O |
+| inquiryNumber | int | 문의 번호 | O |
 
 ###### Request Body
 
@@ -2812,7 +2657,7 @@ Content-Type: application/json;charset=UTF-8
 ###### Example
 
 ```bash
-curl -v -X POST "http://localhost:4000/api/v1/board/${receptionNumber}/comment" \
+curl -v -X POST "http://localhost:9999/api/v1/inquiry-board/${inquiryNumber}/comment" \
  -H "Authorization: Bearer {JWT}" \
  -d "comment={comment}"
 ```
@@ -2884,16 +2729,6 @@ Content-Type: application/json;charset=UTF-8
 }
 ```
 
-**응답 : 실패 (인증 실패)**
-```bash
-HTTP/1.1 401 Unauthorized
-Content-Type: application/json;charset=UTF-8
-{
-  "code": "AF",
-  "message": "Authentication Failed."
-}
-```
-
 **응답 : 실패 (데이터베이스 에러)**
 ```bash
 HTTP/1.1 500 Internal Server Error
@@ -2906,14 +2741,14 @@ Content-Type: application/json;charset=UTF-8
 
 ***
 
-#### - Q&A 게시물 삭제
+#### - 게시물 삭제
   
 ##### 설명
 
-클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 접수번호를 입력받고 요청을 보내면 해당하는 Q&A 게시물이 삭제됩니다. 만약 삭제에 실패하면 실패 처리를 합니다. 인가 실패, 데이터베이스 에러가 발생할 수 있습니다.
+클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 문의 번호를 입력받고 요청을 보내면 해당하는 게시물이 삭제됩니다. 만약 삭제에 실패하면 실패 처리를 합니다. 인가 실패, 데이터베이스 에러가 발생할 수 있습니다.
 
 - method : **DELETE**  
-- URL : **/{receptionNumber}**  
+- URL : **/{inquiryNumber}**  
 
 ##### Request
 
@@ -2927,12 +2762,12 @@ Content-Type: application/json;charset=UTF-8
 
 | name | type | description | required |
 |---|:---:|:---:|:---:|
-| receptionNumber | int | 접수 번호 | O |
+| inquiryNumber | int | 문의 번호 | O |
 
 ###### Example
 
 ```bash
-curl -v -X POST "http://localhost:4000/api/v1/board/${receptionNumber}" \
+curl -v -X DELETE "http://localhost::9999/api/v1/inquiry-board/${inquiryNumber}" \
  -H "Authorization: Bearer {JWT}" 
 ```
 
@@ -2993,16 +2828,6 @@ Content-Type: application/json;charset=UTF-8
 }
 ```
 
-**응답 : 실패 (인증 실패)**
-```bash
-HTTP/1.1 401 Unauthorized
-Content-Type: application/json;charset=UTF-8
-{
-  "code": "AF",
-  "message": "Authentication Failed."
-}
-```
-
 **응답 : 실패 (데이터베이스 에러)**
 ```bash
 HTTP/1.1 500 Internal Server Error
@@ -3015,14 +2840,14 @@ Content-Type: application/json;charset=UTF-8
 
 ***
 
-#### - Q&A 게시물 수정
+#### - 게시물 수정
   
 ##### 설명
 
-클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 접수번호, 제목, 내용을 입력받고 수정에 성공하면 성공 처리를 합니다. 만약 수정에 실패하면 실패 처리됩니다. 인가 실패, 데이터 유효성 검사 실패, 데이터베이스 에러가 발생할 수 있습니다.
+클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 문의 번호, 제목, 내용을 입력받고 수정에 성공하면 성공 처리를 합니다. 만약 수정에 실패하면 실패 처리 됩니다. 인가 실패, 데이터베이스 에러, 데이터 유효성 검사 실패가 발생할 수 있습니다.
 
-- method : **PUT**  
-- URL : **/{receptionNumber}**  
+- method : **PATCH**  
+- URL : **/update/{inquiryNumber}**  
 
 ##### Request
 
@@ -3036,22 +2861,22 @@ Content-Type: application/json;charset=UTF-8
 
 | name | type | description | required |
 |---|:---:|:---:|:---:|
-| receptionNumber | int | 수정할 접수 번호 | O |
+| inquiryNumber | int | 수정할 문의 번호 | O |
 
 ###### Request Body
 
 | name | type | description | required |
 |---|:---:|:---:|:---:|
-| title | String | Q&A 제목 | O |
-| contents | String | Q&A 내용 | O |
+| inquiryTitle | String | 문의 제목 | O |
+| inquiryContents | String | 문의 내용 | O |
 
 ###### Example
 
 ```bash
-curl -v -X PUT "http://localhost:4000/api/v1/board/${receptionNumber}" \
+curl -v -X PATCH "http://localhost:9999/api/v1/inquiry-board/update/{inquiryNumber}" \
  -H "Authorization: Bearer {JWT}" \
- -d "title={title}" \
- -d "contents={contents}"
+ -d "inquiryTitle={inquiryTitle}" \
+ -d "inquiryContents={inquiryContents}"
 ```
 
 ##### Response
@@ -3120,13 +2945,903 @@ Content-Type: application/json;charset=UTF-8
 }
 ```
 
-**응답 : 실패 (권한 없음)**
+**응답 : 실패 (데이터베이스 에러)**
+```bash
+HTTP/1.1 500 Internal Server Error
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "DBE",
+  "message": "Database Error."
+}
+```
+
+***
+
+#### - 나의 문의 내역 리스트 불러오기
+  
+##### 설명
+
+클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 요청을 보내면 작성자의 아이디와 일치하는 게시물을 작성일 기준 내림차순으로 게시물 리스트를 반환합니다. 만약 불러오기에 실패하면 실패 처리를 합니다. 인가 실패, 데이터베이스 에러가 발생할 수 있습니다.
+
+- method : **GET**  
+- URL : **/my-list**  
+
+##### Request
+
+###### Header
+
+| name | description | required |
+|---|:---:|:---:|
+| Authorization | 인증에 사용될 Bearer 토큰 | O |
+
+###### Example
+
+```bash
+curl -v -X GET "http:////localhost:9999/api/v1/inquiry-board/my-list" \" \
+ -H "Authorization: Bearer {JWT}" 
+```
+
+##### Response
+
+###### Header
+
+| name | description | required |
+|---|:---:|:---:|
+| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
+
+###### Response Body
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| code | String | 결과 코드 | O |
+| message | String | 결과 메세지 | O |
+| inquiryBoardList | inquiryBoardListItem[ ] | 문의 내역 게시물 리스트 | O |
+
+**InquiryBoardListItem**
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| inquiryNumber | int | 문의 번호 | O |
+| status | boolean | 문의 상태 | O |
+| inquiryTitle | String | 문의 제목 | O |
+| inquiryWriteDatetime | String |문의 작성(yy.mm.dd 형태) | O |
+
+###### Example
+
+**응답 성공**
+```bash
+HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "SU",
+  "message": "Success.",
+  "boardList": [
+    {
+      "inquiryNumber": 1,
+      "status": false,
+      "inquiryTitle": "test",
+      "inquiryWriteDatetime": "24.05.02"
+    }, ...
+  ]
+}
+```
+
+**응답 : 실패 (인가 실패)**
 ```bash
 HTTP/1.1 403 Forbidden
 Content-Type: application/json;charset=UTF-8
 {
   "code": "AF",
   "message": "Authorization Failed."
+}
+```
+
+**응답 : 실패 (데이터베이스 에러)**
+```bash
+HTTP/1.1 500 Internal Server Error
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "DBE",
+  "message": "Database Error."
+}
+```
+
+***
+
+#### - 나의 문의 게시물 상세보기
+  
+##### 설명
+
+클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 문의 번호를 입력받고 문의 작성자와 아이디가 일치하면 해당하는 게시물을 반환합니다. 만약 불러오기에 실패하면 실패 처리를 합니다. 인가 실패, 데이터베이스 에러가 발생할 수 있습니다.
+
+- method : **GET**  
+- URL : **/my-list/{inquiryNumber}**  
+
+##### Request
+
+###### Header
+
+| name | description | required |
+|---|:---:|:---:|
+| Authorization | 인증에 사용될 Bearer 토큰 | O |
+
+###### Path Variable
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| inquiryNumber | int | 문의 번호 | O |
+
+###### Example
+
+```bash
+curl -v -X GET "http://localhost:9999/api/v1/inquiry-board/my-list/${inquiryNumber}" \
+ -H "Authorization: Bearer {JWT}" 
+```
+
+##### Response
+
+###### Header
+
+| name | description | required |
+|---|:---:|:---:|
+| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
+
+###### Response Body
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| code | String | 결과 코드 | O |
+| message | String | 결과 메세지 | O |
+| inquiryNumber | int | 문의 번호 | O |
+| status | boolean | 문의 상태 | O |
+| inquiryPublic | boolean | 문의 조회 | O |
+| inquiryTitle | String | 제목 | O |
+| inquiryWriterId | String | 작성자 아이디 | O |
+| inquiryWriterNickname | String | 문의 작성자 닉네임 | O |
+| inquiryWriteDatetime | String | 작성일</br>(yyyy.mm.dd 형태) | O |
+| inquiryContents | String | 내용 | O |
+| inquiryComment | String | 답글 내용 | X |
+
+###### Example
+
+**응답 성공**
+```bash
+HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "SU",
+  "message": "Success.",
+  "inquiryNumber": ${inquiryNumber},
+  "status": ${status},
+  "inquiryPublic": ${inquiryPublic},
+  "inquiryTitle": ${inquiryTitle},
+  "inquiryWriterId": ${inquiryWriterId},
+  "inquiryWriterNickname": ${inquiryWriterNickname},
+  "inquiryWriteDatetime": ${inquiryWriteDatetime},
+  "inquiryContents": ${inquiryContents},
+  "inquiryComment": ${inquiryComment}
+}
+```
+
+**응답 : 실패 (인가 실패)**
+```bash
+HTTP/1.1 403 Forbidden
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "AF",
+  "message": "Authorization Failed."
+}
+```
+
+**응답 : 실패 (데이터베이스 에러)**
+```bash
+HTTP/1.1 500 Internal Server Error
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "DBE",
+  "message": "Database Error."
+}
+```
+
+***
+
+Notice-board와 관련된 REST API 모듈 
+  
+- url : /api/v1/notice-board
+
+***
+
+#### - 공지 게시물 작성
+  
+##### 설명
+
+클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 제목, 내용을 입력받고 작성에 성공하면 성공 처리를 합니다. 만약 작성에 실패하면 실패 처리 됩니다. 인가 실패, 데이터베이스 에러, 데이터 유효성 검사 실패가 발생할 수 있습니다.
+
+- method : **POST**  
+- URL : **/**  
+
+##### Request
+
+###### Header
+
+| name | description | required |
+|---|:---:|:---:|
+| Authorization | 인증에 사용될 Bearer 토큰 | O |
+
+###### Request Body
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| noticeTitle | String | 공지 제목 | O |
+| noticeContents | String | 공지 내용 | O |
+
+###### Example
+
+```bash
+curl -v -X POST "http:////localhost:9999/api/v1/notice-board/" \
+ -H "Authorization: Bearer {JWT}" \
+ -d "noticeTitle={noticeTitle}" \
+ -d "noticeContents={noticeContents}"
+```
+
+##### Response
+
+###### Header
+
+| name | description | required |
+|---|:---:|:---:|
+| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
+
+###### Response Body
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| code | String | 결과 코드 | O |
+| message | String | 결과 메세지 | O |
+
+###### Example
+
+**응답 성공**
+```bash
+HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "SU",
+  "message": "Success."
+}
+```
+
+**응답 : 실패 (데이터 유효성 검사 실패)**
+```bash
+HTTP/1.1 400 Bad Request
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "VF",
+  "message": "Validation Failed."
+}
+```
+
+**응답 : 실패 (인가 실패)**
+```bash
+HTTP/1.1 403 Forbidden
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "AF",
+  "message": "Authorization Failed."
+}
+```
+
+**응답 : 실패 (데이터베이스 에러)**
+```bash
+HTTP/1.1 500 Internal Server Error
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "DBE",
+  "message": "Database Error."
+}
+```
+
+***
+
+#### - 공지 전체 게시물 리스트 불러오기
+  
+##### 설명
+
+클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 요청을 보내면 작성일 기준 내림차순으로 게시물 리스트를 반환합니다. 만약 불러오기에 실패하면 실패 처리를 합니다. 인가 실패, 데이터베이스 에러가 발생할 수 있습니다
+
+- method : **GET**  
+- URL : **/list**  
+
+##### Request
+
+###### Header
+
+| name | description | required |
+|---|:---:|:---:|
+| Authorization | 인증에 사용될 Bearer 토큰 | O |
+
+###### Example
+
+```bash
+curl -v -X GET "http:////localhost:9999/api/v1/notice-board/list" \" \
+ -H "Authorization: Bearer {JWT}" 
+```
+
+##### Response
+
+###### Header
+
+| name | description | required |
+|---|:---:|:---:|
+| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
+
+###### Response Body
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| code | String | 결과 코드 | O |
+| message | String | 결과 메세지 | O |
+| noticeBoardList | noticeBoardListItem[] | 공지 게시물 리스트 | O |
+
+**NoticeBoardListItem**
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| noticeNumber | int | 문의 번호 | O |
+| noticeTitle | String | 문의 제목 | O |
+| noticeWriterNickname | String | 공지 작성자 닉네임 | O |
+| noticeWriteDatetime | String |문의 작성(yy.mm.dd 형태) | O |
+| viewCount | int | 조회수 | O |
+
+###### Example
+
+**응답 성공**
+```bash
+HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "SU",
+  "message": "Success.",
+  "boardList": [
+    {
+      "noticeNumber": 1,
+      "noticeTitle": "test",
+      "noticeWriterNickname": "admin",
+      "noticeWriteDatetime": "24.05.02",
+      "viewCount": 0
+    }, ...
+  ]
+}
+```
+
+**응답 : 실패 (인가 실패)**
+```bash
+HTTP/1.1 403 Forbidden
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "AF",
+  "message": "Authorization Failed."
+}
+```
+
+**응답 : 실패 (데이터베이스 에러)**
+```bash
+HTTP/1.1 500 Internal Server Error
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "DBE",
+  "message": "Database Error."
+}
+```
+
+***
+
+#### - 공지 검색 게시물 리스트 불러오기
+  
+##### 설명
+
+클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 검색어를 입력받고 요청을 보내면 작성일 기준 내림차순으로 제목에 해당 검색어가 포함된 게시물 리스트를 반환합니다. 만약 불러오기에 실패하면 실패 처리를 합니다. 인가 실패, 데이터베이스 에러가 발생할 수 있습니다.
+
+- method : **GET**  
+- URL : **/list/search**  
+
+##### Request
+
+###### Header
+
+| name | description | required |
+|---|:---:|:---:|
+| Authorization | 인증에 사용될 Bearer 토큰 | O |
+
+###### Path Variable
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| searchWord | String | 검색어 | O |
+
+###### Example
+
+```bash
+curl -v -X GET "http://localhost:9999/api/v1/notice-board/list/search?word=${searchWord}" \
+ -H "Authorization: Bearer {JWT}" 
+```
+
+##### Response
+
+###### Header
+
+| name | description | required |
+|---|:---:|:---:|
+| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
+
+###### Response Body
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| code | String | 결과 코드 | O |
+| message | String | 결과 메세지 | O |
+| noticeBoardList | noticeBoardListItem[] | 공지 게시물 리스트 | O |
+
+**NoticeBoardListItem**
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| noticeNumber | int | 공지 번호 | O |
+| noticeTitle | String | 공지 제목 | O |
+| noticeWriterNickname | String | 공지 작성자 닉네임 | O |
+| noticeWriteDatetime | String | 작성일 (yy.mm.dd 형태) | O |
+| viewCount | int | 조회수 | O |
+
+###### Example
+
+**응답 성공**
+```bash
+HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "SU",
+  "message": "Success.",
+  "boardList": [
+    {
+      "noticeNumber": ${noticeNumber},
+      "noticeTitle": ${noticeTitle},
+      "noticeWriterNickname": ${noticeWriterNickname},
+      "noticeWriteDatetime": ${noticeWriteDatetime},
+      "viewCount": ${viewCount}
+    }, ...
+  ]
+}
+```
+
+**응답 : 실패 (데이터 유효성 검사 실패)**
+```bash
+HTTP/1.1 400 Bad Request
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "VF",
+  "message": "Validation Failed."
+}
+```
+
+**응답 : 실패 (인증 실패)**
+```bash
+HTTP/1.1 403 Forbidden
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "AF",
+  "message": "Authentication Failed."
+}
+```
+
+**응답 : 실패 (데이터베이스 에러)**
+```bash
+HTTP/1.1 500 Internal Server Error
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "DBE",
+  "message": "Database Error."
+}
+```
+
+***
+
+#### - 공지 게시물 상세보기
+  
+##### 설명
+
+클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 접수 번호를 입력받고 요청을 보내면 해당하는 공지 게시물 데이터를 반환합니다. 만약 불러오기에 실패하면 실패 처리를 합니다. 인가 실패, 데이터베이스 에러가 발생할 수 있습니다.
+
+- method : **GET**  
+- URL : **/{noticeNumber}**  
+
+##### Request
+
+###### Header
+
+| name | description | required |
+|---|:---:|:---:|
+| Authorization | 인증에 사용될 Bearer 토큰 | O |
+
+###### Path Variable
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| noticeNumber | int | 공지 번호 | O |
+
+###### Example
+
+```bash
+curl -v -X GET "http://localhost:9999/api/v1/notice-board/${noticeNumber}" \
+ -H "Authorization: Bearer {JWT}" 
+```
+
+##### Response
+
+###### Header
+
+| name | description | required |
+|---|:---:|:---:|
+| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
+
+###### Response Body
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| code | String | 결과 코드 | O |
+| message | String | 결과 메세지 | O |
+| noticeNumber | int | 공지 번호 | O |
+| noticeTitle | String | 공지 제목 | O |
+| noticeWriteId | String | 작성자 아이디 | O |
+| noticeWriterNickname | String | 작성자 닉네임 | O |
+| noticeWriteDatetime | String | 작성일</br>(yyyy.mm.dd 형태) | O |
+| noticeContents | String | 공지 내용 | O |
+| viewCount | int | 조회수 | O |
+
+###### Example
+
+**응답 성공**
+```bash
+HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "SU",
+  "message": "Success.",
+  "noticeNumber": ${noticeNumber},
+  "noticeTitle": "${noticeTitle}",
+  "noticeWriteId": "${noticeWriteId}",
+  "noticeWriterNickname": "${noticeWriterNickname}",
+  "noticeWriteDatetime": "${noticeWriteDatetime}",
+  "noticeContents": "${noticeContents}",
+  "viewCount": ${viewCount}
+}
+```
+
+**응답 : 실패 (데이터 유효성 검사 실패)**
+```bash
+HTTP/1.1 400 Bad Request
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "VF",
+  "message": "Validation Failed."
+}
+```
+
+**응답 : 실패 (존재하지 않는 게시물)**
+```bash
+HTTP/1.1 400 Bad Request
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "NB",
+  "message": "No Exist Board."
+}
+```
+
+**응답 : 실패 (인증 실패)**
+```bash
+HTTP/1.1 403 Forbidden
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "AF",
+  "message": "Authentication Failed."
+}
+```
+
+**응답 : 실패 (데이터베이스 에러)**
+```bash
+HTTP/1.1 500 Internal Server Error
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "DBE",
+  "message": "Database Error."
+}
+```
+
+***
+
+#### - 공지 게시물 조회수 증가
+
+##### 설명
+
+클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 접수 번호를 입력받고 요청을 보내면 해당하는 공지 게시물의 조회수를 증가합니다. 만약 증가에 실패하면 실패 처리를 합니다. 인가 실패, 데이터베이스 에러가 발생할 수 있습니다.
+
+- method : **PATCH**  
+- URL : **/{noticeNumber}/increase-view-count**  
+
+##### Request
+
+###### Header
+
+| name | description | required |
+|---|:---:|:---:|
+| Authorization | 인증에 사용될 Bearer 토큰 | O |
+
+###### Path Variable
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| noticeNumber | int | 공지 번호 | O |
+
+###### Example
+
+```bash
+curl -v -X POST "http://localhost::9999/api/v1/notice-board/{noticeNumber}/increase-view-count" \
+ -H "Authorization: Bearer {JWT}" 
+```
+
+##### Response
+
+###### Header
+
+| name | description | required |
+|---|:---:|:---:|
+| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
+
+###### Response Body
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| code | String | 결과 코드 | O |
+| message | String | 결과 메세지 | O |
+
+###### Example
+
+**응답 성공**
+```bash
+HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "SU",
+  "message": "Success."
+}
+```
+
+**응답 : 실패 (데이터 유효성 검사 실패)**
+```bash
+HTTP/1.1 400 Bad Request
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "VF",
+  "message": "Validation Failed."
+}
+```
+
+**응답 : 실패 (존재하지 않는 게시물)**
+```bash
+HTTP/1.1 400 Bad Request
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "NB",
+  "message": "No Exist Board."
+}
+```
+
+**응답 : 실패 (인증 실패)**
+```bash
+HTTP/1.1 403 Forbidden
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "AF",
+  "message": "Authentication Failed."
+}
+```
+
+**응답 : 실패 (데이터베이스 에러)**
+```bash
+HTTP/1.1 500 Internal Server Error
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "DBE",
+  "message": "Database Error."
+}
+```
+
+***
+
+#### - 공지 게시물 삭제
+
+##### 설명
+
+클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 접수 번호를 입력받고 요청을 보내면 해당하는 공지 게시물이 삭제됩니다. 만약 삭제에 실패하면 실패 처리를 합니다. 인가 실패, 데이터베이스 에러가 발생할 수 있습니다.
+
+##### Request
+
+###### Header
+
+| name | description | required |
+|---|:---:|:---:|
+| Authorization | 인증에 사용될 Bearer 토큰 | O |
+
+###### Path Variable
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| noticeNumber | int | 공지 번호 | O |
+
+###### Example
+
+```bash
+curl -v -X DELETE "http://localhost::9999/api/v1/notice-board/${noticeNumber}" \
+ -H "Authorization: Bearer {JWT}" 
+```
+
+##### Response
+
+###### Header
+
+| name | description | required |
+|---|:---:|:---:|
+| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
+
+###### Response Body
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| code | String | 결과 코드 | O |
+| message | String | 결과 메세지 | O |
+
+###### Example
+
+**응답 성공**
+```bash
+HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "SU",
+  "message": "Success."
+}
+```
+
+**응답 : 실패 (데이터 유효성 검사 실패)**
+```bash
+HTTP/1.1 400 Bad Request
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "VF",
+  "message": "Validation Failed."
+}
+```
+
+**응답 : 실패 (존재하지 않는 게시물)**
+```bash
+HTTP/1.1 400 Bad Request
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "NB",
+  "message": "No Exist Board."
+}
+```
+
+**응답 : 실패 (인가 실패)**
+```bash
+HTTP/1.1 403 Forbidden
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "AF",
+  "message": "Authorization Failed."
+}
+```
+
+**응답 : 실패 (데이터베이스 에러)**
+```bash
+HTTP/1.1 500 Internal Server Error
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "DBE",
+  "message": "Database Error."
+}
+```
+
+***
+
+#### - 공지 게시물 수정
+  
+##### 설명
+
+클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 접수 번호, 제목, 내용을 입력받고 수정에 성공하면 성공 처리를 합니다. 만약 수정에 실패하면 실패 처리 됩니다. 인가 실패, 데이터베이스 에러, 데이터 유효성 검사 실패가 발생할 수 있습니다.
+
+- method : **PATCH**  
+- URL : **/update/{noticeNumber}**  
+
+##### Request
+
+###### Header
+
+| name | description | required |
+|---|:---:|:---:|
+| Authorization | 인증에 사용될 Bearer 토큰 | O |
+
+###### Path Variable
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| noticeNumber | int | 수정할 공지 번호 | O |
+
+###### Request Body
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| noticeTitle | String | 공지 제목 | O |
+| noticeContents | String | 공지 내용 | O |
+
+###### Example
+
+```bash
+curl -v -X PATCH "http://localhost:9999/api/v1/notice-board/update/{noticeNumber}" \
+ -H "Authorization: Bearer {JWT}" \
+ -d "noticeTitle={noticeTitle}" \
+ -d "noticeContents={noticeContents}"
+```
+
+##### Response
+
+###### Header
+
+| name | description | required |
+|---|:---:|:---:|
+| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
+
+###### Response Body
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| code | String | 결과 코드 | O |
+| message | String | 결과 메세지 | O |
+
+###### Example
+
+**응답 성공**
+```bash
+HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "SU",
+  "message": "Success."
+}
+```
+**응답 : 실패 (데이터 유효성 검사 실패)**
+```bash
+HTTP/1.1 400 Bad Request
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "VF",
+  "message": "Validation Failed."
+}
+```
+
+**응답 : 실패 (인가 실패)**
+```bash
+HTTP/1.1 403 Forbidden
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "AF",
+  "message": "Authorization Failed."
+}
+```
+
+**응답 : 실패 (존재하지 않는 게시물)**
+```bash
+HTTP/1.1 400 Bad Request
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "NB",
+  "message": "No Exist Board."
 }
 ```
 
