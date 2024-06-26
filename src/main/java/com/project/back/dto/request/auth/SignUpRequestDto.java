@@ -14,7 +14,6 @@ import com.project.back.constant.PatternType;
 @Setter
 @NoArgsConstructor
 public class SignUpRequestDto {
-    @NotBlank
     private String snsId;
     @Pattern(regexp=PatternType.patternType2)
     private String userEmailId;

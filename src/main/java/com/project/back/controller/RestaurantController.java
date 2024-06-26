@@ -64,7 +64,7 @@ public class RestaurantController {
         return response;
     };
 
-    @GetMapping("/restaurantId")        //restaurantid <- 오타
+    @GetMapping("/restaurantId")  
     public ResponseEntity<? super GetRestaurantIdResponseDto> getRestaurantId(
         @AuthenticationPrincipal String userEmailId 
     ){

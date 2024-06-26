@@ -14,13 +14,13 @@ import lombok.Getter;
 public class GetUserInfoResponseDto extends ResponseDto {
     private String userRole;
     private String userEmailId;
-    private String business_registration_number;
+    private String businessRegistrationNumber;
     
     private GetUserInfoResponseDto(UserEntity userEntity) {
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
         this.userRole=userEntity.getUserRole();
         this.userEmailId=userEntity.getUserEmailId();
-        this.business_registration_number=userEntity.getBusinessRegistrationNumber();
+        this.businessRegistrationNumber=userEntity.getBusinessRegistrationNumber();
     }
 
     public static ResponseEntity<GetUserInfoResponseDto> success(UserEntity userEntity) {
