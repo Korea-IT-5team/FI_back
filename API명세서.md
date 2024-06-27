@@ -4285,6 +4285,9 @@ Content-Type: application/json;charset=UTF-8
 
 클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 접수 번호를 입력받고 요청을 보내면 해당하는 공지 게시물이 삭제됩니다. 만약 삭제에 실패하면 실패 처리를 합니다. 인가 실패, 데이터베이스 에러가 발생할 수 있습니다.
 
+- method : **DELETE**  
+- URL : **/{noticeNumber}** 
+
 ##### Request
 
 ###### Header
