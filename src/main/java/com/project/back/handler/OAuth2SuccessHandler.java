@@ -13,6 +13,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Component;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 
@@ -20,6 +21,9 @@ import org.springframework.security.web.authentication.SimpleUrlAuthenticationSu
 @RequiredArgsConstructor
 public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
     private final JwtProvider jwtProvider;
+
+    @Value("${front.url}")
+    private String frontUrl;
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
@@ -30,11 +34,11 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
             String userId = oAuth2User.getName();
 
             String token = jwtProvider.create(userId);
-            response.sendRedirect("http://localhost:9000/sns/" + token + "/36000");
+            response.sendRedirect(frontUrl + "sns/" + token + "/36000");
         } else {
             String snsId = oAuth2User.getName();
             String joinPath = oAuth2User.getJoinPath();
-            String url = "http://localhost:9000/authentication/sign-up?" + "snsId=" + snsId + "&" + "joinPath=" + joinPath;
+            String url = frontUrl + "authentication/sign-up?" + "snsId=" + snsId + "&" + "joinPath=" + joinPath;
             response.sendRedirect(url);
         }
     };
