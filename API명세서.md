@@ -42,7 +42,7 @@
 
 ```bash
 curl -v -X POST "http://localhost:9999/api/v1/auth/sign-in" \
- -d "userEmailId=service123@email.com" \
+ -d "userEmailId=email@email.com" \
  -d "userPassword=P!ssw0rd"
 ```
 
@@ -119,11 +119,11 @@ Content-Type: application/json;charset=UTF-8
 
 ***
 
-#### - 이메일 중복 확인  
+#### - 아이디 중복 확인  
   
 ##### 설명
 
-클라이언트로부터 이메일을 입력받아 해당하는 이메일이 이미 사용중인 이메일인지 확인합니다. 중복되지 않은 이메일이면 성공 처리를 합니다. 만약 중복되는 아이디라면 실패 처리를 합니다. 데이터 유효성 검사 실패, 중복된 이메일, 데이터베이스 에러가 발생할 수 있습니다.
+클라이언트로부터 아이디(이메일)를 입력받아 해당하는 아이디가 이미 사용중인 아이디인지 확인합니다. 중복되지 않은 아이디이면 성공 처리를 합니다. 만약 중복되는 아이디라면 실패 처리를 합니다. 데이터 유효성 검사 실패, 중복된 이메일, 데이터베이스 에러가 발생할 수 있습니다.
 
 - method : **POST**  
 - URL : **/email-check**  
