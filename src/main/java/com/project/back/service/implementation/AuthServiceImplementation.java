@@ -104,7 +104,7 @@ public class AuthServiceImplementation implements AuthService {
             AuthNumberEntity authNumberEntity = new AuthNumberEntity(userTelNumber, authNumber);
             authNumberRepository.save(authNumberEntity);
 
-            smsProvider.sendAuthNumber(userTelNumber, authNumber);
+            // smsProvider.sendAuthNumber(userTelNumber, authNumber);
         } catch(Exception exception) {
             exception.printStackTrace();
             return ResponseDto.databaseError();

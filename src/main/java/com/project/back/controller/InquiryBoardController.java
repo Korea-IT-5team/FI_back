@@ -32,17 +32,6 @@ public class InquiryBoardController {
 
     private final InquiryBoardService inquiryBoardService;
 
-<<<<<<< HEAD
-  // 답글달기
-  @PostMapping("/{inquiryNumber}/comment")
-  public ResponseEntity<ResponseDto> postComment(
-    @RequestBody @Valid PostCommentRequestDto requestBody,
-    @PathVariable("inquiryNumber") int inquiryNumber
-  ) {
-    ResponseEntity<ResponseDto> response = inquiryBoardService.postComment(requestBody, inquiryNumber);
-    return response;
-  }
-=======
     @PostMapping("/")
     public ResponseEntity<ResponseDto> postInquiryBoard(
         @RequestBody @Valid PostInquiryBoardRequestDto requestBody,
@@ -51,7 +40,6 @@ public class InquiryBoardController {
         ResponseEntity<ResponseDto> response = inquiryBoardService.postBoard(requestBody, userEmailId);
         return response;
     }
->>>>>>> d04ad02e6554e80ba22bb18f105365652b2e46a1
 
     @PostMapping("/{inquiryNumber}/comment")
     public ResponseEntity<ResponseDto> postComment(
